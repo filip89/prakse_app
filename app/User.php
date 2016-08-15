@@ -24,6 +24,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 	
+	//check if user is admin
+	public function isAdmin(){
+		
+		if($this->admin == 0) {
+			return false;
+		}
+		elseif($this->admin == 1) {
+			return true;
+		}
+	}
+	
 	public function intern_mentor() {
 		
 		return $this->hasOne('App\InternMentor');
