@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Internship extends Model
 {
-    public function company() {
+    public function companies() {
 
     	return $this->belongsToMany('Apps/Company');
     	
