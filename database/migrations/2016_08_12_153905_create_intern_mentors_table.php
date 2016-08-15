@@ -22,7 +22,7 @@ class CreateInternMentorsTable extends Migration
         });
 		
 		Schema::table('intern_mentors', function ($table){
-			$table->foreign("user_id")->references("id")->on("users");
+			$table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
 			$table->foreign("company_id")->references("id")->on("companies");
 		});
     }
