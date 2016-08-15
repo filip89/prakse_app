@@ -20,11 +20,11 @@ class InternMentor extends Model
 
 	public function company() {
 
-		return $this->hasMany('App/Company');
+		return $this->hasOne('App/Company');
 		
 	}
 	
-	public function internship() {
+	public function internships() {
 
 		return $this->hasMany('App/Internship');
 		
