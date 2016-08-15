@@ -42,5 +42,10 @@ class User extends Authenticatable
 	
 	}
 	
+	public function internship() {
+		
+		return $this->hasOne('App\Internship');
+	
+	}
 	
 }
