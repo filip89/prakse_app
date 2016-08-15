@@ -9,6 +9,8 @@ class CreateFieldsTable extends Migration
      * Run the migrations.
      *
      * @return void
+     * 
+     * Područja koja pokriva college_mentor
      */
 	public function up()
     {
