@@ -35,6 +35,7 @@ class User extends Authenticatable
 		}
 	}
 	
+	/*
 	public function intern_mentor() {
 		
 		return $this->hasOne('App\InternMentor');
@@ -44,6 +45,22 @@ class User extends Authenticatable
 	public function college_mentor() {
 		
 		return $this->hasOne('App\CollegeMentor');
+	
+	}
+	*/
+	
+	public function profile() {
+		
+		if($this->role == "intern_mentor"){
+			
+			return $this->hasOne('App\InternMentor');
+			
+		}
+		elseif($this->role == "college_mentor"){
+			
+			return $this->hasOne('App\CollegeMentor');
+			
+		}
 	
 	}
 	
