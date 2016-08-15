@@ -18,13 +18,13 @@ class CollegeMentor extends Model
 	
 	}
 
-	public function field() {
+	public function fields() {
 
 		return $this->belongsToMany('App/Field');
 
 	}
 
-	public function internship() {
+	public function internships() {
 
 		return $this->hasMany('App/Internship');
 		
