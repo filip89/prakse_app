@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Applic extends Model
 {
-    public function academicYear() {
+    public function academicYears() {
 
     	return $this->belongsToMany('Apps/AcademicYear');
     	
     }
 
-    public function activity() {
+    public function activities() {
 
     	return $this->belongsToMany('Apps/Activity');
     	
