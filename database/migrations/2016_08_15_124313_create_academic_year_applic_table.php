@@ -20,8 +20,8 @@ class CreateAcademicYearApplicTable extends Migration
         });
 
         Schema::table('academic_year_applic', function($table) {
-            $table->foreign('applic_id')->references('id')->on('applics');
-            $table->foreign('academic_year_id')->references('id')->on('academic_years');
+            $table->foreign('applic_id')->references('id')->on('applics')->onDelete("cascade");
+            $table->foreign('academic_year_id')->references('id')->on('academic_years')->onDelete("cascade");
         });
     }
 
