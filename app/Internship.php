@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Internship extends Model
 {
-    public function companies() {
+    public function company() {
 
-    	return $this->belongsToMany('Apps/Company');
+    	return $this->belongsTo('Apps/Company');
     	
     }
 
@@ -23,4 +23,5 @@ class Internship extends Model
     	return $this->belongsTo('Apps/CollegeMentor');
     	
     }
+
 }
