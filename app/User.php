@@ -24,13 +24,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 	
-	public function intern_mentors() {
+	public function intern_mentor() {
 		
 		return $this->hasOne('App\InternMentor');
 	
 	}
 	
-	public function college_mentors() {
+	public function college_mentor() {
 		
 		return $this->hasOne('App\CollegeMentor');
 	
