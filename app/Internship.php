@@ -14,22 +14,16 @@ class Internship extends Model
 
     public function internMentor() {
 
-    	return $this->belongsTo('Apps/internMentor');
+    	return $this->belongsTo('Apps/User');
     	
     }
 
     public function collegeMentor() {
 
-    	return $this->belongsTo('Apps/collegeMentor');
+    	return $this->belongsTo('Apps/User');
     	
     }
-    
-    public function mentorApplied() {
 
-    	return $this->belongsTo('Apps/collegeMentor');
-    	
-    }
-    
     public function student() {
 
     	return $this->belongsTo('Apps/User');
