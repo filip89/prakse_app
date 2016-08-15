@@ -17,4 +17,16 @@ class CollegeMentor extends Model
 		return $this->belongsTo('App\User');
 	
 	}
+
+	public function field() {
+
+		return $this->belongsToMany('App/Field');
+
+	}
+
+	public function internship() {
+
+		return $this->hasMany('App/Internship');
+		
+	}
 }

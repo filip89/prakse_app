@@ -36,6 +36,11 @@ class User extends Authenticatable
 	
 	}
 	
+	public function applic() {
+		
+		return $this->hasOne('App\Applic');
+	
+	}
 	
 	
 }
