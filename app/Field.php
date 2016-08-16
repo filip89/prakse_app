@@ -8,6 +8,6 @@ class Field extends Model
 {
     public function collegeMentors() {
 
-    	return $this->belongsToMany('App/CollegeMentor');
+    	return $this->belongsToMany('App\CollegeMentor');
     }
 }
