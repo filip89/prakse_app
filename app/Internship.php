@@ -8,25 +8,25 @@ class Internship extends Model
 {
     public function company() {
 
-    	return $this->belongsTo('Apps/Company');
+    	return $this->belongsTo('App\Company');
     	
     }
 
-    public function internMentor() {
+    public function intern_mentor() {
 
-    	return $this->belongsTo('Apps/User');
+    	return $this->belongsTo('App\User');
     	
     }
 
-    public function collegeMentor() {
+    public function college_mentor() {
 
-    	return $this->belongsTo('Apps/User');
+    	return $this->belongsTo('App\User');
     	
     }
 
     public function student() {
 
-    	return $this->belongsTo('Apps/User');
+    	return $this->belongsTo('App\User');
     	
     }
     
