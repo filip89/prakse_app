@@ -8,12 +8,12 @@ class Company extends Model
 {
     public function internships() {
 
-    	return $this->belongsToMany('Apps/Internship');
+    	return $this->hasMany('App\Internship');
     	
     }
 
-    public function internMentor() {
+    public function internMentors() {
 
-    	return $this->belongsTo('App/InternMentor');
+    	return $this->hasMany('App\InternMentor');
     }
 }
