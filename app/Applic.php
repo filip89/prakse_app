@@ -8,19 +8,19 @@ class Applic extends Model
 {
     public function academicYears() {
 
-    	return $this->belongsToMany('Apps/AcademicYear');
+    	return $this->belongsToMany('App\AcademicYear');
     	
     }
 
     public function activities() {
 
-    	return $this->belongsToMany('Apps/Activity');
+    	return $this->belongsToMany('App\Activity');
     	
     }
 
     public function user() {
 
-    	return $this->belongsTo('Apps/User');
+    	return $this->belongsTo('App\User');
     	
     }
 }
