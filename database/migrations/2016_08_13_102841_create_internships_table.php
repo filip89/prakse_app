@@ -33,10 +33,10 @@ class CreateInternshipsTable extends Migration
         });
 		
 		Schema::table('internships', function($table) {
-			$table->foreign("student_id")->references("id")->on("users")->noDelete("cascade");
-			$table->foreign("intern_mentor_id")->references("id")->on("users");
-			$table->foreign("college_mentor_id")->references("id")->on("users");
-			$table->foreign("company_id")->references("id")->on("companies");
+			$table->foreign("student_id")->references("id")->on("users")->onDelete("cascade");
+			$table->foreign("intern_mentor_id")->references("id")->on("users")->onDelete("set null");
+			$table->foreign("college_mentor_id")->references("id")->on("users")->onDelete("set null");
+			$table->foreign("company_id")->references("id")->on("companies")->onDelete("cascade");
 		});
 		
 		
