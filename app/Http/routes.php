@@ -19,6 +19,17 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/profile', function(){
-	return "Morate urediti svoj profil!";
-});
+//delete any user
+Route::post('user/{id}/delete', "UserController@deleteUser");
+
+//edit college_mentor
+Route::get('user/{id}/editcollege', "UserController@editCollegeMentorForm");
+Route::post('user/{id}/editcollege', "UserController@editCollegeMentor");
+
+//edit intern_mentor
+Route::get('user/{id}/editintern', "UserController@editInternMentorForm");
+Route::post('user/{id}/editintern', "UserController@editInternMentor");
+
+//prijava prakse
+Route::get('apply', "ApplicController@applyForm");
+Route::post('apply/{id}', "ApplicController@apply");
