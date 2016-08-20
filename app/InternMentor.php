@@ -27,7 +27,11 @@ class InternMentor extends Model
 	/*
 	public function internships() {
 
+<<<<<<< HEAD
 		return $this->hasMany('App\Internship');
+=======
+		return $this->hasMany('App/Internship');
+>>>>>>> origin/master
 		
 	}
 	*/

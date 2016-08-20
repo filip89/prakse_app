@@ -12,7 +12,11 @@ class Company extends Model
     	
     }
 
+<<<<<<< HEAD
     public function intern_mentor() {
+=======
+    public function internMentors() {
+>>>>>>> origin/master
 
     	return $this->hasMany('App\InternMentor');
     }
