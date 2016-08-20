@@ -8,11 +8,7 @@ class Activity extends Model
 {
     public function applics() {
 
-<<<<<<< HEAD
     	return $this->belongsToMany('Apps/Applic');
-=======
-    	return $this->belongsToMany('App\Applic');
->>>>>>> origin/master
     	
     }
 }

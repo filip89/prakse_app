@@ -19,13 +19,10 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-<<<<<<< HEAD
 Route::get('/user', 'UserController@index');
 
 Route::get('user/{id}', "UserController@viewProfile");
 
-=======
->>>>>>> origin/master
 //delete any user
 Route::post('user/{id}/delete', "UserController@deleteUser");
 
