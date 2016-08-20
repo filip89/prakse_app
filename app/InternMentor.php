@@ -17,7 +17,19 @@ class InternMentor extends Model
 		return $this->belongsTo('App\User');
 	
 	}
+
+	public function company() {
+
+		return $this->belongsTo('App\Company');
+		
+	}
 	
-	
+	/*
+	public function internships() {
+
+		return $this->hasMany('App\Internship');
+		
+	}
+	*/
 	
 }

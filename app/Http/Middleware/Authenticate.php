@@ -25,10 +25,6 @@ class Authenticate
             }
         }
 		
-		if(Auth::user()->profile_status == 1){
-			return redirect("profile");
-		}
-		
         return $next($request);
     }
 }

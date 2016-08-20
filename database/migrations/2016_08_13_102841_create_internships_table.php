@@ -15,9 +15,8 @@ class CreateInternshipsTable extends Migration
         Schema::create('internships', function (Blueprint $table) {
             $table->increments('id');
 			$table->integer("student_id")->unsigned();
-			$table->integer("intern_mentor_id")->unsigned();
-			$table->integer("college_mentor_id")->unsigned();
-			$table->integer("mentor_applied_id")->unsigned()->nullable();
+			$table->integer("intern_mentor_id")->unsigned()->nullable();
+			$table->integer("college_mentor_id")->unsigned()->nullable();
 			$table->integer("company_id")->unsigned();
 			$table->integer("average_bacc_grade");
 			$table->integer("average_master_grade")->nullable()->default(0);
@@ -34,11 +33,10 @@ class CreateInternshipsTable extends Migration
         });
 		
 		Schema::table('internships', function($table) {
-			$table->foreign("student_id")->references("id")->on("users");
-			$table->foreign("intern_mentor_id")->references("id")->on("users");
-			$table->foreign("college_mentor_id")->references("id")->on("users");
-			$table->foreign("mentor_applied_id")->references("id")->on("users");
-			$table->foreign("company_id")->references("id")->on("companies");
+			$table->foreign("student_id")->references("id")->on("users")->onDelete("cascade");
+			$table->foreign("intern_mentor_id")->references("id")->on("users")->onDelete("set null");
+			$table->foreign("college_mentor_id")->references("id")->on("users")->onDelete("set null");
+			$table->foreign("company_id")->references("id")->on("companies")->onDelete("cascade");
 		});
 		
 		

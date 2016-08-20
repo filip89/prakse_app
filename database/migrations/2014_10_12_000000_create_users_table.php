@@ -9,19 +9,22 @@ class CreateUsersTable extends Migration
      * Run the migrations.
      *
      * @return void
-	 * 
+     * admin: 
+     * 0-not_admin
+     * 1-is_admin
      */
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 50);
-			$table->string('last_name', 50);
-            $table->string('email')->unique();
-            $table->string('password');
-			$table->string('role', 20);
-            $table->rememberToken();
-            $table->timestamps();
+        	$table->increments('id');
+        	$table->string('name', 50);
+		$table->string('last_name', 50);
+        	$table->string('email')->unique();
+        	$table->string('password');
+		$table->string('role', 20);
+		$table->integer('admin')->default(0);
+        	$table->rememberToken();
+        	$table->timestamps();
         });
     }
 

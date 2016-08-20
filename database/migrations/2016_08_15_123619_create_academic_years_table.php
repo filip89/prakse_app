@@ -3,24 +3,22 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdminsTable extends Migration
+class CreateAcademicYearsTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('academic_years', function(Blueprint $table) {
+
             $table->increments('id');
-			$table->integer("user_id")->unsigned();
+            $table->string('name');
             $table->timestamps();
+
         });
-		
-		Schema::table('admins', function ($table){
-			$table->foreign("user_id")->references("id")->on("users");
-		});
     }
 
     /**
@@ -30,6 +28,6 @@ class CreateAdminsTable extends Migration
      */
     public function down()
     {
-        Schema::drop("admins");
+        Schema::drop('academic_years');
     }
 }

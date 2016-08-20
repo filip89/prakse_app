@@ -20,8 +20,8 @@ class CreateActivityApplicTable extends Migration
         });
 		
 		Schema::table('activity_applic', function ($table){
-			$table->foreign("applic_id")->references("id")->on("applics");
-			$table->foreign("activity_id")->references("id")->on("activities");
+			$table->foreign("applic_id")->references("id")->on("applics")->onDelete("cascade");
+			$table->foreign("activity_id")->references("id")->on("activities")->onDelete("cascade");
 		});
     }
 
