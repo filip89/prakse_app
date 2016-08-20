@@ -16,6 +16,8 @@ class CreateActivityApplicTable extends Migration
 			$table->increments('id');
 			$table->integer("applic_id")->unsigned();
 			$table->integer("activity_id")->unsigned();
+			$table->string("year", 10)->nullable();
+			$table->string("description", 5000)->nullable();
             $table->timestamps();
         });
 		
