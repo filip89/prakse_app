@@ -15,8 +15,8 @@ class CreateApplicsTable extends Migration
         Schema::create('applics', function (Blueprint $table) {
             $table->increments('id');
 			$table->integer("student_id")->unsigned();
-			$table->string("academic_year", 50);
-			$table->string("department", 50);
+			$table->integer("academic_year_id", 50);
+			$table->string("course_id", 50);
 			$table->integer("average_bacc_grade");
 			$table->integer("average_master_grade")->nullable()->default(0);
 			$table->string("desired_company", 100);
