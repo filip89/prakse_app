@@ -23,4 +23,10 @@ class Applic extends Model
     	return $this->belongsTo('App\User');
     	
     }
+    
+    public function course() {
+    
+        return $this->belongsTo('App\Course');
+        
+    }
 }
