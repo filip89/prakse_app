@@ -46,12 +46,12 @@ class UserController extends Controller
 		
 		if($user->role == "college_mentor"){
 			
-			return view("college_profile", ['user' => $user]);
+			return view("profiles.college_mentor", ['user' => $user]);
 			
 		}
 		else {
 			
-			return view("intern_profile", ['user' => $user]);
+			return view("profiles.intern_mentor", ['user' => $user]);
 			
 		}
 		
