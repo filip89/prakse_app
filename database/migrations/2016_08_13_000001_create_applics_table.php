@@ -15,8 +15,8 @@ class CreateApplicsTable extends Migration
         Schema::create('applics', function (Blueprint $table) {
             $table->increments('id');
 			$table->integer("student_id")->unsigned();
-			$table->integer("academic_year_id", 50);
-			$table->string("course_id", 50);
+			$table->integer("academic_year_id", 50)->unsigned();
+			$table->integer("course_id", 50)->unsigned();
 			$table->decimal("average_bacc_grade", 1, 2);
 			$table->decimal("average_master_grade", 1, 2)->nullable()->default(0);
 			$table->string("desired_company", 100);
@@ -29,6 +29,7 @@ class CreateApplicsTable extends Migration
 		
 		Schema::table('applics', function ($table){
 			$table->foreign("student_id")->references("id")->on("users")->onDelete("cascade");
+			$table->foreign("course_id")->references("id")->on("courses")->onDelete("set null");
 		});
 
     }
