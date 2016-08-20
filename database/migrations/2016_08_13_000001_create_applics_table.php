@@ -18,7 +18,6 @@ class CreateApplicsTable extends Migration
 			$table->string("academic_year", 50);
 			$table->string("course", 50);
 			$table->decimal("average_bacc_grade", 3, 2);
-			$table->integer("activity_points")->unsigned();
 			$table->decimal("average_master_grade", 3, 2)->nullable()->default(0);
 			$table->string("desired_company", 100)->nullable();
 			$table->string("desired_month", 100)->nullable();
