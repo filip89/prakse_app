@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Applic extends Model
 {
-    public function academicYears() {
-
-    	return $this->belongsToMany('App\AcademicYear');
-    	
-    }
 
     public function activities() {
 
@@ -18,15 +13,10 @@ class Applic extends Model
     	
     }
 
-    public function user() {
+    public function student() {
 
     	return $this->belongsTo('App\User');
     	
     }
     
-    public function course() {
-    
-        return $this->belongsTo('App\Course');
-        
-    }
 }
