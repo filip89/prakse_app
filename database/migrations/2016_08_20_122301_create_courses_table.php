@@ -16,7 +16,7 @@ class CreateCoursesTable extends Migration
 			$table->increments('id');
 			$table->string('name', 50);
 			$table->timestamps();
-		}
+		)};
     }
 
     /**
@@ -28,6 +28,6 @@ class CreateCoursesTable extends Migration
     {
         Schema::table('courses', function($table) {
 			
-		}
+		)};
     }
 }
