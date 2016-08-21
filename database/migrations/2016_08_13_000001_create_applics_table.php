@@ -29,7 +29,6 @@ class CreateApplicsTable extends Migration
 		
 		Schema::table('applics', function ($table){
 			$table->foreign("student_id")->references("id")->on("users")->onDelete("cascade");
-			$table->foreign("course_id")->references("id")->on("courses")->onDelete("set null");
 		});
 
     }
