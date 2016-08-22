@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Applic extends Model
 {
+    public function academicYear() {
+
+    	return $this->belongsTo('App\AcademicYear');
+    	
+    }
 
     public function activities() {
 
@@ -13,7 +18,7 @@ class Applic extends Model
     	
     }
 
-    public function student() {
+    public function user() {
 
     	return $this->belongsTo('App\User');
     	

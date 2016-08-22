@@ -34,6 +34,30 @@ Route::post('user/{id}/editcollege', "UserController@editCollegeMentor");
 Route::get('user/{id}/editintern', "UserController@editInternMentorForm");
 Route::post('user/{id}/editintern', "UserController@editInternMentor");
 
+//'profil' prakse - studenta
+Route::get('myapplic/', "ApplicController@myApplic");
 //prijava prakse
-Route::get('apply', "ApplicController@applyForm");
+Route::get('apply/{id?}', "ApplicController@applyForm");
 Route::post('apply/{id}', "ApplicController@apply");
+
+//lista praksi
+Route::get('applic/all', "ApplicController@index");
+
+//brisanje i editiranje prakse
+Route::post('applic/{id}/delete', "ApplicController@delete");
+Route::post('applic/{id}/edit', "ApplicController@edit");
+
+Route::get('/cancelapply', function(){
+	
+	if(Auth::user()->isAdmin()){
+		
+		return redirect('/applic/all');
+		
+	}
+	else {
+		
+		return redirect('/myapplic');
+		
+	}
+
+});

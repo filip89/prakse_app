@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CollegeMentor extends Model
+class InternMentor extends Model
 {
 	//
-
+	
 	protected $fillable = [
 		'user_id',
     ];
@@ -18,12 +18,12 @@ class CollegeMentor extends Model
 	
 	}
 
-	public function fields() {
+	public function company() {
 
-		return $this->belongsToMany('App\Field');
-
+		return $this->belongsTo('App\Company');
+		
 	}
-
+	
 	/*
 	public function internships() {
 
@@ -31,4 +31,5 @@ class CollegeMentor extends Model
 		
 	}
 	*/
+	
 }

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AdminOrAuthUser
+class Student
 {
     /**
      * Handle an incoming request.
@@ -13,17 +13,15 @@ class AdminOrAuthUser
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed
-	 * Middleware koji gleda jeli prijevljeni korisnik admin ili onaj o čijem profilu se radi
      */
     public function handle($request, Closure $next)
     {
-
-		if(!Auth::user()->isAdmin() && Auth::user()->id != $request->route('id')){
-
-				return response('Unauthorized. You have to be admin or this user.', 401);
-
+		if(Auth::user()->role != "student"){
+			
+			return "Only for students";
+			
 		}
-				
+		
         return $next($request);
     }
 }

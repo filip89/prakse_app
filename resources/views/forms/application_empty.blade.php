@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Prijava prakse</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/applic/' . $user->id . '/edit') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/apply/' . $user->id ) }}">
                         {{ csrf_field() }}
 
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -42,7 +42,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail adresa</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $user->applic->email }}"/>
+                                <input id="email" type="email" class="form-control" name="email"/>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -56,7 +56,7 @@
                             <label for="residence_town" class="col-md-4 control-label">Mjesto prebivališta</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="residence_town" value="{{ $user->applic->residence_town }}"/>
+                                <input type="text" class="form-control" name="residence_town"/>
 
                                 @if ($errors->has('residence_town'))
                                     <span class="help-block">
@@ -71,7 +71,7 @@
 							
                             <div class="col-md-6">
 							
-                                <input type="text" class="form-control" name="residence_county" value="{{ $user->applic->residence_county }}"/>
+                                <input type="text" class="form-control" name="residence_county"/>
 
                                 @if ($errors->has('residence_county'))
                                     <span class="help-block">
@@ -83,36 +83,15 @@
 						
 						<div class="form-group{{ $errors->has('academic_year') ? ' has-error' : '' }}">
                             <label for="academic_year" class="col-md-4 control-label">Godina studija</label>
+
                             <div class="col-md-6">
-								<select class="form-control" name="academic_year" value="{{ $user->applic->academic_year }}"/>
-									@if($user->applic->academic_year == 0)
-										<option selected disabled hidden style='display: none' value=''></option>
-									@endif
-									@if($user->applic->academic_year == 1)
-										<option selected value="1">1. godina preddiplomskog</option>
-									@else
-										<option value="1">1. godina preddiplomskog</option>
-									@endif
-									@if($user->applic->academic_year == 2)
-										<option selected value="2">2. godina preddiplomskog</option>
-									@else
-										<option value="2">2. godina preddiplomskog</option>
-									@endif
-									@if($user->applic->academic_year == 3)
-										<option selected value="3">3. godina preddiplomskog</option>
-									@else
-										<option value="3">3. godina preddiplomskog</option>
-									@endif
-									@if($user->applic->academic_year == 4)
-										<option selected value="4">1. godina diplomskog</option>
-									@else
-										<option value="4">1. godina diplomskog</option>
-									@endif
-									@if($user->applic->academic_year == 5)
-										<option selected value="5">2. godina diplomskog</option>
-									@else
-										<option value="5">1. godina diplomskog</option>
-									@endif
+								<select class="form-control" name="academic_year"/>
+									<option selected disabled hidden style='display: none' value=''></option>
+									<option value="1">1. godina prediplomskog</option>
+									<option value="2">2. godina prediplomskog</option>
+									<option value="3">3. godina prediplomskog</option>
+									<option value="4">1. godina diplomskog</option>
+									<option value="5">2. godina diplomskog</option>
 								</select>
 
                                 @if ($errors->has('academic_year'))
@@ -128,34 +107,12 @@
 
                             <div class="col-md-6">
 								<select class="form-control" name="course" />
-									@if($user->applic->course == null)
-										<option selected disabled hidden style='display: none' value=''></option>
-									@endif
-									@if($user->applic->course == 1)
-										<option selected value="1">Financijski menadžment</option>
-									@else
-										<option value="1">Financijski menadžment</option>
-									@endif
-									@if($user->applic->course == 2)
-										<option selected value="2">Marketing</option>
-									@else
-										<option value="2">Marketing</option>
-									@endif
-									@if($user->applic->course == 3)
-										<option selected value="3">Menadžemnt</option>
-									@else
-										<option value="3">Menadžemnt</option>
-									@endif
-									@if($user->applic->course == 4)
-										<option selected value="4">Poduzetništvo</option>
-									@else
-										<option value="4">Poduzetništvo</option>
-									@endif
-									@if($user->applic->course == 5)
-										<option selected value="5">Poslovna informatika</option>
-									@else
-										<option value="5">Poslovna informatika</option>
-									@endif
+									<option selected disabled hidden style='display: none'></option>
+									<option value="1">Financijski menadžment</option>
+									<option value="2">Marketing</option>
+									<option value="3">Menadžment</option>
+									<option value="4">Poduzetništvo</option>
+									<option value="5">Poslovna informatika</option>
 								</select>
 
                                 @if ($errors->has('course'))
@@ -170,7 +127,7 @@
                             <label for="average_bacc_grade" class="col-md-4 control-label">Prosjek na preddiplomskom</label>
 
                             <div class="col-md-6">
-                                <input type="number" max="5" step="0.01" min="2" class="form-control" name="average_bacc_grade" value="{{ $user->applic->average_bacc_grade }}" />
+                                <input type="number" max="5" step="0.01" min="2" class="form-control" name="average_bacc_grade"/>
 
                                 @if ($errors->has('average_bacc_grade'))
                                     <span class="help-block">
@@ -184,7 +141,7 @@
                             <label for="average_master_grade" class="col-md-4 control-label">Prosjek na diplomskom</label>
 
                             <div class="col-md-6">
-                                <input type="number" max="5" step="0.01" class="form-control" name="average_master_grade" value="{{ $user->applic->average_master_grade }}"/>
+                                <input type="number" max="5" step="0.01" class="form-control" name="average_master_grade"/>
 
                                 @if ($errors->has('average_master_grade'))
                                     <span class="help-block">
@@ -198,7 +155,7 @@
                             <label for="internship_town" class="col-md-4 control-label">Grad za odrađivanje prakse</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="internship_town" value="{{ $user->applic->internship_town }}" />
+                                <input type="text" class="form-control" name="internship_town"/>
 
                                 @if ($errors->has('internship_town'))
                                     <span class="help-block">
@@ -212,7 +169,7 @@
                             <label for="desired_company" class="col-md-4 control-label">Željena tvrtka (navesti maximalno 5)</label>
 
                             <div class="col-md-6">
-                                <textarea type="text" class="form-control" name="desired_company" style="resize:vertical;max-height:200px" >{{ $user->applic->desired_company }}</textarea>
+                                <textarea type="text" class="form-control" name="desired_company" style="resize:vertical;max-height:200px" ></textarea>
 
                                 @if ($errors->has('desired_company'))
                                     <span class="help-block">
@@ -227,29 +184,11 @@
 
                             <div class="col-md-6">
 								<select class="form-control" name="desired_month"/>
-									@if($user->applic->desired_month == null)
-										<option selected disabled hidden style='display: none' value=''></option>
-									@endif
-									@if($user->applic->desired_month == 6)
-										<option selected value="6">Lipanj</option>
-									@else
-										<option value="6">Lipanj</option>
-									@endif
-									@if($user->applic->desired_month == 7)
-										<option selected value="7">Srpanj</option>
-									@else
-										<option value="7">Srpanj</option>
-									@endif
-									@if($user->applic->desired_month == 8)
-										<option selected value="8">Kolovoz</option>
-									@else
-										<option value="8">Kolovoz</option>
-									@endif
-									@if($user->applic->desired_month == 9)
-										<option selected value="9">Rujan</option>
-									@else
-										<option value="9">Rujan</option>
-									@endif
+									<option selected disabled hidden style='display: none'></option>
+									<option value="6">Lipanj</option>
+									<option value="7">Srpanj</option>
+									<option value="8">Kolovoz</option>
+									<option value="9">Rujan</option>
 								</select>
 
                                 @if ($errors->has('desired_month'))
@@ -267,7 +206,7 @@
                             <div class="col-md-6">
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[1]">Option 1</label>
+										<label><input type="checkbox" name="activities[]">Option 1</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -286,7 +225,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[2]">Option 1</label>
+										<label><input type="checkbox" name="activities[]">Option 1</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -301,7 +240,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[3]">Option 1</label>
+										<label><input type="checkbox" name="activities[]">Option 1</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -316,7 +255,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[4]">Option 1</label>
+										<label><input type="checkbox" name="activities[]">Option 1</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -331,7 +270,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[5]">Option 1</label>
+										<label><input type="checkbox" name="activities[]">Option 1</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -346,7 +285,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[6]">Option 1</label>
+										<label><input type="checkbox" name="activities[]">Option 1</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -361,7 +300,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[7]">Option 1</label>
+										<label><input type="checkbox" name="activities[]">Option 1</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -376,7 +315,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[8]">Option 1</label>
+										<label><input type="checkbox" name="activities[]">Option 1</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -391,7 +330,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[9]">Option 1</label>
+										<label><input type="checkbox" name="activities[]">Option 1</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -406,7 +345,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[10]">Option 1</label>
+										<label><input type="checkbox" name="activities[]">Option 1</label>
 									</div>
 									<div>
 										<div class="form-group">

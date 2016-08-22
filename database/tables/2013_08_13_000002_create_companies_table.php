@@ -3,23 +3,21 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFieldsTable extends Migration
+class CreateCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
-     * 
-     * Područja koja pokriva college_mentor
      */
-	public function up()
+    public function up()
     {
-        Schema::create('fields', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
-			$table->string("name", 50);
+			$table->string("name", 100)->nullable();
+			$table->string('email')->unique()->nullable();
             $table->timestamps();
         });
-		
     }
 
     /**
@@ -29,6 +27,6 @@ class CreateFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::drop("fields");
+        Schema::drop("companies");
     }
 }

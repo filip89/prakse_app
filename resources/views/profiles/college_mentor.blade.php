@@ -8,16 +8,8 @@
 					<tr><th>Ime</th><td>{{ $user->name }}</td></tr>
 					<tr><th>Prezime</th><td>{{ $user->last_name }}</td></tr>
 					<tr><th>Titula</th><td>{{ $user->profile->title }}</td></tr>
-					<tr><th>Područje</th>
-						<td>
-						@foreach($user->profile->fields as $i => $field) 
-						{{$field->name}}
-							@if($i < (count($user->profile->fields) - 1))
-							{{'|'}}
-							@endif
-						@endforeach
-						</td>
-					</tr>
+					<tr><th>Područje</th>{{ $user->profile->fields}}</td></tr>
+				
 					@if (Auth::user()->id == $user->id || Auth::user()->isAdmin())
 					<tr>
 						<td>

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCollegeMentorsTable extends Migration
+class CreateInternMentorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,18 @@ class CreateCollegeMentorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('college_mentors', function (Blueprint $table) {
+        Schema::create('intern_mentors', function (Blueprint $table) {
             $table->increments('id');
-			$table->string('title')->nullable();
-			$table->integer("field")->nullable();
 			$table->integer("user_id")->unsigned();
+			$table->string('job_description')->nullable();
+			$table->string('phone')->nullable();
+			$table->integer('company_id')->unsigned()->nullable();
             $table->timestamps();
         });
 		
-		Schema::table('college_mentors', function ($table){
+		Schema::table('intern_mentors', function ($table){
 			$table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+			$table->foreign("company_id")->references("id")->on("companies");
 		});
     }
 
@@ -32,6 +34,6 @@ class CreateCollegeMentorsTable extends Migration
      */
     public function down()
     {
-        Schema::drop("college_mentors");
+        Schema::drop("intern_mentors");
     }
 }

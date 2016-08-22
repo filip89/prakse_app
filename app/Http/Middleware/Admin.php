@@ -19,7 +19,7 @@ class Admin
     {
 		
 		if(!Auth::user()->isAdmin()){
-			return response('Unauthorized.', 401);
+			return response('Unauthorized. Only for admins.', 401);
 		}
 		
         return $next($request);

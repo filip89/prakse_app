@@ -29,6 +29,11 @@ class UserController extends Controller
             'editCollegeMentorForm',
         ]]);
 		
+		$this->middleware('admin', ['only' => [
+			'deleteUser',
+			'index',
+		]]);
+		
     }
 	
 	//pregled svih usera
