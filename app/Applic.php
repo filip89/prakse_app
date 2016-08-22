@@ -18,4 +18,5 @@ class Applic extends Model
     	return $this->belongsTo('App\User');
     	
     }
+    
 }
