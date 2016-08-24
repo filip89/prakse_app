@@ -12,7 +12,7 @@ use App\InternMentor;
 
 use App\CollegeMentor;
 
-use App\Field;
+use App\Company;
 
 class UserController extends Controller
 {
@@ -32,6 +32,12 @@ class UserController extends Controller
 		$this->middleware('admin', ['only' => [
 			'deleteUser',
 			'index',
+			'addInternMentor',
+			'addInternMentorForm',
+		]]);
+		
+		$this->middleware('mentor', ['only' => [
+			'viewProfile',
 		]]);
 		
     }
@@ -50,7 +56,7 @@ class UserController extends Controller
 		$user = User::find($id);
 		
 		if($user->role == "college_mentor"){
-			
+						
 			return view("profiles.college_mentor", ['user' => $user]);
 			
 		}
@@ -83,6 +89,11 @@ class UserController extends Controller
 	
 	public function editCollegeMentor(Request $request, $id){
 		
+		$this->validate($request, [
+            'name' => 'required|max:255',
+			'last_name' => 'required|max:255',
+		]);
+		
 		$user = User::find($id);
 		
 		$user->name = $request->name;
@@ -101,12 +112,20 @@ class UserController extends Controller
 	public function editInternMentorForm($id){
 		
 		$user = User::find($id);
+	
+		$companies = Company::all();
 		
-		return view("forms.intern_mentor", ['user' => $user]);
+		return view("forms.intern_mentor", ['user' => $user, 'companies' => $companies]);
 		
 	}
 	
 	public function editInternMentor(Request $request, $id){
+		
+		$this->validate($request, [
+            'name' => 'required|max:255',
+			'last_name' => 'required|max:255',
+			'company' => 'required',
+		]);
 		
 		$user = User::find($id);
 		
@@ -117,7 +136,53 @@ class UserController extends Controller
 		//company
 		$user->push();
 		
+		$company = Company::find($request->company);
+		$user->profile->company()->associate($company);
+		$user->profile->save();
+		
 		return redirect("/user/" . $id);
 		
 	}
+	
+	
+	//Dodavanje mentora iz tvrtke od strane admina
+	
+	public function addInternMentorForm($id = null){
+		
+		$companies = Company::all();
+		
+		return view("register_mentor", ['companies' => $companies, 'selected' => $id]);
+		
+	}
+	
+	public function addInternMentor(Request $request){
+		
+		$this->validate($request, [
+            'name' => 'required|max:255',
+			'last_name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+			'company' => 'required'
+		]);
+		
+		$user = User::create([
+			'name' => $request->name,
+			'last_name' => $request->last_name,
+            'email' => $request->email,
+			'role' => $request->role,
+            'password' => bcrypt($request->password),
+        ]);
+		
+		$mentor = InternMentor::create([
+			'user_id' => $user->id,
+        ]);
+		
+		$company = Company::find($request->company);
+		$mentor->company()->associate($company);
+		$mentor->save();
+		
+		return redirect("company/profile/" . $company->id);
+		
+	}
+	
 }

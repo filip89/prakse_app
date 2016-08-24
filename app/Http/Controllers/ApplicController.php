@@ -100,7 +100,17 @@ class ApplicController extends Controller
 	
 	}
 	
+	
+	
 	public function apply(Request $request, $id){
+		
+		$this->validate($request, [
+			'academic_year' => 'required',
+			'course' => 'required',
+			'email' => 'required|max:100',
+			'residence_town' => 'required|max:100',
+			'residence_county' => 'required|max:100',
+		]);
 		
 		$applic = new Applic;
 		
@@ -189,7 +199,16 @@ class ApplicController extends Controller
 		
 	}
 	
+	
 	public function edit(Request $request, $id){
+
+		$this->validate($request, [
+			'academic_year' => 'required',
+			'course' => 'required',
+			'email' => 'required|max:100',
+			'residence_town' => 'required|max:100',
+			'residence_county' => 'required|max:100',
+		]);
 		
 		$user = User::find($id);
 		
