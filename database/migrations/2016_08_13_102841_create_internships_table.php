@@ -18,14 +18,9 @@ class CreateInternshipsTable extends Migration
 			$table->integer("intern_mentor_id")->unsigned()->nullable();
 			$table->integer("college_mentor_id")->unsigned()->nullable();
 			$table->integer("company_id")->unsigned();
-<<<<<<< HEAD
 			$table->integer("average_bacc_grade", 3,2);
 			$table->integer("average_master_grade", 3,2)->nullable()->default(0);
-=======
-			$table->integer("average_bacc_grade");
 			$table->integer("activity_points");
-			$table->integer("average_master_grade")->nullable()->default(0);
->>>>>>> origin/master
 			$table->datetime("start_date")->nullable();
 			$table->datetime("end_date")->nullable();
 			$table->integer("duration", 2)->nullable();
@@ -36,7 +31,7 @@ class CreateInternshipsTable extends Migration
 			$table->string("college_mentor_comment", 5000)->nullable();
 			$table->integer("confirmation_student")->nullable()->default(0);
 			$table->integer("confirmation_admin")->nullable()->default(0);	
-            $table->timestamps();
+        		$table->timestamps();
         });
 		
 		Schema::table('internships', function($table) {
