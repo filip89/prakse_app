@@ -52,5 +52,6 @@ class Kernel extends HttpKernel
 	'admin' => \App\Http\Middleware\Admin::class,
 	'adminOrAuth' => \App\Http\Middleware\AdminOrAuthUser::class,
 	'student' => \App\Http\Middleware\Student::class,
+	'mentor' => \App\Http\Middleware\Mentor::class,
     ];
 }
