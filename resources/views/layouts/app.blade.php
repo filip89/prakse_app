@@ -62,6 +62,8 @@
                     @elseif(Auth::user()->role != "student")
 						<li><a href="{{ url('/applic/all') }}">Prijave</a></li>
 						<li><a href="{{ url('/user') }}">Korisnici</a></li>
+						<li><a href="{{ url('/company') }}">Tvrtke</a></li>
+						<li><a href="{{ url('/user/add/internmentor') }}">Dodaj mentora iz tvrtke</a></li>
 					@endif
 					@if(!Auth::guest())
                         <li class="dropdown">
