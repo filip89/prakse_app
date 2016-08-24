@@ -44,7 +44,6 @@
                             <div class="col-md-6">
                                 <input type="radio" class="form-control" name="role" value="student" checked>Student<br/>	
 								<input type="radio" class="form-control" name="role" value="college_mentor">Mentor nastavnik<br/>
-								<input type="radio" class="form-control" name="role" value="intern_mentor">Mentor iz prakse
 
                                 @if ($errors->has('role'))
                                     <span class="help-block">
