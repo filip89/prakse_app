@@ -60,7 +60,7 @@
 
                                 @if ($errors->has('residence_town'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first(residence_town) }}</strong>
+                                        <strong>{{ $errors->first('residence_town') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -75,7 +75,7 @@
 
                                 @if ($errors->has('residence_county'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first(residence_county) }}</strong>
+                                        <strong>{{ $errors->first('residence_county') }}</strong>
                                     </span>
                                 @endif
                             </div>
