@@ -13,6 +13,11 @@ class Utilities
 	private static $desired_month = array(6 => 'Lipanj', 7 => 'srpanj', 8 => 'Kolovoz', 9 => 'Rujan');
 	
 	
+	private static $course = array('Financijski menadžment', 'Marketing', 'Menadžment', 'Poduzetništvo', 'Poslovna informatika');
+	
+	private static $desired_month = array(6 => 'Lipanj', 7 => 'srpanj', 8 => 'Kolovoz', 9 => 'Rujan');
+	
+	
 	public static function academicYear($year){
 		
 		return self::$academic_year[$year - 1];
@@ -30,4 +35,5 @@ class Utilities
 		return self::$desired_month[$month];
 		
 	}
+
 }
