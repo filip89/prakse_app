@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Applic;
 use App\Utilities;
+use App\Activity;
 
 class ApplicController extends Controller
 {
@@ -47,17 +48,16 @@ class ApplicController extends Controller
 	
 	public function myApplic(){
 		
-		$user = Auth::user();
-		
 		return view('myapplic');
 		
 	}
 	
+	
 	public function applyForm($id = null){
 		
 		if(isset($id)){
-			
-			$user = User::find($id);
+		
+			$user = User::find($id);	
 			
 		}
 		else {
@@ -68,7 +68,28 @@ class ApplicController extends Controller
 		
 		if(isset($user->applic)){
 			
-			return view("forms.application", ['user' => $user]);
+			$activities = array(array('name' => '', 'checked' => '','year' => '','description' => ''));
+			
+			for($i=1; $i<=10; $i++){
+				
+				if($user->applic->activities->where('number', $i)->first() !== null){
+					$activity = $user->applic->activities->where('number', $i)->first();
+					$checked = 'checked';
+					$year = $activity->year;
+					$description = $activity->description;
+				}
+				else {
+					$checked = '';
+					$year = '';
+					$description = '';
+				}
+				
+				
+				$activities[$i] = array('name' => Utilities::activity($i),'checked' =>  $checked, 'year' => $year, 'description' => $description);
+								
+			}
+			
+			return view("forms.application", ['user' => $user, 'activities' => $activities]);
 			
 		}
 		else {
@@ -89,6 +110,9 @@ class ApplicController extends Controller
 			'email' => 'required|max:100',
 			'residence_town' => 'required|max:100',
 			'residence_county' => 'required|max:100',
+			'internship_town' => 'max:100',
+			'desired_town' => 'max:100',
+			'average_bacc_grade' => 'between:0,5'
 		]);
 		
 		$applic = new Applic;
@@ -103,12 +127,34 @@ class ApplicController extends Controller
 		$applic->internship_town = $request->internship_town;
 		$applic->residence_town = $request->residence_town;
 		$applic->residence_county = $request->residence_county;
-	
+						
 		$user = User::find($id);
 		$applic->student()->associate($user);
-	
-		
 		$applic->save();
+		
+		
+		for($i=1; $i<=10; $i++){
+			
+			if(isset($request->activities[$i])){
+				
+				$activity = new Activity;
+				$activity->number = $i;
+				$year = 'year_' . $i;
+				$description = 'description_' . $i;
+				
+				if(isset($request->$year)){
+					$activity->year = $request->$year;
+				}
+				
+				if(isset($request->$description)){
+					$activity->description = $request->$description;
+				}
+
+				$activity->applic()->associate($applic);
+				$activity->save();
+			}
+		
+		}
 		
 		if(Auth::user()->isAdmin()){
 			
@@ -163,6 +209,31 @@ class ApplicController extends Controller
 		$applic->residence_county = $request->residence_county;
 		
 		$applic->save();
+		
+		$applic->activities()->delete();
+		
+		for($i=1; $i<=10; $i++){
+			
+			if(isset($request->activities[$i])){
+				
+				$activity = new Activity;
+				$activity->number = $i;
+				$year = 'year_' . $i;
+				$description = 'description_' . $i;
+				
+				if(isset($request->$year)){
+					$activity->year = $request->$year;
+				}
+				
+				if(isset($request->$description)){
+					$activity->description = $request->$description;
+				}
+
+				$activity->applic()->associate($applic);
+				$activity->save();
+			}
+		
+		}
 		
 		if(Auth::user()->isAdmin()){
 			
