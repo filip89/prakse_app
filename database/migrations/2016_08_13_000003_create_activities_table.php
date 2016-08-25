@@ -14,9 +14,18 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string("name", 200);
+			$table->integer("student_id")->unsigned();
+			$table->integer("number");
+			$table->string("year", 10)->nullable();
+			$table->string("description", 5000)->nullable();
             $table->timestamps();
         });
+		
+		Schema::table('internships', function($table) {
+			$table->foreign("student_id")->references("id")->on("applics")->onDelete("cascade");
+		});
+		
+		
     }
 
     /**
