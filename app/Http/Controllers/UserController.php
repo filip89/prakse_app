@@ -8,9 +8,7 @@ use App\Http\Requests;
 
 use App\User;
 
-use App\InternMentor;
-
-use App\CollegeMentor;
+use Illuminate\Support\Facades\Auth;
 
 use App\Company;
 
@@ -52,8 +50,14 @@ class UserController extends Controller
 	
 	//pregled profila mentora
 	public function viewProfile($id){
-				
+		
 		$user = User::find($id);
+		
+		if(!isset($user)){
+			
+			return ('No such user.');
+			
+		}
 		
 		if($user->role == "college_mentor"){
 						
@@ -72,7 +76,7 @@ class UserController extends Controller
 		
 		$user = User::find($id);
 		$user->delete();
-		return back();
+		return redirect('/home');
 		
 	}
 	
@@ -99,7 +103,6 @@ class UserController extends Controller
 		$user->name = $request->name;
 		$user->last_name = $request->last_name;
 		$user->profile->title = $request->title;
-		//$user->profile->fields()->sync([1,2]);
 		$user->push();
 		
 		return redirect("/user/" . $id);
@@ -121,11 +124,24 @@ class UserController extends Controller
 	
 	public function editInternMentor(Request $request, $id){
 		
-		$this->validate($request, [
+	if(Auth::user()->isAdmin()){
+			$this->validate($request, [
+				'name' => 'required|max:255',
+				'last_name' => 'required|max:255',
+				'job_descritpion' => 'max:5000',
+				'phone' => 'max:50',
+				'company' => 'required',
+			]);
+		}
+		else{
+			$this->validate($request, [
             'name' => 'required|max:255',
 			'last_name' => 'required|max:255',
-			'company' => 'required',
+			'job_descritpion' => 'max:5000',
+			'phone' => 'max:50',
 		]);
+		}
+		
 		
 		$user = User::find($id);
 		
@@ -133,11 +149,13 @@ class UserController extends Controller
 		$user->last_name = $request->last_name;
 		$user->profile->job_description = $request->job_description;
 		$user->profile->phone = $request->phone;
-		//company
 		$user->push();
 		
-		$company = Company::find($request->company);
-		$user->profile->company()->associate($company);
+		if(Auth::user()->isAdmin()){
+			$company = Company::find($request->company);
+			$user->profile->company()->associate($company);
+		}
+		
 		$user->profile->save();
 		
 		return redirect("/user/" . $id);
