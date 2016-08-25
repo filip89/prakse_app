@@ -8,7 +8,7 @@ class Activity extends Model
 {
     public function applics() {
 
-    	return $this->belongsToMany('App\Applic');
+    	return $this->belongsTo('App\Applic');
     	
     }
 }
