@@ -22,17 +22,23 @@
 						<td>
 						{{ $applic->updated_at }}
 						</td>
+
 						<td>
-							<a href="/apply/{{ $applic->student->id }}">
-								<button class="btn btn-default btn-sm">Analiza</button>
-							</a>
+						{{ Form::open(array('route' => array('internships.create', $applic->student->id), 'method' => 'GET')) }}
+							{{ Form::hidden('name', $applic->student->name) }}
+							{{ Form::hidden('last_name', $applic->student->last_name) }}
+							{{ Form::hidden('student_id', $applic->student->id) }}
+							{{ Form::submit('Analiza', ['class' => 'btn btn-primary']) }}
+						{{ Form::close() }}
 						</td>
+
 						<td>
-							<form action="{{ url('applic/'. $applic->student->id . '/delete') }}" method="POST">
-								{{ csrf_field() }}
-								<button class="btn btn-danger btn-sm">Ukloni</button>
-							</form>
+						{{ Form::open(array('url' => '/applic/'.$applic->student->id.'/delete', 'method' => 'POST')) }}
+							{{ Form::submit('Ukloni', ['class' => 'btn btn-danger']) }}
+							{{ csrf_field() }}
+						{{ Form::close() }}
 						</td>
+
 					</tr>
 					@endforeach
 					
