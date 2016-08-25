@@ -102,7 +102,7 @@
                             </div>
                         </div>
 						
-						<div class="form-group">
+						<div class="form-group{{ $errors->has('course') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Smjer</label>
 
                             <div class="col-md-6">
@@ -127,7 +127,7 @@
                             <label for="average_bacc_grade" class="col-md-4 control-label">Prosjek na preddiplomskom</label>
 
                             <div class="col-md-6">
-                                <input type="number" max="5" step="0.01" min="2" class="form-control" name="average_bacc_grade"/>
+                                <input type="number" max="5" step="0.01" min="0" class="form-control" name="average_bacc_grade"/>
 
                                 @if ($errors->has('average_bacc_grade'))
                                     <span class="help-block">
@@ -141,7 +141,7 @@
                             <label for="average_master_grade" class="col-md-4 control-label">Prosjek na diplomskom</label>
 
                             <div class="col-md-6">
-                                <input type="number" max="5" step="0.01" class="form-control" name="average_master_grade"/>
+                                <input type="number" step="0.01" max="5" min="0" step="0.01" class="form-control" name="average_master_grade"/>
 
                                 @if ($errors->has('average_master_grade'))
                                     <span class="help-block">
@@ -206,41 +206,26 @@
                             <div class="col-md-6">
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[]">Option 1</label>
+										<label><input type="checkbox" name="activities[1]">Option 1</label>
 									</div>
 									<div>
 										<div class="form-group">
-											<label class="col-md-2 col-sm-2 control-label" for="year_0">Godina: </label>
+											<label class="col-md-2 col-sm-2 control-label" for="year_1">Godina: </label>
 											<div class="col-md-10 col-sm-10">
-												<input type="text" name="year_0" class="form-control">
+												<input type="text" name="year_1" class="form-control">
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-md-2 col-sm-2 control-label" for="description_0">Opis: </label>
+											<label class="col-md-2 col-sm-2 control-label" for="description_1">Opis: </label>
 											<div class="col-md-10 col-sm-10">
-												<textarea type="text" name="description_0" class="form-control"></textarea>
+												<textarea type="text" name="description_1" class="form-control"></textarea>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[]">Option 1</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_1">Godina: </label>
-											<input type="text" name="year_1" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_1">Opis: </label>
-											<textarea type="text" name="description_1" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[]">Option 1</label>
+										<label><input type="checkbox" name="activities[2]">Option 2</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -255,7 +240,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[]">Option 1</label>
+										<label><input type="checkbox" name="activities[3]">option3</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -263,14 +248,14 @@
 											<input type="text" name="year_3" class="form-control">
 										</div>
 										<div class="form-group">
-											<label for="description_2">Opis: </label>
+											<label for="description_3">Opis: </label>
 											<textarea type="text" name="description_3" class="form-control"></textarea>
 										</div>
 									</div>
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[]">Option 1</label>
+										<label><input type="checkbox" name="activities[4]">Option 4</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -285,7 +270,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[]">Option 1</label>
+										<label><input type="checkbox" name="activities[5]">Option 5</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -300,7 +285,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[]">Option 1</label>
+										<label><input type="checkbox" name="activities[6]">Option 6</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -315,7 +300,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[]">Option 1</label>
+										<label><input type="checkbox" name="activities[7]">Option 7</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -330,7 +315,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[]">Option 1</label>
+										<label><input type="checkbox" name="activities[8]">Option 8</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -345,7 +330,7 @@
 								</div>
 								<div>
 									<div class="checkbox">
-										<label><input type="checkbox" name="activities[]">Option 1</label>
+										<label><input type="checkbox" name="activities[9]">Option 9</label>
 									</div>
 									<div>
 										<div class="form-group">
@@ -355,6 +340,21 @@
 										<div class="form-group">
 											<label for="description_9">Opis: </label>
 											<textarea type="text" name="description_9" class="form-control"></textarea>
+										</div>
+									</div>
+								</div>
+								<div>
+									<div class="checkbox">
+										<label><input type="checkbox" name="activities[10]">Option 10</label>
+									</div>
+									<div>
+										<div class="form-group">
+											<label for="year_10">Godina: </label>
+											<input type="text" name="year_10" class="form-control">
+										</div>
+										<div class="form-group">
+											<label for="description_10">Opis: </label>
+											<textarea type="text" name="description_10" class="form-control"></textarea>
 										</div>
 									</div>
 								</div>

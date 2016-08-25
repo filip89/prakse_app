@@ -170,7 +170,7 @@
                             <label for="average_bacc_grade" class="col-md-4 control-label">Prosjek na preddiplomskom</label>
 
                             <div class="col-md-6">
-                                <input type="number" max="5" step="0.01" min="2" class="form-control" name="average_bacc_grade" value="{{ $user->applic->average_bacc_grade }}" />
+                                <input type="number" max="5" step="0.01" min="0" class="form-control" name="average_bacc_grade" value="{{ $user->applic->average_bacc_grade }}" />
 
                                 @if ($errors->has('average_bacc_grade'))
                                     <span class="help-block">
@@ -184,7 +184,7 @@
                             <label for="average_master_grade" class="col-md-4 control-label">Prosjek na diplomskom</label>
 
                             <div class="col-md-6">
-                                <input type="number" max="5" step="0.01" class="form-control" name="average_master_grade" value="{{ $user->applic->average_master_grade }}"/>
+                                <input type="number" step="0.01" min="0" max="5" step="0.01" class="form-control" name="average_master_grade" value="{{ $user->applic->average_master_grade }}"/>
 
                                 @if ($errors->has('average_master_grade'))
                                     <span class="help-block">
@@ -260,166 +260,30 @@
                             </div>
                         </div>
 						
-						<div class="form-group">
+												<div class="form-group">
                             <label class="col-md-4 control-label">Aktivnosti</label>
                             
 
                             <div class="col-md-6">
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[1]">Option 1</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label class="col-md-2 col-sm-2 control-label" for="year_0">Godina: </label>
-											<div class="col-md-10 col-sm-10">
-												<input type="text" name="year_0" class="form-control">
+							@for($i=1; $i<=10; $i++)
+											<div>
+												<label><input type="checkbox" {{$activities[$i]['checked']}} name="activities[{{$i}}]">{{$activities[$i]['name']}}</label>
+											</div>
+											<div>
+											<div class="form-group">
+												<label class="col-md-2 col-sm-2 control-label" for="year_{{$i}}">Godina: </label>
+												<div class="col-md-10 col-sm-10">
+													<input type="text" name="year_{{$i}}" class="form-control" value="{{$activities[$i]['year']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 col-sm-2 control-label" for="description_{{$i}}">Opis: </label>
+												<div class="col-md-10 col-sm-10">
+													<textarea type="text" name="description_{{$i}}" class="form-control">{{$activities[$i]['description']}}</textarea>
+												</div>
 											</div>
 										</div>
-										<div class="form-group">
-											<label class="col-md-2 col-sm-2 control-label" for="description_0">Opis: </label>
-											<div class="col-md-10 col-sm-10">
-												<textarea type="text" name="description_0" class="form-control"></textarea>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[2]">Option 1</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_1">Godina: </label>
-											<input type="text" name="year_1" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_1">Opis: </label>
-											<textarea type="text" name="description_1" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[3]">Option 1</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_2">Godina: </label>
-											<input type="text" name="year_2" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_2">Opis: </label>
-											<textarea type="text" name="description_2" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[4]">Option 1</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_3">Godina: </label>
-											<input type="text" name="year_3" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_2">Opis: </label>
-											<textarea type="text" name="description_3" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[5]">Option 1</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_4">Godina: </label>
-											<input type="text" name="year_4" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_4">Opis: </label>
-											<textarea type="text" name="description_4" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[6]">Option 1</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_5">Godina: </label>
-											<input type="text" name="year_5" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_5">Opis: </label>
-											<textarea type="text" name="description_5" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[7]">Option 1</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_6">Godina: </label>
-											<input type="text" name="year_6" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_6">Opis: </label>
-											<textarea type="text" name="description_6" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[8]">Option 1</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_7">Godina: </label>
-											<input type="text" name="year_7" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_7">Opis: </label>
-											<textarea type="text" name="description_7" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[9]">Option 1</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_8">Godina: </label>
-											<input type="text" name="year_8" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_8">Opis: </label>
-											<textarea type="text" name="description_8" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[10]">Option 1</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_9">Godina: </label>
-											<input type="text" name="year_9" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_9">Opis: </label>
-											<textarea type="text" name="description_9" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-                            </div>
+							@endfor
                         </div>
 
                         <div class="form-group">
