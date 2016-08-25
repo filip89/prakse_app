@@ -53,27 +53,6 @@ class ApplicController extends Controller
 		
 	}
 	
-	/*
-	public function applyForm(){
-		
-		$user = Auth::user();
-		
-		
-		if(!$user->isAdmin()){
-			
-			return view("forms.application", ['user' => $user]);
-			
-		}
-		else {
-			
-			//PROMijenit
-			return view("forms.application", ['user' => $user]);
-			
-		}
-		
-	}
-	*/
-	
 	public function applyForm($id = null){
 		
 		if(isset($id)){
@@ -124,56 +103,14 @@ class ApplicController extends Controller
 		$applic->internship_town = $request->internship_town;
 		$applic->residence_town = $request->residence_town;
 		$applic->residence_county = $request->residence_county;
-		//$applic->activities->sync($activities);
-		
-		/*
-		$activities = $request->activities;
-		$activitesChecked = array();
-		
-		
-		for($i=1; $i<=10; $i++){
-			
-			if(isset($activities[$i])){
-				
-				$activitesChecked = $i + 1;
-				
-			}
-			
-		}
-		
-			$applic->activities->sync($activitiesPivot);
-		
-		foreach($i = 0; $i <= 9; $i++){
-			
-			if(isset($activities[$i])){
-				
-				
-				$year = "year_" . ($i + 1);
-				$description = "description_" . ($i + 1);
-				
-				if(isset($request->{$year})){
-					
-					$applic->activities()->updateExistingPivot();
-					
-				}
-				if(isset($request->{$description})){
-					
-					
-					
-				}
-
-			}
-				
-		}
-		*/
-		
+	
 		$user = User::find($id);
 		$applic->student()->associate($user);
 	
 		
 		$applic->save();
 		
-		if(Auth::user()->isAdmin){
+		if(Auth::user()->isAdmin()){
 			
 			return redirect("/applics/all");
 			
