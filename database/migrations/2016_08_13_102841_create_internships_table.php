@@ -18,7 +18,7 @@ class CreateInternshipsTable extends Migration
 		$table->integer("intern_mentor_id")->unsigned()->nullable();
 		$table->integer("college_mentor_id")->unsigned()->nullable();
 		$table->integer("company_id")->unsigned();
-		$table->decimal("average_bacc_grade", 3,2);
+		$table->decimal("average_bacc_grade", 3,2)->nullable()->default(0);
 		$table->decimal("average_master_grade", 3,2)->nullable()->default(0);
 		$table->integer("activity_points");
 		$table->datetime("start_date")->nullable();
