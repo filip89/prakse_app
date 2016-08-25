@@ -74,3 +74,6 @@ Route::get('/cancelapply', function(){
 	}
 
 });
+
+//pregled praksi
+Route::resource('internships', "InternshipController");
