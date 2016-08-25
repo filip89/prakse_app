@@ -65,7 +65,7 @@
                                 @endif
                             </div>
                         </div>
-						
+			@if(Auth::user()->isAdmin())		
 						<div class="form-group{{ $errors->has('company') ? ' has-error' : '' }}">
                             <label for="company" class="col-md-4 control-label">Tvrtka</label>
 
@@ -94,6 +94,7 @@
                                 @endif
                             </div>
                         </div>
+                        @endif
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
