@@ -14,7 +14,7 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer("student_id")->unsigned();
+			$table->integer("applic_id")->unsigned();
 			$table->integer("number");
 			$table->string("year", 10)->nullable();
 			$table->string("description", 5000)->nullable();
@@ -22,7 +22,7 @@ class CreateActivitiesTable extends Migration
         });
 		
 		Schema::table('internships', function($table) {
-			$table->foreign("student_id")->references("id")->on("applics")->onDelete("cascade");
+			$table->foreign("applic_id")->references("id")->on("applics")->onDelete("cascade");
 		});
 		
 		
