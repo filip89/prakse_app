@@ -21,7 +21,7 @@ class CreateActivitiesTable extends Migration
             $table->timestamps();
         });
 		
-		Schema::table('internships', function($table) {
+		Schema::table('activities', function($table) {
 			$table->foreign("applic_id")->references("id")->on("applics")->onDelete("cascade");
 		});
 		
