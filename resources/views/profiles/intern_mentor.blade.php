@@ -12,7 +12,7 @@
 					<tr><th>Tvrtka</th>
 						<td>
 						@if(!is_null($user->profile->company)) 
-						<a href='/company/profile/{{$user->profile->company->id}}'>{{ $user->profile->company->name }}</a>
+						<a href="{{ url('/company/profile/' . $user->profile->company->id) }}">{{ $user->profile->company->name }}</a>
 						@endif 
 						</td>
 					</tr>
