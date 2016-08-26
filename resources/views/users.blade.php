@@ -19,9 +19,9 @@
 						<td>{{ $user->last_name }}</td>
 						<td>
 						@if ($user->role != "student")
-						<a href="user/{{ $user->id }}"><button class="btn btn-info btn-sm">Profil</button></a>
+						<a href="{{ url('user/'. $user->id) }}"><button class="btn btn-info btn-sm">Profil</button></a>
 						@elseif(isset($user->applic))
-							<a href="apply/{{ $user->id }}"><button class="btn btn-info btn-sm">Prijava</button></a>
+							<a href="{{ url('apply/'. $user->id) }}"><button class="btn btn-info btn-sm">Prijava</button></a>
 						@endif
 						</td>
 						@if (Auth::user()->isAdmin())
