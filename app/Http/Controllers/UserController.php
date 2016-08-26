@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Company;
 
+use App\InternMentor;
+
+use App\CollegeMentor;
+
 class UserController extends Controller
 {
 	
