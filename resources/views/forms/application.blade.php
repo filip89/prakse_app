@@ -291,7 +291,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-sign-in"></i> Spremi
                                 </button>
-								<a href="/cancelapply">
+								<a href="{{ url('/cancelapply') }}">
 
 										Povratak
 
