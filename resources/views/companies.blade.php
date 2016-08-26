@@ -13,7 +13,7 @@
 					</tr>
 					<tr>
 						<td>
-							<a href="/company/create">
+							<a href="{{ url('/company/create') }}">
 								<button class="btn btn-info btn-sm">Dodaj</button>
 							</a>
 						</td>
@@ -27,12 +27,12 @@
 						{{$company->created_at}}
 						</td>
 						<td>
-							<a href="/company/profile/{{ $company->id }}">
+							<a href="{{ url('/company/profile/' . $company->id) }}">
 								<button class="btn btn-info btn-sm">Profil</button>
 							</a>
 						</td>
 						<td>
-							<a href="/company/delete/{{ $company->id }}">
+							<a href="{{ url('/company/delete/' . $company->id) }}">
 								<button class="btn btn-danger btn-sm">Ukloni</button>
 							</a>
 						</td>
