@@ -237,7 +237,7 @@ class ApplicController extends Controller
 		
 		if(Auth::user()->isAdmin()){
 			
-			return redirect("/applics/all");
+			return redirect("/applic/all");
 			
 		}
 		else{
