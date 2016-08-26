@@ -13,7 +13,7 @@
 						<td>
 						<a href="{{ url('/user/add/internmentor/' . $company->id) }}">Dodaj mentora iz tvrtke</a><br/>
 						@foreach($company->intern_mentors as $mentor)
-							<a href='/user/{{$mentor->user->id}}'>{{$mentor->user->name . ' ' . $mentor->user->last_name}}</a><br/>
+							<a href="{{ url('/user/' . $mentor->user->id) }}">{{$mentor->user->name . ' ' . $mentor->user->last_name}}</a><br/>
 						@endforeach
 						</td>
 					</tr>
