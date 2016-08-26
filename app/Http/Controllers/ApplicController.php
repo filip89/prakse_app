@@ -48,6 +48,12 @@ class ApplicController extends Controller
 	
 	public function myApplic(){
 		
+		if(!isset(Auth::user()->applic)){
+			
+			return redirect('/apply');
+			
+		}
+		
 		return view('myapplic');
 		
 	}
