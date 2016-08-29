@@ -17,13 +17,13 @@ class CreateInternMentorsTable extends Migration
 			$table->integer("user_id")->unsigned();
 			$table->string('job_description')->nullable();
 			$table->string('phone')->nullable();
-			$table->integer('company_id')->unsigned()->nullable();
+			$table->integer('company_id')->unsigned();
             $table->timestamps();
         });
 		
 		Schema::table('intern_mentors', function ($table){
 			$table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
-			$table->foreign("company_id")->references("id")->on("companies");
+			$table->foreign("company_id")->references("id")->on("companies")->onDelete('cascade');
 		});
     }
 
