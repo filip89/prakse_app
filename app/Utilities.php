@@ -10,7 +10,7 @@ class Utilities
 	
 	private static $courses = array('Financijski menadžment', 'Marketing', 'Menadžment', 'Poduzetništvo', 'Poslovna informatika');
 	
-	private static $desired_months = array(6 => 'Lipanj', 7 => 'srpanj', 8 => 'Kolovoz', 9 => 'Rujan');
+	private static $desired_months = array(6 => 'Lipanj', 7 => 'Srpanj', 8 => 'Kolovoz', 9 => 'Rujan');
 	
 	private static $activities = array('a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10');
 	
@@ -22,17 +22,29 @@ class Utilities
 	
 	public static function course($course){
 		
+		if(!isset($course)){
+			return;
+		}
+		
 		return self::$courses[$course - 1];
 		
 	}
 	
 	public static function desiredMonth($month){
 		
+		if(!isset($month)){
+			return;
+		}
+		
 		return self::$desired_months[$month];
 		
 	}
 	
 	public static function activity($num){
+		
+		if(!isset($num)){
+			return;
+		}
 		
 		return self::$activities[$num - 1];
 		
