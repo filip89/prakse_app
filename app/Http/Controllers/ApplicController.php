@@ -196,9 +196,9 @@ class ApplicController extends Controller
 			Session::flash('status', 'Prijava je obrisana! Ukoliko želite možete napraviti novu prije kraja natječaja.');
 			Session::flash('alert_type', 'alert-danger');
 			
+			return back();
+			
 		}
-		
-		return back();	
 		
 	}
 	
