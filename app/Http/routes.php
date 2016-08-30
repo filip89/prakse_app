@@ -19,7 +19,11 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/user', 'UserController@index');
+Route::get('/user/student/list', 'UserController@studentIndex');
+
+Route::get('/user/intern_mentor/list', 'UserController@internMentorIndex');
+
+Route::get('/user/college_mentor/list', 'UserController@collegeMentorIndex');
 
 Route::get('user/{id}', "UserController@viewProfile");
 
