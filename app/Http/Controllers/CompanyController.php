@@ -24,10 +24,8 @@ class CompanyController extends Controller
 	public function index(){
 		
 		$companies = Company::orderBy('created_at', 'desc')->get();
-		
-		$applics = Applic::where('desired_company', '!=', null)->pluck('desired_company');
-		
-		return view('companies', ['companies' => $companies, 'applics' => $applics]);
+
+		return view('companies', ['companies' => $companies]);
 		
 	}
 	
