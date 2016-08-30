@@ -69,31 +69,55 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-                    @if (Auth::guest())
+                   @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @elseif(Auth::user()->role != "student")
-						<li><a href="{{ url('/applic/all') }}">Prijave</a></li>
-						<li><a href="{{ url('/user') }}">Korisnici</a></li>
-						<li><a href="{{ url('/company') }}">Tvrtke</a></li>
-						<li><a href="{{ url('/internships') }}">Pregled praksi</a></li>
-						<li><a href="{{ url('/user/add/internmentor') }}">Dodaj mentora iz tvrtke</a></li>
-					@endif
-					@if(!Auth::guest())
+			<li><a href="{{ url('/applic/all') }}">Prijave</a></li>
+			<li><a href="{{ url('/internships') }}">Pregled praksi</a></li>
+			<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Tvrtke <span class="caret"></span>
+                        </a>
+							
+                		<ul class="dropdown-menu" role="menu">
+
+					<li><a href="{{ url('/company') }}">Potvrđene</a></li>
+
+					<li><a href="{{  url('/company/wishlist') }}">Željene</a></li>
+
+                        	</ul>
+                        </li>
+			<li class="dropdown">
+                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Korisnici <span class="caret"></span>
+                		</a>
+							
+                            	<ul class="dropdown-menu" role="menu">
+
+					<li><a href="{{ url('/user/student/list') }}">Studenti</a></li>
+
+					<li><a href="{{  url('/user/intern_mentor/list') }}">Mentori iz tvrtke</a></li>
+
+                                	<li><a href="{{ url('/user/college_mentor/list') }}">Mentori nastavnici</a></li>
+                            	</ul>
+                        </li>
+			@endif
+			@if(!Auth::guest())
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
+                        	 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        		{{ Auth::user()->name }} <span class="caret"></span>
+                            	</a>
 							
 
-                            <ul class="dropdown-menu" role="menu">
-							@if(Auth::user()->role != "student")
-								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
-							@else
-								<li><a href="{{ url('/myapplic') }}"><i class="fa fa-btn fa-user"></i>Prijava prakse</a></li>
-							@endif
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            </ul>
+                        	<ul class="dropdown-menu" role="menu">
+					@if(Auth::user()->role != "student")
+					<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
+					@else
+					<li><a href="{{ url('/myapplic') }}"><i class="fa fa-btn fa-user"></i>Prijava prakse</a></li>
+					@endif
+                        		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            	</ul>
                         </li>
                     @endif
                 </ul>
