@@ -29,9 +29,9 @@
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				{{ Session::get('status') }}
 			</div>
-		@else
-			<p>* Vaša prijava je zaprimljena i nalazi se u našoj bazi. Prijavu možete otkazati ili promijeniti podatke sve dok traje natječaj.</p>
 		@endif
+			<p>* Vaša prijava je zaprimljena i nalazi se u našoj bazi. Prijavu možete otkazati ili promijeniti podatke sve dok traje natječaj.</p>
+		
 			<div class="action_buttons">
 				<a href="{{ url('/apply') }}"><button class="btn btn-warning">Uredi</button></a>
 				<form action="{{ url('applic/'. Auth::user()->id . '/delete') }}" method="POST">
