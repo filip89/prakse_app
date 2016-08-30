@@ -66,15 +66,44 @@
                             </div>
                         </div>
 						
-						<div class="form-group{{ $errors->has('field') ? ' has-error' : '' }}">
-                            <label for="field" class="col-md-4 control-label">Područje mentoriranja</label>
+						<div class="form-group">
+                            <label class="col-md-4 control-label">Područje mentoriranja</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="field" value="{{ $user->profile->field }}">
+								<select class="form-control" name="fields" />
+									@if($user->profile->course == null)
+										<option selected disabled hidden style='display: none' value=''></option>
+									@endif
+									@if($user->profile->course == 1)
+										<option selected value="1">Financijski menadžment</option>
+									@else
+										<option value="1">Financijski menadžment</option>
+									@endif
+									@if($user->profile->course == 2)
+										<option selected value="2">Marketing</option>
+									@else
+										<option value="2">Marketing</option>
+									@endif
+									@if($user->profile->course == 3)
+										<option selected value="3">Menadžemnt</option>
+									@else
+										<option value="3">Menadžemnt</option>
+									@endif
+									@if($user->profile->course == 4)
+										<option selected value="4">Poduzetništvo</option>
+									@else
+										<option value="4">Poduzetništvo</option>
+									@endif
+									@if($user->profile->course == 5)
+										<option selected value="5">Poslovna informatika</option>
+									@else
+										<option value="5">Poslovna informatika</option>
+									@endif
+								</select>
 
-                                @if ($errors->has('field'))
+                                @if ($errors->has('course'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('field') }}</strong>
+                                        <strong>{{ $errors->first('course') }}</strong>
                                     </span>
                                 @endif
                             </div>

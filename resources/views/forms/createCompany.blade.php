@@ -5,13 +5,13 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Tvrtka</div>
+                <div class="panel-heading">Nova tvrtka</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('company/create') }}">
                         {{ csrf_field() }}
 						
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Naziv</label>
+                            <label for="name" class="col-md-4 control-label">Naziv:</label>
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}">
@@ -25,7 +25,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('residence') ? ' has-error' : '' }}">
-                            <label for="residence" class="col-md-4 control-label">Sjedište</label>
+                            <label for="residence" class="col-md-4 control-label">Sjedište:</label>
 
                             <div class="col-md-6">
                                 <input type="txt" class="form-control" name="residence" value="{{ old('residence') }}">
@@ -39,7 +39,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">e-mail</label>
+                            <label for="email" class="col-md-4 control-label">E-mail:</label>
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="email" value="{{ old('email') }}">
@@ -53,7 +53,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                            <label for="phone" class="col-md-4 control-label">Telefon</label>
+                            <label for="phone" class="col-md-4 control-label">Telefon:</label>
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="phone" value="{{ old('phone') }}">
