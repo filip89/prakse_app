@@ -10,7 +10,6 @@
 						<th>Ime i prezime</th>
 						<th>Područje</th>
 						<th></th>
-						<th></th>
 					</tr>
 					
 					@foreach ($users as $user)
@@ -20,10 +19,6 @@
 					<tr>
 						<td><a href="{{ url('user/'. $user->id) }}">{{ $user->name . " " . $user->last_name }}</td>
 						<td>{{ Utilities::course($user->profile->fields) }}</td>
-						<td>
-						<button class="btn btn-info btn-sm">Profil</button></a>
-						</td>
-						
 						<td>
 						@if (Auth::user()->isAdmin())
 							<form action="{{ url('user/'. $user->id . '/delete') }}" method="POST">
