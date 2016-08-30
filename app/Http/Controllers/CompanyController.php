@@ -50,6 +50,9 @@ class CompanyController extends Controller
 		$company = Company::find($id);
 		$company->delete();
 		
+		Session::flash('status', 'Tvrtka je obrisana!');
+		Session::flash('alert_type', 'alert-danger');
+		
 		return redirect('/company');
 	}
 	
@@ -99,7 +102,10 @@ class CompanyController extends Controller
 		$company->fill($request->all());
 		$company->save();
 		
-		return redirect('company/profile/' . $company->id);
+		Session::flash('status', 'Tvrtka je dodana!');
+		Session::flash('alert_type', 'alert-success');
+		
+		return redirect('company/');
 		
 	}
 	
