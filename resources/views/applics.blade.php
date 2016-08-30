@@ -3,17 +3,16 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-				<table>
+        <div class="col-md-8 col-md-offset-2">
+			<div class="table-responsive">
+				<table class="table table-striped">
 					<tr>
 						<th>Student</th>
-						<th>Datum prijave</th>
+						<th>Vrijeme prijave</th>
 						<th></th>
 						<th></th>
 					</tr>
-					<tr>
-						<td></td>
-					</tr>
+					
 					@foreach($applics as $applic)	
 					<tr>
 						<td>
@@ -43,6 +42,7 @@
 					@endforeach
 					
 				</table>
+			</div>
         </div>
     </div>
 </div>
