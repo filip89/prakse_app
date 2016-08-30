@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\Company;
 
+use App\Applic;
+
 class CompanyController extends Controller
 {
     //
@@ -21,9 +23,19 @@ class CompanyController extends Controller
 	
 	public function index(){
 		
-		$companies = Company::orderBy('created_at', 'asc')->get();
+		$companies = Company::orderBy('created_at', 'desc')->get();
 		
-		return view('companies', ['companies' => $companies]);
+		$applics = Applic::where('desired_company', '!=', null)->pluck('desired_company');
+		
+		return view('companies', ['companies' => $companies, 'applics' => $applics]);
+		
+	}
+	
+	public function wishlist(){
+		
+		$applics = Applic::where('desired_company', '!=', null)->get();
+		
+		return view('companies_wishlist', ['applics' => $applics]);
 		
 	}
 	

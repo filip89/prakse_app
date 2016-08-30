@@ -12,6 +12,7 @@ use App\User;
 use App\Applic;
 use App\Utilities;
 use App\Activity;
+use Session;
 
 class ApplicController extends Controller
 {
@@ -54,7 +55,11 @@ class ApplicController extends Controller
 			
 		}
 		
-		return view('myapplic');
+		$user = Auth::user();
+		$applic = $user->applic;
+		$activities = $user->applic->activities;
+		
+		return view('myapplic', ['applic' => $applic, 'user' => $user, 'activities' => $activities]);
 		
 	}
 	
@@ -110,6 +115,8 @@ class ApplicController extends Controller
 	
 	public function apply(Request $request, $id){
 		
+		$user = User::find($id);
+		
 		$this->validate($request, [
 			'academic_year' => 'required',
 			'course' => 'required',
@@ -134,7 +141,6 @@ class ApplicController extends Controller
 		$applic->residence_town = $request->residence_town;
 		$applic->residence_county = $request->residence_county;
 						
-		$user = User::find($id);
 		$applic->student()->associate($user);
 		$applic->save();
 		
@@ -162,9 +168,12 @@ class ApplicController extends Controller
 		
 		}
 		
+		Session::flash('status', 'Prijava je izrađena!');
+		Session::flash('alert_type', 'alert-success');
+		
 		if(Auth::user()->isAdmin()){
 			
-			return redirect("/applics/all");
+			return redirect("/applic/all");
 			
 		}
 		else{
@@ -180,9 +189,14 @@ class ApplicController extends Controller
 		
 		$user = User::find($id);
 		
-		$applic = $user->applic;
+		if($applic = $user->applic){
+			
+			$applic->delete();
 		
-		$applic->delete();
+			Session::flash('status', 'Prijava je obrisana! Ukoliko želite možete napraviti novu prije kraja natječaja.');
+			Session::flash('alert_type', 'alert-danger');
+			
+		}
 		
 		return back();	
 		
@@ -241,9 +255,12 @@ class ApplicController extends Controller
 		
 		}
 		
+		Session::flash('status', 'Prijava je izmijenjena!');
+		Session::flash('alert_type', 'alert-warning');
+		
 		if(Auth::user()->isAdmin()){
 			
-			return redirect("/applic/all");
+			return redirect("/user/student/list");
 			
 		}
 		else{

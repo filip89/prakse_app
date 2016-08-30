@@ -10,11 +10,9 @@ use App\User;
 
 use Illuminate\Support\Facades\Auth;
 
-use App\Company;
-
 use App\InternMentor;
 
-use App\CollegeMentor;
+use App\Company;
 
 class UserController extends Controller
 {
@@ -44,11 +42,26 @@ class UserController extends Controller
 		
     }
 	
-	//pregled svih usera
-	public function index(){
+	//pregled usera po 'role'
+	public function internMentorIndex(){
 		
-		$users = User::all();
-		return view("users", ['users' => $users]);
+		$users = User::where('role', 'intern_mentor')->get();
+		
+		return view("intern_mentors", ['users' => $users]);
+		
+	}
+	
+	public function collegeMentorIndex(){
+		
+		$users = User::where('role', 'college_mentor')->get();
+		return view("college_mentors", ['users' => $users]);
+		
+	}
+	
+	public function studentIndex(){
+		
+		$users = User::where('role', 'student')->get();
+		return view("students", ['users' => $users]);
 		
 	}
 	
@@ -56,6 +69,7 @@ class UserController extends Controller
 	public function viewProfile($id){
 		
 		$user = User::find($id);
+		$internships = $user->internships;
 		
 		if(!isset($user)){
 			
@@ -64,13 +78,13 @@ class UserController extends Controller
 		}
 		
 		if($user->role == "college_mentor"){
-						
-			return view("profiles.college_mentor", ['user' => $user]);
+				
+			return view("profiles.college_mentor", ['user' => $user, 'internships' => $internships]);
 			
 		}
 		else {
 			
-			return view("profiles.intern_mentor", ['user' => $user]);
+			return view("profiles.intern_mentor", ['user' => $user, 'internships' => $internships]);
 			
 		}
 		
@@ -107,6 +121,7 @@ class UserController extends Controller
 		$user->name = $request->name;
 		$user->last_name = $request->last_name;
 		$user->profile->title = $request->title;
+		$user->profile->fields = $request->fields;
 		$user->push();
 		
 		return redirect("/user/" . $id);
@@ -173,7 +188,7 @@ class UserController extends Controller
 		
 		$companies = Company::all();
 		
-		return view("register_mentor", ['companies' => $companies, 'selected' => $id]);
+		return view("forms.register_mentor", ['companies' => $companies, 'selected' => $id]);
 		
 	}
 	
