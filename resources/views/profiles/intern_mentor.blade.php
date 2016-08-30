@@ -1,10 +1,25 @@
 @extends('layouts.app')
 
+@section('style')
+form {
+	display: inline;
+}
+.action_buttons {
+	display: table;
+	margin: auto;
+}
+table {
+	margin-top: 30px;
+	text-align: center;
+}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-				<table>
+			<div class="table-responsive">
+				<table class="table table-striped">
 					<tr><th>Ime</th><td>{{ $user->name }}</td></tr>
 					<tr><th>Prezime</th><td>{{ $user->last_name }}</td></tr>
 					<tr><th>Radno mjesto</th><td>{{ $user->profile->job_description }}</td></tr>
@@ -37,6 +52,7 @@
 					@endif
 					@endif	
 				</table>
+			</div>
         </div>
     </div>
 </div>
