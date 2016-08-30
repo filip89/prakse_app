@@ -8,6 +8,7 @@
 			<div class="alert alert-warning {{ Session::get('alert_type') }} fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				{{ Session::get('status') }}
+			</div>
 		@endif
 			<div class="table-responsive">
 				<table class="table table-striped">
