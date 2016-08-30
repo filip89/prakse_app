@@ -1,5 +1,12 @@
 @extends('layouts.app')
 
+@section('style')
+textarea {
+	resize: vertical;
+	max-height: 200px;
+}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -20,7 +27,7 @@
                             <label for="name" class="col-md-4 control-label">Ime</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ $user->name }}"/>
+                                <input type="text" class="form-control" name="name" value="{{ $user->name }}" required/>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -34,7 +41,7 @@
                             <label for="last_name" class="col-md-4 control-label">Prezime</label>
 
                             <div class="col-md-6">
-                                <input type="txt" class="form-control" name="last_name" value="{{ $user->last_name }}"/>
+                                <input type="txt" class="form-control" name="last_name" value="{{ $user->last_name }}" required/>
 
                                 @if ($errors->has('last_name'))
                                     <span class="help-block">
@@ -48,7 +55,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail adresa</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email"/>
+                                <input id="email" type="email" class="form-control" name="email" required/>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -62,7 +69,7 @@
                             <label for="residence_town" class="col-md-4 control-label">Mjesto prebivališta</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="residence_town"/>
+                                <input type="text" class="form-control" name="residence_town" required/>
 
                                 @if ($errors->has('residence_town'))
                                     <span class="help-block">
@@ -77,7 +84,7 @@
 							
                             <div class="col-md-6">
 							
-                                <input type="text" class="form-control" name="residence_county"/>
+                                <input type="text" class="form-control" name="residence_county" required/>
 
                                 @if ($errors->has('residence_county'))
                                     <span class="help-block">
@@ -91,7 +98,7 @@
                             <label for="academic_year" class="col-md-4 control-label">Godina studija</label>
 
                             <div class="col-md-6">
-								<select class="form-control" name="academic_year"/>
+								<select class="form-control" name="academic_year" required/>
 									<option selected disabled hidden style='display: none' value=''></option>
 									<option value="1">1. godina prediplomskog</option>
 									<option value="2">2. godina prediplomskog</option>
@@ -112,7 +119,7 @@
                             <label class="col-md-4 control-label">Smjer</label>
 
                             <div class="col-md-6">
-								<select class="form-control" name="course" />
+								<select class="form-control" name="course" required/>
 									<option selected disabled hidden style='display: none'></option>
 									<option value="1">Financijski menadžment</option>
 									<option value="2">Marketing</option>
@@ -175,7 +182,7 @@
                             <label for="desired_company" class="col-md-4 control-label">Željena tvrtka (navesti maximalno 5)</label>
 
                             <div class="col-md-6">
-                                <textarea type="text" class="form-control" name="desired_company" style="resize:vertical;max-height:200px" ></textarea>
+                                <textarea type="text" class="form-control" name="desired_company" ></textarea>
 
                                 @if ($errors->has('desired_company'))
                                     <span class="help-block">
@@ -210,160 +217,26 @@
                             
 
                             <div class="col-md-6">
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[1]">Option 1</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label class="col-md-2 col-sm-2 control-label" for="year_1">Godina: </label>
-											<div class="col-md-10 col-sm-10">
-												<input type="text" name="year_1" class="form-control">
+								@foreach($activities as $key => $activity)
+										<div>
+											<label><input type="checkbox" name="activities[{{$key}}]">{{ $activity }}</label>
+										</div>
+										<div>
+											<div class="form-group">
+												<label class="col-md-2 col-sm-2 control-label" for="year_{{$key}}">Godina: </label>
+												<div class="col-md-10 col-sm-10">
+													<input name="year_{{$key}}" max="9999" min="1900" type="number" class="form-control">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 col-sm-2 control-label" for="description_{{$key}}">Opis: </label>
+												<div class="col-md-10 col-sm-10">
+													<textarea type="text" name="description_{{$key}}" maxlength="5000" class="form-control"></textarea>
+												</div>
 											</div>
 										</div>
-										<div class="form-group">
-											<label class="col-md-2 col-sm-2 control-label" for="description_1">Opis: </label>
-											<div class="col-md-10 col-sm-10">
-												<textarea type="text" name="description_1" class="form-control"></textarea>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[2]">Option 2</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_2">Godina: </label>
-											<input type="text" name="year_2" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_2">Opis: </label>
-											<textarea type="text" name="description_2" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[3]">option3</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_3">Godina: </label>
-											<input type="text" name="year_3" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_3">Opis: </label>
-											<textarea type="text" name="description_3" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[4]">Option 4</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_4">Godina: </label>
-											<input type="text" name="year_4" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_4">Opis: </label>
-											<textarea type="text" name="description_4" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[5]">Option 5</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_5">Godina: </label>
-											<input type="text" name="year_5" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_5">Opis: </label>
-											<textarea type="text" name="description_5" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[6]">Option 6</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_6">Godina: </label>
-											<input type="text" name="year_6" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_6">Opis: </label>
-											<textarea type="text" name="description_6" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[7]">Option 7</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_7">Godina: </label>
-											<input type="text" name="year_7" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_7">Opis: </label>
-											<textarea type="text" name="description_7" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[8]">Option 8</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_8">Godina: </label>
-											<input type="text" name="year_8" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_8">Opis: </label>
-											<textarea type="text" name="description_8" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[9]">Option 9</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_9">Godina: </label>
-											<input type="text" name="year_9" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_9">Opis: </label>
-											<textarea type="text" name="description_9" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="activities[10]">Option 10</label>
-									</div>
-									<div>
-										<div class="form-group">
-											<label for="year_10">Godina: </label>
-											<input type="text" name="year_10" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="description_10">Opis: </label>
-											<textarea type="text" name="description_10" class="form-control"></textarea>
-										</div>
-									</div>
-								</div>
+								@endforeach
+								
                             </div>
                         </div>
 
@@ -372,10 +245,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-sign-in"></i> Spremi
                                 </button>
-								<a href="{{ url('/cancelapply') }}">
-
-										Povratak
-
+                                <a href="{{ url('/cancelapply') }}">
+									<button class="btn btn-default">Povratak</button>		
 								</a>
                             </div>
                         </div>

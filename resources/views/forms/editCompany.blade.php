@@ -14,7 +14,7 @@
                             <label for="name" class="col-md-4 control-label">Naziv:</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{  old('name', $company->name) }}">
+                                <input type="text" class="form-control" name="name" value="{{  old('name', $company->name) }}" required>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -28,7 +28,7 @@
                             <label for="residence" class="col-md-4 control-label">Sjedište:</label>
 
                             <div class="col-md-6">
-                                <input type="txt" class="form-control" name="residence" value="{{ old('residence', $company->residence) }}">
+                                <input type="txt" class="form-control" name="residence" value="{{ old('residence', $company->residence) }}" required>
 
                                 @if ($errors->has('residence'))
                                     <span class="help-block">
@@ -42,7 +42,7 @@
                             <label for="email" class="col-md-4 control-label">E-mail:</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="email" value="{{ old('email', $company->email) }}">
+                                <input type="text" class="form-control" name="email" value="{{ old('email', $company->email) }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">

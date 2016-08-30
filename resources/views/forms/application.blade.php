@@ -14,7 +14,7 @@
                             <label for="name" class="col-md-4 control-label">Ime</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ $user->name }}"/>
+                                <input type="text" class="form-control" name="name" value="{{ $user->name }}" required/>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -28,7 +28,7 @@
                             <label for="last_name" class="col-md-4 control-label">Prezime</label>
 
                             <div class="col-md-6">
-                                <input type="txt" class="form-control" name="last_name" value="{{ $user->last_name }}"/>
+                                <input type="txt" class="form-control" name="last_name" value="{{ $user->last_name }}" required/>
 
                                 @if ($errors->has('last_name'))
                                     <span class="help-block">
@@ -42,7 +42,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail adresa</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $user->applic->email }}"/>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ $user->applic->email }}" required/>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -56,7 +56,7 @@
                             <label for="residence_town" class="col-md-4 control-label">Mjesto prebivališta</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="residence_town" value="{{ $user->applic->residence_town }}"/>
+                                <input type="text" class="form-control" name="residence_town" value="{{ $user->applic->residence_town }}" required/>
 
                                 @if ($errors->has('residence_town'))
                                     <span class="help-block">
@@ -71,7 +71,7 @@
 							
                             <div class="col-md-6">
 							
-                                <input type="text" class="form-control" name="residence_county" value="{{ $user->applic->residence_county }}"/>
+                                <input type="text" class="form-control" name="residence_county" value="{{ $user->applic->residence_county }}" required/>
 
                                 @if ($errors->has('residence_county'))
                                     <span class="help-block">
@@ -84,7 +84,7 @@
 						<div class="form-group{{ $errors->has('academic_year') ? ' has-error' : '' }}">
                             <label for="academic_year" class="col-md-4 control-label">Godina studija</label>
                             <div class="col-md-6">
-								<select class="form-control" name="academic_year" value="{{ $user->applic->academic_year }}"/>
+								<select class="form-control" name="academic_year" value="{{ $user->applic->academic_year }}" required/>
 									@if($user->applic->academic_year == 0)
 										<option selected disabled hidden style='display: none' value=''></option>
 									@endif
@@ -127,7 +127,7 @@
                             <label class="col-md-4 control-label">Smjer</label>
 
                             <div class="col-md-6">
-								<select class="form-control" name="course" />
+								<select class="form-control" name="course" required/>
 									@if($user->applic->course == null)
 										<option selected disabled hidden style='display: none' value=''></option>
 									@endif
@@ -226,7 +226,7 @@
                             <label for="desired_month" class="col-md-4 control-label">Željeni mjesec za odrađivanje prakse</label>
 
                             <div class="col-md-6">
-								<select class="form-control" name="desired_month"/>
+								<select class="form-control" name="desired_month" />
 									@if($user->applic->desired_month == null)
 										<option selected disabled hidden style='display: none' value=''></option>
 									@endif
@@ -273,13 +273,13 @@
 											<div class="form-group">
 												<label class="col-md-2 col-sm-2 control-label" for="year_{{$i}}">Godina: </label>
 												<div class="col-md-10 col-sm-10">
-													<input type="text" name="year_{{$i}}" class="form-control" value="{{$activities[$i]['year']}}">
+													<input name="year_{{$i}}" min="1900" max="9999" type="number" class="form-control" value="{{$activities[$i]['year']}}">
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="col-md-2 col-sm-2 control-label" for="description_{{$i}}">Opis: </label>
 												<div class="col-md-10 col-sm-10">
-													<textarea type="text" name="description_{{$i}}" class="form-control">{{$activities[$i]['description']}}</textarea>
+													<textarea type="text" name="description_{{$i}}" maxlength="5000" class="form-control">{{$activities[$i]['description']}}</textarea>
 												</div>
 											</div>
 										</div>
@@ -292,9 +292,7 @@
                                     <i class="fa fa-btn fa-sign-in"></i> Spremi
                                 </button>
 								<a href="{{ url('/cancelapply') }}">
-
-										Povratak
-
+									<button class="btn btn-default">Povratak</button>		
 								</a>
                             </div>
                         </div>

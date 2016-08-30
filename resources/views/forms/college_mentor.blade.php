@@ -14,7 +14,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail adresa</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}">
+                                <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -28,7 +28,7 @@
                             <label for="name" class="col-md-4 control-label">Ime</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ $user->name }}">
+                                <input type="text" class="form-control" name="name" value="{{ $user->name }}" required>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -42,7 +42,7 @@
                             <label for="last_name" class="col-md-4 control-label">Prezime</label>
 
                             <div class="col-md-6">
-                                <input type="txt" class="form-control" name="last_name" value="{{ $user->last_name }}">
+                                <input type="txt" class="form-control" name="last_name" value="{{ $user->last_name }}" required>
 
                                 @if ($errors->has('last_name'))
                                     <span class="help-block">
