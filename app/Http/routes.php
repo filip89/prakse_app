@@ -53,6 +53,7 @@ Route::post('applic/{id}/edit', "ApplicController@edit");
 
 //rute za tvrtku
 Route::get('company', 'CompanyController@index');
+Route::get('company/wishlist', 'CompanyController@wishlist');
 Route::get('company/profile/{id}', 'CompanyController@profile');
 Route::get('company/create', 'CompanyController@createForm');
 Route::post('company/create', 'CompanyController@create');
