@@ -20,6 +20,12 @@ table, th {
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+        	@if(Session::has('status'))
+			<div class="alert {{ Session::get('alert_type') }} fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ Session::get('status') }}
+			</div>
+		@endif
 				<a href="{{ url('/company/create') }}">
 					<button id="add_company" class="btn btn-primary btn-sm">Dodaj tvrtku</button>
 				</a>
