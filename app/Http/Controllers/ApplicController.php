@@ -105,7 +105,14 @@ class ApplicController extends Controller
 		}
 		else {
 			
-			return view("forms.application_empty", ['user' => $user]);
+			for($i=1; $i<=10; $i++){
+				
+				$activities[$i] = Utilities::activity($i);
+				
+			}
+			
+			
+			return view("forms.application_empty", ['user' => $user, 'activities' => $activities]);
 			
 		}	
 	
@@ -198,7 +205,7 @@ class ApplicController extends Controller
 			
 			return back();
 			
-		}
+		}	
 		
 	}
 	
@@ -208,7 +215,7 @@ class ApplicController extends Controller
 		$this->validate($request, [
 			'academic_year' => 'required',
 			'course' => 'required',
-			'email' => 'required|max:100',
+			'email' => 'required|max:100|email',
 			'residence_town' => 'required|max:100',
 			'residence_county' => 'required|max:100',
 		]);

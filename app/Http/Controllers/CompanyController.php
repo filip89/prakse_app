@@ -10,6 +10,8 @@ use App\Company;
 
 use App\Applic;
 
+use Session;
+
 class CompanyController extends Controller
 {
     //
@@ -70,7 +72,7 @@ class CompanyController extends Controller
             'name' => 'required|max:255',
 			'residence' => 'required|max:255',
 			'email' => 'required|max:255|email',
-			'phone' => 'required|min:6|max:50',
+			'phone' => 'required|min:6|max:20|numeric',
 		]);
 		
 		$company = Company::find($id);
@@ -94,7 +96,7 @@ class CompanyController extends Controller
             'name' => 'required|max:255',
 			'residence' => 'required|max:255',
 			'email' => 'required|max:255|email',
-			'phone' => 'required|min:6|max:50',
+			'phone' => 'required|min:6|max:20|numeric',
 		]);
 		
 		$company = new Company;
@@ -105,7 +107,7 @@ class CompanyController extends Controller
 		Session::flash('status', 'Tvrtka je dodana!');
 		Session::flash('alert_type', 'alert-success');
 		
-		return redirect('company/');
+		return redirect('/company');
 		
 	}
 	
