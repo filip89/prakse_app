@@ -4,6 +4,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+        	@if(Session::has('status'))
+			<div class="alert alert-warning {{ Session::get('alert_type') }} fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ Session::get('status') }}
+		@endif
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<tr>
