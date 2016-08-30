@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 		@if(Session::has('status'))
-			<div class="alert alert-warning {{ Session::get('alert_type') }} fade in">
+			<div class="alert {{ Session::get('alert_type') }} fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				{{ Session::get('status') }}
 			</div>
