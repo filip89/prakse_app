@@ -12,8 +12,15 @@
 					<tr><th>Tvrtka</th>
 						<td>
 						@if(!is_null($user->profile->company)) 
-						<a href="{{ url('/company/profile/' . $user->profile->company->id) }}">{{ $user->profile->company->name }}</a>
+						<a href="{{url('/company/profile/' . $user->profile->company->id)}}">{{ $user->profile->company->name }}</a>
 						@endif 
+						</td>
+					</tr>
+					<tr><th>Mentorira studente:</th>
+						<td>
+						@foreach($internships as $internship) 
+						<a href="{{url('/internship/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a><br/>
+						@endforeach
 						</td>
 					</tr>
 					@if (Auth::user()->id == $user->id || Auth::user()->isAdmin())
