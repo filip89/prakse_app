@@ -42,7 +42,7 @@
                             <label for="email" class="col-md-4 control-label">E-mail:</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="email" value="{{ old('email', $company->email) }}" required>
+                                <input type="email" class="form-control" name="email" value="{{ old('email', $company->email) }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
