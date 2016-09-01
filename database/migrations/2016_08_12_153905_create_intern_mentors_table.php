@@ -17,7 +17,7 @@ class CreateInternMentorsTable extends Migration
 			$table->integer("user_id")->unsigned();
 			$table->string('job_description')->nullable();
 			$table->string('phone')->nullable();
-			$table->integer('company_id')->unsigned();
+			$table->integer('company_id')->unsigned()->nullable();
             $table->timestamps();
         });
 		
