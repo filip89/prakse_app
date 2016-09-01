@@ -30,11 +30,11 @@ class InternshipController extends Controller
     public function index()
     {
 
-        $internships = Internship::orderBy('total_points', 'desc')->get();
+        $internship = Internship::orderBy('total_points', 'desc')->get();
         $academicYear = new Utilities;
 
         return view('internships.index')
-            ->with('internships', $internships)
+            ->with('internships', $internship)
             ->with('academicYear', $academicYear);     
         
     }
@@ -121,6 +121,20 @@ class InternshipController extends Controller
 
         return redirect()->route('internships.index');
         
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+
+        $internship = Internship::find($id)->get();
+        return view('internships.show')
+            ->with('internships', $internship);
     }
 
     /**
