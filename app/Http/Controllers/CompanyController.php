@@ -72,7 +72,7 @@ class CompanyController extends Controller
             'name' => 'required|max:255',
 			'residence' => 'required|max:255',
 			'email' => 'required|max:255|email',
-			'phone' => 'required|min:6|max:20|numeric',
+			'phone' => 'required|numeric',
 		]);
 		
 		$company = Company::find($id);
@@ -96,7 +96,7 @@ class CompanyController extends Controller
             'name' => 'required|max:255',
 			'residence' => 'required|max:255',
 			'email' => 'required|max:255|email',
-			'phone' => 'required|min:6|max:20|numeric',
+			'phone' => 'required|numeric',
 		]);
 		
 		$company = new Company;
