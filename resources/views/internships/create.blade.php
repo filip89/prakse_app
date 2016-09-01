@@ -110,7 +110,7 @@
                             </span>
                         @endif
 
-						{{ Form::label('total_points', 'Ukupno:') }}
+                        {{ Form::label('total_points', 'Ukupno:') }}
 						{{ Form::number('total_points', null, ['class' => 'form-control', 'required', 'step' => 0.01]) }}
 
 						@if ($errors->has('total_points'))

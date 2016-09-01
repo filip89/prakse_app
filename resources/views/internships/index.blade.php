@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
 	<div class="row">
 
 		<div class="col-md-8">
@@ -54,9 +52,16 @@
 
 					<td><a href="{{ route('internships.edit', $internship->id) }}"><button class="btn btn-warning btn-xs">Uredi</button></a></td>
 
-					<td>{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
+					<td>
+					{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
+						<button class="btn btn-primary btn-xs">Prikaži</button>
+					{{ Form::close() }}
+					</td>
+					<td>
+					{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
 						<button class="btn btn-danger btn-xs">Ukloni</button>
-					{{ Form::close() }}</td>
+					{{ Form::close() }}
+					</td>
 					
 					</tr>
 					{{--*/ $count += 1 /*--}}
