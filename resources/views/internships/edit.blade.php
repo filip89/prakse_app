@@ -35,20 +35,11 @@
 	                  		@endif
 
 							{{ Form::label('activity_points', 'Izvannastavne aktivnosti:') }}
-							{{ Form::number('activity_points', null, ['class' => 'form-control', 'required', 'max' => 5, 'min' => 2, 'step' => 0.01]) }}
+							{{ Form::number('activity_points', null, ['class' => 'form-control', 'required', 'max' => 5, 'min' => 1, 'step' => 1]) }}
 
 							@if ($errors->has('activity_points'))
 	                            <span class="help-block">
 	                                <strong>{{ $errors->first('activity_points') }}</strong>
-	                            </span>
-	                        @endif
-
-							{{ Form::label('total_points', 'Ukupno:') }}
-							{{ Form::number('total_points', null, ['class' => 'form-control', 'required', 'step' => 0.01]) }}
-
-							@if ($errors->has('total_points'))
-	                            <span class="help-block">
-	                                <strong>{{ $errors->first('total_points') }}</strong>
 	                            </span>
 	                        @endif
 

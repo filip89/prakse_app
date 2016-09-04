@@ -76,10 +76,10 @@
 					{{ Form::open(array('route' => array('internships.store'), 'method' => 'POST')) }}
 	
 						{{ Form::hidden('student_id', $_GET['student_id']) }}
-
+						
 						{{ Form::label('name', 'Ime:') }}
 						{{ Form::text('name', $_GET['name'], ['class' => 'form-control', 'disabled'] ) }}			
-
+						
 						{{ Form::label('last_name', 'Prezime:') }}
 						{{ Form::text('last_name', $_GET['last_name'], ['class' => 'form-control', 'disabled']) }}
 
@@ -102,20 +102,11 @@
                         @endif
 
 						{{ Form::label('activity_points', 'Izvannastavne aktivnosti:') }}
-						{{ Form::number('activity_points', null, ['class' => 'form-control', 'required', 'max' => 5, 'min' => 2, 'step' => 0.01]) }}
+						{{ Form::number('activity_points', null, ['class' => 'form-control', 'required', 'max' => 5, 'min' => 1, 'step' => 1]) }}
 
 						@if ($errors->has('activity_points'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('activity_points') }}</strong>
-                            </span>
-                        @endif
-
-                        {{ Form::label('total_points', 'Ukupno:') }}
-						{{ Form::number('total_points', null, ['class' => 'form-control', 'required', 'step' => 0.01]) }}
-
-						@if ($errors->has('total_points'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('total_points') }}</strong>
                             </span>
                         @endif
 
@@ -177,18 +168,18 @@
 						{{ Form::number('rating_by_student', null, ['max' => '5', 'min' => '1', 'class' => 'form-control', 'required']) }}
 
 						{{ Form::label('student_comment', 'Komentar studenta:') }}
-						{{ Form::text('student_comment', null, ['class' => 'form-control']) }}
+						{{ Form::textarea('student_comment', null, ['class' => 'form-control', 'rows' => 3]) }}
 
 						{{ Form::label('intern_mentor_comment', 'Komentar mentora:') }}
-						{{ Form::text('intern_mentor_comment', null, ['class' => 'form-control']) }}
+						{{ Form::textarea('intern_mentor_comment', null, ['class' => 'form-control', 'rows' => 3]) }}
 
 						{{ Form::label('college_mentor_comment', 'Komentar mentora iz prakse:') }}
-						{{ Form::text('college_mentor_comment', null, ['class' => 'form-control']) }}
+						{{ Form::textarea('college_mentor_comment', null, ['class' => 'form-control', 'rows' => 3]) }}
 
 						{{ Form::submit('Stvori praksu', ['class' => 'btn btn-primary']) }}
 
 					{{ Form::close() }}
-				
+					
                 </div>
             </div>
         </div>
