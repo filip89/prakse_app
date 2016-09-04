@@ -54,6 +54,9 @@ class InternshipController extends Controller
         $applic = Applic::all();
         $companies= Company::pluck('name', 'id');
         $users = User::where('role', 'college_mentor')->orWhere('role', 'intern_mentor')->get();
+
+        $collegeMentor = array();
+        $internMentor = array();
        
         foreach($users as $user) {    
             if($user->role == 'college_mentor') {
@@ -87,7 +90,6 @@ class InternshipController extends Controller
             'average_bacc_grade' => 'required',
             'average_master_grade' => 'required',
             'activity_points' => 'required',
-            'total_points' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'duration' => 'required',
@@ -104,7 +106,7 @@ class InternshipController extends Controller
         $internship->average_bacc_grade = $request->average_bacc_grade;
         $internship->average_master_grade = $request->average_master_grade;
         $internship->activity_points = $request->activity_points;
-        $internship->total_points = $request->total_points;
+        $internship->total_points = $request->average_bacc_grade + $request->average_master_grade +$request->activity_points;
         $internship->start_date = date('Y-m-d', strtotime($request->start_date));
         $internship->end_date = date('Y-m-d', strtotime($request->end_date));
         $internship->duration = $request->duration;
@@ -119,6 +121,8 @@ class InternshipController extends Controller
         $internship->confirmation_admin = $request->confirmation_admin;
         $internship->save();
 
+        Session::flash('success', 'Praksa uspješno stvorena!');
+
         return redirect()->route('internships.index');
         
     }
@@ -132,7 +136,8 @@ class InternshipController extends Controller
     public function show($id)
     {
 
-        $internship = Internship::find($id)->get();
+        $internship = Internship::where('id', $id)->get();
+
         return view('internships.show')
             ->with('internships', $internship);
     }
@@ -150,6 +155,9 @@ class InternshipController extends Controller
         $internship = Internship::with('college_mentor')->find($id);
         $companies= Company::pluck('name', 'id');
         $users = User::where('role', 'college_mentor')->orWhere('role', 'intern_mentor')->get();
+
+        $collegeMentor = array();
+        $internMentor = array();
        
         foreach($users as $user) {    
             if($user->role == 'college_mentor') {
@@ -180,7 +188,6 @@ class InternshipController extends Controller
             'average_bacc_grade' => 'required',
             'average_master_grade' => 'required',
             'activity_points' => 'required',
-            'total_points' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'duration' => 'required',
@@ -195,7 +202,7 @@ class InternshipController extends Controller
         $internship->average_bacc_grade = $request->average_bacc_grade;
         $internship->average_master_grade = $request->average_master_grade;
         $internship->activity_points = $request->activity_points;
-        $internship->total_points = $request->total_points;
+        $internship->total_points = $request->average_bacc_grade + $request->average_master_grade +$request->activity_points;
         $internship->start_date = date('Y-m-d', strtotime($request->start_date));
         $internship->end_date = date('Y-m-d', strtotime($request->end_date));
         $internship->duration = $request->duration;
