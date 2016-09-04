@@ -80,6 +80,9 @@ class CompanyController extends Controller
 		$company->fill($request->all());
 		$company->save();
 		
+		Session::flash('status', 'Tvrtka je uređena!');
+		Session::flash('alert_type', 'alert-warning');
+		
 		return redirect('company/profile/' . $id);
 		
 	}

@@ -14,6 +14,8 @@ use App\InternMentor;
 
 use App\Company;
 
+use Session;
+
 class UserController extends Controller
 {
 	
@@ -94,7 +96,25 @@ class UserController extends Controller
 		
 		$user = User::find($id);
 		$user->delete();
-		return redirect('/home');
+		
+		Session::flash('status', 'Korisnik je izbrisan!');
+		Session::flash('alert_type', 'alert-danger');
+		
+		if($user->role == "intern_mentor"){
+			
+			return redirect('/user/intern_mentor/list');
+			
+		}
+		elseif($user->role == "college_mentor"){
+			
+			return redirect('/user/college_mentor/list');
+			
+		}
+		elseif($user->role == "student"){
+			
+			return redirect('/user/student/list');
+			
+		}
 		
 	}
 	
@@ -123,6 +143,9 @@ class UserController extends Controller
 		$user->profile->title = $request->title;
 		$user->profile->fields = $request->fields;
 		$user->push();
+		
+		Session::flash('status', 'Korisnik je uređen!');
+		Session::flash('alert_type', 'alert-warning');
 		
 		return redirect("/user/" . $id);
 		
@@ -177,6 +200,9 @@ class UserController extends Controller
 		
 		$user->profile->save();
 		
+		Session::flash('status', 'Korisnik je uređen!');
+		Session::flash('alert_type', 'alert-warning');
+		
 		return redirect("/user/" . $id);
 		
 	}
@@ -217,6 +243,9 @@ class UserController extends Controller
 		$mentor->user()->associate($user);	
 		
 		$mentor->save();
+		
+		Session::flash('status', 'Korisnik je dodan!');
+		Session::flash('alert_type', 'alert-success');
 		
 		return redirect("company/profile/" . $company->id);
 		
