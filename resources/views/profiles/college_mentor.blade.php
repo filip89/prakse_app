@@ -9,6 +9,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
+		@if(Session::has('status'))
+			<div class="alert {{ Session::get('alert_type') }} fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ Session::get('status') }}
+			</div>
+		@endif
 			<div class="panel panel-info">
 				<div class="panel-heading">Profil korisnika</div>
 				<div class="panel-body">
@@ -21,7 +27,7 @@
 							<tr><th>Mentorira studente:</th>
 								<td>
 								@foreach($internships as $internship) 
-								<a href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a><br/>
+								<a class="link_object" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a><br/>
 								@endforeach
 								</td>
 							</tr>		

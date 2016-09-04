@@ -13,6 +13,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
+		@if(Session::has('status'))
+			<div class="alert {{ Session::get('alert_type') }} fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ Session::get('status') }}
+			</div>
+		@endif
 			<div class="panel panel-info">
 				<div class="panel-heading">Profil tvrtke</div>
 				<div class="panel-body">
@@ -25,16 +31,16 @@
 							<tr><th>Mentori:</th>
 								<td>
 								@foreach($company->intern_mentors as $mentor)
-									<a href="{{ url('/user/' . $mentor->user->id) }}">{{$mentor->user->name . ' ' . $mentor->user->last_name}}</a><br/>
+									<a class="link_object" href="{{ url('/user/' . $mentor->user->id) }}">{{$mentor->user->name . ' ' . $mentor->user->last_name}}</a><br/>
 								@endforeach
-								<a href="{{ url('/user/add/internmentor/' . $company->id) }}"><button class="btn btn-primary" id="add_mentor">Dodaj mentora iz tvrtke</button></a><br/>
+								<a type="button"  id="add_mentor" class="btn btn-primary" href="{{ url('/user/add/internmentor/' . $company->id) }}"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj mentora iz tvrtke</a><br/>
 								</td>
 							</tr>
 							<tr><th>Studenti:</th>
 								<td>
 									@foreach($company->internships as $internship)
 										@if($internship->confirmation_student == 1)
-											<a href="{{url('/internship/' . $internship->id)}}">{{$internship->student->name . ' ' . $internship->student->last_name}}</a><br/>
+											<a class="link_object" href="{{url('/internship/' . $internship->id)}}">{{$internship->student->name . ' ' . $internship->student->last_name}}</a><br/>
 										@endif
 									@endforeach
 								</td>
