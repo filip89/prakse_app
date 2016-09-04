@@ -36,57 +36,68 @@
         .fa-btn {
             margin-right: 6px;
         }
-        
-        th {
-		font-size: 16px;
-	}
-	h1 {
-		text-align: center;
-		margin-bottom: 30px;
-	}
-	#add_button {
-		width: 100%;
-		margin-bottom: 20px;
-		font-size: 18px;
-	}
-	.row_buttons a, .row_buttons button{
-		display: inline-block;
-		height: 30px;
-		font-size: 12px;
-	}
-	.row_buttons form {
-		display: inline;
-	}
-	td {
-		width: 20%;
-	}
-	.row_buttons {
-		text-align: right;
-	}
-	a:link {
-		text-decoration: none;
-	}
-	a:visited {
-		text-decoration: none;
-	}
-	a:hover {
-		text-decoration: none;
-	}
-	a:active {
-		text-decoration: none;
-	}
-	
-	.action_buttons form {
-		display: inline;
-	}
-	.action_buttons {
-		display: table;
-		margin: auto;
-	}
-	.profile_table {
-		margin-top: 30px;
-		text-align: center;
-	}
+		.fa-home {
+			font-size: 20px;
+		}
+		.profile_dropdown {
+			font-weight: bold;
+			font-size: 16px;
+		}
+		
+		th {
+			font-size: 16px;
+		}
+		h1 {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+		#add_button {
+			width: 100%;
+			margin-bottom: 20px;
+			font-size: 18px;
+		}
+		.row_buttons a, .row_buttons button{
+			display: inline-block;
+			height: 30px;
+			font-size: 12px;
+		}
+		.row_buttons form {
+			display: inline;
+		}
+		td {
+			width: 20%;
+		}
+		.row_buttons {
+			text-align: right;
+		}
+		a:link {
+			text-decoration: none;
+		}
+		a:visited {
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: none;
+		}
+		a:active {
+			text-decoration: none;
+		}
+		
+		.action_buttons form {
+			display: inline;
+		}
+		.action_buttons {
+			display: table;
+			margin: auto;
+		}
+		.profile_table {
+			margin-top: 30px;
+			text-align: center;
+		}
+		.link_object {
+			font-weight: bold;
+		}
+		
     @yield('style')
     </style>
 </head>
@@ -112,7 +123,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    <li><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
 					@if(!Auth::guest() && Auth::user()->role == "student")
 					<li><a href="{{ url('/myapplic')}}">Prijavi praksu</a></li>
 					@endif
@@ -125,52 +136,36 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @elseif(Auth::user()->role != "student")
-			<li><a href="{{ url('/applic/all') }}">Prijave</a></li>
-			<li><a href="{{ url('/internships') }}">Pregled praksi</a></li>
-			<li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        Tvrtke <span class="caret"></span>
-                        </a>
-							
-                		<ul class="dropdown-menu" role="menu">
-
-					<li><a href="{{ url('/company') }}">Potvrđene</a></li>
-
-					<li><a href="{{  url('/company/wishlist') }}">Željene</a></li>
-
-                        	</ul>
+						<li><a href="{{ url('/applic/all') }}">Prijave</a></li>
+						<li><a href="{{ url('/internships') }}">Prakse</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tvrtke <span class="caret"></span></a>		
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="{{ url('/company') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Potvrđene</a></li>
+									<li><a href="{{  url('/company/wishlist') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Željene</a></li>
+								</ul>
                         </li>
-			<li class="dropdown">
-                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Korisnici <span class="caret"></span>
-                		</a>
-							
-                            	<ul class="dropdown-menu" role="menu">
-
-					<li><a href="{{ url('/user/student/list') }}">Studenti</a></li>
-
-					<li><a href="{{  url('/user/intern_mentor/list') }}">Mentori iz tvrtke</a></li>
-
-                                	<li><a href="{{ url('/user/college_mentor/list') }}">Mentori nastavnici</a></li>
-                            	</ul>
+						<li class="dropdown">
+                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Korisnici <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="{{ url('/user/student/list') }}"><i class="fa fa-btn fa-graduation-cap" aria-hidden="true"></i>Studenti</a></li>
+								<li><a href="{{ url('/user/college_mentor/list') }}"><i class="fa fa-btn fa-university" aria-hidden="true"></i>Mentori nastavnici</a></li>
+								<li><a href="{{  url('/user/intern_mentor/list') }}"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Mentori iz tvrtke</a></li>		
+                            </ul>
                         </li>
-			@endif
-			@if(!Auth::guest())
-                        <li class="dropdown">
-                        	 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        		{{ Auth::user()->name }} <span class="caret"></span>
-                            	</a>
-							
-
-                        	<ul class="dropdown-menu" role="menu">
-					@if(Auth::user()->role != "student")
-					<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
-					@else
-					<li><a href="{{ url('/myapplic') }}"><i class="fa fa-btn fa-user"></i>Prijava prakse</a></li>
 					@endif
+					@if(!Auth::guest())
+                        <li class="dropdown">
+                        	 <a class="profile_dropdown" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+                        	<ul class="dropdown-menu" role="menu">
+							@if(Auth::user()->role != "student")
+								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
+							@else
+								<li><a href="{{ url('/myapplic') }}"><i class="fa fa-btn fa-user"></i>Prijava prakse</a></li>
+							@endif
                         		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            	</ul>
-                        </li>
+                            </ul>
+						</li>
                     @endif
                 </ul>
             </div>
