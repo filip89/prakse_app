@@ -56,6 +56,14 @@
 						</td>
 						
 						
+						<td><a href="{{ route('internships.edit', $internship->id) }}" class="btn btn-warning btn-sm">Uredi</a></td>
+			
+						<td>
+						{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
+							<button class="btn btn-danger btn-sm">Ukloni</button>
+						{{ Form::close() }}
+						</td>
+		
 						</tr>
 						{{--*/ $count += 1 /*--}}
 					@endforeach
