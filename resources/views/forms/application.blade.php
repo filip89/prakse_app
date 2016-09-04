@@ -86,7 +86,7 @@
                             <div class="col-md-6">
 								<select class="form-control" name="academic_year" value="{{ $user->applic->academic_year }}" required/>
 									@if($user->applic->academic_year == 0)
-										<option selected disabled hidden style='display: none' value=''></option>
+										<option selected disabled hidden style='display: none'></option>
 									@endif
 									@if($user->applic->academic_year == 1)
 										<option selected value="1">1. godina preddiplomskog</option>
@@ -106,7 +106,7 @@
 									@if($user->applic->academic_year == 4)
 										<option selected value="4">1. godina diplomskog</option>
 									@else
-										<option value="4">1. godina diplomskog</option>
+										<option value="4">2. godina diplomskog</option>
 									@endif
 									@if($user->applic->academic_year == 5)
 										<option selected value="5">2. godina diplomskog</option>
@@ -291,9 +291,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-sign-in"></i> Spremi
                                 </button>
-								<a href="{{ url('/cancelapply') }}">
-									<button class="btn btn-default">Povratak</button>		
-								</a>
+								<a type="button" class="btn btn-default" href="{{ URL::previous() }}">Povratak<a>
                             </div>
                         </div>
 						

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+            <div class="panel panel-success">
                 <div class="panel-heading">Registracija mentora iz tvrtke</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/user/add/internmentor') }}">
@@ -116,6 +116,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-user"></i> Registriraj
                                 </button>
+								<a type="button" class="btn btn-default" href="{{ URL::previous() }}">Povratak<a>
                             </div>
                         </div>
                     </form>

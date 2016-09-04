@@ -99,7 +99,7 @@ textarea {
 
                             <div class="col-md-6">
 								<select class="form-control" name="academic_year" required/>
-									<option selected disabled hidden style='display: none' value=''></option>
+									<option selected disabled hidden style='display: none'></option>
 									<option value="1">1. godina prediplomskog</option>
 									<option value="2">2. godina prediplomskog</option>
 									<option value="3">3. godina prediplomskog</option>
