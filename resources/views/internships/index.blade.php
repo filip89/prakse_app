@@ -8,13 +8,13 @@
 
 			@if (session('success'))
 				<div class="flash-message">
-			    <div class="alert alert-success alert-dismissable fade in" style="margin-left: 50%;">
+			    <div class="alert alert-success alert-dismissable fade in">
 			    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
 			    </button>{{ Session::get('success') }}</div></div>
 			@endif	
 
-			<h1 style="margin-left: 70%;">Prakse</h1>
-			<table class="table" style="margin: auto 25%;">
+			<h1>Prakse</h1>
+			<table class="table">
 				<thead>
 					<tr>
 						<th>Rang</th>
