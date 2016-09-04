@@ -27,7 +27,7 @@
 						@foreach($companies as $company)	
 						<tr>
 							<td>
-							{{$company->name}}
+							<a href="{{ url('/company/profile/' . $company->id) }}">{{ $company->name }}</a>
 							</td>
 							<td>
 							{{$company->residence}}
