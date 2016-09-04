@@ -202,20 +202,20 @@ class UserController extends Controller
 			'company' => 'required'
 		]);
 		
-		$user = User::create([
-			'name' => $request->name,
-			'last_name' => $request->last_name,
-            'email' => $request->email,
-			'role' => $request->role,
-            'password' => bcrypt($request->password),
-        ]);
-		
-		$mentor = InternMentor::create([
-			'user_id' => $user->id,
-        ]);
+		$user = new User;
+		$user->name = $request->name;
+		$user->last_name = $request->last_name;
+		$user->email = $request->email;
+		$user->role = $request->role;
+		$user->password = bcrypt($request->password);
+		$user->save();
 		
 		$company = Company::find($request->company);
+		
+		$mentor = new InternMentor;
 		$mentor->company()->associate($company);
+		$mentor->user()->associate($user);	
+		
 		$mentor->save();
 		
 		return redirect("company/profile/" . $company->id);
