@@ -36,6 +36,57 @@
         .fa-btn {
             margin-right: 6px;
         }
+        
+        th {
+		font-size: 16px;
+	}
+	h1 {
+		text-align: center;
+		margin-bottom: 30px;
+	}
+	#add_button {
+		width: 100%;
+		margin-bottom: 20px;
+		font-size: 18px;
+	}
+	.row_buttons a, .row_buttons button{
+		display: inline-block;
+		height: 30px;
+		font-size: 12px;
+	}
+	.row_buttons form {
+		display: inline;
+	}
+	td {
+		width: 20%;
+	}
+	.row_buttons {
+		text-align: right;
+	}
+	a:link {
+		text-decoration: none;
+	}
+	a:visited {
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: none;
+	}
+	a:active {
+		text-decoration: none;
+	}
+	
+	.action_buttons form {
+		display: inline;
+	}
+	.action_buttons {
+		display: table;
+		margin: auto;
+	}
+	.profile_table {
+		margin-top: 30px;
+		text-align: center;
+	}
     @yield('style')
     </style>
 </head>
