@@ -65,20 +65,5 @@ Route::get('company/edit/{id}', 'CompanyController@editForm');
 Route::post('company/edit/{id}', 'CompanyController@edit');
 Route::post('company/delete/{id}', 'CompanyController@delete');
 
-Route::get('/cancelapply', function(){
-	
-	if(Auth::user()->isAdmin()){
-		
-		return redirect('/applic/all');
-		
-	}
-	else {
-		
-		return redirect('/myapplic');
-		
-	}
-
-});
-
 //pregled praksi
 Route::resource('internships', "InternshipController");
