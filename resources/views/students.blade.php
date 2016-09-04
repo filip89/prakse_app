@@ -5,6 +5,12 @@
     <div class="row">
         <div class="col-md-12">
 			<h1>Studenti</h1>
+			@if(Session::has('status'))
+			<div class="alert {{ Session::get('alert_type') }} fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ Session::get('status') }}
+			</div>
+			@endif
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<tr>
@@ -22,7 +28,7 @@
 						<td>{{ $user->name . " " . $user->last_name }}</td>
 						<td>
 						@if(isset($user->internship->company))
-							<a href="{{ url('/company/profile/' . $user->internship->company->id) }}">{{ $user->internship->company->name }}</a></td>
+							<a class="link_object" href="{{ url('/company/profile/' . $user->internship->company->id) }}">{{ $user->internship->company->name }}</a></td>
 						@endif
 						<td>{{$user->created_at->format('d-m-Y')}}</td>
 						<td class="row_buttons">

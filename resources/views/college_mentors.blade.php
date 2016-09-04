@@ -5,6 +5,12 @@
     <div class="row">
         <div class="col-md-12">
 			<h1>Mentori nastavnici</h1>
+			@if(Session::has('status'))
+			<div class="alert {{ Session::get('alert_type') }} fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ Session::get('status') }}
+			</div>
+			@endif
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<tr>
@@ -19,7 +25,7 @@
 							@continue
 						@endif
 					<tr>
-						<td><a href="{{ url('user/'. $user->id) }}">{{ $user->name . " " . $user->last_name }}</td>
+						<td><a class="link_object" href="{{ url('user/'. $user->id) }}">{{ $user->name . " " . $user->last_name }}</td>
 						<td>{{ Utilities::course($user->profile->fields) }}</td>
 						<td>{{ $user->created_at->format('d-m-Y') }}</td>
 						<td class="row_buttons">

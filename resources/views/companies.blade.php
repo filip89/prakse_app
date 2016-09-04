@@ -7,15 +7,15 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
 			<h1>Popis tvrtki</h1>
         	@if(Session::has('status'))
 			<div class="alert {{ Session::get('alert_type') }} fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				{{ Session::get('status') }}
 			</div>
-		@endif
-				<a id="add_button" class="btn btn-primary" type="button" href="{{ url('/company/create') }}">Dodaj tvrtku</a>
+			@endif
+				<a id="add_button" class="btn btn-primary" type="button" href="{{ url('/company/create') }}"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj tvrtku</a>
 				<div class="table-responsive">
 					<table class="table table-striped">
 						<tr>
@@ -27,13 +27,13 @@
 						@foreach($companies as $company)	
 						<tr>
 							<td>
-							<a href="{{ url('/company/profile/' . $company->id) }}">{{ $company->name }}</a>
+							<a class="link_object" href="{{ url('/company/profile/' . $company->id) }}">{{ $company->name }}</a>
 							</td>
 							<td>
-							{{$company->residence}}
+							{{ $company->residence }}
 							</td>
 							<td>
-							{{$company->created_at->format('d-m-Y')}}
+							{{ $company->created_at->format('d-m-Y') }}
 							</td>
 							<td class="row_buttons">
 								<a type="button" class="btn btn-info btn-sm" href="{{ url('/company/profile/' . $company->id) }}">Profil</a>
