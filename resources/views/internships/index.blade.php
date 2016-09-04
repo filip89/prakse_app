@@ -1,17 +1,5 @@
 @extends('layouts.app')
 
-@section('style')
-th {
-	font-size: 16px;
-}
-table, th {
-	text-align: center;
-}
-h1 {
-	margin-left: 70%;
-}
-@endsection
-
 @section('content')
 
 	<div class="row">
