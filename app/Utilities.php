@@ -12,7 +12,7 @@ class Utilities
 	
 	private static $desired_months = array(6 => 'Lipanj', 7 => 'Srpanj', 8 => 'Kolovoz', 9 => 'Rujan');
 	
-	private static $activities = array('a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10');
+	private static $activities = array('Članstvo u studentskoj i/ili civilnim udrugama; rad u studentskoj organizaciji koja je registrirana ili upisana u upisnik studentskih organizacija.', 'Studentsko predstavljanje u sveučilišnim ili drugim tijelima relevantnim za sustav znanosti i visokog obrazovanja (Senat, Studentsko zbor, Smotra).', 'Rad na znanstvenom projektu; izlaganje na znanstvenom i/ili stručnom skupu; uređivanje studentskih, znanstvenih ili stručnih časopisa (glavni urednik, tajnik/tajnica, članovi uredništva).', 'Izlaganje ili sudjelovanje u organizaciji ljetnih škola, znanstvenih i/ili stručnih skupova.', 'Seminari/radionice (organizacija/sudjelovanje).', 'Sudjelovanje u Erasmus programu i/ili rd u inozemstvu tijekom studija.', 'Rad preko studentskog centra.', 'Demonstratura tijekom preddiplomskog i/ili diplomskog studija.', 'Rektorova i/ili dekanova nagrada.', 'Sudjelovanje u studentskim natjecanjima i ostvareno jedno od prva tri mjesta.');
 	
 	public static function academicYear($year){
 		
