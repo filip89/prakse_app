@@ -49,15 +49,22 @@ class ApplicController extends Controller
 	
 	public function myApplic(){
 		
-		if(!isset(Auth::user()->applic)){
+		$user = Auth::user();
+		
+		if(count($user->applics) == 0){
 			
 			return redirect('/apply');
-			
+	
 		}
-		
-		$user = Auth::user();
-		$applic = $user->applic;
-		$activities = $user->applic->activities;
+		if(count($user->applics()->where("status", ">", 0)->get()) == 0){
+				
+				return redirect('/apply');
+				
+		}
+
+		$applic = $user->applics()->where("status", "<>", 0)->first();
+
+		$activities = $applic->activities;
 		
 		return view('myapplic', ['applic' => $applic, 'user' => $user, 'activities' => $activities]);
 		
@@ -77,14 +84,14 @@ class ApplicController extends Controller
 			
 		}
 		
-		if(isset($user->applic)){
+		if($applic = $user->applics()->where("status", "=", 1)->first()){
 			
 			$activities = array(array('name' => '', 'checked' => '','year' => '','description' => ''));
 			
 			for($i=1; $i<=10; $i++){
 				
-				if($user->applic->activities->where('number', $i)->first() !== null){
-					$activity = $user->applic->activities->where('number', $i)->first();
+				if($applic->activities->where('number', $i)->first() !== null){
+					$activity = $applic->activities->where('number', $i)->first();
 					$checked = 'checked';
 					$year = $activity->year;
 					$description = $activity->description;
@@ -100,7 +107,7 @@ class ApplicController extends Controller
 								
 			}
 			
-			return view("forms.application", ['user' => $user, 'activities' => $activities]);
+			return view("forms.application", ['user' => $user, 'applic' => $applic, 'activities' => $activities]);
 			
 		}
 		else {
@@ -196,7 +203,7 @@ class ApplicController extends Controller
 		
 		$user = User::find($id);
 		
-		if($applic = $user->applic){
+		if($applic = $user->applics()->where("status", "=", 1)->first()){
 			
 			$applic->delete();
 		
