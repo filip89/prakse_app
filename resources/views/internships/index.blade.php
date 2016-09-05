@@ -1,21 +1,26 @@
 @extends('layouts.app')
 
+<style>
+td {
+	width: 0 !important;
+}
+</style>
+
 @section('content')
-
+<div class="container">
 	<div class="row">
-
-		<div class="col-md-8">
+		<div class="col-md-12">
 
 			@if (session('success'))
 				<div class="flash-message">
-			    <div class="alert alert-success alert-dismissable fade in" style="margin-left: 50%;">
+			    <div class="alert alert-success alert-dismissable fade in" style="width: 50%; margin-left: 25%;">
 			    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
 			    </button>{{ Session::get('success') }}</div></div>
 			@endif	
 
-			<h1 style="">Prakse</h1>
+			<h1>Prakse</h1>
 
-			<div class="table-responsive" style="margin-left: 25%; width: 100%;">
+			<div class="table-responsive">
 
 				<table class="table table-striped">
 
@@ -29,7 +34,8 @@
 							<th>Ime</th>
 							<th>Prezime</th>
 							<th>Akademska godina</th>
-							<th>Tvrtka</th>						
+							<th>Tvrtka</th>	
+							<th></th>					
 						</tr>
 					</thead>
 
@@ -45,23 +51,20 @@
 							<td>{{ $internship->total_points }}</td>
 							<td>{{ $internship->student['name']}}</td>
 							<td>{{ $internship->student['last_name']}}</td>
-							<td>{{ $academicYear->academicYear($internship->academic_year + 1) }}</td>
+							<td>{{ $academicYear->academicYear($internship->academic_year) }}</td>
 							<td>{{ $internship->company['name']}}</td>
 
 						
-						<td>
-						{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
-							<button class="btn btn-primary btn-sm">Prikaži</button>
-						{{ Form::close() }}
-						</td>
-						
-						
-						<td><a href="{{ route('internships.edit', $internship->id) }}" class="btn btn-warning btn-sm">Uredi</a></td>
-			
-						<td>
-						{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
-							<button class="btn btn-danger btn-sm">Ukloni</button>
-						{{ Form::close() }}
+						<td class="row_buttons">
+							{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
+								<button class="btn btn-primary btn-sm">Prikaži</button>
+							{{ Form::close() }}
+																			
+							<a href="{{ route('internships.edit', $internship->id) }}" class="btn btn-warning btn-sm">Uredi</a>
+											
+							{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
+								<button class="btn btn-danger btn-sm">Ukloni</button>
+							{{ Form::close() }}
 						</td>
 		
 						</tr>
@@ -71,9 +74,7 @@
 					</tbody>
 
 				</table>
-
 		</div>
-
 	</div>
-
+</div>
 @endsection
