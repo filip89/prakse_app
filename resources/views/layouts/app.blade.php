@@ -97,7 +97,16 @@
 		.link_object {
 			font-weight: bold;
 		}
-		
+		.panel-heading {
+			font-size: 16px;
+			font-weight: bold;
+		}
+		.panel th{
+			font-weight: normal;
+		}
+		.panel td{
+			font-weight: bold;
+		}
     @yield('style')
     </style>
 </head>
@@ -125,7 +134,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
 					@if(!Auth::guest() && Auth::user()->role == "student")
-					<li><a href="{{ url('/myapplic')}}">Prijavi praksu</a></li>
+					<li><a href="{{ url('/myapplic')}}"><b>Prijava prakse</b></a></li>
 					@endif
                 </ul>
 
