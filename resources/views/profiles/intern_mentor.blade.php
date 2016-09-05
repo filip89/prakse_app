@@ -18,7 +18,7 @@ table {
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
+        <div class="col-md-6 col-md-offset-3">
 			@if(Session::has('status'))
 			<div class="alert {{ Session::get('alert_type') }} fade in">
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -26,7 +26,7 @@ table {
 			</div>
 			@endif
 			<div class="panel panel-info">
-				<div class="panel-heading">Profil korisnika</div>
+				<div class="panel-heading"><i class="fa fa-btn fa-user" aria-hidden="true"></i>Profil korisnika</div>
 				<div class="panel-body">
 					<div class="table-responsive">
 						<table class="table">

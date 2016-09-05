@@ -12,7 +12,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
+        <div class="col-md-6 col-md-offset-3">
 		@if(Session::has('status'))
 			<div class="alert {{ Session::get('alert_type') }} fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -20,7 +20,7 @@
 			</div>
 		@endif
 			<div class="panel panel-info">
-				<div class="panel-heading">Profil tvrtke</div>
+				<div class="panel-heading"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Profil tvrtke</div>
 				<div class="panel-body">
 					<div class="table-responsive">
 						<table class="table profile_table">
