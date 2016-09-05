@@ -3,15 +3,15 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-warning">
-                <div class="panel-heading">Uredi profil</div>
+                <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Uredi profil</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/user/' . $user->id . '/editcollege') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail adresa</label>
+                            <label for="email" class="col-md-4 control-label">E-Mail adresa:</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}" required>
@@ -25,7 +25,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Ime</label>
+                            <label for="name" class="col-md-4 control-label">Ime:</label>
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="name" value="{{ $user->name }}" required>
@@ -39,7 +39,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label for="last_name" class="col-md-4 control-label">Prezime</label>
+                            <label for="last_name" class="col-md-4 control-label">Prezime:</label>
 
                             <div class="col-md-6">
                                 <input type="txt" class="form-control" name="last_name" value="{{ $user->last_name }}" required>
@@ -53,7 +53,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                            <label for="title" class="col-md-4 control-label">Titula</label>
+                            <label for="title" class="col-md-4 control-label">Titula:</label>
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="title" value="{{ $user->profile->title }}">
@@ -67,7 +67,7 @@
                         </div>
 						
 						<div class="form-group">
-                            <label class="col-md-4 control-label">Područje mentoriranja</label>
+                            <label class="col-md-4 control-label">Područje mentoriranja:</label>
 
                             <div class="col-md-6">
 								<select class="form-control" name="fields" />

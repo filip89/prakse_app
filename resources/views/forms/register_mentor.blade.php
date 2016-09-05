@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-success">
-                <div class="panel-heading">Registracija mentora iz tvrtke</div>
+                <div class="panel-heading"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Registracija mentora iz tvrtke</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/user/add/internmentor') }}">
                         {{ csrf_field() }}

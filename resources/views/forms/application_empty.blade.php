@@ -17,8 +17,8 @@ textarea {
 				{{ Session::get('status') }}
 			</div>
 		@endif
-            <div class="panel panel-default">
-                <div class="panel-heading">Prijava prakse</div>
+            <div class="panel panel-success">
+                <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/apply/' . $user->id ) }}">
                         {{ csrf_field() }}

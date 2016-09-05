@@ -1,11 +1,15 @@
 @extends('layouts.app')
 
+@section('style')
+
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Prijava prakse</div>
+            <div class="panel panel-warning">
+                <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/applic/' . $user->id . '/edit') }}">
                         {{ csrf_field() }}
@@ -267,9 +271,9 @@
                             <div class="col-md-6">
 							@for($i=1; $i<=10; $i++)
 											<div>
-												<label><input type="checkbox" {{$activities[$i]['checked']}} name="activities[{{$i}}]">{{$activities[$i]['name']}}</label>
+												<label class="activity_label"><input type="checkbox" {{$activities[$i]['checked']}} name="activities[{{$i}}]"> {{$activities[$i]['name']}}</label>
 											</div>
-											<div>
+											<div class="activity_inputs">
 											<div class="form-group">
 												<label class="col-md-2 col-sm-2 control-label" for="year_{{$i}}">Godina: </label>
 												<div class="col-md-10 col-sm-10">
@@ -282,7 +286,7 @@
 													<textarea type="text" name="description_{{$i}}" maxlength="5000" class="form-control">{{$activities[$i]['description']}}</textarea>
 												</div>
 											</div>
-										</div>
+											</div>
 							@endfor
                         </div>
 
@@ -301,4 +305,9 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+</script>
 @endsection
