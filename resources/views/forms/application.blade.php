@@ -46,7 +46,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail adresa</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $user->applic->email }}" required/>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ $applic->email }}" required/>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -60,7 +60,7 @@
                             <label for="residence_town" class="col-md-4 control-label">Mjesto prebivališta</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="residence_town" value="{{ $user->applic->residence_town }}" required/>
+                                <input type="text" class="form-control" name="residence_town" value="{{ $applic->residence_town }}" required/>
 
                                 @if ($errors->has('residence_town'))
                                     <span class="help-block">
@@ -75,7 +75,7 @@
 							
                             <div class="col-md-6">
 							
-                                <input type="text" class="form-control" name="residence_county" value="{{ $user->applic->residence_county }}" required/>
+                                <input type="text" class="form-control" name="residence_county" value="{{ $applic->residence_county }}" required/>
 
                                 @if ($errors->has('residence_county'))
                                     <span class="help-block">
@@ -88,31 +88,31 @@
 						<div class="form-group{{ $errors->has('academic_year') ? ' has-error' : '' }}">
                             <label for="academic_year" class="col-md-4 control-label">Godina studija</label>
                             <div class="col-md-6">
-								<select class="form-control" name="academic_year" value="{{ $user->applic->academic_year }}" required/>
-									@if($user->applic->academic_year == 0)
+								<select class="form-control" name="academic_year" value="{{ $applic->academic_year }}" required/>
+									@if($applic->academic_year == 0)
 										<option selected disabled hidden style='display: none'></option>
 									@endif
-									@if($user->applic->academic_year == 1)
+									@if($applic->academic_year == 1)
 										<option selected value="1">1. godina preddiplomskog</option>
 									@else
 										<option value="1">1. godina preddiplomskog</option>
 									@endif
-									@if($user->applic->academic_year == 2)
+									@if($applic->academic_year == 2)
 										<option selected value="2">2. godina preddiplomskog</option>
 									@else
 										<option value="2">2. godina preddiplomskog</option>
 									@endif
-									@if($user->applic->academic_year == 3)
+									@if($applic->academic_year == 3)
 										<option selected value="3">3. godina preddiplomskog</option>
 									@else
 										<option value="3">3. godina preddiplomskog</option>
 									@endif
-									@if($user->applic->academic_year == 4)
+									@if($applic->academic_year == 4)
 										<option selected value="4">1. godina diplomskog</option>
 									@else
 										<option value="4">2. godina diplomskog</option>
 									@endif
-									@if($user->applic->academic_year == 5)
+									@if($applic->academic_year == 5)
 										<option selected value="5">2. godina diplomskog</option>
 									@else
 										<option value="5">1. godina diplomskog</option>
@@ -132,30 +132,30 @@
 
                             <div class="col-md-6">
 								<select class="form-control" name="course" required/>
-									@if($user->applic->course == null)
+									@if($applic->course == null)
 										<option selected disabled hidden style='display: none' value=''></option>
 									@endif
-									@if($user->applic->course == 1)
+									@if($applic->course == 1)
 										<option selected value="1">Financijski menadžment</option>
 									@else
 										<option value="1">Financijski menadžment</option>
 									@endif
-									@if($user->applic->course == 2)
+									@if($applic->course == 2)
 										<option selected value="2">Marketing</option>
 									@else
 										<option value="2">Marketing</option>
 									@endif
-									@if($user->applic->course == 3)
+									@if($applic->course == 3)
 										<option selected value="3">Menadžemnt</option>
 									@else
 										<option value="3">Menadžemnt</option>
 									@endif
-									@if($user->applic->course == 4)
+									@if($applic->course == 4)
 										<option selected value="4">Poduzetništvo</option>
 									@else
 										<option value="4">Poduzetništvo</option>
 									@endif
-									@if($user->applic->course == 5)
+									@if($applic->course == 5)
 										<option selected value="5">Poslovna informatika</option>
 									@else
 										<option value="5">Poslovna informatika</option>
@@ -174,7 +174,7 @@
                             <label for="average_bacc_grade" class="col-md-4 control-label">Prosjek na preddiplomskom</label>
 
                             <div class="col-md-6">
-                                <input type="number" max="5" step="0.01" min="0" class="form-control" name="average_bacc_grade" value="{{ $user->applic->average_bacc_grade }}" />
+                                <input type="number" max="5" step="0.01" min="0" class="form-control" name="average_bacc_grade" value="{{ $applic->average_bacc_grade }}" />
 
                                 @if ($errors->has('average_bacc_grade'))
                                     <span class="help-block">
@@ -188,7 +188,7 @@
                             <label for="average_master_grade" class="col-md-4 control-label">Prosjek na diplomskom</label>
 
                             <div class="col-md-6">
-                                <input type="number" step="0.01" min="0" max="5" step="0.01" class="form-control" name="average_master_grade" value="{{ $user->applic->average_master_grade }}"/>
+                                <input type="number" step="0.01" min="0" max="5" step="0.01" class="form-control" name="average_master_grade" value="{{ $applic->average_master_grade }}"/>
 
                                 @if ($errors->has('average_master_grade'))
                                     <span class="help-block">
@@ -202,7 +202,7 @@
                             <label for="internship_town" class="col-md-4 control-label">Grad za odrađivanje prakse</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="internship_town" value="{{ $user->applic->internship_town }}" />
+                                <input type="text" class="form-control" name="internship_town" value="{{ $applic->internship_town }}" />
 
                                 @if ($errors->has('internship_town'))
                                     <span class="help-block">
@@ -216,7 +216,7 @@
                             <label for="desired_company" class="col-md-4 control-label">Željena tvrtka (navesti maximalno 5)</label>
 
                             <div class="col-md-6">
-                                <textarea type="text" class="form-control" name="desired_company" style="resize:vertical;max-height:200px" >{{ $user->applic->desired_company }}</textarea>
+                                <textarea type="text" class="form-control" name="desired_company" style="resize:vertical;max-height:200px" >{{ $applic->desired_company }}</textarea>
 
                                 @if ($errors->has('desired_company'))
                                     <span class="help-block">
@@ -231,25 +231,25 @@
 
                             <div class="col-md-6">
 								<select class="form-control" name="desired_month" />
-									@if($user->applic->desired_month == null)
+									@if($applic->desired_month == null)
 										<option selected disabled hidden style='display: none' value=''></option>
 									@endif
-									@if($user->applic->desired_month == 6)
+									@if($applic->desired_month == 6)
 										<option selected value="6">Lipanj</option>
 									@else
 										<option value="6">Lipanj</option>
 									@endif
-									@if($user->applic->desired_month == 7)
+									@if($applic->desired_month == 7)
 										<option selected value="7">Srpanj</option>
 									@else
 										<option value="7">Srpanj</option>
 									@endif
-									@if($user->applic->desired_month == 8)
+									@if($applic->desired_month == 8)
 										<option selected value="8">Kolovoz</option>
 									@else
 										<option value="8">Kolovoz</option>
 									@endif
-									@if($user->applic->desired_month == 9)
+									@if($applic->desired_month == 9)
 										<option selected value="9">Rujan</option>
 									@else
 										<option value="9">Rujan</option>
