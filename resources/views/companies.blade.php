@@ -21,6 +21,7 @@
 						<tr>
 							<th>Tvrtka</th>
 							<th>Sjedište</th>
+							<th>Broj praksi</th>
 							<th>Datum stvaranja</th>
 							<th></th>
 						</tr>
@@ -30,7 +31,10 @@
 							<a class="link_object" href="{{ url('/company/profile/' . $company->id) }}">{{ $company->name }}</a>
 							</td>
 							<td>
-							{{ $company->residence }}
+								{{ $company->residence }}
+							</td>
+							<td>
+								{{ count($company->internships)}}
 							</td>
 							<td>
 							{{ $company->created_at->format('d-m-Y') }}

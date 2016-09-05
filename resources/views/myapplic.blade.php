@@ -35,7 +35,6 @@
 			</div>
 		@endif
 			<p>* Vaša prijava je zaprimljena i nalazi se u našoj bazi. Prijavu možete otkazati ili promijeniti podatke sve dok traje natječaj.</p>
-		
 			<div class="action_buttons">
 				<a href="{{ url('/apply') }}"><button class="btn btn-warning">Uredi</button></a>
 				<form action="{{ url('applic/'. Auth::user()->id . '/delete') }}" method="POST">
@@ -47,11 +46,11 @@
 				<tr><th colspan="2" class="table_section">Osobni podaci</th></tr>
 				<tr><th>Ime:</th><td>{{ $user->name }}</td></tr>
 				<tr><th>Prezime</th><td>{{ $user->last_name }}</td></tr>
-				<tr><th>E-mail</th><td>{{ $user->applic->email }}</td></tr>
+				<tr><th>E-mail</th><td>{{ $applic->email }}</td></tr>
 				<tr><th>Mjesto prebivališta:</th><td>{{ $applic->residence_town }}</td></tr>
 				<tr><th>Županija prebivališta:</th><td>{{ $applic->residence_county }}</td></tr>
 				<tr><th colspan="2" class="table_section">Akademski podaci</th></tr>
-				<tr><th>Godina studija:</th><td>{{ Utilities::academicYear($user->applic->academic_year) }}</td></tr>
+				<tr><th>Godina studija:</th><td>{{ Utilities::academicYear($applic->academic_year) }}</td></tr>
 				<tr><th>Smjer:</th><td>{{ Utilities::course($applic->course) }}</td></tr>
 				<tr><th>Prosjek na preddiplomskom:</th><td>{{ $applic->average_bacc_grade }}</td></tr>
 				<tr><th>Prosjek na diplomskom:</th><td>{{ $applic->average_master_grade }}</td></tr>
