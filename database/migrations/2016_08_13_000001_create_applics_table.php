@@ -25,6 +25,7 @@ class CreateApplicsTable extends Migration
 		$table->string("residence_town", 100);
 		$table->string("residence_county", 100);
 		$table->string("internship_town", 100)->nullable();
+		$table->integer("status")->unsigned()->default(1);
        		$table->timestamps();
         });
 		
