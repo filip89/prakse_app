@@ -4,7 +4,7 @@
 	form {
 		display: inline;
 	}
-	table:nth-of-type(1) .table_section {
+	.table_section {
 		text-decoration: underline;
 		font-size: 16px;
 		padding: 10px;
@@ -18,6 +18,10 @@
 		display: table;
 		margin: auto;
 	}
+	.activity_info div:last-child{
+		word-wrap: break-word;
+	}
+	
 @endsection
 
 @section('content')
@@ -56,10 +60,13 @@
 				<tr><th>Željene tvrtke:</th><td>{{ $applic->desired_company }}</td></tr>
 				<tr><th>Željeni mjesec za odrađivanje prakse:</th><td>{{ Utilities::desiredMonth($applic->desired_month) or "" }}</td></tr>
 				<tr><th colspan="2" class="table_section">Aktivnosti</th></tr>
-				@foreach($activities as $activity)
-				<tr class="activity"><td colspan="2"><b>{{ Utilities::activity($activity->number) }}</b></td></tr>
-				<tr><td>{{ $activity->description }}</td><td>{{ $activity->year }}</td></tr>
-				@endforeach
+				<tr>
+					<td colspan="2">
+					@foreach($activities as $activity)
+						<b><i class="fa fa-btn fa-check-square-o" aria-hidden="true"></i>{{ Utilities::activity($activity->number) }}</b><br/>
+					@endforeach
+					</td>
+				</tr>
 			</table>
         </div>
     </div>
@@ -67,5 +74,7 @@
 @endsection
 
 @section('script')
-
+$(document).on("click", ".activity_name", function(){
+	
+});
 @endsection
