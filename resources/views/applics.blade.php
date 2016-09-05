@@ -40,7 +40,7 @@
 							{{ Form::hidden('name', $applic->student->name) }}
 							{{ Form::hidden('last_name', $applic->student->last_name) }}
 							{{ Form::hidden('student_id', $applic->student->id) }}
-							{{ Form::submit('Pogledaj prijavu', ['class' => 'btn btn-info btn-sm']) }}
+							{{ Form::submit('Prikaži', ['class' => 'btn btn-info btn-sm']) }}
 						{{ Form::close() }}
 						
 						{{ Form::open(array('url' => '/applic/'.$applic->student->id.'/delete', 'method' => 'POST')) }}
