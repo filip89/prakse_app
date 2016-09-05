@@ -191,14 +191,14 @@ class UserController extends Controller
 		$user->last_name = $request->last_name;
 		$user->profile->job_description = $request->job_description;
 		$user->profile->phone = $request->phone;
-		$user->push();
+		
 		
 		if(Auth::user()->isAdmin()){
 			$company = Company::find($request->company);
 			$user->profile->company()->associate($company);
 		}
 		
-		$user->profile->save();
+		$user->push();
 		
 		Session::flash('status', 'Korisnik je uređen!');
 		Session::flash('alert_type', 'alert-warning');
