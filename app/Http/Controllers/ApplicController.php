@@ -229,7 +229,7 @@ class ApplicController extends Controller
 		
 		$user = User::find($id);
 		
-		$applic = $user->applic;
+		$applic = $user->applics()->where("status", "=", 1)->first();
 		
 		$applic->academic_year = $request->academic_year;
 		$applic->course = $request->course;
