@@ -27,14 +27,14 @@
 					<tr>
 						<td>{{ $user->name . " " . $user->last_name }}</td>
 						<td>
-						@if(isset($user->internship->company))
-							<a class="link_object" href="{{ url('/company/profile/' . $user->internship->company->id) }}">{{ $user->internship->company->name }}</a></td>
+						@if(count($user->internships()->where('status', 1)->get()) == 1)
+							<a class="link_object" href="{{ url('/company/profile/' . $user->internships()->where('status', 1)->first()->company->id) }}">{{ $user->internships()->where('status', 1)->first()->company->name }}</a></td>
 						@endif
 						<td>{{$user->created_at->format('d-m-Y')}}</td>
 						<td class="row_buttons">
-						@if(isset($user->internship))
-							<a class="btn btn-primary btn-sm" type="button" href="{{ url('/internships/'. $user->internship->id) }}">Pogledaj praksu</a>
-						@elseif(isset($user->applic))
+						@if(count($user->internships()->where('status', 1)->get()) == 1)
+							<a class="btn btn-primary btn-sm" type="button" href="{{ url('/internships/'. $user->internships()->where('status', 1)->first()->id) }}">Pogledaj praksu</a>
+						@elseif(count($user->applics()->where('status', 1)->get()) == 1)
 							<a class="btn btn-info btn-sm" type="button" href="{{ url('/apply/'. $user->id) }}">Pogledaj prijavu</a>
 						@endif
 						@if (Auth::user()->isAdmin())	
