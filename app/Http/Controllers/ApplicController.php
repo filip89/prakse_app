@@ -41,7 +41,7 @@ class ApplicController extends Controller
 	
 	public function index() {
 		
-		$applics = Applic::orderBy('created_at', 'asc')->get();
+		$applics = Applic::where('status', 1)->orderBy('created_at', 'asc')->get();
 		
 		return view('applics', ['applics' => $applics]);
 		
