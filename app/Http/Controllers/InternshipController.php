@@ -12,6 +12,7 @@ use App\User;
 use App\Applic;
 use App\InternMentor;
 use App\CollegeMentor;
+use App\Activity;
 use App\Utilities;
 
 class InternshipController extends Controller
@@ -50,9 +51,11 @@ class InternshipController extends Controller
         $academicYear = new Utilities;
         $course = new Utilities;
         $month = new Utilities;
+        $activity = new Utilities;
 
         $applic = Applic::all();
-        $companies= Company::pluck('name', 'id');      
+        $companies= Company::all(); 
+        $activities = Activity::all();     
         $collegeMentor = User::where('role', 'college_mentor')->get();
         $internMentor = User::where('role', 'intern_mentor')->get();
 
@@ -63,7 +66,9 @@ class InternshipController extends Controller
             ->with('internMentor', $internMentor)
             ->with('academicYear', $academicYear)
             ->with('course', $course)
-            ->with('month', $month);
+            ->with('month', $month)
+            ->with('activities', $activities)
+            ->with('activity', $activity);
     }
 
     /**
@@ -75,20 +80,25 @@ class InternshipController extends Controller
     public function store(Request $request)
     {
 
-
         $this->validate($request, [          
-            'average_bacc_grade' => 'required',
-            'average_master_grade' => 'required',
+            'average_bacc_grade' => 'required|min:2|max:5',
+            'average_master_grade' => 'required|min:2|max:5',
             'activity_points' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'duration' => 'required',
-            'year' => 'required|integer|between:1990,2200',
-            'rating_by_student' => 'required|min:1|max:5',         
+            'duration' => 'required|integer|between:1,90',
+            'year' => 'required|integer|between:1990,9999',
+            'rating_by_student' => 'required|min:1|max:5',          
         ]);
 
          
         $internship = new Internship;
+        $applic = Applic::where('student_id', $request->student_id)->first();
+
+        if(count($applic) != 0) {
+            $applic->status = 2;
+            $applic->save();  
+        }    
 
         $internship->student_id = $request->student_id;
         $internship->company_id = $request->company_id;
@@ -143,7 +153,7 @@ class InternshipController extends Controller
     {
 
         $internship = Internship::find($id);
-        $companies= Company::pluck('name', 'id');
+        $companies= Company::all();
         $collegeMentor = User::where('role', 'college_mentor')->get();
         $internMentor = User::where('role', 'intern_mentor')->get();
 
@@ -165,13 +175,13 @@ class InternshipController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [       
-            'average_bacc_grade' => 'required',
-            'average_master_grade' => 'required',
+            'average_bacc_grade' => 'required|min:2|max:5',
+            'average_master_grade' => 'required|min:2|max:5',
             'activity_points' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'duration' => 'required',
-            'year' => 'required|integer|between:1990,2200',
+            'duration' => 'required|integer|between:1,90',
+            'year' => 'required|integer|between:1990,9999',
             'rating_by_student' => 'required|min:1|max:5',   
         ]);
 
@@ -211,11 +221,18 @@ class InternshipController extends Controller
     public function destroy($id)
     {
         $internship = Internship::find($id);
+        $applic = Applic::where('student_id', $internship->student_id)->first();
 
+        if(count($applic) != 0) {
+            $applic->status = 1;
+            $applic->save();  
+        }
+        
         $internship->delete();
 
         Session::flash('success', 'Praksa uspješno obrisana!');
 
         return redirect()->route('internships.index');
     }
+
 }
