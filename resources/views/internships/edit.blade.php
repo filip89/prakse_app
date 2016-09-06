@@ -5,8 +5,8 @@
 <div class="container">
     <div class="row">
 	    <div class="col-md-8 col-md-offset-2">
-	        <div class="panel panel-default">
-	            <div class="panel-heading">Prijava prakse</div>
+	        <div class="panel panel-warning">
+	            <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Uređivanje prakse</div>
 	                <div class="panel-body"> 
 						
                         {{ Form::open(array('route' => array('internships.update', $internship->id), 'method' => 'PUT', 'class' => 'form-horizontal')) }}                     
@@ -110,6 +110,29 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Tvrtka</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" name="company_id"/>
+                                    <option selected value=''></option>
+                                    @foreach($companies as $elem)
+
+                                        <option value="{{ $elem->id }}"
+                                        @if($elem->id == $internship->company_id) {{ 'selected' }} @endif>
+                                        {{ $elem->name }}</option>
+                                        
+                                    @endforeach                                            
+                                    
+                                </select>
+
+                                @if ($errors->has('company_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('company_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 						
 						<div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
                             <label for="start_date" class="col-md-4 control-label">Datum početka</label>

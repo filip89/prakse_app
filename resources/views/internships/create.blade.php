@@ -1,76 +1,102 @@
 @extends('layouts.app')
 
 @section('content')
-
+<style>
+td {
+    text-align: center;
+}
+</style>
 <div class="container">
-    <div class="col-md-4">
+    <div class="col-md-5">
 	
 		<h3>Podaci o studentu:</h3>                 
 
 		@foreach($applic as $app)
 			@if($app->student['id'] == $_GET['student_id'])
 
-				<table class="table">
-					<tr>
-						<td>Akademska godina</td>
-						<td>{{ $academicYear->academicYear($app->academic_year) }}</td>
-					</tr>
+				<div class="table-responsive">
+                    <table class="table table-striped">
+                    <tbody>
+    					<tr>
+    						<th>Akademska godina</th>
+    						<td  colspan="2">{{ $academicYear->academicYear($app->academic_year) }}</td>
+    					</tr>
 
-					<tr>
-						<td>Smjer</td>
-						<td>{{ $course->course($app->course) }}</td>
-					</tr>
+    					<tr>
+    						<th>Smjer</th></td>
+    						<td  colspan="2">{{ $course->course($app->course) }}</td>
+    					</tr>
 
-					<tr>
-						<td>E-mail</td>
-						<td>{{ $app->email }}</td>
-					</tr>
+    					<tr>
+    						<th>E-mail</th></td>
+    						<td  colspan="2">{{ $app->email }}</td>
+    					</tr>
 
-					<tr>
-						<td>Prosjek ocjena (preddipl.)</td>
-						<td>{{ $app->average_bacc_grade }}</td>
-					</tr>
+    					<tr>
+    						<th>Prosjek ocjena (preddipl.)</th>   						
+                            <td  colspan="2">{{ $app->average_bacc_grade }}</td>
+    					</tr>
 
-					<tr>
-						<td>Prosjek ocjena (dipl.)</td>
-						<td>{{ $app->average_master_grade }}</td>
-					</tr>
+    					<tr>
+    						<th>Prosjek ocjena (dipl.)</th>
+    						<td  colspan="2">{{ $app->average_master_grade }}</td>
+    					</tr>
 
-					<tr>
-						<td>Tvrtka</td>
-						<td>{{ $app->desired_company }}</td>
-					</tr>
+    					<tr>
+    						<th>Tvrtka</th>
+    						<td  colspan="2">{{ $app->desired_company }}</td>
+    					</tr>
 
-					<tr>
-						<td>Željeni mjesec obavljanja prakse</td>
-						<td>{{ $month->desiredMonth($app->desired_month) }}</td>
-					</tr>
+    					<tr>
+    						<th>Željeni mjesec obavljanja prakse</th>
+    						<td  colspan="2">{{ $month->desiredMonth($app->desired_month) }}</td>
+    					</tr>
 
-					<tr>
-						<td>Mjesto prebivališta</td>
-						<td>{{ $app->residence_town }}</td>
-					</tr>
+    					<tr>
+    						<th>Mjesto prebivališta</th>
+    						<td  colspan="2">{{ $app->residence_town }}</td>
+    					</tr>
 
-					<tr>
-						<td>Županija prebivališta</td>
-						<td>{{ $app->residence_county }}</td>
-					</tr>
+    					<tr>
+    						<th>Županija prebivališta</th>
+    						<td  colspan="2">{{ $app->residence_county }}</td>
+    					</tr>
 
-					<tr>
-						<td>Grad obavljanja prakse</td>
-						<td>{{ $app->internship_town }}</td>
-					</tr>
+    					<tr>
+    						<th>Grad obavljanja prakse</th>
+    						<td  colspan="2">{{ $app->internship_town }}</td>
+    					</tr>
 
-				</table>
+                       
+                        {{--*/ $count = 1 /*--}}
+                            
+                        @foreach($activities as $act)
+                            @if($act->applic_id == $app->id)
+                            <tr>
+                                @if($count == 1)
+                                    <th>Izvannastavne aktivnosti</th>
+                                @else
+                                    <th></th>
+                                @endif
+                                <td colspan="2">{{ $activity->activity($act->number) }}</td>
+                                {{--*/ $count += 1 /*--}}  
+                            </tr>                                   
+                            @endif
+                        @endforeach                                  
+                        
+                            
+                        </tbody>
+    				</table>
+                </div>
 
 			@endif
 		@endforeach
 
 		</div>
 
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">Prijava prakse</div>
+        <div class="col-md-7">
+            <div class="panel panel-success">
+                <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</div>
                 <div class="panel-body">  
 			
 					<form class="form-horizontal" role="form" method="POST" action="{{ route('internships.store') }}">
@@ -161,8 +187,27 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
+                        </div>                     
 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Tvrtka</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" name="company_id"/>
+                                    <option selected value=''></option>
+                                    @foreach($companies as $elem)
+                                        <option value="{{ $elem->id }}">{{ $elem->name }}</option>                                      
+                                    @endforeach                                            
+                                    
+                                </select>
+
+                                @if ($errors->has('company_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('company_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>                                     
 						
 						<div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
                             <label for="start_date" class="col-md-4 control-label">Datum početka</label>
@@ -196,7 +241,7 @@
                             <label for="duration" class="col-md-4 control-label">Trajanje</label>
 
                             <div class="col-md-6">
-                                <input type="number" step="0.01" min="0" max="60" class="form-control" name="duration"/>
+                                <input type="number" step="1" min="1" max="90" class="form-control" name="duration"/>
 
                                 @if ($errors->has('duration'))
                                     <span class="help-block">
@@ -210,7 +255,7 @@
                             <label for="year" class="col-md-4 control-label">Godina</label>
 
                             <div class="col-md-6">
-                                <input type="number" min="1990" max="2200" class="form-control" name="year"/>
+                                <input type="number" min="1990" max="9999" class="form-control" name="year"/>
 
                                 @if ($errors->has('year'))
                                     <span class="help-block">
@@ -288,7 +333,7 @@
                             <label for="student_comment" class="col-md-4 control-label">Komentar studenta</label>
 
                             <div class="col-md-6">
-                                <input type="textarea" rows="3" class="form-control" name="student_comment"/>
+                                <textarea rows="4" class="form-control" name="student_comment"></textarea>
 
                                 @if ($errors->has('student_comment'))
                                     <span class="help-block">
@@ -302,7 +347,7 @@
                             <label for="intern_mentor_comment" class="col-md-4 control-label">Komentar mentora iz prakse</label>
 
                             <div class="col-md-6">
-                                <input type="textarea" rows="3"  class="form-control" name="intern_mentor_comment"/>
+                                <textarea rows="4"  class="form-control" name="intern_mentor_comment"></textarea>
 
                                 @if ($errors->has('intern_mentor_comment'))
                                     <span class="help-block">
@@ -316,7 +361,7 @@
                             <label for="college_mentor_comment" class="col-md-4 control-label">Komentar mentora nastavnika</label>
 
                             <div class="col-md-6">
-                                <input type="textarea" rows="3"  class="form-control" name="college_mentor_comment"/>
+                                <textarea rows="4"  class="form-control" name="college_mentor_comment"></textarea>
 
                                 @if ($errors->has('college_mentor_comment'))
                                     <span class="help-block">

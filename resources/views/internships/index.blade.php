@@ -20,6 +20,10 @@ td {
 
 			<h1>Prakse</h1>
 
+			@if(count($internships) < 1)
+				<h3 style="text-align:center;color:gray;">Ne postoji niti jedna praksa.</h3>
+			@else
+			
 			<div class="table-responsive">
 
 				<table class="table table-striped">
@@ -63,7 +67,7 @@ td {
 							<a href="{{ route('internships.edit', $internship->id) }}" class="btn btn-warning btn-sm">Uredi</a>
 											
 							{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
-								<button class="btn btn-danger btn-sm">Ukloni</button>
+								<button class="btn btn-danger btn-sm delete">Ukloni</button>
 							{{ Form::close() }}
 						</td>
 		
@@ -74,7 +78,19 @@ td {
 					</tbody>
 
 				</table>
+			</div>
+			@endif
 		</div>
 	</div>
-</div>
+</div>	
+@endsection
+
+@section('script')
+<script>
+	$(document).on("click", ".delete", function(){
+		if(confirm('Želite obrisati prijavu?')){
+		$(this).closest('form').submit();
+		}	
+	});
+</script>
 @endsection
