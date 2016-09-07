@@ -18,6 +18,7 @@
 				<a id="add_button" class="btn btn-primary" type="button" href="{{ url('/company/create') }}"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj tvrtku</a>
 				<div class="table-responsive">
 					<table class="table table-striped">
+					<thead>
 						<tr>
 							<th>Tvrtka</th>
 							<th>Sjedište</th>
@@ -25,6 +26,8 @@
 							<th>Datum stvaranja</th>
 							<th></th>
 						</tr>
+					</thead>
+					<tbody>
 						@foreach($companies as $company)	
 						<tr>
 							<td>
@@ -49,7 +52,7 @@
 							</td>
 						</tr>
 						@endforeach
-					
+					</thead>
 					</table>
 				</div>
         </div>

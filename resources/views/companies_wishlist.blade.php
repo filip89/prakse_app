@@ -19,17 +19,20 @@
 				<h3 style="text-align:center;color:gray;">Ne postoji niti jedna prijava sa željenim tvrtkama.</h3>
 			@else
 			<div class="table-responsive">
-				<table class="table">
+				<table class="table table-striped">
+				<thead>
 					<tr>
 						<th>Željene tvrtke</th>
 						<th>Student</th>	
 						<th>Datum prijave</th>
 					</tr>
+				</thead>
+				<tbody>
 						@foreach($applics as $applic)	
-						@if(isset($applic->student->internship))
+						@if($applic->status == 2)
 						<tr class="hasInternship">
 							<td>
-								{{ $applic->desired_company }}
+								<b>{{ $applic->desired_company }}</b>
 							</td>
 							<td>							
 								{{$applic->student->name . " " . $applic->student->last_name}} <i class="fa fa-check-circle" aria-hidden="true"></i>
@@ -52,7 +55,7 @@
 						</tr>
 						@endif
 						@endforeach
-					
+					</tbody>
 					</table>
 				</div>
 			@endif

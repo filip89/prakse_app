@@ -13,13 +13,15 @@
 			@endif
 			<div class="table-responsive">
 				<table class="table table-striped">
+				<thead>
 					<tr>
 						<th>Ime i prezime</th>
 						<th>Područje</th>
 						<th>Datum registracije</th>
 						<th></th>
 					</tr>
-					
+				</thead>
+				<tbody>
 					@foreach ($users as $user)
 						@if(Auth::user() == $user)
 							@continue
@@ -41,7 +43,7 @@
 						
 					</tr>
 					@endforeach
-					
+				</tbody>	
 				</table>
 			</div>
         </div>

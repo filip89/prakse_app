@@ -18,13 +18,15 @@
 			<a href="{{ url('/user/add/internmentor') }}"><button id="add_button" class="btn btn-primary btn-sm"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj mentora</button></a>
 			<div class="table-responsive">
 				<table class="table table-striped">
+				<thead>
 					<tr>
 						<th>Ime i prezime</th>
 						<th>Tvrtka</th>
 						<th>Datum registracije</th>
 						<th></th>
 					</tr>
-					
+				</thead>
+				<tbody>				
 					@foreach ($users as $user)
 						@if(Auth::user() == $user)
 							@continue
@@ -47,7 +49,7 @@
 						
 					</tr>
 					@endforeach
-					
+				</tbody>
 				</table>
 			</div>
         </div>

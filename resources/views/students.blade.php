@@ -13,13 +13,15 @@
 			@endif
 			<div class="table-responsive">
 				<table class="table table-striped">
+				<thead>
 					<tr>
 						<th>Ime i prezime</th>
 						<th>Tvrtka</th>
 						<th>Datum registracije</th>		
 						<th></th>
 					</tr>
-					
+				</thead>
+				<tbody>
 					@foreach ($users as $user)
 						@if(Auth::user() == $user)
 							@continue
@@ -33,9 +35,9 @@
 						<td>{{$user->created_at->format('d-m-Y')}}</td>
 						<td class="row_buttons">
 						@if(count($user->internships()->where('status', 1)->get()) == 1)
-							<a class="btn btn-primary btn-sm" type="button" href="{{ url('/internships/'. $user->internships()->where('status', 1)->first()->id) }}">Pogledaj praksu</a>
+							<a class="btn btn-info btn-sm" type="button" href="{{ url('/internships/'. $user->internships()->where('status', 1)->first()->id) }}">Prikaži praksu</a>
 						@elseif(count($user->applics()->where('status', 1)->get()) == 1)
-							<a class="btn btn-info btn-sm" type="button" href="{{ url('/apply/'. $user->id) }}">Pogledaj prijavu</a>
+							<a class="btn btn-primary btn-sm" type="button" href="{{ url('/apply/'. $user->id) }}">Izradi praksu</a>
 						@endif
 						@if (Auth::user()->isAdmin())	
 							<form action="{{ url('/user/'. $user->id . '/delete') }}" method="POST">
@@ -46,7 +48,7 @@
 						@endif
 					</tr>
 					@endforeach
-					
+				</tbody>	
 				</table>
 			</div>
         </div>

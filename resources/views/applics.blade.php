@@ -16,13 +16,15 @@
 			@endif
 			<div class="table-responsive">
 				<table class="table table-striped">
+				<thead>
 					<tr>
 						<th>Student</th>
 						<th>Vrijeme prijave</th>
 						<th>Godina studija</th>
 						<th></th>
 					</tr>
-					
+				</thead>
+				<tbody>
 					@foreach($applics as $applic)	
 					<tr>
 						<td>
@@ -40,7 +42,7 @@
 							{{ Form::hidden('name', $applic->student->name) }}
 							{{ Form::hidden('last_name', $applic->student->last_name) }}
 							{{ Form::hidden('student_id', $applic->student->id) }}
-							{{ Form::submit('Prikaži', ['class' => 'btn btn-info btn-sm']) }}
+							{{ Form::submit('Izradi praksu', ['class' => 'btn btn-primary btn-sm']) }}
 						{{ Form::close() }}
 						
 						{{ Form::open(array('url' => '/applic/'.$applic->student->id.'/delete', 'method' => 'POST')) }}
@@ -51,7 +53,7 @@
 
 					</tr>
 					@endforeach
-					
+				</tbody>
 				</table>
 			</div>
 			@endif
