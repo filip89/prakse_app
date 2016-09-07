@@ -33,7 +33,7 @@ class CompanyController extends Controller
 	
 	public function wishlist(){
 		
-		$applics = Applic::where('desired_company', '!=', "")->get();
+		$applics = Applic::where('status', '<>', 0)->where('desired_company', '!=', "")->get();
 		
 		return view('companies_wishlist', ['applics' => $applics]);
 		
