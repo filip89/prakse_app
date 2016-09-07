@@ -81,14 +81,11 @@ class InternshipController extends Controller
     {
 
         $this->validate($request, [          
-            'average_bacc_grade' => 'required|min:2|max:5',
-            'average_master_grade' => 'required|min:2|max:5',
-            'activity_points' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'duration' => 'required|integer|between:1,90',
-            'year' => 'required|integer|between:1990,9999',
-            'rating_by_student' => 'required|min:1|max:5',          
+            'average_bacc_grade' => 'required|numeric|between:2,5',
+            'average_master_grade' => 'required|numeric|between:2,5',
+            'activity_points' => 'required|integer|between:1,5',  
+            'duration' => 'integer|between:1,90',
+            'year' => 'integer|between:1990,9999',         
         ]);
 
          
@@ -175,14 +172,11 @@ class InternshipController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [       
-            'average_bacc_grade' => 'required|min:2|max:5',
-            'average_master_grade' => 'required|min:2|max:5',
-            'activity_points' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'duration' => 'required|integer|between:1,90',
-            'year' => 'required|integer|between:1990,9999',
-            'rating_by_student' => 'required|min:1|max:5',   
+            'average_bacc_grade' => 'required|numeric|between:2,5',
+            'average_master_grade' => 'required|numeric|between:2,5',
+            'activity_points' => 'required|integer|between:1,5',  
+            'duration' => 'integer|between:1,90',
+            'year' => 'integer|between:1990,9999', 
         ]);
 
         $internship = Internship::find($id);
