@@ -138,7 +138,7 @@
                             <label for="start_date" class="col-md-4 control-label">Datum početka</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control datepicker" name="start_date" value="{{ old('start_date', date('d M, Y', strtotime($internship->start_date))) }}" required/>
+                                <input type="text" class="form-control datepicker" name="start_date" value="{{ old('start_date', date('d M, Y', strtotime($internship->start_date))) }}"/>
 
                                 @if ($errors->has('start_date'))
                                     <span class="help-block">
@@ -152,7 +152,7 @@
                             <label for="end_date" class="col-md-4 control-label">Datum završetka</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control datepicker" name="end_date" value="{{ old('end_date', date('d M, Y', strtotime($internship->end_date))) }}" required/>
+                                <input type="text" class="form-control datepicker" name="end_date" value="{{ old('end_date', date('d M, Y', strtotime($internship->end_date))) }}"/>
 
                                 @if ($errors->has('end_date'))
                                     <span class="help-block">
@@ -196,7 +196,7 @@
                             <label for="college_mentor_id" class="col-md-4 control-label">Mentor nastavnik</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="college_mentor_id" required/>                             	
+                                <select class="form-control" name="college_mentor_id"/>                             	
 									@foreach($collegeMentor as $elem)
 
 										<option value="{{ $elem->id }}"
@@ -221,7 +221,7 @@
                             <label for="intern_mentor_id" class="col-md-4 control-label">Mentor iz prakse</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="intern_mentor_id" required/>                               	
+                                <select class="form-control" name="intern_mentor_id"/>                               	
 									@foreach($internMentor as $elem)
 
 										<option value="{{ $elem->id }}"

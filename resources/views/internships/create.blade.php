@@ -68,6 +68,15 @@ td {
     					</tr>
 
                        
+                        <tr>
+                            <th>Izvannastavne aktivnosti</th>
+                        </tr>
+
+                        <tr>
+                            <th>Godina</th>
+                            <td>Opis aktivnosti</td>
+                        </tr>
+
                         {{--*/ $count = 1 /*--}}
                             
                         @foreach($activities as $act)
@@ -213,7 +222,7 @@ td {
                             <label for="start_date" class="col-md-4 control-label">Datum početka</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control datepicker" name="start_date" required/>
+                                <input type="text" class="form-control datepicker" name="start_date"/>
 
                                 @if ($errors->has('start_date'))
                                     <span class="help-block">
@@ -227,7 +236,7 @@ td {
                             <label for="end_date" class="col-md-4 control-label">Datum završetka</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control datepicker" name="end_date" required/>
+                                <input type="text" class="form-control datepicker" name="end_date"/>
 
                                 @if ($errors->has('end_date'))
                                     <span class="help-block">
@@ -272,7 +281,7 @@ td {
                             <label for="college_mentor_id" class="col-md-4 control-label">Mentor nastavnik</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="college_mentor_id" required/>
+                                <select class="form-control" name="college_mentor_id"/>
                                 	<option selected disabled hidden style='display: none' value=''></option>
 									@foreach($collegeMentor as $elem)
 										<option value="{{ $elem->id }}">{{ $elem->name.' '.$elem->last_name }}</option>
@@ -297,7 +306,7 @@ td {
                             <label for="intern_mentor_id" class="col-md-4 control-label">Mentor iz prakse</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="intern_mentor_id" required/>
+                                <select class="form-control" name="intern_mentor_id"/>
                                 	<option selected disabled hidden style='display: none' value=''></option>
 									@foreach($internMentor as $elem)
 										<option value="{{ $elem->id }}">{{ $elem->name.' '.$elem->last_name }}</option>
@@ -319,7 +328,7 @@ td {
                             <label for="rating_by_student" class="col-md-4 control-label">Studentova ocjena prakse</label>
 
                             <div class="col-md-6">
-                                <input type="number" min="1" max="5" class="form-control" name="rating_by_student"/>
+                                <input type="number" min="1" max="5" class="form-control" name="rating_by_student" value=null/>
 
                                 @if ($errors->has('rating_by_student'))
                                     <span class="help-block">
