@@ -26,7 +26,7 @@ table {
 			</div>
 			@endif
 			<div class="panel panel-info">
-				<div class="panel-heading"><i class="fa fa-btn fa-user" aria-hidden="true"></i>Profil korisnika</div>
+				<div class="panel-heading"><i class="fa fa-btn fa-user" aria-hidden="true"></i>Mentor iz tvrtke</div>
 				<div class="panel-body">
 					<div class="table-responsive">
 						<table class="table">

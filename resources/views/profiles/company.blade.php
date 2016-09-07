@@ -20,7 +20,7 @@
 			</div>
 		@endif
 			<div class="panel panel-info">
-				<div class="panel-heading"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Profil tvrtke</div>
+				<div class="panel-heading"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Tvrtke</div>
 				<div class="panel-body">
 					<div class="table-responsive">
 						<table class="table profile_table">
