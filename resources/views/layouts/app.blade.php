@@ -107,6 +107,12 @@
 		.panel td{
 			font-weight: bold;
 		}
+		.alert {
+			width: 250px;
+			margin: auto;
+			text-align: center;
+			margin-bottom: 20px;
+		}
     @yield('style')
     </style>
 </head>
