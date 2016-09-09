@@ -63,7 +63,7 @@
 							<a href="{{ route('internships.edit', $internship->id) }}" class="btn btn-warning btn-sm">Uredi</a>
 											
 							{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
-								<button class="btn btn-danger btn-sm delete">Ukloni</button>
+								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
 							{{ Form::close() }}
 						</td>
 		
@@ -83,12 +83,3 @@
 </div>	
 @endsection
 
-@section('script')
-<script>
-	$(document).on("click", ".delete", function(){
-		if(confirm('Želite obrisati prijavu?')){
-		$(this).closest('form').submit();
-		}	
-	});
-</script>
-@endsection
