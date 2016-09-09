@@ -41,7 +41,7 @@ class CreateInternshipsTable extends Migration
 			$table->foreign("student_id")->references("id")->on("users")->onDelete("cascade");
 			$table->foreign("intern_mentor_id")->references("id")->on("users")->onDelete("set null");
 			$table->foreign("college_mentor_id")->references("id")->on("users")->onDelete("set null");
-			$table->foreign("company_id")->references("id")->on("companies")->onDelete("cascade");
+			$table->foreign("company_id")->references("id")->on("companies")->onDelete("set null");
 		});
 		
 		
