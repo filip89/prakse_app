@@ -219,18 +219,18 @@ textarea {
                             <div class="col-md-6">
 								@foreach($activities as $key => $activity)
 										<div>
-											<label><input type="checkbox" name="activities[{{$key}}]">{{ $activity }}</label>
+											<label class="activity_label"><input type="checkbox" name="activities[{{$key}}]">{{ $activity }}</label>
 										</div>
 										<div>
 											<div class="form-group">
-												<label class="col-md-2 col-sm-2 control-label" for="year_{{$key}}">Godina: </label>
-												<div class="col-md-10 col-sm-10">
-													<input name="year_{{$key}}" max="9999" min="1900" type="number" class="form-control">
+												<label class="col-md-3 col-sm-2 control-label" for="year_{{$key}}">Razdoblje: </label>
+												<div class="col-md-9 col-sm-10">
+													<input name="year_{{$key}}" type="text" class="form-control">
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="col-md-2 col-sm-2 control-label" for="description_{{$key}}">Opis: </label>
-												<div class="col-md-10 col-sm-10">
+												<label class="col-md-3 col-sm-2 control-label" for="description_{{$key}}">Opis: </label>
+												<div class="col-md-9 col-sm-10">
 													<textarea type="text" name="description_{{$key}}" maxlength="5000" class="form-control"></textarea>
 												</div>
 											</div>

@@ -275,14 +275,14 @@
 											</div>
 											<div class="activity_inputs">
 											<div class="form-group">
-												<label class="col-md-2 col-sm-2 control-label" for="year_{{$i}}">Godina: </label>
-												<div class="col-md-10 col-sm-10">
-													<input name="year_{{$i}}" min="1900" max="9999" type="number" class="form-control" value="{{$activities[$i]['year']}}">
+												<label class="col-md-3 col-sm-2 control-label" for="year_{{$i}}">Razdoblje: </label>
+												<div class="col-md-9 col-sm-10">
+													<input name="year_{{$i}}" type="text" class="form-control" value="{{$activities[$i]['year']}}">
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="col-md-2 col-sm-2 control-label" for="description_{{$i}}">Opis: </label>
-												<div class="col-md-10 col-sm-10">
+												<label class="col-md-3 col-sm-2 control-label" for="description_{{$i}}">Opis: </label>
+												<div class="col-md-9 col-sm-10">
 													<textarea type="text" name="description_{{$i}}" maxlength="5000" class="form-control">{{$activities[$i]['description']}}</textarea>
 												</div>
 											</div>
