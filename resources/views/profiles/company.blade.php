@@ -51,7 +51,7 @@
 						<a href="{{ url('/company/edit/' . $company->id) }}"><button class="btn btn-warning" >Uredi</button></a>	
 						<form action="{{ url('/company/delete/' . $company->id) }}" method="POST">
 							{{ csrf_field() }}
-							<button class="btn btn-danger delete" >Ukloni</button>
+							<button type="button" class="btn btn-danger delete" >Ukloni</button>
 						</form>
 					</div>
 				</div>

@@ -36,7 +36,7 @@
 						<a href="{{ url('user/'. $user->id . '/editcollege') }}"><button class="btn btn-warning" >Uredi</button></a>	
 						<form action="{{ url('user/'. $user->id . '/delete') }}" method="POST">
 							{{ csrf_field() }}
-							<button class="btn btn-danger" >Ukloni</button>
+							<button type="button" class="btn btn-danger delete" >Ukloni</button>
 						</form>
 					</div>
 					</div>
