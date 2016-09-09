@@ -12,7 +12,7 @@ td {
 		<h3>Podaci o studentu:</h3>                 
 
 		@foreach($applic as $app)
-			@if($app->student['id'] == $_GET['student_id'])
+			@if($app->id == $_GET['applic_id'])
 
 				<div class="table-responsive">
                     <table class="table table-striped">
@@ -67,16 +67,7 @@ td {
     						<td  colspan="2">{{ $app->internship_town }}</td>
     					</tr>
 
-                       
-                        <tr>
-                            <th>Izvannastavne aktivnosti</th>
-                        </tr>
-
-                        <tr>
-                            <th>Godina</th>
-                            <td>Opis aktivnosti</td>
-                        </tr>
-
+                                                    
                         {{--*/ $count = 1 /*--}}
                             
                         @foreach($activities as $act)
@@ -111,7 +102,9 @@ td {
 					<form class="form-horizontal" role="form" method="POST" action="{{ route('internships.store') }}">
                         {{ csrf_field() }}
 
-                        <input type="hidden" name="student_id" value="{{ $_GET['student_id'] }}">         
+                        <input type="hidden" name="student_id" value="{{ $_GET['student_id'] }}"> 
+
+                        <input type="hidden" name="applic_id" value="{{ $_GET['applic_id'] }}"> 
                            
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -198,25 +191,7 @@ td {
                             </div>
                         </div>                     
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Tvrtka</label>
-
-                            <div class="col-md-6">
-                                <select class="form-control" name="company_id"/>
-                                    <option selected value=''></option>
-                                    @foreach($companies as $elem)
-                                        <option value="{{ $elem->id }}">{{ $elem->name }}</option>                                      
-                                    @endforeach                                            
-                                    
-                                </select>
-
-                                @if ($errors->has('company_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('company_id') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>                                     
+                                                            
 						
 						<div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
                             <label for="start_date" class="col-md-4 control-label">Datum početka</label>

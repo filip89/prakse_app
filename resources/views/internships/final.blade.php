@@ -4,7 +4,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-
+			
 			@if (session('success'))
 				<div class="flash-message">
 			    <div class="alert alert-success alert-dismissable fade in" style="width: 50%; margin-left: 25%;">
@@ -12,34 +12,36 @@
 			    </button>{{ Session::get('success') }}</div></div>
 			@endif	
 
-			<h1>Prakse</h1>
-
-			@if(count($internships) < 1)
-				<h3 style="text-align:center;color:gray;">Ne postoji niti jedna praksa.</h3>
-			@else
+			<h1>Konačne prakse</h1>			
 			
-			<div class="table-responsive">
+				@if(count($internships) < 1)
+					<h3 style="text-align:center;color:gray;">Ne postoji niti jedna praksa.</h3>
+				@else
+				
+				<div class="table-responsive">
 
-				<table class="table table-striped">
+					<table class="table table-striped">
 
-					<thead>
-						<tr>
-							<th>Rang</th>
-							<th>Prosjek preddipl.</th>
-							<th>Prosjek dipl.</th>
-							<th>Izvannast. akt.</th>
-							<th>Ukupno</th>
-							<th>Ime</th>
-							<th>Prezime</th>
-							<th>Akademska godina</th>
-							<th>Tvrtka</th>	
-							<th></th>					
-						</tr>
-					</thead>
+						<thead>
+							<tr>
+								<th>Rang</th>
+								<th>Prosjek preddipl.</th>
+								<th>Prosjek dipl.</th>
+								<th>Izvannast. akt.</th>
+								<th>Ukupno</th>
+								<th>Ime</th>
+								<th>Prezime</th>
+								<th>Akademska godina</th>
+								<th>Tvrtka</th>	
+								<th></th>					
+							</tr>
+						</thead>
 
-					<tbody>	
-					{{--*/ $count = '' /*--}}
-					@foreach($internships as $internship)
+						{{--*/ $count = '' /*--}}
+
+						@foreach($internships as $internship)
+
+						<tbody>	
 						
 						<tr>					
 							<td>{{ $count+1 }}</td>
@@ -66,14 +68,16 @@
 						</td>
 		
 						</tr>
-						{{--*/ $count += 1 /*--}}
-					@endforeach
+						{{--*/ $count += 1 /*--}}			
 
-					</tbody>
+						</tbody>
 
-				</table>
-			</div>
-			@endif
+						@endforeach	
+
+					</table>
+				</div>
+
+				@endif
 		</div>
 	</div>
 </div>	
