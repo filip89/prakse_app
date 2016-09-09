@@ -42,6 +42,7 @@
 							{{ Form::hidden('name', $applic->student->name) }}
 							{{ Form::hidden('last_name', $applic->student->last_name) }}
 							{{ Form::hidden('student_id', $applic->student->id) }}
+							{{ Form::hidden('applic_id', $applic->id) }}
 							{{ Form::submit('Izradi praksu', ['class' => 'btn btn-primary btn-sm']) }}
 						{{ Form::close() }}
 						
