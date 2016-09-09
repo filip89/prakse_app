@@ -69,6 +69,7 @@
 		}
 		.row_buttons {
 			text-align: right;
+			min-width: 200px;
 		}
 		a:link {
 			text-decoration: none;
@@ -152,7 +153,13 @@
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @elseif(Auth::user()->role != "student")
 						<li><a href="{{ url('/applic/all') }}">Prijave</a></li>
-						<li><a href="{{ url('/internships') }}">Prakse</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prakse <span class="caret"></span></a>		
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="{{ url('/internships') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Prijavljene prakse</a></li>
+									<li><a href="{{  url('/internships/showFinal') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Konačne prakse</a></li>
+								</ul>
+                        </li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tvrtke <span class="caret"></span></a>		
 								<ul class="dropdown-menu" role="menu">
