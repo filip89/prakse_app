@@ -83,7 +83,7 @@ class InternshipController extends Controller
         $this->validate($request, [          
             'average_bacc_grade' => 'required|numeric|between:2,5',
             'average_master_grade' => 'required|numeric|between:2,5',
-            'activity_points' => 'required|integer|between:1,5',  
+            'activity_points' => 'required|integer|between:0,5',  
             'duration' => 'integer|between:1,90',
             'year' => 'integer|between:1990,9999',         
         ]);
@@ -184,7 +184,7 @@ class InternshipController extends Controller
         $this->validate($request, [       
             'average_bacc_grade' => 'required|numeric|between:2,5',
             'average_master_grade' => 'required|numeric|between:2,5',
-            'activity_points' => 'required|integer|between:1,5',  
+            'activity_points' => 'required|integer|between:0,5',  
             'duration' => 'integer|between:1,90',
             'year' => 'integer|between:1990,9999', 
         ]);
