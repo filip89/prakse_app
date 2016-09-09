@@ -17,8 +17,8 @@
 			@endif
 			@if(count($companies) == 0)
 				<h3 style="text-align:center;color:gray;">Nema potvrđenih tvrtki.</h3>
-			@endif
 				<a id="add_button" class="btn btn-primary" type="button" href="{{ url('/company/create') }}"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj tvrtku</a>
+			@else
 				<div class="table-responsive">
 					<table class="table table-striped">
 					<thead>
@@ -59,6 +59,7 @@
 					</table>
 					<div class="pagination">{{ $companies->links() }}</div>
 				</div>
+			@endif
         </div>
     </div>
 </div>

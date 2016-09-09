@@ -13,7 +13,7 @@
 			@endif
 			@if(count($users) == 0)
 				<h3 style="text-align:center;color:gray;">Nema registriranih studenata.</h3>
-			@endif
+			@else
 			<div class="table-responsive">
 				<table class="table table-striped">
 				<thead>
@@ -47,6 +47,7 @@
 				</table>
 				<div class="pagination">{{ $users->links() }}</div>
 			</div>
+			@endif
         </div>
     </div>
 </div>
