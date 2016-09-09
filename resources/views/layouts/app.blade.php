@@ -114,6 +114,14 @@
 			text-align: center;
 			margin-bottom: 20px;
 		}
+		.activity_label:hover, .activity_label input:hover {
+			cursor: pointer;
+		}
+		.pagination {
+			display: table;
+			margin: auto;
+		}
+		
     @yield('style')
     </style>
 </head>
@@ -199,6 +207,13 @@
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+	<script>
+	$(document).on("click", ".delete", function(){
+		if(confirm('Želite obrisati prijavu?')){
+		$(this).closest('form').submit();
+	}	
+	});
+	</script>
     @yield('script')
 </body>
 </html>
