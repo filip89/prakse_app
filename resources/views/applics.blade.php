@@ -5,15 +5,15 @@
     <div class="row">
         <div class="col-md-12">
 			<h1>Prijave</h1>
-			@if(count($applics) < 1)
-				<h3 style="text-align:center;color:gray;">Ne postoji niti jedna prijava.</h3>
-			@else
-        	@if(Session::has('status'))
-			<div class="alert {{ Session::get('alert_type') }} fade in">
+			@if(Session::has('status'))
+				<div class="alert {{ Session::get('alert_type') }} fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				{{ Session::get('status') }}
 			</div>
 			@endif
+			@if(count($applics) < 1)
+				<h3 style="text-align:center;color:gray;">Ne postoji niti jedna neobrađena prijava.</h3>
+			@else
 			<div class="table-responsive">
 				<table class="table table-striped">
 				<thead>
@@ -46,7 +46,7 @@
 						{{ Form::close() }}
 						
 						{{ Form::open(array('url' => '/applic/'.$applic->student->id.'/delete', 'method' => 'POST')) }}
-							{{ Form::submit('Ukloni', ['class' => 'btn btn-danger btn-sm delete']) }}
+							{{ Form::button('Ukloni', ['type' => 'button','class' => 'btn btn-danger btn-sm delete']) }}
 							{{ csrf_field() }}
 						{{ Form::close() }}
 						</td>
@@ -55,6 +55,7 @@
 					@endforeach
 				</tbody>
 				</table>
+				<div class="pagination">{{ $applics->links() }}</div>
 			</div>
 			@endif
         </div>

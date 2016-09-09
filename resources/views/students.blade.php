@@ -5,6 +5,9 @@
     <div class="row">
         <div class="col-md-12">
 			<h1>Studenti</h1>
+			@if(count($users) == 0)
+				<h3 style="text-align:center;color:gray;">Nema registriranih studenata.</h3>
+			@endif
 			@if(Session::has('status'))
 			<div class="alert {{ Session::get('alert_type') }} fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -23,9 +26,6 @@
 				</thead>
 				<tbody>
 					@foreach ($users as $user)
-						@if(Auth::user() == $user)
-							@continue
-						@endif
 					<tr>
 						<td>{{ $user->name . " " . $user->last_name }}</td>
 						<td>
@@ -42,7 +42,7 @@
 						@if (Auth::user()->isAdmin())	
 							<form action="{{ url('/user/'. $user->id . '/delete') }}" method="POST">
 								{{ csrf_field() }}
-								<button class="btn btn-danger btn-sm">Ukloni</button>
+								<button type="button" class="btn btn-danger btn-sm">Ukloni</button>
 							</form>
 						</td>
 						@endif
@@ -50,6 +50,7 @@
 					@endforeach
 				</tbody>	
 				</table>
+				<div class="pagination">{{ $users->links() }}</div>
 			</div>
         </div>
     </div>

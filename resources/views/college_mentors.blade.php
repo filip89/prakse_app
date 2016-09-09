@@ -11,6 +11,9 @@
 				{{ Session::get('status') }}
 			</div>
 			@endif
+			@if(count($users) == 0)
+				<h3 style="text-align:center;color:gray;">Nema registriranih studenata.</h3>
+			@endif
 			<div class="table-responsive">
 				<table class="table table-striped">
 				<thead>
@@ -23,9 +26,6 @@
 				</thead>
 				<tbody>
 					@foreach ($users as $user)
-						@if(Auth::user() == $user)
-							@continue
-						@endif
 					<tr>
 						<td><a class="link_object" href="{{ url('user/'. $user->id) }}">{{ $user->name . " " . $user->last_name }}</td>
 						<td>{{ Utilities::course($user->profile->fields) }}</td>
@@ -36,7 +36,7 @@
 							<a type="button" class="btn btn-warning btn-sm" href="{{ url('/user/' . $user->id . '/editintern') }}">Uredi</a>
 							<form action="{{ url('user/'. $user->id . '/delete') }}" method="POST">
 								{{ csrf_field() }}
-								<button class="btn btn-danger btn-sm">Ukloni</button>
+								<button type="button" class="btn btn-danger btn-sm">Ukloni</button>
 							</form>
 						@endif
 						</td>
@@ -45,6 +45,7 @@
 					@endforeach
 				</tbody>	
 				</table>
+				<div class="pagination">{{ $users->links() }}</div>
 			</div>
         </div>
     </div>

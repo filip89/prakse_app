@@ -15,6 +15,9 @@
 				{{ Session::get('status') }}
 			</div>
 			@endif
+			@if(count($users) == 0)
+				<h3 style="text-align:center;color:gray;">Nema registriranih mentora iz tvrtke.</h3>
+			@endif
 			<a href="{{ url('/user/add/internmentor') }}"><button id="add_button" class="btn btn-primary btn-sm"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj mentora</button></a>
 			<div class="table-responsive">
 				<table class="table table-striped">
@@ -28,9 +31,6 @@
 				</thead>
 				<tbody>				
 					@foreach ($users as $user)
-						@if(Auth::user() == $user)
-							@continue
-						@endif
 					<tr>
 						<td><a class="link_object" href="{{ url('/user/' . $user->id) }}">{{ $user->name . " " . $user->last_name }}</a></td>
 						<td><a class="link_object" href="{{ url('/company/profile/' . $user->profile->company->id) }}">{{ $user->profile->company->name }}</a></td>
@@ -42,7 +42,7 @@
 							<a type="button" class="btn btn-warning btn-sm" href="{{ url('/user/' . $user->id . '/editintern') }}">Uredi</a>
 							<form action="{{ url('user/'. $user->id . '/delete') }}" method="POST">
 								{{ csrf_field() }}
-								<button class="btn btn-danger btn-sm delete">Ukloni</button>
+								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
 							</form>
 						@endif
 						</td>
@@ -51,6 +51,7 @@
 					@endforeach
 				</tbody>
 				</table>
+				<div class="pagination">{{ $users->links() }}</div>
 			</div>
         </div>
     </div>

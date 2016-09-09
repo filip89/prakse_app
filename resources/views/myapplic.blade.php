@@ -39,7 +39,7 @@
 				<a href="{{ url('/apply') }}"><button class="btn btn-warning">Uredi</button></a>
 				<form action="{{ url('applic/'. Auth::user()->id . '/delete') }}" method="POST">
 								{{ csrf_field() }}
-					<button class="btn btn-danger">Otkaži</button>
+					<button type="button" class="btn btn-danger delete">Otkaži</button>
 				</form>
 			</div>
 			<table class="table table-striped table-bordered">

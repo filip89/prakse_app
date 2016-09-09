@@ -57,6 +57,7 @@
 						@endforeach
 					</tbody>
 					</table>
+					<div class="pagination">{{ $applics->links() }}</div>
 				</div>
 			@endif
         </div>
