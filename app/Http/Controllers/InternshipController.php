@@ -90,7 +90,7 @@ class InternshipController extends Controller
 
          
         $internship = new Internship;
-        $applic = Applic::where('student_id', $request->student_id)->first();
+        $applic = Applic::where('id', $request->applic_id)->first();
 
         if(count($applic) != 0) {
             $applic->status = 2;
@@ -98,20 +98,20 @@ class InternshipController extends Controller
         }    
 
         $internship->student_id = $request->student_id;
-        $internship->company_id = $request->company_id;
+        $internship->company_id = $request->company_id ?: null;
         $internship->academic_year = $request->academic_year;
         $internship->average_bacc_grade = $request->average_bacc_grade;
         $internship->average_master_grade = $request->average_master_grade;
         $internship->activity_points = $request->activity_points;
         $internship->total_points = $request->average_bacc_grade + $request->average_master_grade +$request->activity_points;
-        $internship->start_date = date('Y-m-d', strtotime($request->start_date));
-        $internship->end_date = date('Y-m-d', strtotime($request->end_date));
-        $internship->duration = $request->duration;
-        $internship->year = $request->year; 
+        $internship->start_date = date('Y-m-d', strtotime($request->start_date)) ?: null;
+        $internship->end_date = date('Y-m-d', strtotime($request->end_date)) ?: null;
+        $internship->duration = $request->duration ?: null;
+        $internship->year = $request->year ?: null;
         $internship->college_mentor_id = $request->college_mentor_id;
         $internship->intern_mentor_id = $request->intern_mentor_id;
         $internship->student_comment = $request->student_comment;
-        $internship->rating_by_student = $request->rating_by_student;
+        $internship->rating_by_student = $request->rating_by_student ?: null;
         $internship->intern_mentor_comment = $request->intern_mentor_comment;
         $internship->college_mentor_comment = $request->college_mentor_comment;
         $internship->confirmation_student = $request->confirmation_student;
@@ -133,10 +133,10 @@ class InternshipController extends Controller
     public function show($id)
     {
 
-        $internship = Internship::where('id', $id)->get();
+        $internships = Internship::where('id', $id)->get();
 
         return view('internships.show')
-            ->with('internships', $internship);
+            ->with('internships', $internships);
     }
 
     /**
@@ -145,6 +145,16 @@ class InternshipController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function showFinal() {
+
+        $internships = Internship::orderBy('total_points', 'desc')->where('company_id', '!=', null)->get();
+        $academicYear = new Utilities;
+
+        return view('internships.final')
+            ->with('internships', $internships)
+            ->with('academicYear', $academicYear);
+    }
 
     public function edit($id)
     {
@@ -181,20 +191,20 @@ class InternshipController extends Controller
 
         $internship = Internship::find($id);
 
-        $internship->company_id = $request->company_id;
+        $internship->company_id = $request->company_id ?: null;
         $internship->academic_year = $request->academic_year;
         $internship->average_bacc_grade = $request->average_bacc_grade;
         $internship->average_master_grade = $request->average_master_grade;
         $internship->activity_points = $request->activity_points;
         $internship->total_points = $request->average_bacc_grade + $request->average_master_grade + $request->activity_points;
-        $internship->start_date = date('Y-m-d', strtotime($request->start_date));
-        $internship->end_date = date('Y-m-d', strtotime($request->end_date));
-        $internship->duration = $request->duration;
-        $internship->year = $request->year; 
+        $internship->start_date = date('Y-m-d', strtotime($request->start_date)) ?: null;
+        $internship->end_date = date('Y-m-d', strtotime($request->end_date)) ?: null;
+        $internship->duration = $request->duration ?: null;
+        $internship->year = $request->year ?: null;
         $internship->college_mentor_id = $request->college_mentor_id;
         $internship->intern_mentor_id = $request->intern_mentor_id;
         $internship->student_comment = $request->student_comment;
-        $internship->rating_by_student = $request->rating_by_student;
+        $internship->rating_by_student = $request->rating_by_student ?: null;
         $internship->intern_mentor_comment = $request->intern_mentor_comment;
         $internship->college_mentor_comment = $request->college_mentor_comment;
         $internship->confirmation_student = $request->confirmation_student;
