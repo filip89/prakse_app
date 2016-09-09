@@ -41,7 +41,7 @@ class ApplicController extends Controller
 	
 	public function index() {
 		
-		$applics = Applic::where('status', 1)->orderBy('created_at', 'asc')->get();
+		$applics = Applic::where('status', 1)->orderBy('created_at', 'asc')->paginate(1);
 		
 		return view('applics', ['applics' => $applics]);
 		
@@ -51,18 +51,23 @@ class ApplicController extends Controller
 		
 		$user = Auth::user();
 		
+		/*
 		if(count($user->applics) == 0){
 			
 			return redirect('/apply');
 	
 		}
+		*/
+		
 		if(count($user->applics()->where("status", ">", 0)->get()) == 0){
 				
 				return redirect('/apply');
 				
 		}
 
-		$applic = $user->applics()->where("status", "<>", 0)->first();
+		//$applic = $user->applics()->where("status", "<>", 0)->first();
+		
+		$applic = $user->applics()->orderBy('created_at', 'desc')->first();
 
 		$activities = $applic->activities;
 		

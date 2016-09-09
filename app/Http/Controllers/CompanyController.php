@@ -25,7 +25,7 @@ class CompanyController extends Controller
 	
 	public function index(){
 		
-		$companies = Company::orderBy('created_at', 'desc')->get();
+		$companies = Company::where('status', 1)->orderBy('created_at', 'desc')->paginate(1);
 
 		return view('companies', ['companies' => $companies]);
 		
@@ -33,7 +33,7 @@ class CompanyController extends Controller
 	
 	public function wishlist(){
 		
-		$applics = Applic::where('status', '<>', 0)->where('desired_company', '!=', "")->get();
+		$applics = Applic::where('status', '<>', 0)->where('desired_company', '!=', "")->paginate(1);
 		
 		return view('companies_wishlist', ['applics' => $applics]);
 		

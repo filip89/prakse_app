@@ -47,7 +47,7 @@ class UserController extends Controller
 	//pregled usera po 'role'
 	public function internMentorIndex(){
 		
-		$users = User::where('role', 'intern_mentor')->get();
+		$users = User::where('role', 'intern_mentor')->paginate(1);
 		
 		return view("intern_mentors", ['users' => $users]);
 		
@@ -55,14 +55,14 @@ class UserController extends Controller
 	
 	public function collegeMentorIndex(){
 		
-		$users = User::where('role', 'college_mentor')->get();
+		$users = User::where('role', 'college_mentor')->paginate(1);
 		return view("college_mentors", ['users' => $users]);
 		
 	}
 	
 	public function studentIndex(){
 		
-		$users = User::where('role', 'student')->get();
+		$users = User::where('role', 'student')->paginate(1);
 		return view("students", ['users' => $users]);
 		
 	}
