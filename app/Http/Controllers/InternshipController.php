@@ -83,7 +83,7 @@ class InternshipController extends Controller
         $this->validate($request, [          
             'average_bacc_grade' => 'required|numeric|between:2,5',
             'average_master_grade' => 'required|numeric|between:2,5',
-            'activity_points' => 'required|integer|between:0,5',  
+            'activity_points' => 'required|integer|between:1,5',  
             'duration' => 'integer|between:1,90',
             'year' => 'integer|between:1990,9999',         
         ]);
@@ -118,7 +118,8 @@ class InternshipController extends Controller
         $internship->confirmation_admin = $request->confirmation_admin;
         $internship->save();
 
-        Session::flash('success', 'Praksa uspješno stvorena!');
+        Session::flash('status', 'Praksa uspješno stvorena!');
+        Session::flash('alert_type', 'alert-success');
 
         return redirect()->route('internships.index');
         
@@ -184,7 +185,7 @@ class InternshipController extends Controller
         $this->validate($request, [       
             'average_bacc_grade' => 'required|numeric|between:2,5',
             'average_master_grade' => 'required|numeric|between:2,5',
-            'activity_points' => 'required|integer|between:0,5',  
+            'activity_points' => 'required|integer|between:1,5',  
             'duration' => 'integer|between:1,90',
             'year' => 'integer|between:1990,9999', 
         ]);
@@ -211,7 +212,8 @@ class InternshipController extends Controller
         $internship->confirmation_admin = $request->confirmation_admin;
         $internship->save();
 
-        Session::flash('success', 'Praksa uspješno uređena!');
+        Session::flash('status', 'Praksa uspješno uređena!');
+        Session::flash('alert_type', 'alert-warning');
 
         return redirect()->route('internships.index');
     }
@@ -222,6 +224,33 @@ class InternshipController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function addMentor(Request $request, $id) {
+
+        $internship = Internship::find($id);
+
+        $internship->college_mentor_id = $request->college_mentor_id;
+        $internship->save();
+
+        Session::flash('status', 'Postali ste mentor!');
+        Session::flash('alert_type', 'alert-success');
+
+        return redirect()->action('InternshipController@showFinal');
+    }
+
+     public function removeMentor(Request $request, $id) {
+
+        $internship = Internship::find($id);
+
+        $internship->college_mentor_id = null;
+        $internship->save();
+
+        Session::flash('status', 'Prestali ste mentorirati!');
+        Session::flash('alert_type', 'alert-danger');
+
+        return redirect()->action('InternshipController@showFinal');
+    }
+
     public function destroy($id)
     {
         $internship = Internship::find($id);
@@ -234,7 +263,8 @@ class InternshipController extends Controller
         
         $internship->delete();
 
-        Session::flash('success', 'Praksa uspješno obrisana!');
+        Session::flash('status', 'Praksa uspješno obrisana!');
+        Session::flash('alert_type', 'alert-success');
 
         return redirect()->route('internships.index');
     }
