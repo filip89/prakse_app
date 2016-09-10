@@ -4,13 +4,13 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			
-			@if (session('success'))
-				<div class="flash-message">
-			    <div class="alert alert-success alert-dismissable fade in" style="width: 50%; margin-left: 25%;">
-			    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
-			    </button>{{ Session::get('success') }}</div></div>
-			@endif	
+
+			@if(Session::has('status'))
+			<div class="alert {{ Session::get('alert_type') }} fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ Session::get('status') }}
+			</div>
+			@endif
 
 			<h1>Konačne prakse</h1>			
 			
@@ -59,12 +59,23 @@
 							{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
 								<button class="btn btn-primary btn-sm">Prikaži</button>
 							{{ Form::close() }}
-																			
-							<a href="{{ route('internships.edit', $internship->id) }}" class="btn btn-warning btn-sm">Uredi</a>
-											
-							{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
-								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
-							{{ Form::close() }}
+																															
+							@if(Auth::user()->role == 'college_mentor' && $internship->college_mentor_id == null)
+
+							<form action="{{ action('InternshipController@addMentor', ['id' => $internship->id]) }}" method="POST">
+								<input name="_token" type="hidden" value="{!! csrf_token() !!}" />
+								<input type="hidden" name="college_mentor_id" value="{{ Auth::user()->id }}"> 
+								<button type="submit" class="btn btn-success btn-sm">Mentoriraj</button>
+							</form>
+							
+							@elseif($internship->college_mentor_id == Auth::user()->id)
+
+							<form action="{{ action('InternshipController@removeMentor', ['id' => $internship->id]) }}" method="POST">	
+								<input name="_token" type="hidden" value="{!! csrf_token() !!}" />							
+								<button type="submit" class="btn btn-danger btn-sm">Otkaži</button>
+							</form>
+								
+							@endif
 						</td>
 		
 						</tr>

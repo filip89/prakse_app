@@ -5,11 +5,11 @@
 	<div class="row">
 		<div class="col-md-12">
 
-			@if (session('success'))
-				<div class="flash-message">
-			    <div class="alert alert-success alert-dismissable fade in" style="width: 50%; margin-left: 25%;">
-			    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
-			    </button>{{ Session::get('success') }}</div></div>
+			@if(Session::has('status'))
+			<div class="alert {{ Session::get('alert_type') }} fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ Session::get('status') }}
+			</div>
 			@endif	
 
 			<h1>Prakse</h1>
@@ -61,7 +61,7 @@
 							<a href="{{ route('internships.edit', $internship->id) }}" class="btn btn-warning btn-sm">Uredi</a>
 											
 							{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
-								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
+								<button class="btn btn-danger btn-sm delete">Ukloni</button>
 							{{ Form::close() }}
 						</td>
 		
@@ -78,4 +78,12 @@
 	</div>
 </div>	
 @endsection
+
+<script>
+	$(document).on("click", ".delete", function(){
+		if(confirm('Želite obrisati prijavu?')){
+		$(this).closest('form').submit();
+	}	
+	});
+	</script>
 
