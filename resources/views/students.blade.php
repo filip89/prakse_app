@@ -42,7 +42,7 @@
 						@if (Auth::user()->isAdmin())	
 							<form action="{{ url('/user/'. $user->id . '/delete') }}" method="POST">
 								{{ csrf_field() }}
-								<button type="button" class="btn btn-danger btn-sm">Ukloni</button>
+								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
 							</form>
 						</td>
 						@endif
