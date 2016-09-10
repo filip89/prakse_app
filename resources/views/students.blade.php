@@ -37,10 +37,11 @@
 						@if($user->activeInternship())
 							<a class="btn btn-info btn-sm" type="button" href="{{ url('/internships/'. $user->activeInternship()->id) }}">Prikaži praksu</a>
 						@elseif($user->activeApplic())
-						{{ Form::open(array('route' => array('internships.create', $user->id), 'method' => 'GET')) }}
+						{{ Form::open(array('route' => array('internships.create'), 'method' => 'GET')) }}
 							{{ Form::hidden('name', $user->name) }}
 							{{ Form::hidden('last_name', $user->last_name) }}
-							{{ Form::hidden('student_id', $user->applics()->where('status', 1)->first()->id) }}
+							{{ Form::hidden('student_id', $user->id) }}
+							{{ Form::hidden('applic_id', $user->activeApplic()->id) }}
 							{{ Form::submit('Izradi praksu', ['class' => 'btn btn-primary btn-sm']) }}
 						{{ Form::close() }}
 						@endif
