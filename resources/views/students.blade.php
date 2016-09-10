@@ -29,15 +29,20 @@
 					<tr>
 						<td>{{ $user->name . " " . $user->last_name }}</td>
 						<td>
-						@if(count($user->internships()->where('status', 1)->get()) == 1)
-							<a class="link_object" href="{{ url('/company/profile/' . $user->internships()->where('status', 1)->first()->company->id) }}">{{ $user->internships()->where('status', 1)->first()->company->name }}</a></td>
+						@if($user->activeInternship())
+							<a class="link_object" href="{{ url('/company/profile/' . $user->activeInternship()->company->id) }}">{{ $user->activeInternship()->company->name }}</a></td>
 						@endif
 						<td>{{$user->created_at->format('d-m-Y')}}</td>
 						<td class="row_buttons">
-						@if(count($user->internships()->where('status', 1)->get()) == 1)
-							<a class="btn btn-info btn-sm" type="button" href="{{ url('/internships/'. $user->internships()->where('status', 1)->first()->id) }}">Prikaži praksu</a>
-						@elseif(count($user->applics()->where('status', 1)->get()) == 1)
-							<a class="btn btn-primary btn-sm" type="button" href="{{ url('/apply/'. $user->id) }}">Izradi praksu</a>
+						@if($user->activeInternship())
+							<a class="btn btn-info btn-sm" type="button" href="{{ url('/internships/'. $user->activeInternship()->id) }}">Prikaži praksu</a>
+						@elseif($user->activeApplic())
+						{{ Form::open(array('route' => array('internships.create', $user->id), 'method' => 'GET')) }}
+							{{ Form::hidden('name', $user->name) }}
+							{{ Form::hidden('last_name', $user->last_name) }}
+							{{ Form::hidden('student_id', $user->applics()->where('status', 1)->first()->id) }}
+							{{ Form::submit('Izradi praksu', ['class' => 'btn btn-primary btn-sm']) }}
+						{{ Form::close() }}
 						@endif
 						@if (Auth::user()->isAdmin())	
 							<form action="{{ url('/user/'. $user->id . '/delete') }}" method="POST">
