@@ -63,6 +63,7 @@ class UserController extends Controller
 	public function studentIndex(){
 		
 		$users = User::where('role', 'student')->paginate(1);
+				
 		return view("students", ['users' => $users]);
 		
 	}
@@ -166,7 +167,7 @@ class UserController extends Controller
 	
 	public function editInternMentor(Request $request, $id){
 		
-	if(Auth::user()->isAdmin()){
+		if(Auth::user()->isAdmin()){
 			$this->validate($request, [
 				'name' => 'required|max:255',
 				'last_name' => 'required|max:255',

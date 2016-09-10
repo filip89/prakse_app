@@ -51,23 +51,13 @@ class ApplicController extends Controller
 		
 		$user = Auth::user();
 		
-		/*
-		if(count($user->applics) == 0){
-			
-			return redirect('/apply');
-	
-		}
-		*/
-		
-		if(count($user->applics()->where("status", ">", 0)->get()) == 0){
+		if(!$user->activeApplic()){
 				
 				return redirect('/apply');
 				
 		}
-
-		//$applic = $user->applics()->where("status", "<>", 0)->first();
 		
-		$applic = $user->applics()->orderBy('created_at', 'desc')->first();
+		$applic = $user->activeApplic();
 
 		$activities = $applic->activities;
 		
@@ -89,7 +79,7 @@ class ApplicController extends Controller
 			
 		}
 		
-		if($applic = $user->applics()->where("status", "=", 1)->first()){
+		if($applic = $user->activeApplic()){
 			
 			$activities = array(array('name' => '', 'checked' => '','year' => '','description' => ''));
 			
