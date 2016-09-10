@@ -35,20 +35,6 @@ class User extends Authenticatable
 		}
 	}
 	
-	/*
-	public function intern_mentor() {
-		
-		return $this->hasOne('App\InternMentor');
-	
-	}
-	
-	public function college_mentor() {
-		
-		return $this->hasOne('App\CollegeMentor');
-	
-	}
-	*/
-	
 	public function profile() {
 		
 		if($this->role == "intern_mentor"){
@@ -62,6 +48,42 @@ class User extends Authenticatable
 			
 		}
 	
+	}
+	
+	public function isCompeting() {
+		
+		if(count($this->internships()->where('status', '<>', 0)->get()) > 0 || count($this->applics()->where('status', '<>', 0)->get()) > 0){
+			
+			return true;
+			
+		}
+		
+		return false;
+		
+	}
+	
+	public function activeInternship() {
+		
+		if(count($this->internships()->where('status', '<>', 0)->get()) > 0){
+			
+			return $this->internships()->where('status', '<>', 0)->first();
+			
+		}
+		
+		return false;
+		
+	}
+	
+	public function activeApplic() {
+		
+		if(count($this->applics()->where('status', '<>', 0)->get()) > 0){
+			
+			return $this->applics()->where('status', '<>', 0)->first();
+			
+		}
+		
+		return false;
+		
 	}
 	
 	public function applics() {
