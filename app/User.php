@@ -50,9 +50,46 @@ class User extends Authenticatable
 	
 	}
 	
-	public function isCompeting() {
+	public function competitionStatus() {
 		
-		if(count($this->internships()->where('status', '<>', 0)->get()) > 0 || count($this->applics()->where('status', '<>', 0)->get()) > 0){
+		$activeInternship = $this->internships()->where('status', '<>', 0)->first();
+		
+		if($activeInternship){
+			
+			if($activeInternship->confirmation_student == 1){
+				
+				return "Potvrđena praksa";
+				
+			}
+			
+			return "Izrađena praksa";
+			
+		}
+		if(count($this->applics()->where('status', '<>', 0)->get()) > 0){
+			
+			return "Izrađena prijava";
+			
+		}
+		
+		return "Nema prijave";
+		
+	}
+	
+	public function activeInternship() {
+			
+		if(count($this->internships()->where('status', '<>', 0)->get()) > 0){
+			
+			return $this->internships()->where('status', '<>', 0)->first();
+			
+		}
+		
+		return false;		
+		
+	}
+	
+	public function confirmedInternship(){
+		
+		if(count($this->internships()->where('status', '<>', 0)->where('confirmation_student', 1)->get()) > 0){
 			
 			return true;
 			
@@ -62,28 +99,18 @@ class User extends Authenticatable
 		
 	}
 	
-	public function activeInternship() {
-		
-		if(count($this->internships()->where('status', '<>', 0)->get()) > 0){
-			
-			return $this->internships()->where('status', '<>', 0)->first();
-			
-		}
-		
-		return false;
-		
-	}
-	
 	public function activeApplic() {
 		
-		if(count($this->applics()->where('status', '<>', 0)->get()) > 0){
+		if($this->role == 'student'){
+		
+			if(count($this->applics()->where('status', '<>', 0)->get()) > 0){
 			
-			return $this->applics()->where('status', '<>', 0)->first();
+				return $this->applics()->where('status', '<>', 0)->first();
 			
+			}
+		
+			return false;
 		}
-		
-		return false;
-		
 	}
 	
 	public function applics() {
