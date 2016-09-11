@@ -47,11 +47,13 @@
 							</td>
 							<td class="row_buttons">
 								<a type="button" class="btn btn-info btn-sm" href="{{ url('/company/profile/' . $company->id) }}">Profil</a>
+								@if(Auth::user()->isAdmin())
 								<a type="button" class="btn btn-warning btn-sm" href="{{ url('/company/edit/' . $company->id) }}">Uredi</a>
 								<form action="{{ url('/company/delete/' . $company->id) }}" method="POST">
 								{{ csrf_field() }}
 								<button type="button" class="btn btn-danger btn-sm delete" >Ukloni</button>
 								</form>
+								@endif
 							</td>
 						</tr>
 						@endforeach

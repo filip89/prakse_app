@@ -20,7 +20,8 @@
 					<tr>
 						<th>Ime i prezime</th>
 						<th>Tvrtka</th>
-						<th>Datum registracije</th>		
+						<th>Datum registracije</th>	
+						<th>Status natječaja</th>						
 						<th></th>
 					</tr>
 				</thead>
@@ -29,10 +30,11 @@
 					<tr>
 						<td>{{ $user->name . " " . $user->last_name }}</td>
 						<td>
-						@if($user->activeInternship())
-							<a class="link_object" href="{{ url('/company/profile/' . $user->activeInternship()->company->id) }}">{{ $user->activeInternship()->company->name }}</a></td>
+						@if($user->confirmedInternship())
+							<a class="link_object" href="{{ url('/company/profile/' . $user->activeInternship()->company->id) }}">{{ $user->activeInternship()->company->name }}</a></td>							
 						@endif
-						<td>{{$user->created_at->format('d-m-Y')}}</td>
+						<td>{{ $user->created_at->format('d-m-Y') }}</td>
+						<td>{{ $user->competitionStatus() }}</td>
 						<td class="row_buttons">
 						@if($user->activeInternship())
 							<a class="btn btn-info btn-sm" type="button" href="{{ url('/internships/'. $user->activeInternship()->id) }}">Prikaži praksu</a>
