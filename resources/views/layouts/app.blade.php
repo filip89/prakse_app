@@ -160,7 +160,9 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @elseif(Auth::user()->role != "student")
+						@if(Auth::user()->isAdmin())
 						<li><a href="{{ url('/applic/all') }}">Prijave</a></li>
+						@endif
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prakse <span class="caret"></span></a>		
 								<ul class="dropdown-menu" role="menu">
@@ -203,13 +205,14 @@
     </nav>
 
     @yield('content')
-
+	  
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 	<script>
 	$(document).on("click", ".delete", function(){
-		if(confirm('Želite obrisati prijavu?')){
+		var info = $(this).data('info');
+		if(confirm('Želite obrisati?')){
 		$(this).closest('form').submit();
 	}	
 	});
