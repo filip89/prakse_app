@@ -26,7 +26,7 @@ class ApplicController extends Controller
 			'index',
 		]]);
 		
-		$this->middleware('adminOrAuth', ['only' => [
+		$this->middleware('adminOrSelf', ['only' => [
 			'apply',
 			'delete',
 			'edit',
