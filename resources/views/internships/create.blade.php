@@ -67,9 +67,8 @@ td {
     						<td  colspan="2">{{ $app->internship_town }}</td>
     					</tr>
 
-                                                    
                         {{--*/ $count = 1 /*--}}
-                            
+
                         @foreach($activities as $act)
                             @if($act->applic_id == $app->id)
                             <tr>
@@ -82,9 +81,9 @@ td {
                                 {{--*/ $count += 1 /*--}}  
                             </tr>                                   
                             @endif
-                        @endforeach                                  
-                        
-                            
+                        @endforeach 
+
+                                                  
                         </tbody>
     				</table>
                 </div>

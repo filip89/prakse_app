@@ -55,35 +55,33 @@
 						
 						<td class="row_buttons">
 							{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
-								<button class="btn btn-primary btn-sm">Prikaži</button>
+								<button class="btn btn-info btn-sm">Prikaži</button>
 							{{ Form::close() }}
 																			
 							<a href="{{ route('internships.edit', $internship->id) }}" class="btn btn-warning btn-sm">Uredi</a>
 											
 							{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
-								<button class="btn btn-danger btn-sm delete">Ukloni</button>
+								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
 							{{ Form::close() }}
 						</td>
 		
 						</tr>
 						{{--*/ $count += 1 /*--}}
+
 					@endforeach
 
 					</tbody>
 
 				</table>
 			</div>
+
+			<div class="pagination">{{ $internships->render() }}</div>
+			
 			@endif
 		</div>
 	</div>
 </div>	
 @endsection
 
-<script>
-	$(document).on("click", ".delete", function(){
-		if(confirm('Želite obrisati prijavu?')){
-		$(this).closest('form').submit();
-	}	
-	});
-	</script>
+
 

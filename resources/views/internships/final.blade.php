@@ -33,6 +33,7 @@
 								<th>Prezime</th>
 								<th>Akademska godina</th>
 								<th>Tvrtka</th>	
+								<th>Potvrda</th>
 								<th></th>					
 							</tr>
 						</thead>
@@ -53,11 +54,20 @@
 							<td>{{ $internship->student['last_name']}}</td>
 							<td>{{ $academicYear->academicYear($internship->academic_year) }}</td>
 							<td>{{ $internship->company['name']}}</td>
+							<td style="text-align: center;">
+							@if($internship->confirmation_student == 1)
+								<i class="fa fa-check fa-2x" aria-hidden="true"></i>
+							@elseif($internship->confirmation_student === 0)
+								<i class="fa fa-times fa-2x" aria-hidden="true"></i>
+							@else
+								<i class="fa fa-spinner fa-2x" aria-hidden="true"></i>
+							@endif
+							</td>
 
 						
 						<td class="row_buttons">
 							{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
-								<button class="btn btn-primary btn-sm">Prikaži</button>
+								<button class="btn btn-info btn-sm">Prikaži</button>
 							{{ Form::close() }}
 																															
 							@if(Auth::user()->role == 'college_mentor' && $internship->college_mentor_id == null)
@@ -86,8 +96,11 @@
 						@endforeach	
 
 					</table>
+
 				</div>
 
+				<div class="pagination">{{ $internships->render() }}</div>
+				
 				@endif
 		</div>
 	</div>
