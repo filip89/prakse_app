@@ -67,4 +67,6 @@ Route::post('company/delete/{id}', 'CompanyController@delete');
 
 //pregled praksi
 Route::get('internships/showFinal', "InternshipController@showFinal");
+Route::post('internships/addMentor/{id}', "InternshipController@addMentor");
+Route::post('internships/removeMentor/{id}', "InternshipController@removeMentor");
 Route::resource('internships', "InternshipController");
