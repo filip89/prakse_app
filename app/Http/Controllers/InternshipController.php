@@ -31,7 +31,7 @@ class InternshipController extends Controller
     public function index()
     {
 
-        $internship = Internship::orderBy('total_points', 'desc')->get();
+        $internship = Internship::orderBy('total_points', 'desc')->paginate(1);
         $academicYear = new Utilities;
 
         return view('internships.index')
@@ -149,7 +149,7 @@ class InternshipController extends Controller
 
     public function showFinal() {
 
-        $internships = Internship::orderBy('total_points', 'desc')->where('company_id', '!=', null)->get();
+        $internships = Internship::orderBy('total_points', 'desc')->where('company_id', '!=', null)->paginate(1);
         $academicYear = new Utilities;
 
         return view('internships.final')
@@ -210,6 +210,13 @@ class InternshipController extends Controller
         $internship->college_mentor_comment = $request->college_mentor_comment;
         $internship->confirmation_student = $request->confirmation_student;
         $internship->confirmation_admin = $request->confirmation_admin;
+
+        if($request->company_id != null) {
+            $internship->status = 2;
+        } else {
+            $internship->status = 1;
+        }
+
         $internship->save();
 
         Session::flash('status', 'Praksa uspješno uređena!');
