@@ -32,13 +32,17 @@
 								</td>
 							</tr>		
 						</table>
+					@if(Auth::user()->isAdmin() || Auth::user()->id == $user->id)
 					<div class="action_buttons">
-						<a href="{{ url('user/'. $user->id . '/editcollege') }}"><button class="btn btn-warning" >Uredi</button></a>	
+						<a href="{{ url('user/'. $user->id . '/editcollege') }}"><button class="btn btn-warning" >Uredi</button></a>
+						@if (Auth::user()->isAdmin() && Auth::user()->id != $user->id)							
 						<form action="{{ url('user/'. $user->id . '/delete') }}" method="POST">
 							{{ csrf_field() }}
 							<button type="button" class="btn btn-danger delete" >Ukloni</button>
 						</form>
+						@endif
 					</div>
+					@endif
 					</div>
 				</div>
 			</div>

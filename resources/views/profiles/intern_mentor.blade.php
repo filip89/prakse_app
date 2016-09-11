@@ -43,8 +43,10 @@ table {
 							</tr>
 							<tr><th>Mentorira studente:</th>
 								<td>
-								@foreach($internships as $internship) 
+								@foreach($internships as $internship)
+									@if($internship->confirmation_student == 1)								
 								<a href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a><br/>
+									@endif
 								@endforeach
 								</td>
 							</tr>

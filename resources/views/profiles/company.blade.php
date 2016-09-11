@@ -33,7 +33,9 @@
 								@foreach($company->intern_mentors as $mentor)
 									<a class="link_object" href="{{ url('/user/' . $mentor->user->id) }}">{{$mentor->user->name . ' ' . $mentor->user->last_name}}</a><br/>
 								@endforeach
+								@if(Auth::user()->isAdmin())
 								<a type="button"  id="add_mentor" class="btn btn-primary" href="{{ url('/user/add/internmentor/' . $company->id) }}"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj mentora iz tvrtke</a><br/>
+								@endif
 								</td>
 							</tr>
 							<tr><th>Studenti:</th>
@@ -47,13 +49,17 @@
 							</tr>
 						</table>
 					</div>
+					@if(Auth::user()->isAdmin() || Auth::user()->profile->company->id == $company->id)
 					<div class="action_buttons">
-						<a href="{{ url('/company/edit/' . $company->id) }}"><button class="btn btn-warning" >Uredi</button></a>	
+						<a href="{{ url('/company/edit/' . $company->id) }}"><button class="btn btn-warning" >Uredi</button></a>
+					@endif
+					@if(Auth::user()->isAdmin())
 						<form action="{{ url('/company/delete/' . $company->id) }}" method="POST">
 							{{ csrf_field() }}
 							<button type="button" class="btn btn-danger delete" >Ukloni</button>
 						</form>
 					</div>
+					@endif
 				</div>
 			</div>
 		</div>
