@@ -17,8 +17,9 @@
 			@endif
 			@if(count($users) == 0)
 				<h3 style="text-align:center;color:gray;">Nema registriranih mentora iz tvrtke.</h3>
+			@endif
 			<a href="{{ url('/user/add/internmentor') }}"><button id="add_button" class="btn btn-primary btn-sm"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj mentora</button></a>
-			@else
+			@if(count($users) > 0)
 			<div class="table-responsive">
 				<table class="table table-striped">
 				<thead>
