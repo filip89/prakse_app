@@ -26,7 +26,7 @@ class UserController extends Controller
 		
 		$this->middleware('auth');
 		
-		$this->middleware('adminOrAuth', ['only' => [
+		$this->middleware('adminOrSelf', ['only' => [
             'editInternMentorForm',
             'editCollegeMentorForm',
         ]]);
