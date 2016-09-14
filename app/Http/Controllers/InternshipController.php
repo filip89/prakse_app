@@ -149,7 +149,7 @@ class InternshipController extends Controller
 
     public function showFinal() {
 
-        $internships = Internship::orderBy('total_points', 'desc')->where('company_id', '!=', null)->paginate(1);
+        $internships = Internship::where('status', 2)->orderBy('total_points', 'desc')->paginate(1);
         $academicYear = new Utilities;
 
         return view('internships.final')
