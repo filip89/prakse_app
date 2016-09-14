@@ -188,7 +188,7 @@
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="{{ url('/company') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Potvrđene</a></li>
 									<li><a href="{{  url('/company/wishlist') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Željene</a></li>
-									<li><a href="{{  url('/company/former') }}"><i class="fa fa-btn fa-arrow-left" aria-hidden="true"></i>Prijašnje</a></li>
+									<li><a href="{{  url('/company/former') }}"><i class="fa fa-btn fa-reply" aria-hidden="true"></i></i>Prijašnje</a></li>
 								</ul>
                         </li>
 						<li class="dropdown">
@@ -211,7 +211,7 @@
 							@endif
 							@else
 								@if(Utilities::competitionStatus() != 0)
-									<li><a href="{{ url('/myapplic')}}"><b>Prijava prakse</b></a></li>
+									<li><a href="{{ url('/myapplic')}}"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</a></li>
 								@endif
 							@endif
                         		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
