@@ -20,11 +20,8 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 Route::get('/user/student/list', 'UserController@studentIndex');
-
 Route::get('/user/intern_mentor/list', 'UserController@internMentorIndex');
-
 Route::get('/user/college_mentor/list', 'UserController@collegeMentorIndex');
-
 Route::get('user/{id}', "UserController@viewProfile");
 
 //delete any user
@@ -58,6 +55,8 @@ Route::post('applic/{id}/edit', "ApplicController@edit");
 //rute za tvrtku
 Route::get('company', 'CompanyController@index');
 Route::get('company/wishlist', 'CompanyController@wishlist');
+Route::get('company/former', 'CompanyController@former');
+Route::post('company/reinstate/{id}', 'CompanyController@reinstate');
 Route::get('company/profile/{id}', 'CompanyController@profile');
 Route::get('company/create', 'CompanyController@createForm');
 Route::post('company/create', 'CompanyController@create');
@@ -70,3 +69,9 @@ Route::get('internships/showFinal', "InternshipController@showFinal");
 Route::post('internships/addMentor/{id}', "InternshipController@addMentor");
 Route::post('internships/removeMentor/{id}', "InternshipController@removeMentor");
 Route::resource('internships', "InternshipController");
+
+//setting
+Route::get('settings','SettingController@form');
+Route::post('settings/create', 'SettingController@store');
+Route::post('settings/end', 'SettingController@endCompetition');
+Route::post('settings/archive', 'SettingController@archiveCompetition');
