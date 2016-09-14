@@ -13,12 +13,17 @@ use App\Applic;
 use App\Utilities;
 use App\Activity;
 use Session;
+use App\Setting;
 
 class ApplicController extends Controller
 {
     //
 	
+	private $setting;
+	
 	public function __construct(){
+		
+		$this->setting = Setting::orderBy('created_at', 'desc')->first();
 		
 		$this->middleware('auth');
 		
@@ -43,26 +48,38 @@ class ApplicController extends Controller
 		
 		$applics = Applic::where('status', 1)->orderBy('created_at', 'asc')->paginate(1);
 		
-		return view('applics', ['applics' => $applics]);
+		return view('applics', ['applics' => $applics, 'setting' => $this->setting]);
 		
 	}
 	
 	public function myApplic(){
 		
-		$user = Auth::user();
-		
-		if(!$user->activeApplic()){
-				
-				return redirect('/apply');
-				
+		if($this->setting->status == 0){
+			
+			return "Posljednja praksa...";
+			
 		}
 		
+		$user = Auth::user();
 		$applic = $user->activeApplic();
-
-		$activities = $applic->activities;
 		
-		return view('myapplic', ['applic' => $applic, 'user' => $user, 'activities' => $activities]);
-		
+		if(!$applic){
+			
+			if($this->setting->status == 2){
+				return "Natječaj je završio...Posljednja praksa2...";
+			}
+			
+			return redirect('/apply');
+			
+		}
+		else {
+				
+			$activities = $applic->activities;
+			
+			return view('myapplic', ['applic' => $applic, 'user' => $user, 'activities' => $activities, 'setting' => $this->setting]);
+			
+		}
+				
 	}
 	
 	
@@ -202,7 +219,7 @@ class ApplicController extends Controller
 			
 			$applic->delete();
 		
-			Session::flash('status', 'Prijava je obrisana! Ukoliko želite možete napraviti novu prije kraja natječaja.');
+			Session::flash('status', 'Prijava je obrisana!');
 			Session::flash('alert_type', 'alert-danger');
 			
 			return back();
@@ -224,7 +241,7 @@ class ApplicController extends Controller
 		
 		$user = User::find($id);
 		
-		$applic = $user->applics()->where("status", "=", 1)->first();
+		$applic = $user->activeApplic();
 		
 		$applic->academic_year = $request->academic_year;
 		$applic->course = $request->course;

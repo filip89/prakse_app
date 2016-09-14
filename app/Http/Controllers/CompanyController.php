@@ -31,6 +31,14 @@ class CompanyController extends Controller
 		
 	}
 	
+	public function former(){
+		
+		$companies = Company::where('status', 0)->orderBy('created_at', 'desc')->paginate(1);
+
+		return view('companies_former', ['companies' => $companies]);
+		
+	}
+	
 	public function wishlist(){
 		
 		$applics = Applic::where('status', '<>', 0)->where('desired_company', '!=', "")->paginate(1);
@@ -42,8 +50,9 @@ class CompanyController extends Controller
 	public function profile($id){
 		
 		$company = Company::find($id);
+		$internships = $company->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
 		
-		return view('profiles.company', ['company' => $company]);
+		return view('profiles.company', ['company' => $company, 'internships' => $internships]);
 		
 	}
 	
@@ -114,5 +123,18 @@ class CompanyController extends Controller
 		
 	}
 	
+	public function reinstate($id){
+		
+		$company = Company::find($id);
+		
+		$company->status = 1;
+		$company->save();
+		
+		Session::flash('status', 'Tvrtka je dodana!');
+		Session::flash('alert_type', 'alert-success');
+		
+		return redirect('/company');
+		
+	}
 	
 }

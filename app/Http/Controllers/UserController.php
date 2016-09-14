@@ -72,7 +72,7 @@ class UserController extends Controller
 	public function viewProfile($id){
 		
 		$user = User::find($id);
-		$internships = $user->internships;
+		$internships = $user->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
 		
 		if(!isset($user)){
 			
