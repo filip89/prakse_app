@@ -121,6 +121,16 @@
 			display: table;
 			margin: auto;
 		}
+		.student_item {
+			background-color: #f2f2f2;
+			margin-bottom: 4px;
+		}
+		.unconfirmed_gray {
+			color: darkgray;
+		}
+		.confirmed_green {
+			color: darkgreen;
+		}
 		
     @yield('style')
     </style>
@@ -149,7 +159,10 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
 					@if(!Auth::guest() && Auth::user()->role == "student")
-					<li><a href="{{ url('/myapplic')}}"><b>Prijava prakse</b></a></li>
+						@if(Utilities::competitionStatus() != 0)
+						<li><a href="{{ url('/myapplic')}}"><b>Prijava prakse</b></a></li>
+						@endif
+						<li><a href=""><b>Moja praksa</b></a></li>
 					@endif
                 </ul>
 
@@ -175,6 +188,7 @@
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="{{ url('/company') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Potvrđene</a></li>
 									<li><a href="{{  url('/company/wishlist') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Željene</a></li>
+									<li><a href="{{  url('/company/former') }}"><i class="fa fa-btn fa-arrow-left" aria-hidden="true"></i>Prijašnje</a></li>
 								</ul>
                         </li>
 						<li class="dropdown">
@@ -192,8 +206,13 @@
                         	<ul class="dropdown-menu" role="menu">
 							@if(Auth::user()->role != "student")
 								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
+							@if(Auth::user()->isAdmin())
+								<li><a href="{{ url('/settings') }}"><i class="fa fa-btn fa-cogs" aria-hidden="true"></i></i>Natječaj</a></li>
+							@endif
 							@else
-								<li><a href="{{ url('/myapplic') }}"><i class="fa fa-btn fa-user"></i>Prijava prakse</a></li>
+								@if(Utilities::competitionStatus() != 0)
+									<li><a href="{{ url('/myapplic')}}"><b>Prijava prakse</b></a></li>
+								@endif
 							@endif
                         		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
