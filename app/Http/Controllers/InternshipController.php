@@ -31,7 +31,7 @@ class InternshipController extends Controller
     public function index()
     {
 
-        $internship = Internship::orderBy('total_points', 'desc')->paginate(1);
+        $internship = Internship::where('status', 1)->orderBy('total_points', 'desc')->paginate(1);
         $academicYear = new Utilities;
 
         return view('internships.index')
@@ -161,7 +161,7 @@ class InternshipController extends Controller
     {
 
         $internship = Internship::find($id);
-        $companies= Company::all();
+        $companies= Company::where('status', 1)->get();
         $collegeMentor = User::where('role', 'college_mentor')->get();
         $internMentor = User::where('role', 'intern_mentor')->get();
 
@@ -261,7 +261,7 @@ class InternshipController extends Controller
     public function destroy($id)
     {
         $internship = Internship::find($id);
-        $applic = Applic::where('student_id', $internship->student_id)->first();
+        $applic = Applic::where('student_id', $internship->student_id)->where('status', 2)->first();
 
         if(count($applic) != 0) {
             $applic->status = 1;
