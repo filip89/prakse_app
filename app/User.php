@@ -52,7 +52,7 @@ class User extends Authenticatable
 	
 	public function competitionStatus() {
 		
-		$activeInternship = $this->internships()->where('status', '<>', 0)->first();
+		$activeInternship = $this->activeInternship();
 		
 		if($activeInternship){
 			
@@ -62,7 +62,13 @@ class User extends Authenticatable
 				
 			}
 			
-			return "Izrađena praksa";
+			if($activeInternship->status == 2){
+				
+				return "Nepotvrđena praksa";
+				
+			}
+			
+			return "Praksa u izradi";
 			
 		}
 		if(count($this->applics()->where('status', '<>', 0)->get()) > 0){
@@ -90,6 +96,18 @@ class User extends Authenticatable
 	public function confirmedInternship(){
 		
 		if(count($this->internships()->where('status', '<>', 0)->where('confirmation_student', 1)->get()) > 0){
+			
+			return true;
+			
+		}
+		
+		return false;
+		
+	}
+	
+	public function hasCompany(){
+		
+		if($this->activeInternship()->company){
 			
 			return true;
 			

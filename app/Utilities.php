@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 class Utilities
 {
 	
@@ -33,7 +32,7 @@ class Utilities
 	public static function desiredMonth($month){
 		
 		if(!isset($month)){
-			return;
+			return false;
 		}
 		
 		return self::$desired_months[$month];
@@ -47,6 +46,12 @@ class Utilities
 		}
 		
 		return self::$activities[$num - 1];
+		
+	}
+	
+	public static function competitionStatus(){
+		
+		return Setting::orderBy('created_at', 'desc')->first()->status;
 		
 	}
 
