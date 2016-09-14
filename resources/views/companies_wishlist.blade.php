@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('style')
-.fa-check-circle {
+.hasInternship .fa-check-circle {
 	color: darkgreen;
 	font-size: 16px;
 }
@@ -29,7 +29,7 @@
 				</thead>
 				<tbody>
 						@foreach($applics as $applic)	
-						@if($applic->status == 2)
+						@if($applic->student->hasCompany() == 2)
 						<tr class="hasInternship">
 							<td>
 								<b>{{ $applic->desired_company }}</b>

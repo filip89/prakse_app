@@ -38,6 +38,7 @@
 						</td>
 
 						<td class="row_buttons">
+						@if($setting->status == 2)
 						{{ Form::open(array('route' => array('internships.create', $applic->student->id), 'method' => 'GET')) }}
 							{{ Form::hidden('name', $applic->student->name) }}
 							{{ Form::hidden('last_name', $applic->student->last_name) }}
@@ -45,7 +46,7 @@
 							{{ Form::hidden('applic_id', $applic->id) }}
 							{{ Form::submit('Izradi praksu', ['class' => 'btn btn-primary btn-sm']) }}
 						{{ Form::close() }}
-						
+						@endif
 						{{ Form::open(array('url' => '/applic/'.$applic->student->id.'/delete', 'method' => 'POST')) }}
 							{{ Form::button('Ukloni', ['type' => 'button','class' => 'btn btn-danger btn-sm delete']) }}
 							{{ csrf_field() }}

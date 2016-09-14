@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-			<h1>Popis tvrtki</h1>
+			<h1>Popis prijašnjih tvrtki</h1>
         	@if(Session::has('status'))
 			<div class="alert {{ Session::get('alert_type') }} fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -16,18 +16,14 @@
 			</div>
 			@endif
 			@if(count($companies) == 0)
-				<h3 style="text-align:center;color:gray;">Nema potvrđenih tvrtki.</h3>
-			@endif
-			<a id="add_button" class="btn btn-primary" type="button" href="{{ url('/company/create') }}"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj tvrtku</a>
-			@if(count($companies) > 0)	
+				<h3 style="text-align:center;color:gray;">Nema tvrtki iz prošlih natječaja.</h3>
+			@else
 				<div class="table-responsive">
 					<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>Tvrtka</th>
 							<th>Sjedište</th>
-							<th>Broj praksi</th>
-							<th>Broj potvrđenih praksi</th>
 							<th>Datum stvaranja</th>
 							<th></th>
 						</tr>
@@ -42,15 +38,13 @@
 								{{ $company->residence }}
 							</td>
 							<td>
-								{{ count($company->internships()->where('status', '<>', 0)->get())}}
-							</td>
-							<td>
-								{{ count($company->internships()->where('confirmation_student', 1)->get())}}
-							</td>
-							<td>
 							{{ $company->created_at->format('d-m-Y') }}
 							</td>
 							<td class="row_buttons">
+								<form action="{{ url('/company/reinstate/' . $company->id) }}" method="POST">
+								{{ csrf_field() }}
+								<button class="btn btn-primary btn-sm" >Dodaj</button>
+								</form>
 								<a type="button" class="btn btn-info btn-sm" href="{{ url('/company/profile/' . $company->id) }}">Profil</a>
 								@if(Auth::user()->isAdmin())
 								<a type="button" class="btn btn-warning btn-sm" href="{{ url('/company/edit/' . $company->id) }}">Uredi</a>

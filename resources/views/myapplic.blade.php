@@ -34,6 +34,11 @@
 				{{ Session::get('status') }}
 			</div>
 		@endif
+		@if($setting->status == 2)
+		
+		<h3 style="text-align:center;color:gray;">Natječaj je gotov. Vaša prijava se obrađuje.</h3>
+		
+		@elseif($setting->status == 1)
 			<p>* Vaša prijava je zaprimljena i nalazi se u našoj bazi. Prijavu možete otkazati ili promijeniti podatke sve dok traje natječaj.</p>
 			<div class="action_buttons">
 				<a href="{{ url('/apply') }}"><button class="btn btn-warning">Uredi</button></a>
@@ -42,6 +47,7 @@
 					<button type="button" class="btn btn-danger delete">Otkaži</button>
 				</form>
 			</div>
+		@endif	
 			<table class="table table-striped table-bordered">
 				<tr><th colspan="2" class="table_section">Osobni podaci</th></tr>
 				<tr><th>Ime:</th><td>{{ $user->name }}</td></tr>
@@ -57,7 +63,7 @@
 				<tr><th colspan="2" class="table_section">Praksa</th></tr>
 				<tr><th>Grad za odrađivanje prakse:</th><td>{{ $applic->internship_town }}</td></tr>
 				<tr><th>Željene tvrtke:</th><td>{{ $applic->desired_company }}</td></tr>
-				<tr><th>Željeni mjesec za odrađivanje prakse:</th><td>{{ Utilities::desiredMonth($applic->desired_month) or "" }}</td></tr>
+				<tr><th>Željeni mjesec za odrađivanje prakse:</th><td>{{ Utilities::desiredMonth($applic->desired_month) }}</td></tr>
 				<tr><th colspan="2" class="table_section">Aktivnosti</th></tr>
 				<tr>
 					<td colspan="2">
@@ -70,10 +76,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('script')
-$(document).on("click", ".activity_name", function(){
-	
-});
 @endsection

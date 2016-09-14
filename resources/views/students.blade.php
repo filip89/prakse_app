@@ -30,7 +30,7 @@
 					<tr>
 						<td>{{ $user->name . " " . $user->last_name }}</td>
 						<td>
-						@if($user->confirmedInternship())
+						@if($user->confirmedInternship() && isset($user->internship->company))
 							<a class="link_object" href="{{ url('/company/profile/' . $user->activeInternship()->company->id) }}">{{ $user->activeInternship()->company->name }}</a></td>							
 						@endif
 						<td>{{ $user->created_at->format('d-m-Y') }}</td>
