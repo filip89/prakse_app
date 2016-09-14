@@ -38,7 +38,7 @@
 						<td class="row_buttons">
 						@if($user->activeInternship())
 							<a class="btn btn-info btn-sm" type="button" href="{{ url('/internships/'. $user->activeInternship()->id) }}">Prikaži praksu</a>
-						@elseif($user->activeApplic())
+						@elseif(Utilities::competitionStatus() == 2 && $user->activeApplic())
 						{{ Form::open(array('route' => array('internships.create'), 'method' => 'GET')) }}
 							{{ Form::hidden('name', $user->name) }}
 							{{ Form::hidden('last_name', $user->last_name) }}

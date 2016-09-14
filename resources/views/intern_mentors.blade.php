@@ -18,7 +18,9 @@
 			@if(count($users) == 0)
 				<h3 style="text-align:center;color:gray;">Nema registriranih mentora iz tvrtke.</h3>
 			@endif
+			@if(Auth::user()->isAdmin())
 			<a href="{{ url('/user/add/internmentor') }}"><button id="add_button" class="btn btn-primary btn-sm"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj mentora</button></a>
+			@endif
 			@if(count($users) > 0)
 			<div class="table-responsive">
 				<table class="table table-striped">
@@ -39,8 +41,10 @@
 						<td>{{$user->created_at->format('d-m-Y')}}</td>
 						<td class="row_buttons">
 							<a type="button" class="btn btn-info btn-sm" href="{{ url('/user/' . $user->id) }}">Profil</a>
-						@if (Auth::user()->isAdmin())
+						@if (Auth::user()->isAdmin() || Auth::user()->id == $user->id)
 							<a type="button" class="btn btn-warning btn-sm" href="{{ url('/user/' . $user->id . '/editintern') }}">Uredi</a>
+						@endif
+						@if (Auth::user()->isAdmin() && Auth::user()->id != $user->id)
 							<form action="{{ url('user/'. $user->id . '/delete') }}" method="POST">
 								{{ csrf_field() }}
 								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
