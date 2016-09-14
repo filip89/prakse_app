@@ -27,7 +27,18 @@
 							<tr><th>Mentorira studente:</th>
 								<td>
 								@foreach($internships as $internship) 
-								<a class="link_object" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a><br/>
+								<div class="student_item">
+								@if($internship->confirmation_student == 1)
+									<a class="link_object confirmed_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
+								@endif
+								</div>
+								@endforeach
+								@foreach($internships as $internship) 
+								<div class="student_item">
+								@if($internship->confirmation_student != 1)
+									<a class="link_object unconfirmed_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
+								@endif
+								</div>
 								@endforeach
 								</td>
 							</tr>		
