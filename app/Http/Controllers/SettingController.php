@@ -74,12 +74,6 @@ class SettingController extends Controller
 		
 		$setting = Setting::where('status', 1)->first();
 		
-		/*
-		DB::table('applics')->where('status', '<>', 0)->update(array('status' => 0));
-		DB::table('internships')->where('status', '<>', 0)->update(array('status' => 0));
-		DB::table('companies')->where('status', '<>', 0)->update(array('status' => 0));
-		*/
-		
 		$setting->status = 2;
 		$setting->save();
 		
