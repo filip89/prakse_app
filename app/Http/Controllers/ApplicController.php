@@ -13,18 +13,13 @@ use App\Applic;
 use App\Utilities;
 use App\Activity;
 use Session;
-use App\Setting;
 
 class ApplicController extends Controller
 {
     //
 	
-	private $setting;
-	
 	public function __construct(){
-		
-		$this->setting = Setting::orderBy('created_at', 'desc')->first();
-		
+				
 		$this->middleware('auth');
 		
 		$this->middleware('admin', ['only' => [
@@ -48,13 +43,13 @@ class ApplicController extends Controller
 		
 		$applics = Applic::where('status', 1)->orderBy('created_at', 'asc')->paginate(1);
 		
-		return view('applics', ['applics' => $applics, 'setting' => $this->setting]);
+		return view('applics', ['applics' => $applics]);
 		
 	}
 	
 	public function myApplic(){
 		
-		if($this->setting->status == 0){
+		if(Utilities::competitionStatus() == 0){
 			
 			return "Posljednja praksa...";
 			
@@ -65,7 +60,7 @@ class ApplicController extends Controller
 		
 		if(!$applic){
 			
-			if($this->setting->status == 2){
+			if(Utilities::competitionStatus() == 2){
 				return "Natječaj je završio...Posljednja praksa2...";
 			}
 			
@@ -76,7 +71,7 @@ class ApplicController extends Controller
 				
 			$activities = $applic->activities;
 			
-			return view('myapplic', ['applic' => $applic, 'user' => $user, 'activities' => $activities, 'setting' => $this->setting]);
+			return view('myapplic', ['applic' => $applic, 'user' => $user, 'activities' => $activities]);
 			
 		}
 				
