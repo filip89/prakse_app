@@ -199,6 +199,9 @@
 								<li><a href="{{  url('/user/intern_mentor/list') }}"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Mentori iz tvrtke</a></li>		
                             </ul>
                         </li>
+						@if(Auth::user()->isAdmin())
+						<li><a href="{{ url('/settings') }}"><i class="fa fa-btn fa-cogs" aria-hidden="true"></i></i>Natječaj</a></li>
+						@endif
 					@endif
 					@if(!Auth::guest())
                         <li class="dropdown">
@@ -206,9 +209,6 @@
                         	<ul class="dropdown-menu" role="menu">
 							@if(Auth::user()->role != "student")
 								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
-							@if(Auth::user()->isAdmin())
-								<li><a href="{{ url('/settings') }}"><i class="fa fa-btn fa-cogs" aria-hidden="true"></i></i>Natječaj</a></li>
-							@endif
 							@else
 								@if(Utilities::competitionStatus() != 0)
 									<li><a href="{{ url('/myapplic')}}"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</a></li>
