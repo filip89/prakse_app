@@ -34,11 +34,11 @@
 				{{ Session::get('status') }}
 			</div>
 		@endif
-		@if($setting->status == 2)
+		@if(Utilities::competitionStatus() == 2)
 		
 		<h3 style="text-align:center;color:gray;">Natječaj je gotov. Vaša prijava se obrađuje.</h3>
 		
-		@elseif($setting->status == 1)
+		@elseif(Utilities::competitionStatus() == 1)
 			<p>* Vaša prijava je zaprimljena i nalazi se u našoj bazi. Prijavu možete otkazati ili promijeniti podatke sve dok traje natječaj.</p>
 			<div class="action_buttons">
 				<a href="{{ url('/apply') }}"><button class="btn btn-warning">Uredi</button></a>
