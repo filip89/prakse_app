@@ -43,14 +43,14 @@ Route::post('user/{id}/editintern', "UserController@editInternMentor");
 Route::get('myapplic/', "ApplicController@myApplic");
 //prijava prakse
 Route::get('apply/{id?}', "ApplicController@applyForm");
-Route::post('apply/{id}', "ApplicController@apply");
+Route::post('apply', "ApplicController@apply");
 
 //lista praksi
 Route::get('applic/all', "ApplicController@index");
 
 //brisanje i editiranje prakse
 Route::post('applic/{id}/delete', "ApplicController@delete");
-Route::post('applic/{id}/edit', "ApplicController@edit");
+//Route::post('applic/{id}/edit', "ApplicController@edit");
 
 //rute za tvrtku
 Route::get('company', 'CompanyController@index');
