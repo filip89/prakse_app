@@ -23,7 +23,7 @@ class CreateApplicsTable extends Migration
 		$table->integer("desired_month")->nullable();
 		$table->string("desired_company", 200)->nullable();
 		$table->string("residence_town", 100);
-		$table->string("residence_county", 100);
+		$table->integer("residence_county");
 		$table->string("internship_town", 100)->nullable();
 		$table->integer("status")->unsigned()->default(1);
        		$table->timestamps();
