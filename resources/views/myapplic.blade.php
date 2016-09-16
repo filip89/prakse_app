@@ -54,7 +54,7 @@
 				<tr><th>Prezime</th><td>{{ $user->last_name }}</td></tr>
 				<tr><th>E-mail</th><td>{{ $applic->email }}</td></tr>
 				<tr><th>Mjesto prebivališta:</th><td>{{ $applic->residence_town }}</td></tr>
-				<tr><th>Županija prebivališta:</th><td>{{ $applic->residence_county }}</td></tr>
+				<tr><th>Županija prebivališta:</th><td>{{ Utilities::county($applic->residence_county) }}</td></tr>
 				<tr><th colspan="2" class="table_section">Akademski podaci</th></tr>
 				<tr><th>Godina studija:</th><td>{{ Utilities::academicYear($applic->academic_year) }}</td></tr>
 				<tr><th>Smjer:</th><td>{{ Utilities::course($applic->course) }}</td></tr>
