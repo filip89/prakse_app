@@ -59,7 +59,7 @@ td {
 
     					<tr>
     						<th>Županija prebivališta</th>
-    						<td  colspan="2">{{ $app->residence_county }}</td>
+    						<td  colspan="2">{{  Utilities::county($app->residence_county) }}</td>
     					</tr>
 
     					<tr>
