@@ -59,7 +59,8 @@ td {
 
     					<tr>
     						<th>Županija prebivališta</th>
-    						<td  colspan="2">{{  Utilities::county($app->residence_county) }}</td>
+    						<td  colspan="2">{{ $app->residence_county }}</td>
+                            <td  colspan="2">{{ Utilities::county($app->residence_county) }}</td>
     					</tr>
 
     					<tr>
@@ -82,7 +83,6 @@ td {
                             </tr>                                   
                             @endif
                         @endforeach 
-
                                                   
                         </tbody>
     				</table>
@@ -98,7 +98,7 @@ td {
                 <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</div>
                 <div class="panel-body">  
 			
-					<form class="form-horizontal" role="form" method="POST" action="{{ route('internships.store') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ action('InternshipController@change', 0) }}">
                         {{ csrf_field() }}
 
                         <input type="hidden" name="student_id" value="{{ $_GET['student_id'] }}"> 
@@ -189,9 +189,7 @@ td {
                                 @endif
                             </div>
                         </div>                     
-
-                                                            
-						
+                                                            					
 						<div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
                             <label for="start_date" class="col-md-4 control-label">Datum početka</label>
 
