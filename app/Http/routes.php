@@ -66,9 +66,11 @@ Route::post('company/delete/{id}', 'CompanyController@delete');
 
 //pregled praksi
 Route::get('internships/showFinal', "InternshipController@showFinal");
+Route::get('internships/showFormer', "InternshipController@showFormer");
 Route::post('internships/addMentor/{id}', "InternshipController@addMentor");
 Route::post('internships/removeMentor/{id}', "InternshipController@removeMentor");
-Route::resource('internships', "InternshipController");
+Route::any('internships/change/{id}', "InternshipController@change");
+Route::resource('internships', "InternshipController", ['except' => ['store', 'update']]);
 
 //setting
 Route::get('settings','SettingController@form');
