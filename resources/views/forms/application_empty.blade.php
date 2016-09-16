@@ -20,7 +20,7 @@ textarea {
             <div class="panel panel-success">
                 <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/apply/' . $user->id ) }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/apply') }}">
                         {{ csrf_field() }}
 
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -84,7 +84,12 @@ textarea {
 							
                             <div class="col-md-6">
 							
-                                <input type="text" class="form-control" name="residence_county" required/>
+							<select class="form-control" name="residence_county" required>
+								<option selected disabled hidden style='display: none'></option>
+                                @foreach(Utilities::county() as $i => $county)
+									<option value="{{$i}}">{{ $county }}</option>
+								@endforeach
+							</select>
 
                                 @if ($errors->has('residence_county'))
                                     <span class="help-block">

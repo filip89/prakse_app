@@ -11,7 +11,7 @@
             <div class="panel panel-warning">
                 <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/applic/' . $user->id . '/edit') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/apply') }}">
                         {{ csrf_field() }}
 
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -74,8 +74,12 @@
                             <label for="residence_county" class="col-md-4 control-label">Županija prebivališta</label>
 							
                             <div class="col-md-6">
-							
-                                <input type="text" class="form-control" name="residence_county" value="{{ $applic->residence_county }}" required/>
+								
+								<select class="form-control" name="residence_county" required>
+                                @foreach(Utilities::county() as $i => $county)
+									<option value="{{$i}}" @if($applic->residence_county == $i) {{ 'selected' }} @endif>{{ $county }}</option>
+								@endforeach
+								</select>
 
                                 @if ($errors->has('residence_county'))
                                     <span class="help-block">
