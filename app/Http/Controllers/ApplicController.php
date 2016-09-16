@@ -27,9 +27,7 @@ class ApplicController extends Controller
 		]]);
 		
 		$this->middleware('adminOrSelf', ['only' => [
-			'apply',
 			'delete',
-			'edit',
 		]]);
 		
 		$this->middleware('student', ['only' => [
@@ -126,7 +124,7 @@ class ApplicController extends Controller
 			}
 			
 			
-			return view("forms.application_empty", ['user' => $user, 'activities' => $activities]);
+			return view("forms.application_empty", ['user' => $user, 'activities' => $activities, 'i' => 0]);
 			
 		}	
 	
@@ -134,23 +132,34 @@ class ApplicController extends Controller
 	
 	
 	
-	public function apply(Request $request, $id){
+	public function apply(Request $request){
 		
-		$user = User::find($id);
+		$user = Auth::user();
 		
 		$this->validate($request, [
 			'academic_year' => 'required',
 			'course' => 'required',
 			'email' => 'required|max:100',
 			'residence_town' => 'required|max:100',
-			'residence_county' => 'required|max:100',
+			'residence_county' => 'required',
 			'internship_town' => 'max:100',
 			'desired_town' => 'max:100',
 			'average_bacc_grade' => 'between:0,5'
 		]);
 		
-		$applic = new Applic;
-		
+		if($user->activeApplic()){
+			
+			$applic = $user->activeApplic();
+			$newApplic = false;
+			
+		}
+		else {
+			
+			$applic = new Applic;
+			$newApplic = true;
+			
+		}
+			
 		$applic->academic_year = $request->academic_year;
 		$applic->course = $request->course;
 		$applic->email = $request->email;
@@ -161,8 +170,18 @@ class ApplicController extends Controller
 		$applic->internship_town = $request->internship_town;
 		$applic->residence_town = $request->residence_town;
 		$applic->residence_county = $request->residence_county;
-						
-		$applic->student()->associate($user);
+			
+		if(!$user->activeApplic()){
+			
+			$applic->student()->associate($user);
+				
+		}
+		else {
+				
+			$applic->activities()->delete();
+			
+		}
+		
 		$applic->save();
 		
 		
@@ -189,20 +208,20 @@ class ApplicController extends Controller
 		
 		}
 		
-		Session::flash('status', 'Prijava je izrađena!');
-		Session::flash('alert_type', 'alert-success');
-		
-		if(Auth::user()->isAdmin()){
+		if($newApplic){
 			
-			return redirect("/applic/all");
-			
+			Session::flash('status', 'Prijava je izrađena!');
+			Session::flash('alert_type', 'alert-success');
+					
 		}
-		else{
+		else {
 			
-			return redirect("/myapplic");
-			
+			Session::flash('status', 'Prijava je uređena!');
+			Session::flash('alert_type', 'alert-warning');
+					
 		}
 		
+		return redirect("/myapplic");
 		
 	}
 	
@@ -222,74 +241,5 @@ class ApplicController extends Controller
 		}	
 		
 	}
-	
-	
-	public function edit(Request $request, $id){
-
-		$this->validate($request, [
-			'academic_year' => 'required',
-			'course' => 'required',
-			'email' => 'required|max:100|email',
-			'residence_town' => 'required|max:100',
-			'residence_county' => 'required|max:100',
-		]);
 		
-		$user = User::find($id);
-		
-		$applic = $user->activeApplic();
-		
-		$applic->academic_year = $request->academic_year;
-		$applic->course = $request->course;
-		$applic->email = $request->email;
-		$applic->average_bacc_grade = $request->average_bacc_grade;
-		$applic->average_master_grade = $request->average_master_grade;
-		$applic->desired_company = $request->desired_company;
-		$applic->desired_month = $request->desired_month;
-		$applic->internship_town = $request->internship_town;
-		$applic->residence_town = $request->residence_town;
-		$applic->residence_county = $request->residence_county;
-		
-		$applic->save();
-		
-		$applic->activities()->delete();
-		
-		for($i=1; $i<=10; $i++){
-			
-			if(isset($request->activities[$i])){
-				
-				$activity = new Activity;
-				$activity->number = $i;
-				$year = 'year_' . $i;
-				$description = 'description_' . $i;
-				
-				if(isset($request->$year)){
-					$activity->year = $request->$year;
-				}
-				
-				if(isset($request->$description)){
-					$activity->description = $request->$description;
-				}
-
-				$activity->applic()->associate($applic);
-				$activity->save();
-			}
-		
-		}
-		
-		Session::flash('status', 'Prijava je izmijenjena!');
-		Session::flash('alert_type', 'alert-warning');
-		
-		if(Auth::user()->isAdmin()){
-			
-			return redirect("/user/student/list");
-			
-		}
-		else{
-			
-			return redirect("/myapplic");
-			
-		}
-		
-	}
-	
 }
