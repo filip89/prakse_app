@@ -9,7 +9,7 @@
 	            <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Uređivanje prakse</div>
 	                <div class="panel-body"> 
 						
-                        {{ Form::open(array('route' => array('internships.update', $internship->id), 'method' => 'PUT', 'class' => 'form-horizontal')) }}                     
+                        <form class="form-horizontal" role="form" method="PUT" action="{{ action('InternshipController@change', $internship->id) }}">                   
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Ime</label>
@@ -305,7 +305,7 @@
                             </div>
                         </div>
 
-					{{ Form::close() }}
+					</form>
 					
 	   				</div>
 	   			</div>
