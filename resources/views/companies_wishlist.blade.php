@@ -29,7 +29,7 @@
 				</thead>
 				<tbody>
 						@foreach($applics as $applic)	
-						@if($applic->student->hasCompany() == 2)
+						@if($applic->student->hasCompany())
 						<tr class="hasInternship">
 							<td>
 								<b>{{ $applic->desired_company }}</b>

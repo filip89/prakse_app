@@ -30,9 +30,14 @@
 					<tr>
 						<td>{{ $user->name . " " . $user->last_name }}</td>
 						<td>
-						@if($user->confirmedInternship() && isset($user->internship->company))
-							<a class="link_object" href="{{ url('/company/profile/' . $user->activeInternship()->company->id) }}">{{ $user->activeInternship()->company->name }}</a></td>							
+						@if($user->hasCompany())
+							@if($user->confirmedInternship())
+								<a class="link_object" href="{{ url('/company/profile/' . $user->activeInternship()->company->id) }}">{{ $user->activeInternship()->company->name }}</a>							
+							@else
+								<a class="link_object" href="{{ url('/company/profile/' . $user->activeInternship()->company->id) }}" style="color:darkgray">{{ $user->activeInternship()->company->name }}</a>
+							@endif
 						@endif
+						</td>
 						<td>{{ $user->created_at->format('d-m-Y') }}</td>
 						<td>{{ $user->competitionStatus() }}</td>
 						<td class="row_buttons">
