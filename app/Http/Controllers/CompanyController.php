@@ -133,7 +133,7 @@ class CompanyController extends Controller
 		Session::flash('status', 'Tvrtka je dodana!');
 		Session::flash('alert_type', 'alert-success');
 		
-		return redirect('/company');
+		return redirect('/company/former');
 		
 	}
 	
