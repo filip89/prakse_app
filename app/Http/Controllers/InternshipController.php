@@ -28,16 +28,22 @@ class InternshipController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
-    {
-
+    public function index() {
         $internship = Internship::where('status', 1)->orderBy('total_points', 'desc')->paginate(1);
         $academicYear = new Utilities;
 
         return view('internships.index')
             ->with('internships', $internship)
-            ->with('academicYear', $academicYear);     
-        
+            ->with('academicYear', $academicYear);           
+    }
+
+    public function showFormer() {
+        $internship = Internship::where('status', 0)->orderBy('total_points', 'desc')->paginate(1);
+        $academicYear = new Utilities;
+
+        return view('internships.former')
+            ->with('internships', $internship)
+            ->with('academicYear', $academicYear);             
     }
 
     /**
@@ -45,8 +51,18 @@ class InternshipController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+
+    public function showFinal() {
+
+        $internships = Internship::where('status', 2)->orderBy('total_points', 'desc')->paginate(1);
+        $academicYear = new Utilities;
+
+        return view('internships.final')
+            ->with('internships', $internships)
+            ->with('academicYear', $academicYear);
+    }
+
+    public function create() {
 
         $academicYear = new Utilities;
         $course = new Utilities;
@@ -77,62 +93,8 @@ class InternshipController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
 
-        $this->validate($request, [          
-            'average_bacc_grade' => 'required|numeric|between:2,5',
-            'average_master_grade' => 'required|numeric|between:2,5',
-            'activity_points' => 'required|integer|between:1,5',  
-            'duration' => 'integer|between:1,90',
-            'year' => 'integer|between:1990,9999',         
-        ]);
-
-         
-        $internship = new Internship;
-        $applic = Applic::where('id', $request->applic_id)->first();
-
-        if(count($applic) != 0) {
-            $applic->status = 2;
-            $applic->save();  
-        }    
-
-        $internship->student_id = $request->student_id;
-        $internship->company_id = $request->company_id ?: null;
-        $internship->academic_year = $request->academic_year;
-        $internship->average_bacc_grade = $request->average_bacc_grade;
-        $internship->average_master_grade = $request->average_master_grade;
-        $internship->activity_points = $request->activity_points;
-        $internship->total_points = $request->average_bacc_grade + $request->average_master_grade +$request->activity_points;
-        $internship->start_date = date('Y-m-d', strtotime($request->start_date)) ?: null;
-        $internship->end_date = date('Y-m-d', strtotime($request->end_date)) ?: null;
-        $internship->duration = $request->duration ?: null;
-        $internship->year = $request->year ?: null;
-        $internship->college_mentor_id = $request->college_mentor_id;
-        $internship->intern_mentor_id = $request->intern_mentor_id;
-        $internship->student_comment = $request->student_comment;
-        $internship->rating_by_student = $request->rating_by_student ?: null;
-        $internship->intern_mentor_comment = $request->intern_mentor_comment;
-        $internship->college_mentor_comment = $request->college_mentor_comment;
-        $internship->confirmation_student = $request->confirmation_student;
-        $internship->confirmation_admin = $request->confirmation_admin;
-        $internship->save();
-
-        Session::flash('status', 'Praksa uspješno stvorena!');
-        Session::flash('alert_type', 'alert-success');
-
-        return redirect()->route('internships.index');
-        
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
+    public function show($id) {
 
         $internships = Internship::where('id', $id)->get();
 
@@ -147,18 +109,7 @@ class InternshipController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function showFinal() {
-
-        $internships = Internship::where('status', 2)->orderBy('total_points', 'desc')->paginate(1);
-        $academicYear = new Utilities;
-
-        return view('internships.final')
-            ->with('internships', $internships)
-            ->with('academicYear', $academicYear);
-    }
-
-    public function edit($id)
-    {
+    public function edit($id) {
 
         $internship = Internship::find($id);
         $companies= Company::where('status', 1)->get();
@@ -169,19 +120,10 @@ class InternshipController extends Controller
             ->with('internship', $internship)
             ->with('companies', $companies)
             ->with('collegeMentor', $collegeMentor)
-            ->with('internMentor', $internMentor);
-        
+            ->with('internMentor', $internMentor);       
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
+     public function change(Request $request, $id) {
         $this->validate($request, [       
             'average_bacc_grade' => 'required|numeric|between:2,5',
             'average_master_grade' => 'required|numeric|between:2,5',
@@ -190,8 +132,19 @@ class InternshipController extends Controller
             'year' => 'integer|between:1990,9999', 
         ]);
 
-        $internship = Internship::find($id);
+        if($id != 0) {
+            $internship = Internship::find($id);
+        } else {
+            $internship = new Internship;
+            $applic = Applic::where('id', $request->applic_id)->first();
 
+            if(count($applic) != 0) {
+                $applic->status = 2;
+                $applic->save();  
+            }  
+            $internship->student_id = $request->student_id;  
+        }
+        
         $internship->company_id = $request->company_id ?: null;
         $internship->academic_year = $request->academic_year;
         $internship->average_bacc_grade = $request->average_bacc_grade;
@@ -211,27 +164,39 @@ class InternshipController extends Controller
         $internship->confirmation_student = $request->confirmation_student;
         $internship->confirmation_admin = $request->confirmation_admin;
 
-        if($request->company_id != null) {
-            $internship->status = 2;
+        if($id != 0) {
+            if($request->company_id != null) {
+                $internship->status = 2;
+            } else {
+                $internship->status = 1;
+            }
+
+            $internship->save();
+
+            Session::flash('status', 'Praksa uspješno uređena!');
+            Session::flash('alert_type', 'alert-warning');
+
+            return redirect()->route('internships.index');
+
         } else {
-            $internship->status = 1;
-        }
 
-        $internship->save();
+            $internship->save();
 
-        Session::flash('status', 'Praksa uspješno uređena!');
-        Session::flash('alert_type', 'alert-warning');
+            Session::flash('status', 'Praksa uspješno stvorena!');
+            Session::flash('alert_type', 'alert-success');
 
-        return redirect()->route('internships.index');
+            return redirect()->route('internships.index');
+        }   
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update the specified resource in storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
+   
     public function addMentor(Request $request, $id) {
 
         $internship = Internship::find($id);
@@ -245,7 +210,7 @@ class InternshipController extends Controller
         return redirect()->action('InternshipController@showFinal');
     }
 
-     public function removeMentor(Request $request, $id) {
+    public function removeMentor(Request $request, $id) {
 
         $internship = Internship::find($id);
 
@@ -258,8 +223,7 @@ class InternshipController extends Controller
         return redirect()->action('InternshipController@showFinal');
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $internship = Internship::find($id);
         $applic = Applic::where('student_id', $internship->student_id)->where('status', 2)->first();
 
@@ -274,6 +238,6 @@ class InternshipController extends Controller
         Session::flash('alert_type', 'alert-success');
 
         return redirect()->route('internships.index');
-    }
+    }  
 
 }
