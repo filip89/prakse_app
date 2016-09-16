@@ -71,7 +71,7 @@ class User extends Authenticatable
 			return "Praksa u izradi";
 			
 		}
-		if(count($this->applics()->where('status', '<>', 0)->get()) > 0){
+		if($this->activeApplic()){
 			
 			return "Izrađena prijava";
 			
@@ -107,7 +107,7 @@ class User extends Authenticatable
 	
 	public function hasCompany(){
 		
-		if($this->activeInternship()->company){
+		if(isset($this->activeInternship()->company)){
 			
 			return true;
 			
