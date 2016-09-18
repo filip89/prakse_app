@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use Auth;
 use Carbon\Carbon;
 use App\Http\Requests;
 use App\Internship;
@@ -14,6 +15,7 @@ use App\InternMentor;
 use App\CollegeMentor;
 use App\Activity;
 use App\Utilities;
+use PDF;
 
 class InternshipController extends Controller
 {
@@ -26,10 +28,36 @@ class InternshipController extends Controller
     public function __construct() {
 
         $this->middleware('auth');
+
+        $this->middleware('admin', ['only' => [
+            'index',
+            'edit',
+            'change',
+            'create',           
+            'showFormer',
+            'destroy',
+            
+        ]]);
+        
+        $this->middleware('mentor', ['only' => [
+            'addMentor',
+            'removeMentor',
+            'show',
+            'showFinal',
+            'showIntern',
+            'showCollege',
+            'getPDF',
+        ]]);
+
+        $this->middleware('student', ['only' => [
+            'getReport',
+            'createReport',
+        ]]);
+        
     }
 
     public function index() {
-        $internship = Internship::where('status', 1)->orderBy('total_points', 'desc')->paginate(1);
+        $internship = Internship::where('status', 1)->orderBy('total_points', 'desc')->paginate(2);
         $academicYear = new Utilities;
 
         return view('internships.index')
@@ -38,7 +66,7 @@ class InternshipController extends Controller
     }
 
     public function showFormer() {
-        $internship = Internship::where('status', 0)->orderBy('total_points', 'desc')->paginate(1);
+        $internship = Internship::where('status', 0)->orderBy('total_points', 'desc')->paginate(2);
         $academicYear = new Utilities;
 
         return view('internships.former')
@@ -54,12 +82,32 @@ class InternshipController extends Controller
 
     public function showFinal() {
 
-        $internships = Internship::where('status', 2)->orderBy('total_points', 'desc')->paginate(1);
+        $internships = Internship::where('status', 2)->orderBy('total_points', 'desc')->paginate(2);
         $academicYear = new Utilities;
 
         return view('internships.final')
             ->with('internships', $internships)
             ->with('academicYear', $academicYear);
+    }
+
+    public function showIntern() {
+
+        $internships = Internship::where('intern_mentor_id', Auth::user()->id)->paginate(1);
+        $paginate = 1;
+
+        return view('internships.show')
+            ->with('internships', $internships)
+            ->with('paginate', $paginate);
+    }
+
+    public function showCollege() {
+
+        $internships = Internship::where('college_mentor_id', Auth::user()->id)->paginate(1);
+        $paginate = 1;
+
+        return view('internships.show')
+            ->with('internships', $internships)
+            ->with('paginate', $paginate);
     }
 
     public function create() {
@@ -155,8 +203,8 @@ class InternshipController extends Controller
         $internship->end_date = date('Y-m-d', strtotime($request->end_date)) ?: null;
         $internship->duration = $request->duration ?: null;
         $internship->year = $request->year ?: null;
-        $internship->college_mentor_id = $request->college_mentor_id;
-        $internship->intern_mentor_id = $request->intern_mentor_id;
+        $internship->college_mentor_id = $request->college_mentor_id ?: null;
+        $internship->intern_mentor_id = $request->intern_mentor_id ?: null;
         $internship->student_comment = $request->student_comment;
         $internship->rating_by_student = $request->rating_by_student ?: null;
         $internship->intern_mentor_comment = $request->intern_mentor_comment;
@@ -176,7 +224,12 @@ class InternshipController extends Controller
             Session::flash('status', 'Praksa uspješno uređena!');
             Session::flash('alert_type', 'alert-warning');
 
-            return redirect()->route('internships.index');
+            if($request->company_id == null) {
+                return redirect()->route('internships.index');
+            } else {
+                return redirect()->action('InternshipController@showFinal');
+            }
+            
 
         } else {
 
@@ -239,5 +292,52 @@ class InternshipController extends Controller
 
         return redirect()->route('internships.index');
     }  
+    public function getPDF(Request $request) {
+
+        $internships = Internship::all();
+        $collegeMentor = CollegeMentor::all();
+        $date = Carbon::now()->toDateString();
+
+        if($request->doc_id == 1) {
+
+            $pdf = PDF::loadView('pdf.referral', ['internships' => $internships, 'collegeMentor' => $collegeMentor, 'date' => $date]);
+            $pdf->setPaper('A4', 'portrait');
+
+            return $pdf->stream('Uputnica za studentsku praksu.pdf');
+
+        } elseif($request->doc_id == 2) {
+
+            $pdf = PDF::loadView('pdf.internship_ratification', ['internships' => $internships, 'collegeMentor' => $collegeMentor, 'date' => $date]);
+            $pdf->setPaper('A4', 'portrait');
+
+            return $pdf->stream('Potvrda o obavljenoj praksi.pdf');
+        } else {
+
+            $pdf = PDF::loadView('pdf.education_ratification', ['internships' => $internships, 'collegeMentor' => $collegeMentor, 'date' => $date]);
+            $pdf->setPaper('A4', 'portrait');
+
+            return $pdf->stream('Potvrda o obavljenoj edukaciji.pdf');
+        }
+          
+    }
+
+    public function createReport() {
+
+        $internships = Internship::all();
+
+        return view('internships.report', ['internships' => $internships]);
+    }
+
+    public function getReport(Request $request) {
+
+        $internships = Internship::where('student_id', $request->student_id)->get();
+        $activities = $request->activities;
+        $abstract = $request->abstract;
+
+        $pdf = PDF::loadView('pdf.report', ['name' => $name, 'activities' => $activities, 'abstract' => $abstract, 'internships' => $internships]);
+        $pdf->setPaper('A4', 'portrait');
+
+        return $pdf->stream('Izvješće o obavljenoj praksi.pdf');
+    }
 
 }
