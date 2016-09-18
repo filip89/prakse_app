@@ -198,7 +198,7 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="college_mentor_id"/>                             	
 									@foreach($collegeMentor as $elem)
-
+                                        <option value=""></option>
 										<option value="{{ $elem->id }}"
 										@if($elem->id == $internship->college_mentor_id) {{ 'selected' }} @endif>
 										{{ $elem->name.' '.$elem->last_name }}</option>

@@ -12,7 +12,7 @@
 			</div>
 			@endif	
 
-			<h1>Prakse</h1>
+			<h1>Prijavljene prakse</h1>
 
 			@if(count($internships) < 1)
 				<h3 style="text-align:center;color:gray;">Ne postoji niti jedna praksa.</h3>
