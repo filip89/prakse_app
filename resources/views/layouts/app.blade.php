@@ -176,14 +176,34 @@
 						@if(Auth::user()->isAdmin())
 						<li><a href="{{ url('/applic/all') }}">Prijave</a></li>
 						@endif
+						@if(Auth::user()->isAdmin())
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prakse <span class="caret"></span></a>		
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="{{ url('/internships') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Prijavljene</a></li>
-									<li><a href="{{  url('/internships/showFinal') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Konačne</a></li>
-									<li><a href="{{  url('/internships/showFormer') }}"><i class="fa fa-btn fa-reply" aria-hidden="true"></i>Prijašnje</a></li>
+									<li><a href="{{ url('/internships/showFinal') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Konačne</a></li>
+									<li><a href="{{ url('/internships/showFormer') }}"><i class="fa fa-btn fa-reply" aria-hidden="true"></i>Prijašnje</a></li>
+									@if(Auth::user()->role == 'intern_mentor')						
+									<li><a href="{{ url('/internships/showIntern') }}"><i class="fa fa-btn fa-user" aria-hidden="true"></i>Moje prakse</a></li>					                       
+                        			@endif
+                        			@if(Auth::user()->role == 'college_mentor')						
+									<li><a href="{{ url('/internships/showCollege') }}"><i class="fa fa-btn fa-user" aria-hidden="true"></i>Moje prakse</a></li>					                       
+                        			@endif
 								</ul>
                         </li>
+                        @endif
+                        @if(Auth::user()->role == 'intern_mentor' && Auth::user()->isAdmin() == false)						
+							<li><a href="{{ url('/internships/showIntern') }}">Prakse</a></li>								                        
+                        @endif
+                        @if(Auth::user()->role == 'college_mentor' && Auth::user()->isAdmin() == false)						
+							<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prakse <span class="caret"></span></a>		
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="{{ url('/internships/showFinal') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Konačne</a></li>
+									<li><a href="{{ url('/internships/showCollege') }}"><i class="fa fa-btn fa-user" aria-hidden="true"></i>Moje prakse</a></li>	
+								</ul>
+                        </li>								                        
+                        @endif
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tvrtke <span class="caret"></span></a>		
 								<ul class="dropdown-menu" role="menu">
@@ -205,6 +225,9 @@
 						@endif
 					@endif
 					@if(!Auth::guest())
+						@if(Auth::user()->role == 'student' && Auth::user()->isAdmin() == false)						
+							<li><a href="{{ url('/internships/createReport') }}">Prakse</a></li>								                        
+                        @endif
                         <li class="dropdown">
                         	 <a class="profile_dropdown" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                         	<ul class="dropdown-menu" role="menu">
