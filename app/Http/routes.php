@@ -64,9 +64,14 @@ Route::get('company/edit/{id}', 'CompanyController@editForm');
 Route::post('company/edit/{id}', 'CompanyController@edit');
 Route::post('company/delete/{id}', 'CompanyController@delete');
 
-//pregled praksi
+//prakse
+Route::any('internships/document', 'InternshipController@getPDF');
+Route::any('internships/createReport', 'InternshipController@createReport');
+Route::any('internships/report', 'InternshipController@getReport');
 Route::get('internships/showFinal', "InternshipController@showFinal");
 Route::get('internships/showFormer', "InternshipController@showFormer");
+Route::get('internships/showIntern', "InternshipController@showIntern");
+Route::get('internships/showCollege', "InternshipController@showCollege");
 Route::post('internships/addMentor/{id}', "InternshipController@addMentor");
 Route::post('internships/removeMentor/{id}', "InternshipController@removeMentor");
 Route::any('internships/change/{id}', "InternshipController@change");
