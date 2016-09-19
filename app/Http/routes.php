@@ -39,16 +39,20 @@ Route::post('user/add/internmentor', 'UserController@addInternMentor');
 Route::get('user/{id}/editintern', "UserController@editInternMentorForm");
 Route::post('user/{id}/editintern', "UserController@editInternMentor");
 
-//'profil' prakse - studenta
+//'profil' prijave - studenta
 Route::get('myapplic/', "ApplicController@myApplic");
-//prijava prakse
+//prijava
 Route::get('apply/{id?}', "ApplicController@applyForm");
 Route::post('apply', "ApplicController@apply");
 
-//lista praksi
+//lista prijava
 Route::get('applic/all', "ApplicController@index");
 
-//brisanje i editiranje prakse
+//lista praksi
+Route::get('user_internships/{id?}', "UserController@userInternships");
+Route::get('company_internships/{id}', "CompanyController@companyInternships");
+
+//brisanje i editiranje prijave
 Route::post('applic/{id}/delete', "ApplicController@delete");
 //Route::post('applic/{id}/edit', "ApplicController@edit");
 
@@ -77,8 +81,10 @@ Route::post('internships/removeMentor/{id}', "InternshipController@removeMentor"
 Route::any('internships/change/{id}', "InternshipController@change");
 Route::resource('internships', "InternshipController", ['except' => ['store', 'update']]);
 
-//setting
-Route::get('settings','SettingController@form');
-Route::post('settings/create', 'SettingController@store');
-Route::post('settings/end', 'SettingController@endCompetition');
-Route::post('settings/archive', 'SettingController@archiveCompetition');
+//competition
+Route::post('competition/create', 'CompetitionController@store');
+Route::post('competition/close', 'CompetitionController@close');
+Route::post('competition/archive', 'CompetitionController@archive');
+
+//settings
+Route::get('settings','SettingController@competition');
