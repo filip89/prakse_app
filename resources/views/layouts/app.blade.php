@@ -125,12 +125,19 @@
 			background-color: #f2f2f2;
 			margin-bottom: 4px;
 		}
-		.unconfirmed_gray {
+		.expired_gray {
 			color: darkgray;
 		}
-		.confirmed_green {
+		.current_green {
 			color: darkgreen;
 		}
+		.settings_fa {
+			font-size: 20px;
+		}
+		h3{
+			text-align: center;
+			color: gray;
+		} 
 		
     @yield('style')
     </style>
@@ -160,9 +167,9 @@
                     <li><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
 					@if(!Auth::guest() && Auth::user()->role == "student")
 						@if(Utilities::competitionStatus() != 0)
-						<li><a href="{{ url('/myapplic')}}"><b>Prijava prakse</b></a></li>
+						<li><a href="{{ url('/myapplic')}}"><b><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</b></a></li>
 						@endif
-						<li><a href=""><b>Moja praksa</b></a></li>
+						<li><a href="{{ url('/user_internships')}}"><b><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</b></a></li>
 					@endif
                 </ul>
 
@@ -176,34 +183,16 @@
 						@if(Auth::user()->isAdmin())
 						<li><a href="{{ url('/applic/all') }}">Prijave</a></li>
 						@endif
-						@if(Auth::user()->isAdmin())
+						@if(Auth::user()->role == "college_mentor")
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prakse <span class="caret"></span></a>		
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="{{ url('/internships') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Prijavljene</a></li>
-									<li><a href="{{ url('/internships/showFinal') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Konačne</a></li>
-									<li><a href="{{ url('/internships/showFormer') }}"><i class="fa fa-btn fa-reply" aria-hidden="true"></i>Prijašnje</a></li>
-									@if(Auth::user()->role == 'intern_mentor')						
-									<li><a href="{{ url('/internships/showIntern') }}"><i class="fa fa-btn fa-user" aria-hidden="true"></i>Moje prakse</a></li>					                       
-                        			@endif
-                        			@if(Auth::user()->role == 'college_mentor')						
-									<li><a href="{{ url('/internships/showCollege') }}"><i class="fa fa-btn fa-user" aria-hidden="true"></i>Moje prakse</a></li>					                       
-                        			@endif
+									<li><a href="{{  url('/internships/showFinal') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Konačne</a></li>
+									<li><a href="{{  url('/internships/showFormer') }}"><i class="fa fa-btn fa-reply" aria-hidden="true"></i>Prijašnje</a></li>
 								</ul>
                         </li>
-                        @endif
-                        @if(Auth::user()->role == 'intern_mentor' && Auth::user()->isAdmin() == false)						
-							<li><a href="{{ url('/internships/showIntern') }}">Prakse</a></li>								                        
-                        @endif
-                        @if(Auth::user()->role == 'college_mentor' && Auth::user()->isAdmin() == false)						
-							<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prakse <span class="caret"></span></a>		
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="{{ url('/internships/showFinal') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Konačne</a></li>
-									<li><a href="{{ url('/internships/showCollege') }}"><i class="fa fa-btn fa-user" aria-hidden="true"></i>Moje prakse</a></li>	
-								</ul>
-                        </li>								                        
-                        @endif
+						
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tvrtke <span class="caret"></span></a>		
 								<ul class="dropdown-menu" role="menu">
@@ -212,6 +201,7 @@
 									<li><a href="{{  url('/company/former') }}"><i class="fa fa-btn fa-reply" aria-hidden="true"></i></i>Prijašnje</a></li>
 								</ul>
                         </li>
+						
 						<li class="dropdown">
                         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Korisnici <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
@@ -220,14 +210,12 @@
 								<li><a href="{{  url('/user/intern_mentor/list') }}"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Mentori iz tvrtke</a></li>		
                             </ul>
                         </li>
+						@endif
 						@if(Auth::user()->isAdmin())
-						<li><a href="{{ url('/settings') }}"><i class="fa fa-btn fa-cogs" aria-hidden="true"></i></i>Natječaj</a></li>
+						<li><a href="{{ url('/settings') }}"><i class="fa fa-btn fa-cogs" aria-hidden="true"></i></i>Postavke</a></li>
 						@endif
 					@endif
 					@if(!Auth::guest())
-						@if(Auth::user()->role == 'student' && Auth::user()->isAdmin() == false)						
-							<li><a href="{{ url('/internships/createReport') }}">Prakse</a></li>								                        
-                        @endif
                         <li class="dropdown">
                         	 <a class="profile_dropdown" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                         	<ul class="dropdown-menu" role="menu">
@@ -235,9 +223,11 @@
 								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
 							@else
 								@if(Utilities::competitionStatus() != 0)
-									<li><a href="{{ url('/myapplic')}}"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</a></li>
+								<li><a href="{{ url('/myapplic')}}"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</a></li>
 								@endif
+								<li><a href="{{ url('/internships/createReport') }}">Izvještaj</a></li>
 							@endif
+								<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</a></li>
                         		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
 						</li>
