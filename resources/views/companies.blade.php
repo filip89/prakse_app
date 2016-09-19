@@ -28,8 +28,8 @@
 						<tr>
 							<th>Tvrtka</th>
 							<th>Sjedište</th>
-							<th>Broj praksi</th>
-							<th>Broj potvrđenih praksi</th>
+							<th>Broj praksi (tek. natječaj)</th>
+							<th>Broj odrađenih praksi </th>
 							<th>Datum stvaranja</th>
 							<th></th>
 						</tr>
@@ -47,7 +47,7 @@
 								{{ count($company->internships()->where('status', '<>', 0)->get())}}
 							</td>
 							<td>
-								{{ count($company->internships()->where('confirmation_student', 1)->get())}}
+								{{ count($company->internships()->where('confirmation_student', '!=', 0)->get())}}
 							</td>
 							<td>
 							{{ $company->created_at->format('d-m-Y') }}

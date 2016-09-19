@@ -36,7 +36,7 @@
 		@endif
 		@if(Utilities::competitionStatus() == 2)
 		
-		<h3 style="text-align:center;color:gray;">Natječaj je gotov. Vaša prijava se obrađuje.</h3>
+		<h3 class="notice">Natječaj je gotov. Vaša prijava se obrađuje.</h3>
 		
 		@elseif(Utilities::competitionStatus() == 1)
 			<p>* Vaša prijava je zaprimljena i nalazi se u našoj bazi. Prijavu možete otkazati ili promijeniti podatke sve dok traje natječaj.</p>

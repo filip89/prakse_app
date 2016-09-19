@@ -19,9 +19,10 @@
 				<thead>
 					<tr>
 						<th>Ime i prezime</th>
-						<th>Tvrtka</th>
 						<th>Datum registracije</th>	
-						<th>Status natječaja</th>						
+						<th>Posljednja praksa</th>
+						<th>Status natječaja</th>
+						<th>Tvrtka</th>						
 						<th></th>
 					</tr>
 				</thead>
@@ -29,17 +30,18 @@
 					@foreach ($users as $user)
 					<tr>
 						<td>{{ $user->name . " " . $user->last_name }}</td>
+						<td>{{ $user->created_at->format('d-m-Y') }}</td>
 						<td>
-						@if($user->hasCompany())
-							@if($user->confirmedInternship())
-								<a class="link_object" href="{{ url('/company/profile/' . $user->activeInternship()->company->id) }}">{{ $user->activeInternship()->company->name }}</a>							
-							@else
-								<a class="link_object" href="{{ url('/company/profile/' . $user->activeInternship()->company->id) }}" style="color:darkgray">{{ $user->activeInternship()->company->name }}</a>
-							@endif
+						@if($user->lastInternship())
+							<a class="link_object" href="{{ url('/internships/' . $user->lastInternship()->id) }}">{{ $user->lastInternship()->company->name . ' (' . $user->lastInternship()->competition->year . ')' }}</a>
 						@endif
 						</td>
-						<td>{{ $user->created_at->format('d-m-Y') }}</td>
 						<td>{{ $user->competitionStatus() }}</td>
+						<td>
+						@if($user->hasCompany())
+								<a class="link_object" href="{{ url('/company/profile/' . $user->activeInternship()->company->id) }}" style="color:darkgray">{{ $user->activeInternship()->company->name }}</a>
+						@endif
+						</td>
 						<td class="row_buttons">
 						@if($user->activeInternship())
 							<a class="btn btn-info btn-sm" type="button" href="{{ url('/internships/'. $user->activeInternship()->id) }}">Prikaži praksu</a>
