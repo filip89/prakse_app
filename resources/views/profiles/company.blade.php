@@ -20,8 +20,19 @@
 			</div>
 		@endif
 			<div class="panel panel-info">
-				<div class="panel-heading"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Tvrtke</div>
+				<div class="panel-heading"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Tvrtka</div>
 				<div class="panel-body">
+					@if(Auth::user()->isAdmin() || (isset(Auth::user()->profile->company) && Auth::user()->profile->company->id == $company->id))
+					<div class="action_buttons">
+						<a href="{{ url('/company/edit/' . $company->id) }}"><button class="btn btn-warning" >Uredi</button></a>
+					@endif
+					@if(Auth::user()->isAdmin())
+						<form action="{{ url('/company/delete/' . $company->id) }}" method="POST">
+							{{ csrf_field() }}
+							<button type="button" class="btn btn-danger delete" >Ukloni</button>
+						</form>
+					</div>
+					@endif
 					<div class="table-responsive">
 						<table class="table profile_table">
 							<tr><th>Naziv tvrtke:</th><td>{{ $company->name }}</td></tr>
@@ -38,37 +49,42 @@
 								@endif
 								</td>
 							</tr>
-							<tr><th>Studenti:</th>
-								<td>
-									@foreach($internships as $internship)
+							<tr><td style="text:align:center" colspan="2"><a type="button" class="btn btn-bg btn-default" href="{{ url('/company_internships/' . $company->id) }}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Povijest praksi</a></td></tr>
+							<tr><th style="text-align:center;font-size:18px" colspan="2"><b>Mentorstva:</b></th></tr>
+							<tr>	
+								<td>Tekući natječaj:</br>
+								@if(Utilities::competitionStatus() == 2)
+									@foreach($currentCompInterns as $internship)
+									<div class="student_item">
+									<a class="link_object unconfirmed_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
+									</div>
+									@endforeach
+								@elseif(Utilities::competitionStatus() == 0)
+									<i><small>Nema tekućeg natječaja</small></i>
+								@elseif(Utilities::competitionStatus() == 1)
+									<i><small>Natječaj je još otvoren</small></i>
+								@endif
+								</td>
+								<td>Posljednji natječaj:</br>
+								@if(count($lastCompInterns) == 0)
+									<i><small>Nema praktikante s posljednjeg natječaja</small></i>
+								@else
+									@foreach($lastCompInterns as $internship)
+										
 										<div class="student_item">
-										@if($internship->confirmation_student == 1)
-											<a class="link_object confirmed_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
+										@if($internship->end_date > date('d-m-Y'))
+											<a data-toggle="tooltip" title="{{ 'Praksa traje još ' . (strtotime($internship->end_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
+										@else
+											<a data-toggle="tooltip" title="{{ 'Praksa je završila.' }}" class="link_object expired_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
 										@endif
 										</div>
+										
 									@endforeach
-									@foreach($internships as $internship) 
-										<div class="student_item">
-										@if($internship->confirmation_student != 1)
-											<a class="link_object unconfirmed_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
-										@endif
-										</div>
-									@endforeach
+								@endif
 								</td>
 							</tr>
 						</table>
 					</div>
-					@if(Auth::user()->isAdmin() || Auth::user()->profile->company->id == $company->id)
-					<div class="action_buttons">
-						<a href="{{ url('/company/edit/' . $company->id) }}"><button class="btn btn-warning" >Uredi</button></a>
-					@endif
-					@if(Auth::user()->isAdmin())
-						<form action="{{ url('/company/delete/' . $company->id) }}" method="POST">
-							{{ csrf_field() }}
-							<button type="button" class="btn btn-danger delete" >Ukloni</button>
-						</form>
-					</div>
-					@endif
 				</div>
 			</div>
 		</div>
