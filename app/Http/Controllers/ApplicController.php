@@ -34,6 +34,7 @@ class ApplicController extends Controller
 			'myApplic',
 		]]);
 		
+
 		
 	}
 	
@@ -46,7 +47,7 @@ class ApplicController extends Controller
 	}
 	
 	public function myApplic(){
-		
+				
 		if(Utilities::competitionStatus() == 0){
 			
 			return "Posljednja praksa...";

@@ -16,6 +16,10 @@ use App\Company;
 
 use Session;
 
+use App\Internship;
+
+use App\Competition;
+
 class UserController extends Controller
 {
 	
@@ -72,7 +76,8 @@ class UserController extends Controller
 	public function viewProfile($id){
 		
 		$user = User::find($id);
-		$internships = $user->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
+		
+		$currentCompInterns = $user->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
 		
 		if(!isset($user)){
 			
@@ -82,12 +87,16 @@ class UserController extends Controller
 		
 		if($user->role == "college_mentor"){
 				
-			return view("profiles.college_mentor", ['user' => $user, 'internships' => $internships]);
+			$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_student', "=", 1)->where('college_mentor_id', $id)->get();
+			
+			return view("profiles.college_mentor", ['user' => $user, 'currentCompInterns' => $currentCompInterns, 'lastCompInterns' => $lastCompInterns]);
 			
 		}
 		else {
 			
-			return view("profiles.intern_mentor", ['user' => $user, 'internships' => $internships]);
+			$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_student', "=", 1)->where('intern_mentor_id', $id)->get();
+			
+			return view("profiles.intern_mentor", ['user' => $user, 'currentCompInterns' => $currentCompInterns, 'lastCompInterns' => $lastCompInterns]);
 			
 		}
 		
@@ -211,11 +220,11 @@ class UserController extends Controller
 	
 	//Dodavanje mentora iz tvrtke od strane admina
 	
-	public function addInternMentorForm($id = null){
+	public function addInternMentorForm($company_id = null){
 		
 		$companies = Company::all();
 		
-		return view("forms.register_mentor", ['companies' => $companies, 'selected' => $id]);
+		return view("forms.register_mentor", ['companies' => $companies, 'selected' => $company_id]);
 		
 	}
 	
@@ -249,6 +258,22 @@ class UserController extends Controller
 		Session::flash('alert_type', 'alert-success');
 		
 		return redirect("company/profile/" . $company->id);
+		
+	}
+	
+	public function userInternships($id = null){
+		
+		if(!isset($id)){
+			
+			$id = Auth::user()->id;
+			
+		}
+		
+		$user = User::find($id);
+		
+		$internships = $user->internships()->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->orderBy('created_at', 'desc')->paginate(1);
+		
+		return view('user_internships', ['internships' => $internships, 'user' => $user]);
 		
 	}
 	
