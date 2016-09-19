@@ -105,6 +105,18 @@ class User extends Authenticatable
 		
 	}
 	
+	public function lastInternship(){
+		
+		if(count($this->internships()->where('confirmation_student', 1)->get()) > 0){
+			
+			return $this->internships()->where('confirmation_student', 1)->orderBy('created_at', 'desc')->first();
+			
+		}
+		
+		return false;
+		
+	}
+	
 	public function hasCompany(){
 		
 		if(isset($this->activeInternship()->company)){

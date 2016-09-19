@@ -29,5 +29,10 @@ class Internship extends Model
     	return $this->belongsTo('App\User');
     	
     }
+	public function competition() {
+
+    	return $this->belongsTo('App\Competition');
+    	
+    }
     
 }

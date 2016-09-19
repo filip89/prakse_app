@@ -57,9 +57,9 @@ class Utilities
 	
 	public static function competitionStatus(){
 		
-		if(Setting::orderBy('created_at', 'desc')->first()){
+		if(Competition::orderBy('created_at', 'desc')->first()){
 			
-			return Setting::orderBy('created_at', 'desc')->first()->status;
+			return Competition::orderBy('created_at', 'desc')->first()->status;
 			
 		}
 		
