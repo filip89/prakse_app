@@ -23,7 +23,7 @@
     .textbox {
 		position: relative;
 		top: 230px;
-		height: 80%;
+		height: 350px;
 		padding-bottom: 100px;		
     }
     .footer {
