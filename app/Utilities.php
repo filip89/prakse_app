@@ -66,6 +66,18 @@ class Utilities
 		return 0;
 		
 	}
+
+	public static function competitionExists(){
+		
+		if(count(Competition::where('status', 0)->first()) > 0) {
+			
+			return 1;
+			
+		}
+		
+		return 0;
+		
+	}
 	
 	public static function county($county = "all"){
 				
