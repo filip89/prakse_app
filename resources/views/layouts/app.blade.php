@@ -24,6 +24,10 @@
 
     $(document).ready(function() {  
         $('.datepicker').datepicker({dateFormat: 'd M, yy'});
+        
+        $('.competition').on('click', function() {
+        	$('.res_box').toggle();
+        })
     });
 
     </script>
@@ -170,6 +174,9 @@
 						<li><a href="{{ url('/myapplic')}}"><b><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</b></a></li>
 						@endif
 						<li><a href="{{ url('/user_internships')}}"><b><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</b></a></li>
+						@if(Utilities::competitionExists() == 1)
+						<li><a href="{{ url('/internships/showResults') }}"><b><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</b></a></li>							
+						@endif
 					@endif
                 </ul>
 
@@ -224,10 +231,10 @@
 							@else
 								@if(Utilities::competitionStatus() != 0)
 								<li><a href="{{ url('/myapplic')}}"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</a></li>
-								@endif
-								<li><a href="{{ url('/internships/createReport') }}">Izvještaj</a></li>
+								@endif																							
 							@endif
 								<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</a></li>
+								<li><a href="{{ url('/internships/createReport') }}"><i class="fa fa-btn fa-book" aria-hidden="true"></i>Izvještaj</a></li>	
                         		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
 						</li>
