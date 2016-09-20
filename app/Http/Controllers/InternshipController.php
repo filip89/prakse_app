@@ -15,6 +15,8 @@ use App\InternMentor;
 use App\CollegeMentor;
 use App\Activity;
 use App\Utilities;
+use App\Competition;
+use DB;
 use PDF;
 
 class InternshipController extends Controller
@@ -42,16 +44,14 @@ class InternshipController extends Controller
         $this->middleware('mentor', ['only' => [
             'addMentor',
             'removeMentor',
-            'show',
             'showFinal',
-            'showIntern',
-            'showCollege',
             'getPDF',
         ]]);
 
         $this->middleware('student', ['only' => [
             'getReport',
             'createReport',
+            'showResults',
         ]]);
         
     }
@@ -90,25 +90,29 @@ class InternshipController extends Controller
             ->with('academicYear', $academicYear);
     }
 
-    public function showIntern() {
+    public function showResults(Request $request) {
 
-        $internships = Internship::where('intern_mentor_id', Auth::user()->id)->paginate(1);
-        $paginate = 1;
+        if($request->id == null) {
+            $competitions = Competition::orderBy('created_at', 'desc')->where('status', 0)->first();
+            $internships = Internship::where('status', 0)->where('competition_id', $competitions->id)->orderBy('total_points', 'desc')->get();
+        } else {
+            $competitions = Competition::where('id', $request->id)->where('status', 0)->first();
+            $internships = Internship::where('status', 0)->where('competition_id', $request->id)->orderBy('total_points', 'desc')->get();            
+        }
 
-        return view('internships.show')
+        $newCompetition = Competition::orderBy('created_at', 'desc')->first();
+        $competitionList = Competition::where('id', '!=', $competitions->id)->where('status', 0)->orderBy('created_at', 'desc')->get();
+        $academicYear = new Utilities;
+
+        return view('internships.results')
             ->with('internships', $internships)
-            ->with('paginate', $paginate);
+            ->with('competitions', $competitions)
+            ->with('academicYear', $academicYear)
+            ->with('competitionList', $competitionList)
+            ->with('newCompetition', $newCompetition);
     }
-
-    public function showCollege() {
-
-        $internships = Internship::where('college_mentor_id', Auth::user()->id)->paginate(1);
-        $paginate = 1;
-
-        return view('internships.show')
-            ->with('internships', $internships)
-            ->with('paginate', $paginate);
-    }
+        
+    
 
     public function create() {
 
@@ -185,12 +189,14 @@ class InternshipController extends Controller
         } else {
             $internship = new Internship;
             $applic = Applic::where('id', $request->applic_id)->first();
+            $competitions = Competition::where('status', 2)->first();
 
             if(count($applic) != 0) {
                 $applic->status = 2;
                 $applic->save();  
             }  
-            $internship->student_id = $request->student_id;  
+            $internship->student_id = $request->student_id;
+            $internship->competition_id = $competitions->id;   
         }
         
         $internship->company_id = $request->company_id ?: null;
@@ -218,6 +224,8 @@ class InternshipController extends Controller
             } else {
                 $internship->status = 1;
             }
+            
+            
 
             $internship->save();
 
@@ -228,7 +236,7 @@ class InternshipController extends Controller
                 return redirect()->route('internships.index');
             } else {
                 return redirect()->action('InternshipController@showFinal');
-            }
+            } 
             
 
         } else {
@@ -242,6 +250,18 @@ class InternshipController extends Controller
         }   
     }
 
+    public function reject(Request $request) {
+
+        $internship = Internship::find($request->internship_id);
+
+        $internship->confirmation_student = $request->confirmation_student;
+        $internship->save();
+
+        Session::flash('status', 'Odbili ste praksu!');
+        Session::flash('alert_type', 'alert-danger');
+
+        return redirect()->action('InternshipController@showResults');
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -290,7 +310,12 @@ class InternshipController extends Controller
         Session::flash('status', 'Praksa uspješno obrisana!');
         Session::flash('alert_type', 'alert-success');
 
-        return redirect()->route('internships.index');
+        if($internship->status == 0) {
+            return redirect()->action('InternshipController@showFormer');
+        } elseif($internship->status == 2) {
+           return redirect()->action('InternshipController@showFinal'); 
+        }
+        
     }  
     public function getPDF(Request $request) {
 
@@ -334,7 +359,7 @@ class InternshipController extends Controller
         $activities = $request->activities;
         $abstract = $request->abstract;
 
-        $pdf = PDF::loadView('pdf.report', ['name' => $name, 'activities' => $activities, 'abstract' => $abstract, 'internships' => $internships]);
+        $pdf = PDF::loadView('pdf.report', ['activities' => $activities, 'abstract' => $abstract, 'internships' => $internships]);
         $pdf->setPaper('A4', 'portrait');
 
         return $pdf->stream('Izvješće o obavljenoj praksi.pdf');
