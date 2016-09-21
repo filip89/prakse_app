@@ -54,12 +54,12 @@ class CompanyController extends Controller
 	public function profile($id){
 		
 		$company = Company::find($id);
-		//$internships = $company->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
+		
 		$currentCompInterns = $company->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
 		
 		if(Utilities::competitionExists()){
 			
-			$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_student', "=", 1)->where('college_mentor_id', $id)->get();			
+			$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->where('company_id', $id)->get();			
 						
 		}
 		else {
