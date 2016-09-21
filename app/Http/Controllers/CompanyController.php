@@ -156,7 +156,7 @@ class CompanyController extends Controller
 
 		$company = Company::find($id);
 
-		$internships = $company->internships()->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->orderBy('created_at', 'desc')->paginate(1);
+		$internships = $company->internships()->where('confirmation_admin', 1)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->orderBy('created_at', 'desc')->paginate(1);
 		
 		return view('user_internships', ['internships' => $internships, 'user' => $company]);
 		
