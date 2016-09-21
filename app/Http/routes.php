@@ -48,6 +48,8 @@ Route::post('apply', "ApplicController@apply");
 //lista prijava
 Route::get('applic/all', "ApplicController@index");
 
+//posljednja praksa od studenta
+Route::get('myinternship', "UserController@myInternship");
 //lista praksi
 Route::get('user_internships/{id?}', "UserController@userInternships");
 Route::get('company_internships/{id}', "CompanyController@companyInternships");
