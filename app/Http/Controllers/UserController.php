@@ -79,6 +79,12 @@ class UserController extends Controller
 		
 		$currentCompInterns = $user->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
 		
+		if(count(Competition::where('status', 0)->first()) == 0){
+				
+				$lastCompInterns = null;
+				
+		}
+		
 		if(!isset($user)){
 			
 			return ('No such user.');
@@ -86,15 +92,23 @@ class UserController extends Controller
 		}
 		
 		if($user->role == "college_mentor"){
+			
+			if($lastCompInterns){
 				
-			$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_student', "=", 1)->where('college_mentor_id', $id)->get();
+				$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_student', "=", 1)->where('college_mentor_id', $id)->get();
+				
+			}
 			
 			return view("profiles.college_mentor", ['user' => $user, 'currentCompInterns' => $currentCompInterns, 'lastCompInterns' => $lastCompInterns]);
 			
 		}
 		else {
 			
-			$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_student', "=", 1)->where('intern_mentor_id', $id)->get();
+			if($lastCompInterns){
+				
+				$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_student', "=", 1)->where('college_mentor_id', $id)->get();
+				
+			}
 			
 			return view("profiles.intern_mentor", ['user' => $user, 'currentCompInterns' => $currentCompInterns, 'lastCompInterns' => $lastCompInterns]);
 			
