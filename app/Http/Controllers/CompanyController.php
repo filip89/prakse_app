@@ -14,6 +14,8 @@ use Session;
 
 use App\Competition;
 
+use App\Utilities;
+
 class CompanyController extends Controller
 {
     //
@@ -54,7 +56,17 @@ class CompanyController extends Controller
 		$company = Company::find($id);
 		//$internships = $company->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
 		$currentCompInterns = $company->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
-		$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_student', "=", 1)->where('college_mentor_id', $id)->get();
+		
+		if(Utilities::competitionExists()){
+			
+			$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_student', "=", 1)->where('college_mentor_id', $id)->get();			
+						
+		}
+		else {
+			
+			$lastCompInterns = null;
+			
+		}
 		
 		return view('profiles.company', ['company' => $company, 'currentCompInterns' => $currentCompInterns, 'lastCompInterns' => $lastCompInterns]);
 		
@@ -144,7 +156,7 @@ class CompanyController extends Controller
 	public function companyInternships($id){
 
 		$company = Company::find($id);
-		
+
 		$internships = $company->internships()->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->orderBy('created_at', 'desc')->paginate(1);
 		
 		return view('user_internships', ['internships' => $internships, 'user' => $company]);

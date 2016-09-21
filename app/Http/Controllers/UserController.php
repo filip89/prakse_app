@@ -20,6 +20,8 @@ use App\Internship;
 
 use App\Competition;
 
+use App\Utilities;
+
 class UserController extends Controller
 {
 	
@@ -44,6 +46,10 @@ class UserController extends Controller
 		
 		$this->middleware('mentor', ['only' => [
 			'viewProfile',
+		]]);
+		
+		$this->middleware('student', ['only' => [
+			'myInternship',
 		]]);
 		
     }
@@ -78,13 +84,7 @@ class UserController extends Controller
 		$user = User::find($id);
 		
 		$currentCompInterns = $user->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
-		
-		if(count(Competition::where('status', 0)->first()) == 0){
 				
-				$lastCompInterns = null;
-				
-		}
-		
 		if(!isset($user)){
 			
 			return ('No such user.');
@@ -93,9 +93,14 @@ class UserController extends Controller
 		
 		if($user->role == "college_mentor"){
 			
-			if($lastCompInterns){
+			if(Utilities::competitionExists()){
 				
-				$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_student', "=", 1)->where('college_mentor_id', $id)->get();
+				$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
+				
+			}
+			else {
+				
+				$lastCompInterns = null;
 				
 			}
 			
@@ -104,9 +109,14 @@ class UserController extends Controller
 		}
 		else {
 			
-			if($lastCompInterns){
+			if(Utilities::competitionExists()){
 				
-				$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_student', "=", 1)->where('college_mentor_id', $id)->get();
+				$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
+				
+			}
+			else {
+				
+				$lastCompInterns = null;
 				
 			}
 			
