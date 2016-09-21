@@ -50,7 +50,8 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
               'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 	'admin' => \App\Http\Middleware\Admin::class,
-	'adminOrSelf' => \App\Http\Middleware\AdminOrAuthUser::class,
+	'adminOrSelf' => \App\Http\Middleware\AdminOrSelf::class,
+	'adminOrSelfApplic' => \App\Http\Middleware\AdminOrSelfApplic::class,
 	'student' => \App\Http\Middleware\Student::class,
 	'mentor' => \App\Http\Middleware\Mentor::class,
 	];
