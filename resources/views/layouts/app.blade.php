@@ -257,7 +257,6 @@
 								<li><a href="{{ url('/myinternship')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moja praksa</a></li>
 								@endif
 							@endif
-								<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</a></li>
 								<li><a href="{{ url('/internships/createReport') }}"><i class="fa fa-btn fa-book" aria-hidden="true"></i>Izvještaj</a></li>	
                         		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
