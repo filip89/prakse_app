@@ -261,6 +261,20 @@ class UserController extends Controller
 		
 	}
 	
+	public function myInternship(){
+		
+		$student = Auth::user();
+		
+		if($internship = $student->lastInternship()){
+			
+			return redirect('internships/' . $internship->id);	
+			
+		}
+			
+		return("Do sada niste imali niti jednu praksu.");
+		
+	}
+	
 	public function userInternships($id = null){
 		
 		if(!isset($id)){

@@ -13,6 +13,7 @@ use App\Applic;
 use App\Utilities;
 use App\Activity;
 use Session;
+use App\Competition;
 
 class ApplicController extends Controller
 {
@@ -26,7 +27,7 @@ class ApplicController extends Controller
 			'index',
 		]]);
 		
-		$this->middleware('adminOrSelf', ['only' => [
+		$this->middleware('adminOrSelfApplic', ['only' => [
 			'delete',
 		]]);
 		
@@ -48,9 +49,11 @@ class ApplicController extends Controller
 	
 	public function myApplic(){
 				
+		$competition = Competition::orderBy('created_at', 'desc')->first();
+				
 		if(Utilities::competitionStatus() == 0){
 			
-			return "Posljednja praksa...";
+			return view('myapplic', ['competition' => $competition]);
 			
 		}
 		
@@ -60,6 +63,9 @@ class ApplicController extends Controller
 		if(!$applic){
 			
 			if(Utilities::competitionStatus() == 2){
+				
+				//Session
+				
 				return "Natječaj je završio...Posljednja praksa2...";
 			}
 			
@@ -227,20 +233,14 @@ class ApplicController extends Controller
 	}
 	
 	public function delete($id){
-		
-		$user = User::find($id);
-		
-		if($applic = $user->applics()->where("status", "=", 1)->first()){
-			
-			$applic->delete();
+					
+			Applic::find($id)->delete();
 		
 			Session::flash('status', 'Prijava je obrisana!');
 			Session::flash('alert_type', 'alert-danger');
 			
 			return back();
-			
-		}	
-		
+				
 	}
 		
 }
