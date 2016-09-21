@@ -172,24 +172,23 @@
 					@if(!Auth::guest() && Auth::user()->role == "student")
 						@if(Utilities::competitionStatus() != 0)
 						<li>
-							<a href="{{ url('/myapplic')}}">
-								<b><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>
-									@if(!Auth::user()->activeApplic())
-									Prijava prakse
-									@else
-									Prijavljena praksa
+							<a href="{{ url('/myapplic')}}">			
+									@if(Auth::user()->activeApplic())
+									<b><i class="fa fa-btn fa-pencil-square" aria-hidden="true"></i>Prijavljena praksa</b>
+									@elseif(Utilities::competitionStatus() == 1)
+									<b><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</b>
 									@endif
-								</b>
 							</a>
 						</li>
 						@endif
 						@if(Auth::user()->lastInternship())
-						<li><a href="{{ url('/myinternship')}}"><b><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moja praksa</b></a></li>
-						@endif
-						@if(Utilities::competitionExists() == 1)
-						<li><a href="{{ url('/internships/showResults') }}"><b><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</b></a></li>							
+							<li><a href="{{ url('/myinternship')}}"><b><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moja praksa</b></a></li>
 						@endif
 					@endif
+					@if(Utilities::competitionExists() == 1)
+					<li><a href="{{ url('/internships/showResults') }}"><b><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</b></a></li>							
+					@endif
+					
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -199,8 +198,10 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @elseif(Auth::user()->role != "student")
+						@if(Utilities::competitionStatus() != 0)
 						@if(Auth::user()->isAdmin())
-						<li><a href="{{ url('/applic/all') }}">Prijave</a></li>
+							<li><a href="{{ url('/applic/all') }}">Prijave</a></li>
+						@endif
 						@endif
 						@if(Auth::user()->role == "college_mentor")
 						<li class="dropdown">
@@ -238,7 +239,7 @@
                         <li class="dropdown">
                         	 <a class="profile_dropdown" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                         	<ul class="dropdown-menu" role="menu">
-						@if(Auth::user()->role != "student")
+							@if(Auth::user()->role != "student")
 								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
 								<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</a></li>
 							@else
