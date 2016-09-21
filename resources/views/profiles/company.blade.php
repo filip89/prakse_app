@@ -76,7 +76,7 @@
 									@foreach($lastCompInterns as $internship)
 										
 										<div class="student_item">
-										@if($internship->end_date > date('d-m-Y'))
+										@if($internship->end_date < date('d-m-Y'))
 											<a data-toggle="tooltip" title="{{ 'Praksa traje još ' . (strtotime($internship->end_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
 										@else
 											<a data-toggle="tooltip" title="{{ 'Praksa je završila.' }}" class="link_object expired_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
