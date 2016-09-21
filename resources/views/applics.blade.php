@@ -47,7 +47,7 @@
 							{{ Form::submit('Izradi praksu', ['class' => 'btn btn-primary btn-sm']) }}
 						{{ Form::close() }}
 						
-						{{ Form::open(array('url' => '/applic/'.$applic->student->id.'/delete', 'method' => 'POST')) }}
+						{{ Form::open(array('url' => '/applic/'.$applic->id.'/delete', 'method' => 'POST')) }}
 							{{ Form::button('Ukloni', ['type' => 'button','class' => 'btn btn-danger btn-sm delete']) }}
 							{{ csrf_field() }}
 						{{ Form::close() }}

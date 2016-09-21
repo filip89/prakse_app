@@ -34,6 +34,9 @@
 				{{ Session::get('status') }}
 			</div>
 		@endif
+		@if(Utilities::competitionStatus() == 0)
+			<h3 class="notice">Trenutno nema raspisanog natječaja. Rezultate prošlog natječaja, objavljene {{ $competition->name }}, možete pogledati <a href="*">ovdje</a>.</h3>
+		@else
 		@if(Utilities::competitionStatus() == 2)
 		
 		<h3 class="notice">Natječaj je gotov. Vaša prijava se obrađuje.</h3>
@@ -42,7 +45,7 @@
 			<p>* Vaša prijava je zaprimljena i nalazi se u našoj bazi. Prijavu možete otkazati ili promijeniti podatke sve dok traje natječaj.</p>
 			<div class="action_buttons">
 				<a href="{{ url('/apply') }}"><button class="btn btn-warning">Uredi</button></a>
-				<form action="{{ url('applic/'. Auth::user()->id . '/delete') }}" method="POST">
+				<form action="{{ url('applic/'. $applic->id . '/delete') }}" method="POST">
 								{{ csrf_field() }}
 					<button type="button" class="btn btn-danger delete">Otkaži</button>
 				</form>
@@ -73,6 +76,7 @@
 					</td>
 				</tr>
 			</table>
+			@endif
         </div>
     </div>
 </div>
