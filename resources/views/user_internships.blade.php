@@ -9,7 +9,11 @@
 				@if($user->id == Auth::user()->id)
 					<h3>Niste imali niti jednu praksu do sada.</h3>
 				@else
-					<h3 class="notice">Korisnik do sada nije imao niti jednu praksu.</h3>
+					@if(isset($user->role))
+						<h3 class="notice">Korisnik do sada nije imao niti jednu praksu.</h3>
+					@else
+						<h3 class="notice">Tvrtka do sada nije imala niti jednu praksu.</h3>
+					@endif					
 				@endif
 			@else
 				@if($user->role == 'student' && Utilities::competitionStatus() != 0)
