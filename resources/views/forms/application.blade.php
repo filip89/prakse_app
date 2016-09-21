@@ -119,7 +119,7 @@
 									@if($applic->academic_year == 5)
 										<option selected value="5">2. godina diplomskog</option>
 									@else
-										<option value="5">1. godina diplomskog</option>
+										<option value="5">2. godina diplomskog</option>
 									@endif
 								</select>
 
