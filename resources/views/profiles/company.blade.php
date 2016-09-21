@@ -22,8 +22,8 @@
 			<div class="panel panel-info">
 				<div class="panel-heading"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Tvrtka</div>
 				<div class="panel-body">
-					@if(Auth::user()->isAdmin() || (isset(Auth::user()->profile->company) && Auth::user()->profile->company->id == $company->id))
 					<div class="action_buttons">
+					@if(Auth::user()->isAdmin() || (isset(Auth::user()->profile->company) && Auth::user()->profile->company->id == $company->id))
 						<a href="{{ url('/company/edit/' . $company->id) }}"><button class="btn btn-warning" >Uredi</button></a>
 					@endif
 					@if(Auth::user()->isAdmin())
@@ -31,8 +31,8 @@
 							{{ csrf_field() }}
 							<button type="button" class="btn btn-danger delete" >Ukloni</button>
 						</form>
-					</div>
 					@endif
+					</div>
 					<div class="table-responsive">
 						<table class="table profile_table">
 							<tr><th>Naziv tvrtke:</th><td>{{ $company->name }}</td></tr>
@@ -54,11 +54,15 @@
 							<tr>	
 								<td>Tekući natječaj:</br>
 								@if(Utilities::competitionStatus() == 2)
-									@foreach($currentCompInterns as $internship)
-									<div class="student_item">
-									<a class="link_object unconfirmed_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
-									</div>
-									@endforeach
+									@if(count($currentCompInterns) > 0)
+										@foreach($currentCompInterns as $internship)
+										<div class="student_item">
+										<a class="link_object unconfirmed_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
+										</div>
+										@endforeach
+									@else
+										<i><small>Nema praktikante s tekućeg natječaja</small></i>
+									@endif
 								@elseif(Utilities::competitionStatus() == 0)
 									<i><small>Nema tekućeg natječaja</small></i>
 								@elseif(Utilities::competitionStatus() == 1)

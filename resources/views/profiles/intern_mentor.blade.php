@@ -54,11 +54,19 @@ table {
 							<tr>	
 								<td>Tekući natječaj:</br>
 								@if(Utilities::competitionStatus() == 2)
-									@foreach($currentCompInterns as $internship)
-									<div class="student_item">
-									<a class="link_object unconfirmed_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
-									</div>
-									@endforeach
+									@if(count($currentCompInterns) > 0)
+										@foreach($currentCompInterns as $internship)
+										<div class="student_item">
+										<a class="link_object unconfirmed_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
+										</div>
+										@endforeach
+									@else
+										@if(Auth::user()->id == $user->id)
+										<i><small>Nemate praktikante s tekućeg natječaja</small></i>
+										@else
+										<i><small>Nema praktikante s tekućeg natječaja</small></i>
+										@endif
+									@endif
 								@elseif(Utilities::competitionStatus() == 0)
 									<i><small>Nema tekućeg natječaja</small></i>
 								@elseif(Utilities::competitionStatus() == 1)

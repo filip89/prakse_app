@@ -18,6 +18,7 @@
 			<div class="panel panel-info">
 				<div class="panel-heading"><i class="fa fa-btn fa-user" aria-hidden="true"></i>Mentor nastavnik</div>
 				<div class="panel-body">
+					
 				@if(Auth::user()->isAdmin() || Auth::user()->id == $user->id)
 					<div class="action_buttons">
 						<a href="{{ url('user/'. $user->id . '/editcollege') }}"><button class="btn btn-warning" >Uredi</button></a>
@@ -29,6 +30,7 @@
 						@endif
 					</div>
 				@endif
+					
 					<div class="table-responsive">
 						<table class="table profile_table">
 							<tr><th>Ime:</th><td>{{ $user->name }}</td></tr>
@@ -40,11 +42,19 @@
 							<tr>	
 								<td>Tekući natječaj:</br>
 								@if(Utilities::competitionStatus() == 2)
-									@foreach($currentCompInterns as $internship)
-									<div class="student_item">
-									<a class="link_object unconfirmed_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
-									</div>
-									@endforeach
+									@if(count($currentCompInterns) > 0)
+										@foreach($currentCompInterns as $internship)
+										<div class="student_item">
+										<a class="link_object unconfirmed_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
+										</div>
+										@endforeach
+									@else
+										@if(Auth::user()->id == $user->id)
+										<i><small>Nemate praktikante s tekućeg natječaja</small></i>
+										@else
+										<i><small>Nema praktikante s tekućeg natječaja</small></i>
+										@endif
+									@endif
 								@elseif(Utilities::competitionStatus() == 0)
 									<i><small>Nema tekućeg natječaja</small></i>
 								@elseif(Utilities::competitionStatus() == 1)
