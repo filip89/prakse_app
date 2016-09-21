@@ -28,7 +28,6 @@ class Competition extends Model
 			
 		}
 		
-		
 	}
 	
 }
