@@ -118,7 +118,7 @@
 			text-align: center;
 			margin-bottom: 20px;
 		}
-		.activity_label:hover, .activity_label input:hover {
+		.cursor_pointer {
 			cursor: pointer;
 		}
 		.pagination {
@@ -171,9 +171,21 @@
                     <li><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
 					@if(!Auth::guest() && Auth::user()->role == "student")
 						@if(Utilities::competitionStatus() != 0)
-						<li><a href="{{ url('/myapplic')}}"><b><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</b></a></li>
+						<li>
+							<a href="{{ url('/myapplic')}}">
+								<b><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>
+									@if(!Auth::user()->activeApplic())
+									Prijava prakse
+									@else
+									Prijavljena praksa
+									@endif
+								</b>
+							</a>
+						</li>
 						@endif
-						<li><a href="{{ url('/user_internships')}}"><b><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</b></a></li>
+						@if(Auth::user()->lastInternship())
+						<li><a href="{{ url('/myinternship')}}"><b><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moja praksa</b></a></li>
+						@endif
 						@if(Utilities::competitionExists() == 1)
 						<li><a href="{{ url('/internships/showResults') }}"><b><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</b></a></li>							
 						@endif
@@ -226,12 +238,24 @@
                         <li class="dropdown">
                         	 <a class="profile_dropdown" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                         	<ul class="dropdown-menu" role="menu">
-							@if(Auth::user()->role != "student")
+						@if(Auth::user()->role != "student")
 								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
+								<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</a></li>
 							@else
 								@if(Utilities::competitionStatus() != 0)
-								<li><a href="{{ url('/myapplic')}}"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</a></li>
-								@endif																							
+								<li><a href="{{ url('/myapplic')}}">
+										<i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>
+										@if(!Auth::user()->activeApplic())
+										Prijava prakse
+										@else
+										Prijavljena praksa
+										@endif
+									</a>
+								</li>
+								@endif
+								@if(Auth::user()->lastInternship())
+								<li><a href="{{ url('/myinternship')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moja praksa</a></li>
+								@endif
 							@endif
 								<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</a></li>
 								<li><a href="{{ url('/internships/createReport') }}"><i class="fa fa-btn fa-book" aria-hidden="true"></i>Izvještaj</a></li>	
