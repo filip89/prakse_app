@@ -50,7 +50,7 @@
 		</div>
 		@endif
 
-		@if(Auth::user()->role == 'college_mentor') <h1>Prijašnje prakse</h1> @else <h1>Rezultati</h1> @endif	
+		<h1>Rezultati</h1>
 		
 		@if(count($competitionList) > 0)	
 			<div class="dropdown">
@@ -68,8 +68,8 @@
             </div>
 		@endif
 		
-		@if($competitions->status != 0)
-			@if(Auth::user()->role == 'college_mentor') <h3>Nema prijašnjih praksi</h3> @else <h3>Nema objavljenih rezultata</h3> @endif
+		@if(isset($competitions->status) != 0 || $competitions == null)
+			<h3>Nema objavljenih rezultata</h3> 
 		@else
 		<div class="btn btn-primary competition"><span class="com_year">Godina: {{ $competitions->year }}</span><span>{{ $competitions->name }}</span><span class="com_int">Dostupne prakse: {{ $competitions->internships_available }}</span></div>	
 			{{--*/ $id = '' /*--}}

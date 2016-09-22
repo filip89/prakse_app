@@ -199,11 +199,11 @@
                                 <select class="form-control" name="company_id"/>
                                     <option selected value=''></option>
                                     @foreach($companies as $elem)
-
-                                        <option value="{{ $elem->id }}"
-                                        @if($elem->id == $internship->company_id) {{ 'selected' }} @endif>
-                                        {{ $elem->name }}</option>
-                                        
+                                        @if($elem->spotsAvailable() > 0)
+                                            <option value="{{ $elem->id }}"
+                                            @if($elem->id == $internship->company_id) {{ 'selected' }} @endif>
+                                            {{ $elem->name }}</option>
+                                        @endif
                                     @endforeach                                            
                                     
                                 </select>
