@@ -24,4 +24,11 @@ class Company extends Model
 
     	return $this->hasMany('App\InternMentor');
     }
+
+	public function spotsAvailable(){
+		
+		return $this->spots - count($this->internships()->where('status', 2)->get());
+		
+	}
+	
 }
