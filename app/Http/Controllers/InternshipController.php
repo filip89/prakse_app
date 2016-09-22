@@ -57,10 +57,12 @@ class InternshipController extends Controller
 
     public function index() {
         $internship = Internship::where('status', 1)->orderBy('total_points', 'desc')->paginate(2);
+        $companies= Company::where('status', 1)->get();
         $academicYear = new Utilities;
 
         return view('internships.index')
             ->with('internships', $internship)
+            ->with('companies', $companies)
             ->with('academicYear', $academicYear);           
     }
 
@@ -78,14 +80,22 @@ class InternshipController extends Controller
 
         if($request->id == null) {
             $competitions = Competition::orderBy('created_at', 'desc')->where('status', 0)->first();
-            $internships = Internship::where('status', 0)->where('competition_id', $competitions->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->get();
+            if(count($competitions) != null) {
+                $internships = Internship::where('status', 0)->where('competition_id', $competitions->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->get();
+            } else {
+                $internships = Internship::all();
+            }
         } else {
             $competitions = Competition::where('id', $request->id)->where('status', 0)->first();
             $internships = Internship::where('status', 0)->where('competition_id', $request->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->get();            
         }
 
         $newCompetition = Competition::orderBy('created_at', 'desc')->first();
-        $competitionList = Competition::where('id', '!=', $competitions->id)->where('status', 0)->orderBy('created_at', 'desc')->get();
+        if(count($competitions) != null) {
+            $competitionList = Competition::where('id', '!=', $competitions->id)->where('status', 0)->orderBy('created_at', 'desc')->get();
+        } else {
+            $competitionList = null;
+        }
         $academicYear = new Utilities;
 
         return view('internships.results')
@@ -296,8 +306,8 @@ class InternshipController extends Controller
         Session::flash('status', 'Praksa uspješno obrisana!');
         Session::flash('alert_type', 'alert-success');
 
-        if($internship->status == 0) {
-            return redirect()->action('InternshipController@showFormer');
+        if($internship->status == 1) {
+            return redirect()->action('InternshipController@index');
         } elseif($internship->status == 2) {
            return redirect()->action('InternshipController@showFinal'); 
         }
