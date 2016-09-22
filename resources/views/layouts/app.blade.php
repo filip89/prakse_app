@@ -209,7 +209,7 @@
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="{{ url('/internships') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Prijavljene</a></li>
 									<li><a href="{{  url('/internships/showFinal') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Konačne</a></li>
-									<li><a href="{{  url('/internships/showFormer') }}"><i class="fa fa-btn fa-reply" aria-hidden="true"></i>Prijašnje</a></li>
+									<li><a href="{{  url('/internships/showResults') }}"><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</a></li>
 								</ul>
                         </li>
 						
@@ -258,7 +258,9 @@
 								<li><a href="{{ url('/myinternship')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moja praksa</a></li>
 								@endif
 							@endif
-								<li><a href="{{ url('/internships/createReport') }}"><i class="fa fa-btn fa-book" aria-hidden="true"></i>Izvještaj</a></li>	
+								@if(Auth::user()->role == 'student')
+								<li><a href="{{ url('/internships/createReport') }}"><i class="fa fa-btn fa-book" aria-hidden="true"></i>Izvještaj</a></li>
+							@endif	
                         		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
 						</li>
