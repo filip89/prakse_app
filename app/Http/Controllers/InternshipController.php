@@ -36,7 +36,6 @@ class InternshipController extends Controller
             'edit',
             'change',
             'create',           
-            'showFormer',
             'destroy',
             
         ]]);
@@ -51,7 +50,7 @@ class InternshipController extends Controller
         $this->middleware('student', ['only' => [
             'getReport',
             'createReport',
-            'showResults',
+            
         ]]);
         
     }
@@ -64,21 +63,6 @@ class InternshipController extends Controller
             ->with('internships', $internship)
             ->with('academicYear', $academicYear);           
     }
-
-    public function showFormer() {
-        $internship = Internship::where('status', 0)->orderBy('total_points', 'desc')->paginate(2);
-        $academicYear = new Utilities;
-
-        return view('internships.former')
-            ->with('internships', $internship)
-            ->with('academicYear', $academicYear);             
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
     public function showFinal() {
 
@@ -94,10 +78,10 @@ class InternshipController extends Controller
 
         if($request->id == null) {
             $competitions = Competition::orderBy('created_at', 'desc')->where('status', 0)->first();
-            $internships = Internship::where('status', 0)->where('competition_id', $competitions->id)->orderBy('total_points', 'desc')->get();
+            $internships = Internship::where('status', 0)->where('competition_id', $competitions->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->get();
         } else {
             $competitions = Competition::where('id', $request->id)->where('status', 0)->first();
-            $internships = Internship::where('status', 0)->where('competition_id', $request->id)->orderBy('total_points', 'desc')->get();            
+            $internships = Internship::where('status', 0)->where('competition_id', $request->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->get();            
         }
 
         $newCompetition = Competition::orderBy('created_at', 'desc')->first();
@@ -111,9 +95,22 @@ class InternshipController extends Controller
             ->with('competitionList', $competitionList)
             ->with('newCompetition', $newCompetition);
     }
-        
     
+    public function show($id) {
 
+        $internships = Internship::where('id', $id)->get();
+
+        return view('internships.show')
+            ->with('internships', $internships);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */    
+    
     public function create() {
 
         $academicYear = new Utilities;
@@ -146,33 +143,22 @@ class InternshipController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show($id) {
-
-        $internships = Internship::where('id', $id)->get();
-
-        return view('internships.show')
-            ->with('internships', $internships);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
     public function edit($id) {
 
         $internship = Internship::find($id);
+        $applic = Applic::where('student_id', $internship->student_id)->where('status', '!=', 0)->get();
         $companies= Company::where('status', 1)->get();
         $collegeMentor = User::where('role', 'college_mentor')->get();
         $internMentor = User::where('role', 'intern_mentor')->get();
+        $activities = Activity::all(); 
 
         return view('internships.edit')
             ->with('internship', $internship)
             ->with('companies', $companies)
             ->with('collegeMentor', $collegeMentor)
-            ->with('internMentor', $internMentor);       
+            ->with('internMentor', $internMentor)
+            ->with('applic', $applic)
+            ->with('activities', $activities);       
     }
 
      public function change(Request $request, $id) {
@@ -219,13 +205,13 @@ class InternshipController extends Controller
         $internship->confirmation_admin = $request->confirmation_admin;
 
         if($id != 0) {
-            if($request->company_id != null) {
+            if($request->company_id != null && $internship->status != 0) {
                 $internship->status = 2;
-            } else {
+                $internship->confirmation_admin = 1;
+            } elseif($request->company_id == null && $internship->status != 0) {
                 $internship->status = 1;
-            }
-            
-            
+                $internship->confirmation_admin = null;
+            }           
 
             $internship->save();
 
@@ -348,14 +334,14 @@ class InternshipController extends Controller
 
     public function createReport() {
 
-        $internships = Internship::all();
+        $internships = Internship::orderBy('created_at', 'desc')->where('status', 0)->where('student_id', Auth::user()->id)->first();
 
         return view('internships.report', ['internships' => $internships]);
     }
 
     public function getReport(Request $request) {
 
-        $internships = Internship::where('student_id', $request->student_id)->get();
+        $internships = Internship::orderBy('created_at', 'desc')->where('status', 0)->where('student_id', Auth::user()->id)->first();
         $activities = $request->activities;
         $abstract = $request->abstract;
 
