@@ -4,7 +4,89 @@
 
 <div class="container">
     <div class="row">
-	    <div class="col-md-8 col-md-offset-2">
+
+        <div class="col-md-5">
+
+        <h3>Podaci o studentu:</h3>
+
+        @foreach($applic as $app)           
+            <div class="table-responsive">
+                <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Akademska godina</th>
+                        <td  colspan="2">{{ Utilities::academicYear($app->academic_year) }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Smjer</th></td>
+                        <td  colspan="2">{{ Utilities::course($app->course) }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>E-mail</th></td>
+                        <td  colspan="2">{{ $app->email }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Prosjek ocjena (preddipl.)</th>                         
+                        <td  colspan="2">{{ $app->average_bacc_grade }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Prosjek ocjena (dipl.)</th>
+                        <td  colspan="2">{{ $app->average_master_grade }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Tvrtka</th>
+                        <td  colspan="2">{{ $app->desired_company }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Željeni mjesec obavljanja prakse</th>
+                        <td  colspan="2">{{ Utilities::desiredMonth($app->desired_month) }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Mjesto prebivališta</th>
+                        <td  colspan="2">{{ $app->residence_town }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Županija prebivališta</th>
+                        <td  colspan="2">{{ Utilities::county($app->residence_county) }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Grad obavljanja prakse</th>
+                        <td  colspan="2">{{ $app->internship_town }}</td>
+                    </tr>
+
+                    {{--*/ $count = 1 /*--}}
+
+                    @foreach($activities as $act)
+                        @if($act->applic_id == $app->id)
+                        <tr>
+                            @if($count == 1)
+                                <th>Izvannastavne aktivnosti</th>
+                            @else
+                                <th></th>
+                            @endif
+                            <td colspan="2">{{ Utilities::activity($act->number) }}</td>
+                            {{--*/ $count += 1 /*--}}  
+                        </tr>                                   
+                        @endif
+                    @endforeach 
+                                              
+                    </tbody>
+                </table>
+            </div>        
+        @endforeach
+
+        </div>
+
+	    <div class="col-md-7">
 	        <div class="panel panel-warning">
 	            <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Uređivanje prakse</div>
 	                <div class="panel-body"> 

@@ -35,6 +35,7 @@
 .dropdown {
 	float: right;
 }
+
 </style>
 
 @section('content')
@@ -49,7 +50,7 @@
 		</div>
 		@endif
 
-		<h1>Rezultati</h1>	
+		@if(Auth::user()->role == 'college_mentor') <h1>Prijašnje prakse</h1> @else <h1>Rezultati</h1> @endif	
 		
 		@if(count($competitionList) > 0)	
 			<div class="dropdown">
@@ -68,7 +69,7 @@
 		@endif
 		
 		@if($competitions->status != 0)
-			<h3>Nema objavljenih rezultata</h3>
+			@if(Auth::user()->role == 'college_mentor') <h3>Nema prijašnjih praksi</h3> @else <h3>Nema objavljenih rezultata</h3> @endif
 		@else
 		<div class="btn btn-primary competition"><span class="com_year">Godina: {{ $competitions->year }}</span><span>{{ $competitions->name }}</span><span class="com_int">Dostupne prakse: {{ $competitions->internships_available }}</span></div>	
 			{{--*/ $id = '' /*--}}
@@ -87,7 +88,7 @@
 								<th>Prezime</th>
 								<th>Akademska godina</th>
 								<th>Tvrtka</th>	
-								<th></th>
+								@if(Auth::user()->role == 'college_mentor') <th>Potvrda</th> @else <th></th> @endif
 													
 							</tr>
 						</thead>
@@ -105,7 +106,7 @@
 								<td>{{ $internship->student['last_name']}}</td>
 								<td>{{ $academicYear->academicYear($internship->academic_year) }}</td>
 								<td>{{ $internship->company['name']}}</td>
-								<td>
+								<td style="text-align: center;">
 									@if($internship->student_id == Auth::user()->id && $internship->confirmation_student === null && $internship->competition_id == $newCompetition->id)
 										
 										<form action="{{ action('InternshipController@reject') }}" method="POST">
@@ -115,7 +116,15 @@
 											<button type="submit" class="btn btn-danger btn-sm">Odbij</button>
 										</form>								
 									@elseif($internship->student_id == Auth::user()->id && $internship->confirmation_student !== null) 
-										<i class="fa fa-close fa-2x" aria-hidden="true"></i>	
+										<i class="fa fa-times fa-2x" aria-hidden="true"></i>	
+									@elseif(Auth::user()->role == 'college_mentor')
+										@if($internship->confirmation_student === null)
+											<i class="fa fa-spinner fa-2x" aria-hidden="true"></i>
+										@elseif($internship->confirmation_student == 0)
+											<i class="fa fa-times fa-2x test" aria-hidden="true"></i>
+										@else
+											<i class="fa fa-check fa-2x" aria-hidden="true"></i>
+										@endif
 									@endif
 								</td>
 							</tr>
