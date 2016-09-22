@@ -75,7 +75,6 @@ Route::any('internships/document', 'InternshipController@getPDF');
 Route::any('internships/createReport', 'InternshipController@createReport');
 Route::any('internships/report', 'InternshipController@getReport');
 Route::get('internships/showFinal', "InternshipController@showFinal");
-Route::get('internships/showFormer', "InternshipController@showFormer");
 Route::get('internships/showResults', "InternshipController@showResults");
 Route::any('internships/reject', "InternshipController@reject");
 Route::post('internships/addMentor/{id}', "InternshipController@addMentor");
