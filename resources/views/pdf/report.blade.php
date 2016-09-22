@@ -69,12 +69,11 @@
 <div class="header"><img src="../resources/images/header.png"></div><br>
 <div class="footer"><img src="../resources/images/footer.png"></div>
 		
-@foreach($internships as $internship)	
 	<div class="textbox">
 		
 		<h2 class="line1">Izvješće o obavljenoj stručnoj praksi</h2><br>
 
-        <p class="bold_line">Ja, {{ $internship->student['name'].' '.$internship->student['last_name'] }}, obavio/la sam studentsku stručnu praksu u trajanju od ukupno {{ $internship->duration }} radnih dana u {{ $internship->company['name'] }}. Pretežito sam, uz vodstvo mentora {{ $internship->intern_mentor['name'].' '.$internship->intern_mentor['last_name'] }}, obavljao/la slijedeće aktivnosti:<br><br><span class="activities">{{ $activities }}.</span></p><br>
+        <p class="bold_line">Ja, {{ $internships->student['name'].' '.$internships->student['last_name'] }}, obavio/la sam studentsku stručnu praksu u trajanju od ukupno {{ $internships->duration }} radnih dana u {{ $internships->company['name'] }}. Pretežito sam, uz vodstvo mentora {{ $internships->intern_mentor['name'].' '.$internships->intern_mentor['last_name'] }}, obavljao/la slijedeće aktivnosti:<br><br><span class="activities">{{ $activities }}.</span></p><br>
 
         <p class="line2">U nastavku, navodim sažetak (cca. 700 riječi) cijelokupnog procesa obavljanja stručne prakse:<br><br><span class="activities">{{ $abstract }}</span></p><br>
 
@@ -82,10 +81,7 @@
 		Ispuniti evaluaciju dostupnu na linku: <a href="http://goo.gl/forms/1luwTQknN7Tpud1j1">http://goo.gl/forms/1luwTQknN7Tpud1j1</a></p>
 
     </div>
-
-@endforeach	
     
-
 </body>
 </html>
 
