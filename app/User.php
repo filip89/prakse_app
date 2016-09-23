@@ -56,13 +56,7 @@ class User extends Authenticatable
 		
 		if($activeInternship){
 			
-			if($activeInternship->confirmation_student == 1){
-				
-				return "Potvrđena praksa";
-				
-			}
-			
-			if($activeInternship->status == 2){
+			if($activeInternship->confirmation_admin == 1){
 				
 				return "Nepotvrđena praksa";
 				
@@ -93,18 +87,6 @@ class User extends Authenticatable
 		
 	}
 	
-	public function confirmedInternship(){
-		
-		if(count($this->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get()) > 0){
-			
-			return true;
-			
-		}
-		
-		return false;
-		
-	}
-	
 	public function lastInternship(){
 		
 		if(count($this->internships()->where('status', '=', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get()) > 0){
@@ -114,6 +96,17 @@ class User extends Authenticatable
 		}
 		
 		return false;
+		
+	}
+	
+	public function recentInternships(){
+		
+		if(count($this->internships()->where('confirmation_admin', 1)->where('confirmation_student', 1)->get())){
+			
+			return $this->internships()->where('confirmation_admin', 1)->where('confirmation_student', 1)->orderBy('end_date', 'desc')->get();
+			
+		}
+		
 		
 	}
 	

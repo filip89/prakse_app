@@ -31,4 +31,10 @@ class Company extends Model
 		
 	}
 	
+	public function recentInternships(){
+		
+		return $this->internships()->where('confirmation_admin', 1)->where('confirmation_student', 1)->get();
+		
+	}
+	
 }

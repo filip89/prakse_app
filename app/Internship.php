@@ -34,5 +34,13 @@ class Internship extends Model
     	return $this->belongsTo('App\Competition');
     	
     }
+	
+	public static function recent(){
+		
+		$lastSixMonths = strtotime('-6 months');
+			
+		return static::where('created_at', '>', $lastSixMonths)->where('confirmation_admin', "=", 1)->where('confirmation_student', "=", 1);
+		
+	}
     
 }
