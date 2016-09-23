@@ -56,11 +56,25 @@
                             <label for="phone" class="col-md-4 control-label">Telefon:</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="phone" value="{{ old('phone') }}">
+                                <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" required>
 
                                 @if ($errors->has('phone'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+						
+						<div class="form-group{{ $errors->has('spots') ? ' has-error' : '' }}">
+                            <label for="spots" class="col-md-4 control-label">Mjesta za prakse:</label>
+
+                            <div class="col-md-6">
+                                <input type="number" class="form-control" min="0" name="spots" value="{{ old('spots') }}" required>
+
+                                @if ($errors->has('spots'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('spots') }}</strong>
                                     </span>
                                 @endif
                             </div>
