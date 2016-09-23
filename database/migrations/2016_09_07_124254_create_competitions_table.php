@@ -21,6 +21,7 @@ class CreateCompetitionsTable extends Migration
 			$table->integer("year");
 			$table->string("name", 100);
 			$table->integer("internships_available")->default(100);
+			$table->date("results_date")->nullable();
        		$table->timestamps();
         });
     }
