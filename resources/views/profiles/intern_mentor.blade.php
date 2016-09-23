@@ -56,7 +56,7 @@ table {
 								@if(Utilities::competitionStatus() == 2)
 									@if(count($currentCompInterns) > 0)
 										@foreach($currentCompInterns as $internship)
-										<div class="student_item">
+										<div class="user_item">
 										<a class="link_object unconfirmed_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
 										</div>
 										@endforeach
@@ -73,22 +73,26 @@ table {
 									<i><small>Natječaj je još otvoren</small></i>
 								@endif
 								</td>
-								<td>Posljednji natječaj:</br>
-								@if(count($lastCompInterns) == 0)
+								<td>Nedavne prakse:</br>
+								@if(count($recentInterns) == 0)
 									@if(Auth::user()->id == $user->id)
-									<i><small>Nemate praktikante s posljednjeg natječaja</small></i>
+									<i><small>Niste imali praktikante u zadnjih 6 mjeseci</small></i>
 									@else
-									<i><small>Nema praktikante s posljednjeg natječaja</small></i>
+									<i><small>Nema praktikante u zadnjih 6 mjeseci</small></i>
 									@endif
 								@else
-									@foreach($lastCompInterns as $internship)
-										<div class="student_item">
-										@if($internship->end_date < date('d-m-Y'))
+									@foreach($recentInterns as $internship)
+										
+										<div class="user_item">
+										@if(strtotime($internship->start_date) > strtotime(date('d-m-Y')))
+											<a data-toggle="tooltip" title="{{ 'Praksa počinje za ' . (strtotime($internship->start_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
+										@elseif(strtotime($internship->end_date) > strtotime(date('d-m-Y')))
 											<a data-toggle="tooltip" title="{{ 'Praksa traje još ' . (strtotime($internship->end_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
 										@else
 											<a data-toggle="tooltip" title="{{ 'Praksa je završila.' }}" class="link_object expired_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
 										@endif
 										</div>
+										
 									@endforeach
 								@endif
 								</td>
