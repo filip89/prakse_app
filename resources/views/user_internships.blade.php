@@ -41,8 +41,12 @@
 						<td> {{ $internship->student->name . ' ' . $internship->student->last_name }} </td>
 					@endif
 						<td><a href="{{ url('/company/profile/' . $internship->company->id) }}">{{ $internship->company->name }}</a></td>
+						@if(isset($internship->intern_mentor))
 						<td><a href="{{ url('/user/' . $internship->intern_mentor->id) }}">{{ $internship->intern_mentor->name . ' ' . $internship->intern_mentor->last_name }}</a></td>
+						@endif
+						@if(isset($internship->college_mentor))
 						<td><a href="{{ url('/user/' . $internship->college_mentor->id) }}">{{ $internship->college_mentor->name . ' ' . $internship->college_mentor->last_name}}</a></td>
+						@endif
 						<td>{{ $internship->competition->name . ', ' . $internship->competition->created_at->format('d-m-Y')}}</td>
 						<td>{{ date('d M, Y', strtotime($internship->start_date)) . ' - ' . date('d M, Y', strtotime($internship->end_date))}}</td>
 						<td class="row_buttons">

@@ -28,8 +28,8 @@
 						<tr>
 							<th>Tvrtka</th>
 							<th>Sjedište</th>
-							<th>Broj praksi (tek. natječaj)</th>
-							<th>Broj odrađenih praksi </th>
+							<th>Broj mjesta </th>
+							<th>Broj slobodnih mjesta </th>
 							<th>Datum stvaranja</th>
 							<th></th>
 						</tr>
@@ -44,13 +44,13 @@
 								{{ $company->residence }}
 							</td>
 							<td>
-								{{ count($company->internships()->where('status', '<>', 0)->get())}}
+								{{ $company->spots }}
 							</td>
 							<td>
-								{{ count($company->internships()->where('confirmation_student', '!=', 0)->get())}}
+								{{ $company->spotsAvailable() }}
 							</td>
 							<td>
-							{{ $company->created_at->format('d-m-Y') }}
+							{{ $company->created_at->format('d. m. Y.') }}
 							</td>
 							<td class="row_buttons">
 								<a type="button" class="btn btn-info btn-sm" href="{{ url('/company/profile/' . $company->id) }}">Profil</a>
