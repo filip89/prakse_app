@@ -211,8 +211,6 @@ class InternshipController extends Controller
         $internship->rating_by_student = $request->rating_by_student ?: null;
         $internship->intern_mentor_comment = $request->intern_mentor_comment;
         $internship->college_mentor_comment = $request->college_mentor_comment;
-        $internship->confirmation_student = $request->confirmation_student;
-        $internship->confirmation_admin = $request->confirmation_admin;
 
         if($id != 0) {
             if($request->company_id != null && $internship->status != 0) {
