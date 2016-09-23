@@ -107,7 +107,7 @@
 								<td>{{ $academicYear->academicYear($internship->academic_year) }}</td>
 								<td>{{ $internship->company['name']}}</td>
 								<td style="text-align: center;">
-									@if($internship->student_id == Auth::user()->id && $internship->confirmation_student === null && $internship->competition_id == $newCompetition->id)
+									@if($internship->student_id == Auth::user()->id && $internship->confirmation_student === 1 && $internship->competition_id == $newCompetition->id)
 										
 										<form action="{{ action('InternshipController@reject') }}" method="POST">
 											<input name="_token" type="hidden" value="{!! csrf_token() !!}" />
