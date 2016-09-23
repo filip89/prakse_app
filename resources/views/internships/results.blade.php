@@ -9,10 +9,6 @@
 	display: block;
 	float: left;
 }
-.com_int {
-	display: block;
-	float: right;
-}
 .comp_btn {
 	list-style-type: none;
 	display: block;
@@ -76,7 +72,7 @@
 		@if((isset($competitions->status) && $competitions->status != 0) || $competitions == null)
 			<h3>Nema objavljenih rezultata</h3> 
 		@else
-		<div class="btn btn-primary competition"><span class="com_year">Godina: {{ $competitions->year }}</span><span>{{ $competitions->name }}</span><span class="com_int">Dostupne prakse: {{ $competitions->internships_available }}</span></div>	
+		<div class="btn btn-primary competition"><span class="com_year">Godina: {{ $competitions->year }}</span><span>{{ $competitions->name }}</span></div>	
 			{{--*/ $count = 0 /*--}}
 			<div class="res_box">																		
 				<div class="table-responsive">
@@ -99,7 +95,7 @@
 
 						<tbody>
 						@foreach($internships as $internship)
-							@if($count < $competitions->internships_available )
+							
 							<tr>			
 								<td>{{ $count+1 }}</td>
 								<td>{{ $internship->average_bacc_grade }}</td>
@@ -132,7 +128,7 @@
 									@endif
 								</td>
 							</tr>
-							@endif
+							
 							{{--*/ $count += 1 /*--}}
 						@endforeach	
 						</tbody>							
