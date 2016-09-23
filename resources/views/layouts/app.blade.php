@@ -125,7 +125,7 @@
 			display: table;
 			margin: auto;
 		}
-		.student_item {
+		.user_item {
 			background-color: #f2f2f2;
 			margin-bottom: 4px;
 		}
