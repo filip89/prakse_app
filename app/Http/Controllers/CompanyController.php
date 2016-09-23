@@ -16,6 +16,8 @@ use App\Competition;
 
 use App\Utilities;
 
+use App\Internship;
+
 class CompanyController extends Controller
 {
     //
@@ -56,18 +58,13 @@ class CompanyController extends Controller
 		
 		$currentCompInterns = $company->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
 		
-		if(Utilities::competitionExists()){
-			
-			$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->where('company_id', $id)->get();			
-						
-		}
-		else {
-			
-			$lastCompInterns = null;
-			
+		if(!$recentInterns = $company->recentInternships()){
+				
+			$recentInterns = null;
+					
 		}
 		
-		return view('profiles.company', ['company' => $company, 'currentCompInterns' => $currentCompInterns, 'lastCompInterns' => $lastCompInterns]);
+		return view('profiles.company', ['company' => $company, 'currentCompInterns' => $currentCompInterns, 'recentInterns' => $recentInterns]);
 		
 	}
 	
@@ -97,6 +94,7 @@ class CompanyController extends Controller
 			'residence' => 'required|max:255',
 			'email' => 'required|max:255|email',
 			'phone' => 'required|max:50',
+			'spots' => 'required',
 		]);
 		
 		$company = Company::find($id);
@@ -124,6 +122,7 @@ class CompanyController extends Controller
 			'residence' => 'required|max:255',
 			'email' => 'required|max:255|email',
 			'phone' => 'required|max:50',
+			'spots' => 'required',
 		]);
 		
 		$company = new Company;
@@ -156,7 +155,7 @@ class CompanyController extends Controller
 
 		$company = Company::find($id);
 
-		$internships = $company->internships()->where('confirmation_admin', 1)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->orderBy('created_at', 'desc')->paginate(1);
+		$internships = $company->internships()->where('status', 0)->where('confirmation_student', 1)->where('confirmation_admin', 1)->orderBy('created_at', 'desc')->paginate(1);
 		
 		return view('user_internships', ['internships' => $internships, 'user' => $company]);
 		

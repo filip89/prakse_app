@@ -85,42 +85,20 @@ class UserController extends Controller
 		
 		$currentCompInterns = $user->internships()->where('status', '<>', 0)->where('confirmation_admin', 1)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
 				
-		if(!isset($user)){
-			
-			return ('No such user.');
-			
+		if(!$recentInterns = $user->recentInternships()){
+				
+			$recentInterns = null;
+					
 		}
 		
 		if($user->role == "college_mentor"){
 			
-			if(Utilities::competitionExists()){
-				
-				$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_admin', 1)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
-				
-			}
-			else {
-				
-				$lastCompInterns = null;
-				
-			}
-			
-			return view("profiles.college_mentor", ['user' => $user, 'currentCompInterns' => $currentCompInterns, 'lastCompInterns' => $lastCompInterns]);
+			return view("profiles.college_mentor", ['user' => $user, 'currentCompInterns' => $currentCompInterns, 'recentInterns' => $recentInterns]);
 			
 		}
 		else {
 			
-			if(Utilities::competitionExists()){
-				
-				$lastCompInterns = Competition::where('status', 0)->orderBy('created_at', 'desc')->first()->internships()->where('confirmation_admin', 1)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
-				
-			}
-			else {
-				
-				$lastCompInterns = null;
-				
-			}
-			
-			return view("profiles.intern_mentor", ['user' => $user, 'currentCompInterns' => $currentCompInterns, 'lastCompInterns' => $lastCompInterns]);
+			return view("profiles.intern_mentor", ['user' => $user, 'currentCompInterns' => $currentCompInterns, 'recentInterns' => $recentInterns]);
 			
 		}
 		
@@ -309,7 +287,7 @@ class UserController extends Controller
 		
 		$user = User::find($id);
 		
-		$internships = $user->internships()->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->orderBy('created_at', 'desc')->paginate(1);
+		$internships = $user->internships()->where('status', 0)->where('confirmation_student', 1)->where('confirmation_admin', 1)->orderBy('created_at', 'desc')->paginate(1);
 		
 		return view('user_internships', ['internships' => $internships, 'user' => $user]);
 		
