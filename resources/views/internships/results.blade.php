@@ -35,6 +35,10 @@
 .dropdown {
 	float: right;
 }
+.com_date {
+	display: block;
+	padding-top: 10px;
+}
 
 </style>
 
@@ -50,6 +54,7 @@
 		</div>
 		@endif
 
+		@if(isset($competitions)) <h5><b>Datum objave:<br><span class="com_date">{{ date('d M, Y', strtotime($competitions->results_date)) }}</span></b></h5> @endif
 		<h1>Rezultati</h1>
 		
 		@if(count($competitionList) > 0)	
@@ -68,12 +73,11 @@
             </div>
 		@endif
 		
-		@if(isset($competitions->status) != 0 || $competitions == null)
+		@if((isset($competitions->status) && $competitions->status != 0) || $competitions == null)
 			<h3>Nema objavljenih rezultata</h3> 
 		@else
 		<div class="btn btn-primary competition"><span class="com_year">Godina: {{ $competitions->year }}</span><span>{{ $competitions->name }}</span><span class="com_int">Dostupne prakse: {{ $competitions->internships_available }}</span></div>	
-			{{--*/ $id = '' /*--}}
-			{{--*/ $count = '' /*--}}
+			{{--*/ $count = 0 /*--}}
 			<div class="res_box">																		
 				<div class="table-responsive">
 					<table class="table table-striped">
@@ -95,7 +99,7 @@
 
 						<tbody>
 						@foreach($internships as $internship)
-							
+							@if($count < $competitions->internships_available )
 							<tr>			
 								<td>{{ $count+1 }}</td>
 								<td>{{ $internship->average_bacc_grade }}</td>
@@ -128,6 +132,7 @@
 									@endif
 								</td>
 							</tr>
+							@endif
 							{{--*/ $count += 1 /*--}}
 						@endforeach	
 						</tbody>							
