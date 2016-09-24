@@ -81,21 +81,17 @@ class User extends Authenticatable
 			
 			return $this->internships()->where('status', '<>', 0)->first();
 			
-		}
-		
-		return false;		
+		}	
 		
 	}
 	
 	public function lastInternship(){
 		
-		if(count($this->internships()->where('status', '=', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get()) > 0){
+		if(count($this->internships()->where('confirmation_admin', 1)->where('confirmation_student', 1)->get()) > 0){
 			
-			return $this->internships()->where('status', '=', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->orderBy('created_at', 'desc')->first();
+			return $this->internships()->where('confirmation_admin', 1)->where('confirmation_student', 1)->orderBy('created_at', 'desc')->first();
 			
 		}
-		
-		return false;
 		
 	}
 	
