@@ -86,6 +86,7 @@ Route::resource('internships', "InternshipController", ['except' => ['store', 'u
 Route::post('competition/create', 'CompetitionController@store');
 Route::post('competition/close', 'CompetitionController@close');
 Route::post('competition/archive', 'CompetitionController@archive');
+Route::post('competition/edit/{id}', 'CompetitionController@edit');
 
 //settings
 Route::get('settings','SettingController@competition');
