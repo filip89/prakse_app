@@ -142,6 +142,17 @@
 			text-align: center;
 			color: gray;
 		} 
+		.little_info {
+			font-size: 12px;
+			font-weight: bold;
+			background-color: #f2f2f2;
+			padding: 10px;
+			display: inline-block;
+			float: right;
+		}
+		.little_info + div {
+			clear: both;
+		}
 		
     @yield('style')
     </style>
@@ -218,7 +229,6 @@
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="{{ url('/company') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Potvrđene</a></li>
 									<li><a href="{{  url('/company/wishlist') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Željene</a></li>
-									<li><a href="{{  url('/company/former') }}"><i class="fa fa-btn fa-reply" aria-hidden="true"></i></i>Prijašnje</a></li>
 								</ul>
                         </li>
 						
