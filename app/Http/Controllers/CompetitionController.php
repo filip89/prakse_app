@@ -31,11 +31,6 @@ class CompetitionController extends Controller
 		$competition->status = 1;
 		$competition->year = date('Y');
 		$competition->name = $request->name;
-		if(!empty($request->internships_available)){
-			
-			$competition->internships_available = $request->internships_available;		
-		
-		}	
 		
 		$competition->save();
 		

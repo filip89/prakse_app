@@ -43,11 +43,7 @@ class UserController extends Controller
 			'addInternMentor',
 			'addInternMentorForm',
 		]]);
-		
-		$this->middleware('mentor', ['only' => [
-			'viewProfile',
-		]]);
-		
+				
 		$this->middleware('student', ['only' => [
 			'myInternship',
 		]]);
