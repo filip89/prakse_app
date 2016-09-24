@@ -241,7 +241,6 @@
                             </ul>
                         </li>
 						@endif
-						<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</a></li>
 						@if(Auth::user()->isAdmin())
 						<li><a href="{{ url('/settings') }}"><i class="fa fa-btn fa-cogs" aria-hidden="true"></i></i>Postavke</a></li>
 						@endif
