@@ -23,7 +23,7 @@
 				<div class="panel-heading"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Tvrtka</div>
 				<div class="panel-body">
 					<div class="action_buttons">
-					@if(Auth::user()->role == 'college_mentor' || (Auth::user()->role == 'intern_mentor' && (isset(Auth::user()->profile->company) && Auth::user()->profile->company->id == $company->id)))
+					@if(Auth::user()->isAdmin() || (Auth::user()->role == 'intern_mentor' && (isset(Auth::user()->profile->company) && Auth::user()->profile->company->id == $company->id)))
 						<a href="{{ url('/company/edit/' . $company->id) }}"><button class="btn btn-warning" >Uredi</button></a>
 					@endif
 					@if(Auth::user()->isAdmin())
@@ -39,6 +39,7 @@
 							<tr><th>Sjedište:</th><td>{{ $company->residence }}</td></tr>
 							<tr><th>E-mail:</th><td>{{ $company->email }}</td></tr>
 							<tr><th>Telefon:</th><td>{{ $company->phone }}</td></tr>
+							@if(Auth::user()->isAdmin() || (Auth::user()->role == 'intern_mentor' && (isset(Auth::user()->profile->company) && Auth::user()->profile->company->id == $company->id)))
 							@if($company->status == 1)
 							<tr><th>Mjesta za praksu:</th><td>{{ $company->spots }}</td></tr>
 							@endif
@@ -101,6 +102,7 @@
 								@endif
 								</td>
 							</tr>
+							@endif
 							@endif
 						</table>
 					</div>

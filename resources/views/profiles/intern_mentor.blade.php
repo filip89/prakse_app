@@ -49,6 +49,7 @@ table {
 							</tr>
 							<tr><th>Radno mjesto:</th><td>{{ $user->profile->job_description }}</td></tr>
 							<tr><th>Telefon:</th><td>{{ $user->profile->phone }}</td></tr>
+							@if(Auth::user()->role == 'college_mentor' || (Auth::user()->role == 'intern_mentor' && (isset(Auth::user()->profile->company) && Auth::user()->profile->company->id == $user->profile->company->id)))
 							<tr><td style="text:align:center" colspan="2"><a type="button" class="btn btn-bg btn-default" href="{{ url('/user_internships/' . $user->id) }}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Povijest praksi</a></td></tr>
 							<tr><th style="text-align:center;font-size:18px" colspan="2"><b>Mentorstva:</b></th></tr>
 							<tr>	
@@ -97,6 +98,7 @@ table {
 								@endif
 								</td>
 							</tr>
+							@endif
 						</table>	
 					</div>
 				</div>	
