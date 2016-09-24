@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+    <div class="col-md-12">
 			<h1>Popis tvrtki</h1>
         	@if(Session::has('status'))
 			<div class="alert {{ Session::get('alert_type') }} fade in">
@@ -22,28 +22,36 @@
 			<a id="add_button" class="btn btn-primary" type="button" href="{{ url('/company/create') }}"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj tvrtku</a>
 			@endif
 			@if(count($allCompanies) > 0)
-				<div class="col-sm-3 filter" style="margin-bottom:20px;">
-					<form method="get" action="{{ url('/company') }}">
-							<select class="form-control"  name="filter" onchange="this.form.submit()">
-								@if(!isset($_GET['filter']) || $_GET['filter'] == 'all')
-								<option value="all" selected>Sve</option>
-								@else
-								<option value="all">Sve</option>
-								@endif
-								@if(isset($_GET['filter']) && $_GET['filter'] == 'confirmed')
-								<option value="confirmed" selected>Aktualne</option>
-								@else
-								<option value="confirmed">Aktualne</option>
-								@endif
-								@if(isset($_GET['filter']) && $_GET['filter'] == 'unconfirmed')
-								<option value="unconfirmed" selected>Neaktualne</option>
-								@else
-								<option value="unconfirmed">Neaktualne</option>
-								@endif
-							</select>
-					</form>
-				</div>
-				<div class="col-sm-12">
+		<div class="row">
+			<div class="col-sm-3 col-xs-6 filter" style="margin-bottom:20px;">
+				<form method="get" action="{{ url('/company') }}">
+						<select class="form-control"  name="filter" onchange="this.form.submit()">
+							@if(!isset($_GET['filter']) || $_GET['filter'] == 'all')
+							<option value="all" selected>Sve</option>
+							@else
+							<option value="all">Sve</option>
+							@endif
+							@if(isset($_GET['filter']) && $_GET['filter'] == 'confirmed')
+							<option value="confirmed" selected>Aktualne</option>
+							@else
+							<option value="confirmed">Aktualne</option>
+							@endif
+							@if(isset($_GET['filter']) && $_GET['filter'] == 'unconfirmed')
+							<option value="unconfirmed" selected>Neaktualne</option>
+							@else
+							<option value="unconfirmed">Neaktualne</option>
+							@endif
+						</select>
+				</form>
+			</div>
+			<div class="col-sm-6 col-xs-0"></div>
+			<div class="col-sm-3 col-xs-6 little_info">
+			Ukupan broj tvrtki: {{ count($allCompanies) }}<br/>
+			Od toga aktualne: {{ count($confirmedCompanies) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
 				<div class="table-responsive">
 					<table class="table table-striped">
 					<thead>
@@ -102,6 +110,7 @@
 				</div>
 			@endif
         </div>
+		</div>
     </div>
 </div>
 @endsection

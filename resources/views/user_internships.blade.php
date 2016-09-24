@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('style')
+td:first-child {
+	width: 10px;
+}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -23,7 +29,8 @@
 				<table class="table table-striped">
 				<thead>
 					<tr>
-						@if(isset($user->role) && $user->role != 'student')
+						<th></th>
+						@if(!isset($user->role) || $user->role != 'student')
 						<th>Student</th>
 						@endif
 						<th>Tvrtka</th>
@@ -41,9 +48,20 @@
 				<tbody>
 					@foreach ($internships as $internship)
 					<tr>
-					@if(isset($user->role) && $user->role != 'student')
-						<td> {{ $internship->student->name . ' ' . $internship->student->last_name }} </td>
-					@endif
+						<td>
+							@if(strtotime($internship->start_date) > strtotime(date('d-m-Y')))
+											<a data-toggle="tooltip" title="{{ 'Praksa počinje za ' . (strtotime($internship->start_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" ><i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
+										@elseif(strtotime($internship->end_date) > strtotime(date('d-m-Y')))
+											<a data-toggle="tooltip" title="{{ 'Praksa traje još ' . (strtotime($internship->end_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" ><i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
+										@else
+											<a data-toggle="tooltip" title="{{ 'Praksa je završila ' . date_create($internship->end_date)->format('d. m. Y.') }}" class="link_object expired_gray" ><i class="fa fa-btn fa-calendar-times-o" aria-hidden="true"></i></a>
+										@endif
+						</td>	
+						@if(!isset($user->role) || $user->role != 'student')
+						<td>
+						{{ $internship->student->name . ' ' . $internship->student->last_name }}
+						</td>
+						@endif
 						<td><a href="{{ url('/company/profile/' . $internship->company->id) }}">{{ $internship->company->name }}</a></td>
 						@if(isset($user->role) && $user->role != 'intern_mentor')
 						<td>
@@ -59,8 +77,8 @@
 							@endif
 						</td>
 						@endif
-						<td>{{ $internship->competition->name . ', ' . $internship->competition->created_at->format('d-m-Y')}}</td>
-						<td>{{ date('d M, Y', strtotime($internship->start_date)) . ' - ' . date('d M, Y', strtotime($internship->end_date))}}</td>
+						<td>{{ $internship->competition->name . ', ' . $internship->competition->created_at->format('d. m. Y.')}}</td>
+						<td>{{ date_create($internship->start_date)->format('d. m. Y.') . ' - ' . date_create($internship->end_date)->format('d. m. Y.') }}</td>
 						<td class="row_buttons">
 							<a class="btn btn-info btn-sm" type="button" href="{{ url('/internships/'. $internship->id) }}">Prikaži</a>
 						@if (Auth::user()->isAdmin())	

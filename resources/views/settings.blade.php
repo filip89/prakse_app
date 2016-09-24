@@ -45,7 +45,11 @@
                             </div>
                         </div>
                     </form>
-			@elseif($competition->status == 1)
+				@else
+				<div>Broj prijava: {{ $allApplicsNum }}</div>
+				<div>Broj obrađenih prijava: {{ $processedApplicsNum }}</div>
+				<div>Broj obrađenih praksi: {{ count($competition->internships()->where('status', 2)->get()) }}</div>
+				@if($competition->status == 1)
 				<form class="form-horizontal" role="form" method="POST" action="{{ url('/competition/close') }}">
                         {{ csrf_field() }}
 						
@@ -60,7 +64,8 @@
                             </div>
                         </div>
                     </form>
-			@elseif($competition->status == 2)		
+				@endif
+				@if($competition->status == 2)		
 					<form class="form-horizontal" role="form" method="POST" action="{{ url('/competition/archive') }}">
                         {{ csrf_field() }}
 						
@@ -77,8 +82,8 @@
                             </div>
                         </div>
                     </form>
-			@endif
-			@if(Utilities::competitionStatus() != 0)
+				@endif
+
 				<form class="form-horizontal" style="background-color:#f2f2f2;padding:20px;" role="form" method="POST" action="{{ url('/competition/edit/' . $competition->id) }}">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

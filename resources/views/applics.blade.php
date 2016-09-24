@@ -14,9 +14,12 @@
 			@if(count($applics) < 1)
 				<h3 style="text-align:center;color:gray;">Ne postoji niti jedna neobrađena prijava.</h3>
 			@else
-			<div class="little_info">
+			<div class="row">
+				<div class="col-sm-9 col-xs-6"></div>
+				<div class="col-sm-3 col-xs-6 little_info">
 				Ukupan broj prijava: {{ $applicsNum }}<br/>
-				Od toga obrađeno: {{ $processedApplics }}
+				Od toga obrađene: {{ $processedApplics }}
+				</div>
 			</div>
 			<div class="table-responsive">
 				<table class="table table-striped">

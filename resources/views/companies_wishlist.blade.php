@@ -38,7 +38,7 @@
 								{{$applic->student->name . " " . $applic->student->last_name}} <i class="fa fa-check-circle" aria-hidden="true"></i>
 							</td>
 							<td>
-								{{$applic->created_at->format('d-m-Y')}}
+								{{$applic->created_at->format('d. m. Y.')}}
 							</td>
 						</tr>
 						@else
