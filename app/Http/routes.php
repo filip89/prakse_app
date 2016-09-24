@@ -89,4 +89,4 @@ Route::post('competition/archive', 'CompetitionController@archive');
 Route::post('competition/edit/{id}', 'CompetitionController@edit');
 
 //settings
-Route::get('settings','SettingController@competition');
+Route::get('settings','SettingController@open');
