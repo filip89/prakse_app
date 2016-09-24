@@ -193,7 +193,7 @@
 						</li>
 						@endif
 						@if(Auth::user()->lastInternship())
-							<li><a href="{{ url('/myinternship')}}"><b><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moja praksa</b></a></li>
+							<li><a href="{{ url('/myinternship')}}"><b><i class="fa fa-btn fa-folder" aria-hidden="true"></i>>Moja praksa</b></a></li>
 						@endif
 					@endif
 					@if(Utilities::competitionExists() == 1)
@@ -241,6 +241,7 @@
                             </ul>
                         </li>
 						@endif
+						<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</a></li>
 						@if(Auth::user()->isAdmin())
 						<li><a href="{{ url('/settings') }}"><i class="fa fa-btn fa-cogs" aria-hidden="true"></i></i>Postavke</a></li>
 						@endif
@@ -265,7 +266,7 @@
 								</li>
 								@endif
 								@if(Auth::user()->lastInternship())
-								<li><a href="{{ url('/myinternship')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moja praksa</a></li>
+								<li><a href="{{ url('/myinternship')}}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>>Moja praksa</a></li>
 								@endif
 							@endif
 								@if(Auth::user()->role == 'student')
