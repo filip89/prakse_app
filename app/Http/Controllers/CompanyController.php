@@ -18,6 +18,8 @@ use App\Utilities;
 
 use App\Internship;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+
 class CompanyController extends Controller
 {
     //
@@ -28,11 +30,27 @@ class CompanyController extends Controller
 		
 	}
 	
-	public function index(){
+	public function index(Request $request){
 		
-		$companies = Company::where('status', 1)->orderBy('created_at', 'desc')->paginate(1);
-
-		return view('companies', ['companies' => $companies]);
+		$allCompanies= Company::get();
+		
+		if($request->filter == 'all' || !isset($request->filter)){
+			
+			$companies = Company::orderBy('created_at', 'desc')->paginate(1);
+			
+		}
+		elseif($request->filter == 'confirmed') {
+			
+			$companies = Company::where('status', 1)->orderBy('created_at', 'desc')->paginate(1);
+			
+		}
+		elseif($request->filter == 'unconfirmed') {
+			
+			$companies = Company::where('status', 0)->orderBy('created_at', 'desc')->paginate(1);
+		
+		}
+		
+		return view('companies', ['allCompanies' => $allCompanies, 'companies' => $companies]);
 		
 	}
 	
@@ -144,10 +162,10 @@ class CompanyController extends Controller
 		$company->status = 1;
 		$company->save();
 		
-		Session::flash('status', 'Tvrtka je dodana!');
+		Session::flash('status', 'Tvrtka je dodana u natječaj!');
 		Session::flash('alert_type', 'alert-success');
 		
-		return redirect('/company/former');
+		return redirect('/company');
 		
 	}
 	

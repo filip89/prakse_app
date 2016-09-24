@@ -43,7 +43,11 @@ class ApplicController extends Controller
 		
 		$applics = Applic::where('status', 1)->orderBy('created_at', 'asc')->paginate(1);
 		
-		return view('applics', ['applics' => $applics]);
+		$applicsNum = count($applics);
+		
+		$processedApplics = count(Applic::where('status', 2)->get());
+		
+		return view('applics', ['applics' => $applics, 'applicsNum' => $applicsNum, 'processedApplics' => $processedApplics]);
 		
 	}
 	

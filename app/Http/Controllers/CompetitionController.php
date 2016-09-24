@@ -22,6 +22,10 @@ class CompetitionController extends Controller
 	
 	public function store(Request $request){
 		
+		$this->validate($request, [
+			'name' => 'required|max:100',
+		]);
+		
 		$competition = new Competition;
 		
 		$competition->status = 1;
@@ -61,7 +65,7 @@ class CompetitionController extends Controller
 		
 	}
 	
-		public function close(Request $request){
+	public function close(Request $request){
 		
 		$competition = Competition::where('status', 1)->first();
 		
@@ -70,6 +74,23 @@ class CompetitionController extends Controller
 		
 		Session::flash('status', 'Natječaj "' . $competition->name . '" (' . $competition->year . '. godine) je zatvoren!');
 		Session::flash('alert_type', 'alert-success');
+		
+		return redirect('/settings');
+		
+	}
+	
+	public function edit(Request $request, $id){
+		
+		$this->validate($request, [
+			'name' => 'required|max:100',
+		]);
+		
+		$competition = Competition::find($id);
+		$competition->name = $request->name;
+		$competition->save();
+		
+		Session::flash('status', 'Naziv natječaja je promijenjen u "' . $competition->name . '".');
+		Session::flash('alert_type', 'alert-warning');
 		
 		return redirect('/settings');
 		
