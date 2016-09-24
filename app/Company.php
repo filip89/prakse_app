@@ -34,7 +34,11 @@ class Company extends Model
 	
 	public function recentInternships(){
 		
-		return $this->internships()->where('confirmation_admin', 1)->where('confirmation_student', 1)->get();
+		$current_date = date('Y-m-d h:i:s', strtotime('-6 months'));
+		
+		if(count($this->internships()->where('status', 0)->where('start_date', '>', strtotime('-6 months'))->where('confirmation_admin', 1)->where('confirmation_student', 1)->get()) > 0)
+		
+		return $this->internships()->where('status', 0)->where('start_date', '>', strtotime('-6 months'))->where('confirmation_admin', 1)->where('confirmation_student', 1)->get();
 		
 	}
 	
