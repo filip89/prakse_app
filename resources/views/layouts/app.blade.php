@@ -147,11 +147,6 @@
 			font-weight: bold;
 			background-color: #f2f2f2;
 			padding: 10px;
-			display: inline-block;
-			float: right;
-		}
-		.little_info + div {
-			clear: both;
 		}
 		
     @yield('style')
@@ -193,13 +188,13 @@
 						</li>
 						@endif
 						@if(Auth::user()->lastInternship())
-							<li><a href="{{ url('/myinternship')}}"><b><i class="fa fa-btn fa-folder" aria-hidden="true"></i>>Moja praksa</b></a></li>
+							<li><a href="{{ url('/myinternship')}}"><b><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Moja praksa</b></a></li>
 						@endif
-					@endif
+					
 					@if(Utilities::competitionExists() == 1)
 					<li><a href="{{ url('/internships/showResults') }}"><b><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</b></a></li>							
 					@endif
-					
+					@endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -227,7 +222,7 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tvrtke <span class="caret"></span></a>		
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="{{ url('/company') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Potvrđene</a></li>
+									<li><a href="{{ url('/company') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Pohranjene</a></li>
 									<li><a href="{{  url('/company/wishlist') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Željene</a></li>
 								</ul>
                         </li>
@@ -252,25 +247,10 @@
 							@if(Auth::user()->role != "student")
 								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
 								<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</a></li>
-							@else
-								@if(Utilities::competitionStatus() != 0)
-								<li><a href="{{ url('/myapplic')}}">
-										<i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>
-										@if(!Auth::user()->activeApplic())
-										Prijava prakse
-										@else
-										Prijavljena praksa
-										@endif
-									</a>
-								</li>
-								@endif
-								@if(Auth::user()->lastInternship())
-								<li><a href="{{ url('/myinternship')}}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>>Moja praksa</a></li>
-								@endif
 							@endif
 								@if(Auth::user()->role == 'student')
 								<li><a href="{{ url('/internships/createReport') }}"><i class="fa fa-btn fa-book" aria-hidden="true"></i>Izvještaj</a></li>
-							@endif	
+								@endif	
                         		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
 						</li>
