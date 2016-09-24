@@ -33,7 +33,15 @@
 						<td>{{ $user->created_at->format('d-m-Y') }}</td>
 						<td>
 						@if($user->lastInternship())
-							<a class="link_object" href="{{ url('/internships/' . $user->lastInternship()->id) }}">{{ $user->lastInternship()->company->name . ' (' . $user->lastInternship()->competition->year . ')' }}</a>
+							<a class="link_object" href="{{ url('/internships/' . $user->lastInternship()->id) }}">
+							@if(strtotime($user->lastInternship()->start_date) > strtotime(date('d-m-Y')))
+									<a data-toggle="tooltip" title="{{ 'Praksa počinje za ' . (strtotime($user->lastInternship()->start_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" href="{{url('/internships/' . $user->lastInternship()->id)}}">{{ $user->lastInternship()->company->name . ' (' . $user->lastInternship()->competition->year . ')' }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
+								@elseif(strtotime($user->lastInternship()->end_date) > strtotime(date('d-m-Y')))
+									<a data-toggle="tooltip" title="{{ 'Praksa traje još ' . (strtotime($user->lastInternship()->end_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" href="{{url('/internships/' . $user->lastInternship()->id)}}">{{ $user->lastInternship()->company->name . ' (' . $user->lastInternship()->competition->year . ')' }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
+										@else
+											<a data-toggle="tooltip" title="{{ 'Praksa je završila prije ' . (strtotime(date('d-m-Y')) - strtotime($user->lastInternship()->end_date))/86400 . ' dana.' }}" class="link_object expired_gray" href="{{url('/internships/' . $user->lastInternship()->id)}}">{{ $user->lastInternship()->company->name . ' (' . $user->lastInternship()->competition->year . ')' }}</a>
+										@endif
+							</a>
 						@endif
 						</td>
 						<td>{{ $user->competitionStatus() }}</td>

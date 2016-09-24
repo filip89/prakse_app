@@ -16,7 +16,7 @@
 			</div>
 			@endif
 			@if(count($companies) == 0)
-				<h3 style="text-align:center;color:gray;">Nema tvrtki iz prošlih natječaja.</h3>
+				<h3 style="text-align:center;color:gray;">Nema niti jedna tvrtka.</h3>
 			@else
 				<div class="table-responsive">
 					<table class="table table-striped">

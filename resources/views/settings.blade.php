@@ -18,6 +18,12 @@
 		</ul>
 		<div class="tab-content" style="padding:40px;">
 			<div id="competition" class="tab-pane fade in active">
+			@if(Session::has('status'))
+			<div class="alert {{ Session::get('alert_type') }} fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ Session::get('status') }}
+			</div>
+			@endif
 			@if(Utilities::competitionStatus() == 0)
 				<h4 style="text-align:center;color:gray;margin-bottom:30px;">Nema otvorenog natječaja. Možete stvoriti novi.</h4>
 				<form class="form-horizontal" role="form" method="POST" action="{{ url('/competition/create') }}">
@@ -92,9 +98,36 @@
                         </div>
                     </form>
 			@endif
+			@if(Utilities::competitionStatus() != 0)
+				<form class="form-horizontal" style="background-color:#f2f2f2;padding:20px;" role="form" method="POST" action="{{ url('/competition/edit/' . $competition->id) }}">
+                        {{ csrf_field() }}
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+							<label for="name" class="col-md-4 control-label">Naziv natječaja: </label>
+                            <div class="col-md-6">
+								<input class="form-control" name="name" type="text" maxlength="100" value="{{ $competition->name }}"></input>
+								 @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+							</div>
+						</div>
+						
+						<div class="action_buttons">
+						<button type="submit" class="btn btn-primary" style="margin:10px;">
+                            <i class="fa fa-btn fa-save settings_fa" aria-hidden="true"></i> Spremi
+                        </button>					
+						</div>
+                </form>
+			@endif
 			</div>
 			<div id="rest" class="tab-pane fade">
-
+			@if(Session::has('status'))
+			<div class="alert {{ Session::get('alert_type') }} fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ Session::get('status') }}
+			</div>
+			@endif
 			</div>
 		</div>
 
