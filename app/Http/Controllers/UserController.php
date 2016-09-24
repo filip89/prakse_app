@@ -79,7 +79,7 @@ class UserController extends Controller
 		
 		$user = User::find($id);
 		
-		$currentCompInterns = $user->internships()->where('status', '<>', 0)->where('confirmation_admin', 1)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
+		$currentCompInterns = $user->internships()->where('status', '<>', 0)->where('confirmation_admin', 1)->get();
 				
 		if(!$recentInterns = $user->recentInternships()){
 				
@@ -141,6 +141,7 @@ class UserController extends Controller
 		
 		$this->validate($request, [
             'name' => 'required|max:255',
+			'email' => 'required|max:255',
 			'last_name' => 'required|max:255',
 		]);
 		
@@ -148,6 +149,7 @@ class UserController extends Controller
 		
 		$user->name = $request->name;
 		$user->last_name = $request->last_name;
+		$user->email = $request->email;
 		$user->profile->title = $request->title;
 		$user->profile->fields = $request->fields;
 		$user->push();
@@ -177,6 +179,7 @@ class UserController extends Controller
 		if(Auth::user()->isAdmin()){
 			$this->validate($request, [
 				'name' => 'required|max:255',
+				'email' => 'required|max:255',
 				'last_name' => 'required|max:255',
 				'job_descritpion' => 'max:5000',
 				'phone' => 'max:50',
@@ -187,6 +190,7 @@ class UserController extends Controller
 			$this->validate($request, [
             'name' => 'required|max:255',
 			'last_name' => 'required|max:255',
+			'email' => 'required|max:255',
 			'job_descritpion' => 'max:5000',
 			'phone' => 'max:50',
 		]);
@@ -197,6 +201,7 @@ class UserController extends Controller
 		
 		$user->name = $request->name;
 		$user->last_name = $request->last_name;
+		$user->email = $request->email;
 		$user->profile->job_description = $request->job_description;
 		$user->profile->phone = $request->phone;
 		

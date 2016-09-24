@@ -32,7 +32,9 @@ class CompanyController extends Controller
 	
 	public function index(Request $request){
 		
-		$allCompanies= Company::get();
+		$allCompanies = Company::get();
+		
+		$confirmedCompanies = Company::where('status', 1)->get();
 		
 		if($request->filter == 'all' || !isset($request->filter)){
 			
@@ -50,15 +52,7 @@ class CompanyController extends Controller
 		
 		}
 		
-		return view('companies', ['allCompanies' => $allCompanies, 'companies' => $companies]);
-		
-	}
-	
-	public function former(){
-		
-		$companies = Company::where('status', 0)->orderBy('created_at', 'desc')->paginate(1);
-
-		return view('companies_former', ['companies' => $companies]);
+		return view('companies', ['allCompanies' => $allCompanies, 'companies' => $companies, 'confirmedCompanies' => $confirmedCompanies]);
 		
 	}
 	
@@ -74,7 +68,7 @@ class CompanyController extends Controller
 		
 		$company = Company::find($id);
 		
-		$currentCompInterns = $company->internships()->where('status', '<>', 0)->where(function($query){ return $query->where('confirmation_student', "=", null)->orWhere('confirmation_student', "=", 1);})->get();
+		$currentCompInterns = $company->internships()->where('status', '<>', 0)->where('confirmation_admin', "=", 1)->get();
 		
 		if(!$recentInterns = $company->recentInternships()){
 				

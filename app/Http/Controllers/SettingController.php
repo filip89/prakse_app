@@ -20,11 +20,15 @@ class SettingController extends Controller
 {
     //
 	
-	public function competition(){
+	public function open(){
+		
+		$allApplicsNum = count(Applic::where('status', '<>', 0)->get());
+		
+		$processedApplicsNum = count(Applic::where('status', 2)->get());
 		
 		$competition = Competition::where('status', '<>', 0)->first();
 
-			return view('settings', ['competition' => $competition]);
+		return view('settings', ['competition' => $competition, 'allApplicsNum' => $allApplicsNum, 'processedApplicsNum' => $processedApplicsNum]);
 		
 	}
 	
