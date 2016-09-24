@@ -103,7 +103,7 @@ class User extends Authenticatable
 		
 		if(count($this->internships()->where('confirmation_admin', 1)->where('confirmation_student', 1)->get())){
 			
-			return $this->internships()->where('confirmation_admin', 1)->where('confirmation_student', 1)->orderBy('end_date', 'desc')->get();
+			return $this->internships()->where('status', 0)->where('confirmation_admin', 1)->where('confirmation_student', 1)->orderBy('end_date', 'desc')->get();
 			
 		}
 		
