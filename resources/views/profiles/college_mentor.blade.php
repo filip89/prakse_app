@@ -70,14 +70,14 @@
 									<i><small>Nema praktikante u zadnjih 6 mjeseci</small></i>
 									@endif
 								@else
-									@foreach($recentInterns as $internship)
+									@foreach($recentInterns as $key => $internship)
 										<div class="user_item">
 										@if(strtotime($internship->start_date) > strtotime(date('d-m-Y')))
 											<a data-toggle="tooltip" title="{{ 'Praksa počinje za ' . (strtotime($internship->start_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
 										@elseif(strtotime($internship->end_date) > strtotime(date('d-m-Y')))
 											<a data-toggle="tooltip" title="{{ 'Praksa traje još ' . (strtotime($internship->end_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
 										@else
-											<a data-toggle="tooltip" title="{{ 'Praksa je završila prije ' . (strtotime(date('d-m-Y')) - strtotime($internship->end_date))/86400 . ' dana.' }}" class="link_object expired_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
+											<a data-toggle="tooltip" title="{{ 'Praksa je završila ' . date_create($internship->end_date)->format('d. m. Y.') }}" class="link_object expired_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
 										@endif
 										</div>
 									@endforeach
@@ -92,4 +92,8 @@
 		</div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+</script>
 @endsection
