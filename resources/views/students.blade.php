@@ -23,14 +23,14 @@
 						<th>Posljednja praksa</th>
 						<th>Status natječaja</th>
 						<th>Tvrtka</th>						
-						<th></th>
+						<th  ></th>
 					</tr>
 				</thead>
 				<tbody>
 					@foreach ($users as $user)
 					<tr>
 						<td>{{ $user->name . " " . $user->last_name }}</td>
-						<td>{{ $user->created_at->format('d-m-Y') }}</td>
+						<td>{{ $user->created_at->format('d. m. Y.') }}</td>
 						<td>
 						@if($user->lastInternship())
 							<a class="link_object" href="{{ url('/internships/' . $user->lastInternship()->id) }}">

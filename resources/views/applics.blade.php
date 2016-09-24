@@ -35,7 +35,7 @@
 						{{ $applic->student->name . " " . $applic->student->last_name }}
 						</td>
 						<td>
-						{{ $applic->created_at->format('d-m-Y h:i:s') }}
+						{{ $applic->created_at->format('d. m. Y. h:i:s') }}
 						</td>
 						<td>
 						{{ Utilities::academicYear($applic->academic_year) }}
