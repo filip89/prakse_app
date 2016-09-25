@@ -39,14 +39,19 @@ Route::post('user/add/internmentor', 'UserController@addInternMentor');
 Route::get('user/{id}/editintern', "UserController@editInternMentorForm");
 Route::post('user/{id}/editintern', "UserController@editInternMentor");
 
+//lista prijava
+Route::get('applics', "ApplicController@index");
+
 //'profil' prijave - studenta
 Route::get('myapplic/', "ApplicController@myApplic");
+
+Route::get('applic/{id}', "ApplicController@view");
+
 //prijava
 Route::get('apply/{id?}', "ApplicController@applyForm");
 Route::post('apply', "ApplicController@apply");
 
-//lista prijava
-Route::get('applic/all', "ApplicController@index");
+
 
 //posljednja praksa od studenta
 Route::get('myinternship', "UserController@myInternship");
@@ -55,8 +60,7 @@ Route::get('user_internships/{id?}', "UserController@userInternships");
 Route::get('company_internships/{id}', "CompanyController@companyInternships");
 
 //brisanje i editiranje prijave
-Route::post('applic/{id}/delete', "ApplicController@delete");
-//Route::post('applic/{id}/edit', "ApplicController@edit");
+Route::post('applic/delete/{id}', "ApplicController@delete");
 
 //rute za tvrtku
 Route::get('company', 'CompanyController@index');
@@ -90,3 +94,11 @@ Route::post('competition/edit/{id}', 'CompetitionController@edit');
 
 //settings
 Route::get('settings','SettingController@open');
+
+//complaints
+Route::get('complaint/{id}', 'ComplaintController@view');
+Route::get('complaints/', 'ComplaintController@index');
+Route::get('complaint', 'ComplaintController@viewForm');
+Route::post('complaint/status/{id}', 'ComplaintController@status');
+Route::post('complaint/create', 'ComplaintController@create');
+Route::post('complaint/delete/{id}', 'ComplaintController@delete');
