@@ -42,11 +42,33 @@ table:nth-of-type(1)  {
 .doc_title {
 	text-decoration: underline;
 }
+.comment_text {
+	position: relative;
+}
+.comment_text:hover {
+	background
+}
+.comment_button {
+	display: none;
+	position: absolute;
+	top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+	z-index: 2;
+
+}
+
 @endsection
 
 @section('content')
 
-<div class="col-md-6 col-md-offset-3">	
+<div class="col-md-6 col-md-offset-3">
+
+		@if(Session::has('status'))
+			<div class="alert {{ Session::get('alert_type') }} fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ Session::get('status') }}
+			</div>
+		@endif	
 
 	@foreach($internships as $internship)
 
@@ -77,6 +99,7 @@ table:nth-of-type(1)  {
 				<tr><th>Prosjek na diplomskom:</th><td>{{ $internship->average_master_grade }}</td></tr>
 				<tr><th>Izvannastavne aktivnosti:</th><td>{{ $internship->activity_points }}</td></tr>
 				<tr><th>Ukupno ostvareni bodovi:</th><td>{{ $internship->total_points }}</td></tr>
+
 				<tr><th colspan="2" class="table_section">Praksa</th></tr>
 				<tr><th>Tvrtka:</th><td><a href="{{ action('CompanyController@profile', $internship->company['id'] ) }}">{{ $internship->company['name'] }}</a></td></tr>
 				<tr><th>Mentor iz tvrtke:</th><td><a href="{{ action('UserController@viewProfile', $internship->intern_mentor['id']) }}">{{ $internship->intern_mentor['name'].' '.$internship->intern_mentor['last_name'] }}</a></td></tr>
@@ -86,10 +109,44 @@ table:nth-of-type(1)  {
 				<tr><th>Datum početka prakse:</th><td>{{ date('d M, Y', strtotime($internship->start_date)) }}</td></tr>
 				<tr><th>Datum završetka prakse:</th><td>{{ date('d M, Y', strtotime($internship->end_date)) }}</td></tr>
 				<tr><th>Studentova ocjena prakse:</th><td>{{ $internship->rating_by_student }}</td></tr>
+
 				<tr><th colspan="2" class="table_section">Komentari</th></tr>
-				<tr><th>Komentar studenta:</th><td class="comment_box">{{ $internship->student_comment }}</td></tr>
-				<tr><th>Komentar mentora nastavnika:</th><td class="comment_box">{{ $internship->college_mentor_comment }}</td></tr>
-				<tr><th>Komentar mentora iz prakse:</th><td class="comment_box">{{ $internship->intern_mentor_comment }}</td></tr>
+				<tr><th>Komentar studenta:</th><td class="comment_box">
+				@if(Auth::user()->role == 'student' && $internship->student_comment == null)
+					<button class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+				@elseif($internship->student_comment != null)
+					<div class="comment_text"><span class="test">{{ $internship->student_comment }}</span>
+					@if(Auth::user()->role == 'student')
+						<div class="comment_button"><button class="btn btn-warning" data-toggle="modal" data-target="#myModalEdit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></div>
+					@endif
+					</div>
+				@endif
+				</td></tr>
+
+				<tr><th>Komentar mentora nastavnika:</th><td class="comment_box">
+				@if(Auth::user()->role == 'college_mentor' && $internship->college_mentor_comment == null)
+					<button class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+				@elseif($internship->college_mentor_comment != null)
+					<div class="comment_text"><span class="test">{{ $internship->college_mentor_comment }}</span>
+					@if(Auth::user()->role == 'college_mentor')
+						<div class="comment_button"><button class="btn btn-warning" data-toggle="modal" data-target="#myModalEdit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></div>
+					@endif
+					</div>
+				@endif
+				</td></tr>
+
+				<tr><th>Komentar mentora iz tvrtke:</th><td class="comment_box">
+				@if(Auth::user()->role == 'intern_mentor' && $internship->intern_mentor_comment == null)
+					<button class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+				@elseif($internship->intern_mentor_comment != null)
+					<div class="comment_text"><span class="test">{{ $internship->intern_mentor_comment }}</span>
+					@if(Auth::user()->role == 'intern_mentor')
+						<div class="comment_button"><button class="btn btn-warning" data-toggle="modal" data-target="#myModalEdit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></div>
+					@endif
+					</div>
+				@endif
+				</td></tr>
+
 				@if(Auth::user()->id === $internship->college_mentor_id && Auth::user()->role == 'college_mentor' || Auth::user()->role == 'intern_mentor' || Auth::user()->isAdmin()) 
 					<tr><th colspan="2" class="table_section optional"><span class="doc_title">Dokumenti</span><br><span class="doc_info">(Za generiranje dokumenata potrebno je studentu dodijeliti tvrtku, mentora nastavnika te odrediti trajanje prakse)</span></th></tr> 
 				@endif
@@ -127,7 +184,7 @@ table:nth-of-type(1)  {
 					</td></tr>
 				@endif
 
-				@if(Auth::user()->role == 'student' || Auth::user()->isAdmin())
+				@if(Auth::user()->role == 'student')
 					<tr><th colspan="2" class="table_section optional"><span class="doc_title">Izvještaj</span><br><span class="doc_info">(Za izradu izvještaja potrebno je odraditi praksu)</span></th></tr> 
 					<tr><th>Izvještaj o obavljenoj praksi:</th><td class="comment_box">
 						<a class="btn btn-success fa-sm" href="{{ url('/internships/createReport') }}" 
@@ -140,9 +197,179 @@ table:nth-of-type(1)  {
 		
 	@endforeach
 
-	<div class="action_buttons"><a href="{{ route('internships.index') }}" class="btn btn-primary btn-sm">Povratak</a></div><br>
+	<div class="action_buttons"><a type="button" class="btn btn-primary" href="{{ URL::previous() }}">Povratak</a></div><br>
 
 </div>
+
+
+<!-- Modal Create -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" 
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Komentar o obavljenoj praksi
+                </h4>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="modal-body">
+                
+               <form class="form-horizontal" role="form" method="POST" action="{{ action('InternshipController@comment') }}">
+                    {{ csrf_field() }}
+				
+				@if(Auth::user()->role == 'student')	
+                    <div class="form-group{{ $errors->has('student_comment') ? ' has-error' : '' }}">
+						<input type="hidden" name="id" value="{{ $internship->id }}">
+                        <label for="student_comment" class="col-md-4 control-label">Komentar</label>
+                        <div class="col-md-6">
+                            <textarea rows="8" class="form-control" name="student_comment"></textarea>
+
+                            @if ($errors->has('student_comment'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('student_comment') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                @elseif(Auth::user()->role == 'college_mentor')
+					<div class="form-group{{ $errors->has('college_mentor_comment') ? ' has-error' : '' }}">
+						<input type="hidden" name="id" value="{{ $internship->id }}">
+                        <label for="college_mentor_comment" class="col-md-4 control-label">Komentar</label>
+                        <div class="col-md-6">
+                            <textarea rows="8" class="form-control" name="college_mentor_comment"></textarea>
+
+                            @if ($errors->has('college_mentor_comment'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('college_mentor_comment') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                @else
+                	<div class="form-group{{ $errors->has('intern_mentor_comment') ? ' has-error' : '' }}">
+						<input type="hidden" name="id" value="{{ $internship->id }}">
+                        <label for="intern_mentor_comment" class="col-md-4 control-label">Komentar</label>
+                        <div class="col-md-6">
+                            <textarea rows="8" class="form-control" name="intern_mentor_comment"></textarea>
+
+                            @if ($errors->has('intern_mentor_comment'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('intern_mentor_comment') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+				@endif
+
+                  
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <button type="submit" class="btn btn-primary action_buttons">
+                            <i class="fa fa-btn fa-sign-in"></i> Spremi
+                        </button>
+                    </div>
+                </div>
+                  
+                </form>
+                                                                                     
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit-->
+<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" 
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Komentar o obavljenoj praksi
+                </h4>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="modal-body">
+                
+               <form class="form-horizontal" role="form" method="POST" action="{{ action('InternshipController@comment') }}">
+                    {{ csrf_field() }}
+				
+				@if(Auth::user()->role == 'student')	
+                    <div class="form-group{{ $errors->has('student_comment') ? ' has-error' : '' }}">
+						<input type="hidden" name="id" value="{{ $internship->id }}">
+                        <label for="student_comment" class="col-md-4 control-label">Komentar</label>
+                        <div class="col-md-6">
+                            <textarea rows="8" class="form-control" name="student_comment">{{ $internship->student_comment }}</textarea>
+
+                            @if ($errors->has('student_comment'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('student_comment') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                @elseif(Auth::user()->role == 'college_mentor')
+					<div class="form-group{{ $errors->has('college_mentor_comment') ? ' has-error' : '' }}">
+						<input type="hidden" name="id" value="{{ $internship->id }}">
+                        <label for="college_mentor_comment" class="col-md-4 control-label">Komentar</label>
+                        <div class="col-md-6">
+                            <textarea rows="8" class="form-control" name="college_mentor_comment">{{ $internship->college_mentor_comment }}</textarea>
+
+                            @if ($errors->has('college_mentor_comment'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('college_mentor_comment') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                @else
+                	<div class="form-group{{ $errors->has('intern_mentor_comment') ? ' has-error' : '' }}">
+						<input type="hidden" name="id" value="{{ $internship->id }}">
+                        <label for="intern_mentor_comment" class="col-md-4 control-label">Komentar</label>
+                        <div class="col-md-6">
+                            <textarea rows="8" class="form-control" name="intern_mentor_comment">{{ $internship->intern_mentor_comment }}</textarea>
+
+                            @if ($errors->has('intern_mentor_comment'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('intern_mentor_comment') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+				@endif
+
+                  
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <button type="submit" class="btn btn-primary action_buttons">
+                            <i class="fa fa-btn fa-sign-in"></i> Spremi
+                        </button>
+                    </div>
+                </div>
+                  
+                </form>
+                                                                                     
+            </div>
+            
+        </div>
+    </div>
+</div>
+
 
 @endsection
 

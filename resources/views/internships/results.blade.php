@@ -127,7 +127,11 @@
 										@endif
 									@endif
 
-									<td>
+									<td class="row_buttons">
+										{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
+											<button class="btn btn-info btn-sm">Prikaži</button>
+										{{ Form::close() }}
+									
 									@if(Auth::user()->role == 'college_mentor' && $internship->college_mentor_id == null)
 
 										<form action="{{ action('InternshipController@addMentor', ['id' => $internship->id]) }}" method="POST">
@@ -145,14 +149,7 @@
 											
 									@endif
 									</td>
-
-									<td>
-										@if(Auth::user()->isAdmin())
-											{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
-												<button type ="button" class="btn btn-danger btn-sm delete">Ukloni</button>
-											{{ Form::close() }}
-										@endif
-									</td>
+									
 								</td>
 							</tr>
 							
