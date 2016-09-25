@@ -254,6 +254,44 @@ class InternshipController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function comment(Request $request) {
+       
+        $internship = Internship::find($request->id);
+
+        if(Auth::user()->role == 'student') {
+            if($internship->student_comment == null) {
+                Session::flash('status', 'Komentar je uspješno dodan!');
+                Session::flash('alert_type', 'alert-success');
+            } else {
+                Session::flash('status', 'Komentar je uspješno uređen!');
+                Session::flash('alert_type', 'alert-warning');
+            }
+            $internship->student_comment = $request->student_comment;
+        } elseif(Auth::user()->role == 'college_mentor') {
+            if($internship->college_mentor_comment == null) {
+                Session::flash('status', 'Komentar je uspješno dodan!');
+                Session::flash('alert_type', 'alert-success');
+            } else {
+                Session::flash('status', 'Komentar je uspješno uređen!');
+                Session::flash('alert_type', 'alert-warning');
+            }
+            $internship->college_mentor_comment = $request->college_mentor_comment;
+        } else {
+            if($internship->intern_mentor_comment == null) {
+                Session::flash('status', 'Komentar je uspješno dodan!');
+                Session::flash('alert_type', 'alert-success');
+            } else {
+                Session::flash('status', 'Komentar je uspješno uređen!');
+                Session::flash('alert_type', 'alert-warning');
+            }
+            $internship->intern_mentor_comment = $request->intern_mentor_comment;
+        }
+        
+        $internship->save();     
+
+        return redirect()->action('InternshipController@show', $request->id);        
+    }
    
     public function addMentor(Request $request, $id) {
 
