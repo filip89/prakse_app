@@ -19,7 +19,7 @@ class AdminOrSelfApplic
     public function handle($request, Closure $next)
     {
 		
-		if(isset(Auth::user()->activeApplic()->id)){
+		if(Auth::user()->activeApplic()){
 			
 			$applicId = Auth::user()->activeApplic()->id;
 			
