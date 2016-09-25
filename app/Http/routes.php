@@ -81,6 +81,7 @@ Route::any('internships/report', 'InternshipController@getReport');
 Route::get('internships/showFinal', "InternshipController@showFinal");
 Route::get('internships/showResults', "InternshipController@showResults");
 Route::any('internships/reject', "InternshipController@reject");
+Route::post('internships/comment', "InternshipController@comment");
 Route::post('internships/addMentor/{id}', "InternshipController@addMentor");
 Route::post('internships/removeMentor/{id}', "InternshipController@removeMentor");
 Route::any('internships/change/{id}', "InternshipController@change");
