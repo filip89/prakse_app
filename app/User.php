@@ -58,7 +58,7 @@ class User extends Authenticatable
 			
 			if($activeInternship->confirmation_admin == 1){
 				
-				return "Nepotvrđena praksa";
+				return "Neobjavljena praksa";
 				
 			}
 			
@@ -87,9 +87,9 @@ class User extends Authenticatable
 	
 	public function lastInternship(){
 		
-		if(count($this->internships()->where('confirmation_admin', 1)->where('confirmation_student', 1)->get()) > 0){
+		if(count($this->internships()->where('status', 0)->where('confirmation_admin', 1)->where('confirmation_student', 1)->get()) > 0){
 			
-			return $this->internships()->where('confirmation_admin', 1)->where('confirmation_student', 1)->orderBy('created_at', 'desc')->first();
+			return $this->internships()->where('status', 0)->where('confirmation_admin', 1)->where('confirmation_student', 1)->orderBy('created_at', 'desc')->first();
 			
 		}
 		
@@ -122,16 +122,17 @@ class User extends Authenticatable
 	
 	public function activeApplic() {
 		
-		if($this->role == 'student'){
-		
-			if(count($this->applics()->where('status', '<>', 0)->get()) > 0){
+		if($this->role == 'student' && count($this->applics()->where('status', '<>', 0)->get()) > 0){
 			
-				return $this->applics()->where('status', '<>', 0)->first();
+			return $this->applics()->where('status', '<>', 0)->first();
 			
-			}
-		
-			return false;
 		}
+	}
+	
+	public function lastApplic() {
+
+		return $this->applics()->orderBy('created_at', 'desc')->first();
+			
 	}
 	
 	public function applics() {
@@ -142,6 +143,26 @@ class User extends Authenticatable
 		
 		}
 	
+	}
+	
+	public function complaints() {
+		
+		if($this->role == "student"){
+		
+			return $this->hasMany('App\Complaint', 'student_id');
+		
+		}
+	
+	}
+	
+	public function hasUnresolvedComplaint(){
+		
+		if(count($this->complaints()->where('status', 0)->get()) > 0){
+			
+			return true;
+			
+		}
+		
 	}
 	
 	
