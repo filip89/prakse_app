@@ -121,29 +121,20 @@ class InternshipController extends Controller
      * @return \Illuminate\Http\Response
      */    
     
-    public function create() {
+    public function create(Request $request) {
 
-        $academicYear = new Utilities;
-        $course = new Utilities;
-        $month = new Utilities;
-        $activity = new Utilities;
-
-        $applic = Applic::all();
+        $applic = Applic::where('student_id', $request->student_id)->where('status', 1)->first();
         $companies= Company::all(); 
-        $activities = Activity::all();     
+        $activities = Activity::where('applic_id', $applic->id)->get();     
         $collegeMentor = User::where('role', 'college_mentor')->get();
         $internMentor = User::where('role', 'intern_mentor')->get();
 
         return view('internships.create')
-            ->with('applic', $applic)
+            ->with('app', $applic)
             ->with('companies', $companies)
             ->with('collegeMentor', $collegeMentor)
             ->with('internMentor', $internMentor)
-            ->with('academicYear', $academicYear)
-            ->with('course', $course)
-            ->with('month', $month)
-            ->with('activities', $activities)
-            ->with('activity', $activity);
+            ->with('activities', $activities);
     }
 
     /**
@@ -156,7 +147,7 @@ class InternshipController extends Controller
     public function edit($id) {
 
         $internship = Internship::find($id);
-        $applic = Applic::where('student_id', $internship->student_id)->where('status', '!=', 0)->get();
+        $applic = Applic::where('student_id', $internship->student_id)->where('status', '!=', 0)->first();
         $companies= Company::where('status', 1)->get();
         $collegeMentor = User::where('role', 'college_mentor')->get();
         $internMentor = User::where('role', 'intern_mentor')->get();
@@ -167,7 +158,7 @@ class InternshipController extends Controller
             ->with('companies', $companies)
             ->with('collegeMentor', $collegeMentor)
             ->with('internMentor', $internMentor)
-            ->with('applic', $applic)
+            ->with('app', $applic)
             ->with('activities', $activities);       
     }
 
@@ -274,7 +265,12 @@ class InternshipController extends Controller
         Session::flash('status', 'Postali ste mentor!');
         Session::flash('alert_type', 'alert-success');
 
-        return redirect()->action('InternshipController@showFinal');
+        if($internship->status != 0) {
+            return redirect()->action('InternshipController@showFinal');
+        } else {
+            return redirect()->action('InternshipController@showResults');
+        }
+        
     }
 
     public function removeMentor(Request $request, $id) {
@@ -287,7 +283,12 @@ class InternshipController extends Controller
         Session::flash('status', 'Prestali ste mentorirati!');
         Session::flash('alert_type', 'alert-danger');
 
-        return redirect()->action('InternshipController@showFinal');
+        if($internship->status != 0) {
+            return redirect()->action('InternshipController@showFinal');
+        } else {
+            return redirect()->action('InternshipController@showResults');
+        }
+        
     }
 
     public function destroy($id) {
@@ -302,12 +303,14 @@ class InternshipController extends Controller
         $internship->delete();
 
         Session::flash('status', 'Praksa uspješno obrisana!');
-        Session::flash('alert_type', 'alert-success');
+        Session::flash('alert_type', 'alert-danger');
 
         if($internship->status == 1) {
             return redirect()->action('InternshipController@index');
         } elseif($internship->status == 2) {
            return redirect()->action('InternshipController@showFinal'); 
+        } else {
+           return redirect()->action('InternshipController@showResults'); 
         }
         
     }  
