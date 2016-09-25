@@ -206,7 +206,7 @@
                     @elseif(Auth::user()->role != "student")
 						@if(Utilities::competitionStatus() != 0)
 						@if(Auth::user()->isAdmin())
-							<li><a href="{{ url('/applic/all') }}">Prijave</a></li>
+							<li><a href="{{ url('/applics') }}">Prijave</a></li>
 						@endif
 						@endif
 						@if(Auth::user()->role == "college_mentor")
@@ -232,7 +232,8 @@
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/user/student/list') }}"><i class="fa fa-btn fa-graduation-cap" aria-hidden="true"></i>Studenti</a></li>
 								<li><a href="{{ url('/user/college_mentor/list') }}"><i class="fa fa-btn fa-university" aria-hidden="true"></i>Mentori nastavnici</a></li>
-								<li><a href="{{  url('/user/intern_mentor/list') }}"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Mentori iz tvrtke</a></li>		
+								<li><a href="{{  url('/user/intern_mentor/list') }}"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Mentori iz tvrtke</a></li>
+								<li><a href="{{  url('/complaints') }}"><i class="fa fa-btn fa-exclamation-circle " aria-hidden="true"></i>Pritužbe</a></li>
                             </ul>
                         </li>
 						@endif
@@ -246,11 +247,8 @@
                         	<ul class="dropdown-menu" role="menu">
 							@if(Auth::user()->role != "student")
 								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
-								<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Moje prakse</a></li>
+								<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Moje prakse</a></li>
 							@endif
-								@if(Auth::user()->role == 'student')
-								<li><a href="{{ url('/internships/createReport') }}"><i class="fa fa-btn fa-book" aria-hidden="true"></i>Izvještaj</a></li>
-								@endif	
                         		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
 						</li>
