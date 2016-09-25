@@ -27,7 +27,22 @@
         
         $('.competition').on('click', function() {
         	$('.res_box').toggle();
-        })
+        });
+
+        $('[data-toggle="popover"]').popover({
+        	trigger: 'focus'
+        });
+
+        $('.comment_text').on('mouseover', function() {
+        	$('.comment_button', this).css('display', 'block');
+        	$('.test', this).css('opacity', '0.5');
+        });
+
+        $('.comment_text').on('mouseout', function() {
+        	$('.comment_button', this).css('display', 'none');
+        	$('.test', this).css('opacity', '1');
+        });
+
     });
 
     </script>
