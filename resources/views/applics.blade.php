@@ -45,8 +45,9 @@
 						</td>
 
 						<td class="row_buttons">
+							<a type="button" class="btn btn-info btn-sm" href="{{ url('/applic/' . $applic->id) }}">Prikaži</a>
 						@if(Utilities::competitionStatus() == 2)
-						{{ Form::open(array('route' => array('internships.create'), 'method' => 'GET')) }}
+						{{ Form::open(array('route' => array('internships.create', $applic->student->id), 'method' => 'GET')) }}
 							{{ Form::hidden('name', $applic->student->name) }}
 							{{ Form::hidden('last_name', $applic->student->last_name) }}
 							{{ Form::hidden('student_id', $applic->student->id) }}
@@ -54,7 +55,7 @@
 							{{ Form::submit('Izradi praksu', ['class' => 'btn btn-primary btn-sm']) }}
 						{{ Form::close() }}
 						
-						{{ Form::open(array('url' => '/applic/'.$applic->id.'/delete', 'method' => 'POST')) }}
+						{{ Form::open(array('url' => '/applic/delete/'.$applic->id, 'method' => 'POST')) }}
 							{{ Form::button('Ukloni', ['type' => 'button','class' => 'btn btn-danger btn-sm delete']) }}
 							{{ csrf_field() }}
 						{{ Form::close() }}

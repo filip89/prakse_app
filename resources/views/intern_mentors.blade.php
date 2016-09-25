@@ -38,7 +38,7 @@
 						<td><a class="link_object" href="{{ url('/user/' . $user->id) }}">{{ $user->name . " " . $user->last_name }}</a></td>
 						<td><a class="link_object" href="{{ url('/company/profile/' . $user->profile->company->id) }}">{{ $user->profile->company->name }}</a></td>
 
-						<td>{{$user->created_at->format('d-m-Y')}}</td>
+						<td>{{ $user->created_at->format('d. m. Y.') }}</td>
 						<td class="row_buttons">
 							<a type="button" class="btn btn-info btn-sm" href="{{ url('/user/' . $user->id) }}">Profil</a>
 						@if (Auth::user()->isAdmin() || Auth::user()->id == $user->id)

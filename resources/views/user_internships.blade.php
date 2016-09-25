@@ -62,18 +62,18 @@ td:first-child {
 						{{ $internship->student->name . ' ' . $internship->student->last_name }}
 						</td>
 						@endif
-						<td><a href="{{ url('/company/profile/' . $internship->company->id) }}">{{ $internship->company->name }}</a></td>
+						<td><a class="link_object" href="{{ url('/company/profile/' . $internship->company->id) }}">{{ $internship->company->name }}</a></td>
 						@if(isset($user->role) && $user->role != 'intern_mentor')
 						<td>
 							@if(isset($internship->intern_mentor))
-							<a href="{{ url('/user/' . $internship->intern_mentor->id) }}">{{ $internship->intern_mentor->name . ' ' . $internship->intern_mentor->last_name }}</a>
+							<a class="link_object" href="{{ url('/user/' . $internship->intern_mentor->id) }}">{{ $internship->intern_mentor->name . ' ' . $internship->intern_mentor->last_name }}</a>
 							@endif
 						</td>
 						@endif
 						@if(isset($user->role) && $user->role != 'college_mentor')
 						<td>
 							@if(isset($internship->college_mentor))
-							<a href="{{ url('/user/' . $internship->college_mentor->id) }}">{{ $internship->college_mentor->name . ' ' . $internship->college_mentor->last_name}}</a>
+							<a class="link_object" href="{{ url('/user/' . $internship->college_mentor->id) }}">{{ $internship->college_mentor->name . ' ' . $internship->college_mentor->last_name}}</a>
 							@endif
 						</td>
 						@endif

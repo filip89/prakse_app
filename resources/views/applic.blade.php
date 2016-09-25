@@ -28,33 +28,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-		@if(Session::has('status'))
-			<div class="alert {{ Session::get('alert_type') }} fade in">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				{{ Session::get('status') }}
-			</div>
-		@endif
-		@if(Utilities::competitionStatus() == 0)
-			<h3 class="notice">Trenutno nema raspisanog natječaja. Rezultate prošlog natječaja, objavljene {{ $competition->name }}, možete pogledati <a href="*">ovdje</a>.</h3>
-		@else
-		@if(Utilities::competitionStatus() == 2)
-		
-		<h3 class="notice">Natječaj je gotov. Vaša prijava se obrađuje.</h3>
-		
-		@elseif(Utilities::competitionStatus() == 1)
-			<p>* Vaša prijava je zaprimljena i nalazi se u našoj bazi. Prijavu možete otkazati ili promijeniti podatke sve dok traje natječaj.</p>
 			<div class="action_buttons">
-				<a href="{{ url('/apply') }}"><button class="btn btn-warning">Uredi</button></a>
-				<form action="{{ url('applic/delete/'. $applic->id) }}" method="POST">
-								{{ csrf_field() }}
-					<button type="button" class="btn btn-danger delete">Otkaži</button>
+				<form action="{{ url('/applic/delete/' . $applic->id) }}" method="POST">
+					{{ csrf_field() }}
+					<button type="button" class="btn btn-danger btn-sm delete" >Ukloni</button>
 				</form>
 			</div>
-		@endif	
 			<table class="table table-striped table-bordered">
 				<tr><th colspan="2" class="table_section">Osobni podaci</th></tr>
-				<tr><th>Ime:</th><td>{{ $user->name }}</td></tr>
-				<tr><th>Prezime</th><td>{{ $user->last_name }}</td></tr>
+				<tr><th>Ime:</th><td>{{ $applic->student->name }}</td></tr>
+				<tr><th>Prezime</th><td>{{ $applic->student->last_name }}</td></tr>
 				<tr><th>E-mail</th><td>{{ $applic->email }}</td></tr>
 				<tr><th>Mjesto prebivališta:</th><td>{{ $applic->residence_town }}</td></tr>
 				<tr><th>Županija prebivališta:</th><td>{{ Utilities::county($applic->residence_county) }}</td></tr>
@@ -78,7 +61,6 @@
 					</td>
 				</tr>
 			</table>
-			@endif
         </div>
     </div>
 </div>

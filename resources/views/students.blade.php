@@ -19,10 +19,10 @@
 				<thead>
 					<tr>
 						<th>Ime i prezime</th>
-						<th>Datum registracije</th>	
+						<th>Datum registracije</th>
 						<th>Posljednja praksa</th>
 						<th>Status natječaja</th>
-						<th>Tvrtka</th>						
+						<th>Tvrtka</th>					
 						<th  ></th>
 					</tr>
 				</thead>
