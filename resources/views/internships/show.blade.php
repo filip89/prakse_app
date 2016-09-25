@@ -46,7 +46,7 @@ table:nth-of-type(1)  {
 
 @section('content')
 
-<div class="col-md-4 col-md-offset-4">	
+<div class="col-md-6 col-md-offset-3">	
 
 	@foreach($internships as $internship)
 
@@ -78,8 +78,9 @@ table:nth-of-type(1)  {
 				<tr><th>Izvannastavne aktivnosti:</th><td>{{ $internship->activity_points }}</td></tr>
 				<tr><th>Ukupno ostvareni bodovi:</th><td>{{ $internship->total_points }}</td></tr>
 				<tr><th colspan="2" class="table_section">Praksa</th></tr>
-				<tr><th>Tvrtka:</th><td>{{ $internship->company['name'] }}</td></tr>
-				<tr><th>Mentor iz prakse:</th><td>{{ $internship->intern_mentor['name'].' '.$internship->intern_mentor['last_name'] }}</td></tr>
+				<tr><th>Tvrtka:</th><td><a href="{{ action('CompanyController@profile', $internship->company['id'] ) }}">{{ $internship->company['name'] }}</a></td></tr>
+				<tr><th>Mentor iz tvrtke:</th><td><a href="{{ action('UserController@viewProfile', $internship->intern_mentor['id']) }}">{{ $internship->intern_mentor['name'].' '.$internship->intern_mentor['last_name'] }}</a></td></tr>
+				<tr><th>Mentor nastavnik:</th><td><a href="{{ action('UserController@viewProfile', $internship->college_mentor['id']) }}">{{ $internship->college_mentor['name'].' '.$internship->college_mentor['last_name'] }}</a></td></tr>
 				<tr><th>Trajanje prakse:</th><td>{{ $internship->duration }}</td></tr>
 				<tr><th>Godina prakse:</th><td>{{ $internship->year }}</td></tr>
 				<tr><th>Datum početka prakse:</th><td>{{ date('d M, Y', strtotime($internship->start_date)) }}</td></tr>
@@ -123,6 +124,15 @@ table:nth-of-type(1)  {
 							@if($internship->company_id == null || $internship->duration == null || $internship->college_mentor_id == null) {{ 'disabled' }} @endif
 							><i class="fa fa-file-pdf-o fa-" aria-hidden="true"></i></button>
 						</form>
+					</td></tr>
+				@endif
+
+				@if(Auth::user()->role == 'student' || Auth::user()->isAdmin())
+					<tr><th colspan="2" class="table_section optional"><span class="doc_title">Izvještaj</span><br><span class="doc_info">(Za izradu izvještaja potrebno je odraditi praksu)</span></th></tr> 
+					<tr><th>Izvještaj o obavljenoj praksi:</th><td class="comment_box">
+						<a class="btn btn-success fa-sm" href="{{ url('/internships/createReport') }}" 
+						@if($internship->status != 0 ) {{ 'disabled' }} @endif
+						><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 					</td></tr>
 				@endif
 

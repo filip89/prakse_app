@@ -89,14 +89,14 @@
 								<th>Akademska godina</th>
 								<th>Tvrtka</th>	
 								@if(Auth::user()->role == 'college_mentor') <th>Potvrda</th> @else <th></th> @endif
+								<th></th>
 													
 							</tr>
 						</thead>
 
 						<tbody>
-						@foreach($internships as $internship)
-							
-							<tr>			
+						@foreach($internships as $internship)						
+							<tr>						
 								<td>{{ $count+1 }}</td>
 								<td>{{ $internship->average_bacc_grade }}</td>
 								<td>{{ $internship->average_master_grade }}</td>
@@ -126,6 +126,33 @@
 											<i class="fa fa-check fa-2x" aria-hidden="true"></i>
 										@endif
 									@endif
+
+									<td>
+									@if(Auth::user()->role == 'college_mentor' && $internship->college_mentor_id == null)
+
+										<form action="{{ action('InternshipController@addMentor', ['id' => $internship->id]) }}" method="POST">
+											<input name="_token" type="hidden" value="{!! csrf_token() !!}" />
+											<input type="hidden" name="college_mentor_id" value="{{ Auth::user()->id }}"> 
+											<button type="submit" class="btn btn-success btn-sm">Mentoriraj</button>
+										</form>
+										
+										@elseif($internship->college_mentor_id == Auth::user()->id)
+
+										<form action="{{ action('InternshipController@removeMentor', ['id' => $internship->id]) }}" method="POST">	
+											<input name="_token" type="hidden" value="{!! csrf_token() !!}" />							
+											<button type="submit" class="btn btn-danger btn-sm">Otkaži mentorstvo</button>
+										</form>
+											
+									@endif
+									</td>
+
+									<td>
+										@if(Auth::user()->isAdmin())
+											{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
+												<button type ="button" class="btn btn-danger btn-sm delete">Ukloni</button>
+											{{ Form::close() }}
+										@endif
+									</td>
 								</td>
 							</tr>
 							

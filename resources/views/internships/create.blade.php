@@ -158,22 +158,7 @@ th {
                             @endif
                         </div>
                     </div>
-
-					<div class="form-group{{ $errors->has('year') ? ' has-error' : '' }}">
-                        <label for="year" class="col-md-4 control-label">Godina</label>
-
-                        <div class="col-md-6">
-                            <input type="number" min="1990" max="9999" class="form-control" name="year"/>
-
-                            @if ($errors->has('year'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('year') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
 					
-
 					@if(count($collegeMentor) != 0)
 
 					<div class="form-group">
@@ -181,10 +166,9 @@ th {
 
                         <div class="col-md-6">
                             <select class="form-control" name="college_mentor_id"/>
-                            	<option selected disabled hidden style='display: none' value=''></option>
+                            	<option value=''></option>
 								@foreach($collegeMentor as $elem)
-									<option value="{{ $elem->id }}">{{ $elem->name.' '.$elem->last_name }}</option>
-									
+									<option value="{{ $elem->id }}">{{ $elem->name.' '.$elem->last_name }}</option>									
 								@endforeach
                             </select>
                          
@@ -206,7 +190,7 @@ th {
 
                         <div class="col-md-6">
                             <select class="form-control" name="intern_mentor_id"/>
-                            	<option selected disabled hidden style='display: none' value=''></option>
+                            	<option value=''></option>
 								@foreach($internMentor as $elem)
 									<option value="{{ $elem->id }}">{{ $elem->name.' '.$elem->last_name }}</option>
 								@endforeach
@@ -232,48 +216,6 @@ th {
                             @if ($errors->has('rating_by_student'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('rating_by_student') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group{{ $errors->has('student_comment') ? ' has-error' : '' }}">
-                        <label for="student_comment" class="col-md-4 control-label">Komentar studenta</label>
-
-                        <div class="col-md-6">
-                            <textarea rows="4" class="form-control" name="student_comment"></textarea>
-
-                            @if ($errors->has('student_comment'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('student_comment') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group{{ $errors->has('intern_mentor_comment') ? ' has-error' : '' }}">
-                        <label for="intern_mentor_comment" class="col-md-4 control-label">Komentar mentora iz prakse</label>
-
-                        <div class="col-md-6">
-                            <textarea rows="4"  class="form-control" name="intern_mentor_comment"></textarea>
-
-                            @if ($errors->has('intern_mentor_comment'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('intern_mentor_comment') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group{{ $errors->has('college_mentor_comment') ? ' has-error' : '' }}">
-                        <label for="college_mentor_comment" class="col-md-4 control-label">Komentar mentora nastavnika</label>
-
-                        <div class="col-md-6">
-                            <textarea rows="4"  class="form-control" name="college_mentor_comment"></textarea>
-
-                            @if ($errors->has('college_mentor_comment'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('college_mentor_comment') }}</strong>
                                 </span>
                             @endif
                         </div>

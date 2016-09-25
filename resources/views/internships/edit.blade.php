@@ -210,13 +210,12 @@ th {
                             <label for="college_mentor_id" class="col-md-4 control-label">Mentor nastavnik</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="college_mentor_id"/>                             	
-									@foreach($collegeMentor as $elem)
-                                        <option value=""></option>
+                                <select class="form-control" name="college_mentor_id"/> 
+                                    <option value=""></option>                            	
+									@foreach($collegeMentor as $elem)                                      
 										<option value="{{ $elem->id }}"
 										@if($elem->id == $internship->college_mentor_id) {{ 'selected' }} @endif>
-										{{ $elem->name.' '.$elem->last_name }}</option>
-										
+										{{ $elem->name.' '.$elem->last_name }}</option>										
 									@endforeach
                                 </select>
                              
@@ -235,13 +234,12 @@ th {
                             <label for="intern_mentor_id" class="col-md-4 control-label">Mentor iz prakse</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="intern_mentor_id"/>                               	
+                                <select class="form-control" name="intern_mentor_id"/> 
+                                    <option value=""></option>                              	
 									@foreach($internMentor as $elem)
-
 										<option value="{{ $elem->id }}"
 										@if($elem->id == $internship->intern_mentor_id) {{ 'selected' }} @endif>
 										{{ $elem->name.' '.$elem->last_name }}</option>
-
 									@endforeach
                                 </select>
 
@@ -268,6 +266,7 @@ th {
                             </div>
                         </div>
 
+                        @if($internship->status == 0)
                         <div class="form-group{{ $errors->has('student_comment') ? ' has-error' : '' }}">
                             <label for="student_comment" class="col-md-4 control-label">Komentar studenta</label>
 
@@ -309,6 +308,7 @@ th {
                                 @endif
                             </div>
                         </div>
+                        @endif
 
 						<div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

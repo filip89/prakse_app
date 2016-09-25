@@ -82,7 +82,7 @@
 
 							<form action="{{ action('InternshipController@removeMentor', ['id' => $internship->id]) }}" method="POST">	
 								<input name="_token" type="hidden" value="{!! csrf_token() !!}" />							
-								<button type="submit" class="btn btn-danger btn-sm">Otkaži</button>
+								<button type="submit" class="btn btn-danger btn-sm">Otkaži mentorstvo</button>
 							</form>
 								
 							@endif
