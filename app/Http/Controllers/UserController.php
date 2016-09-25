@@ -26,7 +26,6 @@ class UserController extends Controller
 {
 	
 	//
-	//Postavljanje middlewarea 'auth', ali i 'admin' i "thisUser" za specifične funkcije
 	public function __construct()
     {
 		
@@ -81,11 +80,7 @@ class UserController extends Controller
 		
 		$currentCompInterns = $user->internships()->where('status', '<>', 0)->where('confirmation_admin', 1)->get();
 				
-		if(!$recentInterns = $user->recentInternships()){
-				
-			$recentInterns = null;
-					
-		}
+		$recentInterns = $user->recentInternships();
 		
 		if($user->role == "college_mentor"){
 			

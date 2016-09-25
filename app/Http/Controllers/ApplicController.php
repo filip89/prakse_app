@@ -236,14 +236,30 @@ class ApplicController extends Controller
 		
 	}
 	
+	public function view($id){
+		
+		$applic = Applic::find($id);
+						
+		$activities = $applic->activities;
+			
+		return view('applic', ['applic' => $applic, 'activities' => $activities]);
+		
+	}
+	
 	public function delete($id){
 					
-			Applic::find($id)->delete();
+		Applic::find($id)->delete();		
+			
+		Session::flash('status', 'Prijava je obrisana!');
+		Session::flash('alert_type', 'alert-danger');
 		
-			Session::flash('status', 'Prijava je obrisana!');
-			Session::flash('alert_type', 'alert-danger');
+		if(!Auth::user()->isAdmin()){
 			
 			return back();
+			
+		}
+			
+		return redirect('applics');
 				
 	}
 		
