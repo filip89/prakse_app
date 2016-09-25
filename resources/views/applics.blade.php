@@ -46,7 +46,7 @@
 
 						<td class="row_buttons">
 						@if(Utilities::competitionStatus() == 2)
-						{{ Form::open(array('route' => array('internships.create', $applic->student->id), 'method' => 'GET')) }}
+						{{ Form::open(array('route' => array('internships.create'), 'method' => 'GET')) }}
 							{{ Form::hidden('name', $applic->student->name) }}
 							{{ Form::hidden('last_name', $applic->student->last_name) }}
 							{{ Form::hidden('student_id', $applic->student->id) }}
