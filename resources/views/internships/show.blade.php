@@ -76,7 +76,7 @@ table:nth-of-type(1)  {
 		@if($internship->student->id == Auth::user()->id)
 			<a type="button" style="float:right;margin-bottom:20px" class="btn btn-bg btn-default" href="/user_internships"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Prijašnje prakse</a>
 		@endif
-		<h1 style="clear:both;">Praksa br. {{ $internship->id }}</h1>
+		<h1 style="clear:both;">{{ $internship->student['name'].' '.$internship->student['last_name'] }}@if($internship->company_id != 0){{ ' - '.$internship->company['name'] }}@endif</h1>
 		
 		@if(Auth::user()->isadmin())
 		<div class="action_buttons">
