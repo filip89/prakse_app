@@ -66,6 +66,18 @@ class Utilities
 		return 0;
 		
 	}
+	
+	public static function competitionEndDate(){
+		
+		$competition = Competition::where('status', '<>', 0)->orderBy('created_at', 'desc')->first();
+		
+		if($competition){
+			
+			return $competition->end_date;
+			
+		}
+		
+	}
 
 	public static function competitionExists(){
 		
