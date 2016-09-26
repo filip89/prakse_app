@@ -35,9 +35,17 @@ Route::post('user/{id}/editcollege', "UserController@editCollegeMentor");
 Route::get('user/add/internmentor/{id?}', 'UserController@addInternMentorForm');
 Route::post('user/add/internmentor', 'UserController@addInternMentor');
 
+//admin
+Route::post('user/admin/{id}', 'UserController@admin');
+
 //edit intern_mentor
 Route::get('user/{id}/editintern', "UserController@editInternMentorForm");
 Route::post('user/{id}/editintern', "UserController@editInternMentor");
+
+//committee
+Route::get('committee', "CommitteeController@index");
+Route::post('committee/create', "CommitteeController@create");
+Route::post('committee/delete/{id}', "CommitteeController@delete");
 
 //lista prijava
 Route::get('applics', "ApplicController@index");
@@ -51,10 +59,9 @@ Route::get('applic/{id}', "ApplicController@view");
 Route::get('apply/{id?}', "ApplicController@applyForm");
 Route::post('apply', "ApplicController@apply");
 
-
-
 //posljednja praksa od studenta
 Route::get('myinternship', "UserController@myInternship");
+
 //lista praksi
 Route::get('user_internships/{id?}', "UserController@userInternships");
 Route::get('company_internships/{id}', "CompanyController@companyInternships");
@@ -65,7 +72,6 @@ Route::post('applic/delete/{id}', "ApplicController@delete");
 //rute za tvrtku
 Route::get('company', 'CompanyController@index');
 Route::get('company/wishlist', 'CompanyController@wishlist');
-Route::get('company/former', 'CompanyController@former');
 Route::post('company/reinstate/{id}', 'CompanyController@reinstate');
 Route::get('company/profile/{id}', 'CompanyController@profile');
 Route::get('company/create', 'CompanyController@createForm');
