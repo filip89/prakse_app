@@ -289,4 +289,31 @@ class UserController extends Controller
 		
 	}
 	
+	public function admin($id){
+		
+		$user = User::find($id);
+		
+		if($user->isAdmin()){
+		
+			$user->admin = 0;
+			
+			Session::flash('status', 'Korisnik više nije admin!');
+			Session::flash('alert_type', 'alert-warning');
+		
+		}
+		else {
+			
+			$user->admin = 1;
+			
+			Session::flash('status', 'Korisnik je postavljen kao admin!');
+			Session::flash('alert_type', 'alert-success');
+			
+		}
+		
+		$user->save();
+		
+		return back();
+	
+	}
+	
 }

@@ -61,6 +61,7 @@ class ComplaintController extends Controller
 		$complaint = new Complaint();
 		
 		$complaint->content = $request->content;
+		$complaint->email = $request->email;
 		$complaint->student()->associate($student);
 		$complaint->save();
 		

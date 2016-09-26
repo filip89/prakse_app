@@ -33,6 +33,8 @@ class ApplicController extends Controller
 		
 		$this->middleware('student', ['only' => [
 			'myApplic',
+			'applyForm',
+			'apply',
 		]]);
 		
 
