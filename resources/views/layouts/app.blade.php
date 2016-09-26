@@ -258,9 +258,6 @@
 								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
 								<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Moje prakse</a></li>
 							@endif
-								@if(Auth::user()->role == 'student')
-								<li><a href="{{ url('/internships/createReport') }}"><i class="fa fa-btn fa-book" aria-hidden="true"></i>Izvještaj</a></li>
-								@endif	
                         		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
 						</li>
