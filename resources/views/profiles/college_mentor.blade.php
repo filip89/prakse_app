@@ -21,6 +21,7 @@
 				</div>
 				<div class="panel-body">
 					<div style="float:right;margin-bottom:10px;">
+					@if(Auth::user()->isAdmin())
 						@if(!$user->isAdmin())
 						<form action="{{ url('/user/admin/' . $user->id) }}" method="POST">
 							{{ csrf_field() }}
@@ -32,6 +33,7 @@
 							<button class="btn btn-warning btn-sm" ><i class="fa fa-btn fa-times" aria-hidden="true"></i>Ukloni kao admina</button>
 						</form>
 						@endif
+					@endif
 					</div>
 				@if(Auth::user()->isAdmin() || Auth::user()->id == $user->id)
 					<div style="clear:both;" class="action_buttons">
