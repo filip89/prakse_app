@@ -14,7 +14,7 @@
 		@endif
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#competition"><b>Natječaj</b></a></li>
-			<li><a data-toggle="tab" href="#rest"><b>Ostalo</b></a></li>
+			<li><a data-toggle="tab" href="#rest"><b>Admini</b></a></li>
 		</ul>
 		<div class="tab-content" style="padding:40px;">
 			<div id="competition" class="tab-pane fade in active">
@@ -107,6 +107,33 @@
 			@endif
 			</div>
 			<div id="rest" class="tab-pane fade">
+				<h2 style="display:table;margin:auto;margin-bottom:20px;">Popis admina</h2>
+				<div class="table-responsive">
+					<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Ime i prezime</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($admins as $admin)	
+						<tr>
+							<td>
+								{{ $admin->title . ' ' . $admin->name . ' ' . $admin->last_name }}
+							</td>
+							<td class="row_buttons">
+								<a type="button" class="btn btn-info btn-sm" href="{{ url('/user/' . $admin->id) }}">Profil</a>
+								<form action="{{ url('/user/admin/' . $admin->id) }}" method="POST">
+								{{ csrf_field() }}
+								<button class="btn btn-warning btn-sm" ><i class="fa fa-btn fa-times" aria-hidden="true"></i>Ukloni kao admina</button>
+								</form>
+							</td>
+						</tr>
+						@endforeach
+					</thead>
+					</table>
+				</div>
 			</div>
 		</div>
 

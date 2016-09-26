@@ -38,11 +38,11 @@
 				<tr><th colspan="2" class="table_section">Detalji pritužbe</th></tr>
 				<tr><th>Ime:</th><td>{{ $student->name }}</td></tr>
 				<tr><th>Prezime</th><td>{{ $student->last_name }}</td></tr>
-				<tr><th>E-mail</th><td>{{ $student->email }}</td></tr>
+				<tr><th>E-mail</th><td>{{ $complaint->email }}</td></tr>
 				<tr><th>Posljednja prijava: </th>
 					<td>
 					@if($student->lastApplic())
-						<a href="{{ url('/applic/' . $student->lastApplic()->id) }}">{{ $student->lastApplic()->id }}</a>
+						<a href="{{ url('/applic/' . $student->lastApplic()->id) }}">{{ $student->lastApplic()->created_at->format('d. m. Y.') }}</a>
 					@else
 						Nije imao/la
 					@endif
@@ -51,7 +51,7 @@
 				<tr><th>Posljednja praksa</th>
 					<td>
 					@if($student->lastApplic())
-						<a href="{{ url('/internships/' . $student->lastInternship()->id) }}">{{ $student->lastInternship()->id }}</a>
+						<a href="{{ url('/internships/' . $student->lastInternship()->id) }}">{{ $student->lastInternship()->company->name . ' (' . $student->lastInternship()->created_at->format('Y.') . ')' }}</a>
 					@else
 						Nije imao/la
 					@endif
@@ -64,9 +64,9 @@
 				<form action="{{ url('/complaint/status/' . $complaint->id) }}" method="POST">
 					{{ csrf_field() }}
 					@if($complaint->status == 0)
-					<button class="btn btn-success btn-bg" >Označi kao riješeno</button>
+					<button class="btn btn-success btn-bg" ><i class="fa fa-btn fa-check" aria-hidden="true"></i>Označi kao riješeno</button>
 					@else
-					<button class="btn btn-warning btn-bg" >Označi kao neriješeno</button>
+					<button class="btn btn-warning btn-bg" ><i class="fa fa-btn fa-times" aria-hidden="true"></i>Označi kao neriješeno</button>
 					@endif
 				</form>
 				<form action="{{ url('/complaint/delete/' . $complaint->id) }}" method="POST">

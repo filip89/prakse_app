@@ -28,17 +28,22 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-			<div class="action_buttons">
+			<div class="action_buttons" style="margin-bottom:20px">
 				<form action="{{ url('/applic/delete/' . $applic->id) }}" method="POST">
 					{{ csrf_field() }}
 					<button type="button" class="btn btn-danger btn-sm delete" >Ukloni</button>
 				</form>
 			</div>
+			<div class="little_info">
+			Datum stvaranja: {{ $applic->created_at->format('d. m. Y. h:i:s') }}<br/>
+			Zadnja izmjena: {{ $applic->updated_at->format('d. m. Y. h:i:s') }}
+			
+			</div>
 			<table class="table table-striped table-bordered">
 				<tr><th colspan="2" class="table_section">Osobni podaci</th></tr>
 				<tr><th>Ime:</th><td>{{ $applic->student->name }}</td></tr>
 				<tr><th>Prezime</th><td>{{ $applic->student->last_name }}</td></tr>
-				<tr><th>E-mail</th><td>{{ $applic->email }}</td></tr>
+				<tr><th>E-mail:</th><td>{{ $applic->email }}</td></tr>
 				<tr><th>Mjesto prebivališta:</th><td>{{ $applic->residence_town }}</td></tr>
 				<tr><th>Županija prebivališta:</th><td>{{ Utilities::county($applic->residence_county) }}</td></tr>
 				<tr><th colspan="2" class="table_section">Akademski podaci</th></tr>

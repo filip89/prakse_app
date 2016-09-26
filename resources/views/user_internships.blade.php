@@ -22,9 +22,6 @@ td:first-child {
 					@endif					
 				@endif
 			@else
-				@if($user->role == 'student' && Utilities::competitionStatus() != 0)
-					<p>* Navedene prakse su isključivo iz prethodnih natječaja. </p>
-				@endif
 			<div class="table-responsive">
 				<table class="table table-striped">
 				<thead>
