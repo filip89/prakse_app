@@ -27,7 +27,7 @@
                             <label for="name" class="col-md-4 control-label">Naziv natječaja:</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -36,6 +36,34 @@
                                 @endif
                             </div>
                         </div>
+						
+						<div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
+							<label for="end_date" class="col-md-4 control-label">Prijave otvorene do:</label>
+
+							<div class="col-md-6">
+								<input type="text" class="form-control datepicker" name="end_date"/>
+
+								@if ($errors->has('end_date'))
+									<span class="help-block">
+										<strong>{{ $errors->first('end_date') }}</strong>
+									</span>
+								@endif
+							</div>
+						</div>
+						
+						<div class="form-group{{ $errors->has('message') ? ' has-error' : '' }}">
+							<label for="message" class="col-md-4 control-label">Poruka:</label>
+
+							<div class="col-md-6">
+								<textarea type="text" class="form-control" style="height:200px;max-height:700px;resize:vertical;" placeholder="Ovdje možete upisati opcionalnu porkuku koja će se prikazati uz objavu natječaja na naslonici." name="message"></textarea>
+
+								@if ($errors->has('message'))
+									<span class="help-block">
+										<strong>{{ $errors->first('message') }}</strong>
+									</span>
+								@endif
+							</div>
+						</div>
 						
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
@@ -71,15 +99,29 @@
 						
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary" style="margin:10px;" disabled>
+								<button style="display:block;margin:10px;" type="submit" class="btn btn-primary" disabled>
 									<i class="fa fa-btn fa-stop-circle settings_fa" aria-hidden="true"></i>Zatvori natječaj
 								</button>
-								<button type="submit" class="btn btn-primary" style="margin:10px;">
+								<button style="display:block;margin:10px;" type="submit" class="btn btn-primary" style="">
                                     <i class="fa fa-btn fa-times settings_fa" aria-hidden="true"></i> Objavi i arhiviraj natječaj
                                 </button>
+							</div>
+							
+							<div class="col-md-12 form-group{{ $errors->has('message') ? ' has-error' : '' }}">
+								<label for="message" class="col-md-2 control-label">Poruka:</label>
+
+								<div class="col-md-10">
+									<textarea type="text" class="form-control" style="height:200px;max-height:700px;resize:vertical;" placeholder="Ovdje možete upisati opcionalnu porkuku koja će se prikazati uz objavu rezultata na naslonici." name="message"></textarea>
+
+								@if ($errors->has('message'))
+									<span class="help-block">
+										<strong>{{ $errors->first('message') }}</strong>
+									</span>
+								@endif
+								</div>
+							</div>
 								
-								
-                            </div>
+                           
                         </div>
                     </form>
 				@endif

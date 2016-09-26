@@ -42,7 +42,7 @@
 		<h3 class="notice">Natječaj je gotov. Vaša prijava se obrađuje.</h3>
 		
 		@elseif(Utilities::competitionStatus() == 1)
-			<p>* Vaša prijava je zaprimljena i nalazi se u našoj bazi. Prijavu možete otkazati ili promijeniti podatke sve dok traje natječaj.</p>
+			<p>* Vaša prijava je zaprimljena i nalazi se u našoj bazi. Prijavu možete otkazati ili promijeniti podatke sve dok traje natječaj (ponoći {{ date_create(Utilities::competitionEndDate())->format('d. m. Y.') }}).</p>
 			<div class="action_buttons">
 				<a href="{{ url('/apply') }}"><button class="btn btn-warning">Uredi</button></a>
 				<form action="{{ url('applic/delete/'. $applic->id) }}" method="POST">
