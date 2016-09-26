@@ -88,9 +88,9 @@
 								<th>Prezime</th>
 								<th>Akademska godina</th>
 								<th>Tvrtka</th>	
-								@if(Auth::user()->role == 'college_mentor') <th>Potvrda</th> @else <th></th> @endif
+								@if(Auth::user()->role == 'college_mentor') <th>Potvrda</th> @else <th></th> 
 								<th></th>
-													
+								@endif					
 							</tr>
 						</thead>
 
@@ -107,14 +107,9 @@
 								<td>{{ $academicYear->academicYear($internship->academic_year) }}</td>
 								<td>{{ $internship->company['name']}}</td>
 								<td style="text-align: center;">
-									@if($internship->student_id == Auth::user()->id && $internship->confirmation_student === 1 && $internship->competition_id == $newCompetition->id)
+									@if($internship->student_id == Auth::user()->id && $internship->confirmation_student === 1 && $internship->competition_id == $newCompetition->id)																				
+										<button type="button" data-toggle="modal" data-target="#myModalComment" class="btn btn-danger btn-sm">Odbij</button>
 										
-										<form action="{{ action('InternshipController@reject') }}" method="POST">
-											<input name="_token" type="hidden" value="{!! csrf_token() !!}" />
-											<input type="hidden" name="internship_id" value="{{ $internship->id }}">
-											<input type="hidden" name="confirmation_student" value="0"> 
-											<button type="submit" class="btn btn-danger btn-sm">Odbij</button>
-										</form>								
 									@elseif($internship->student_id == Auth::user()->id && $internship->confirmation_student !== null) 
 										<i class="fa fa-times fa-2x" aria-hidden="true"></i>	
 									@elseif(Auth::user()->role == 'college_mentor')
@@ -127,28 +122,30 @@
 										@endif
 									@endif
 
+									@if(Auth::user()->role == 'college_mentor' || Auth::user()->isAdmin())
 									<td class="row_buttons">
 										{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
 											<button class="btn btn-info btn-sm">Prikaži</button>
 										{{ Form::close() }}
 									
-									@if(Auth::user()->role == 'college_mentor' && $internship->college_mentor_id == null)
+										@if($internship->college_mentor_id == null)
 
-										<form action="{{ action('InternshipController@addMentor', ['id' => $internship->id]) }}" method="POST">
-											<input name="_token" type="hidden" value="{!! csrf_token() !!}" />
-											<input type="hidden" name="college_mentor_id" value="{{ Auth::user()->id }}"> 
-											<button type="submit" class="btn btn-success btn-sm">Mentoriraj</button>
-										</form>
-										
-										@elseif($internship->college_mentor_id == Auth::user()->id)
-
-										<form action="{{ action('InternshipController@removeMentor', ['id' => $internship->id]) }}" method="POST">	
-											<input name="_token" type="hidden" value="{!! csrf_token() !!}" />							
-											<button type="submit" class="btn btn-danger btn-sm">Otkaži mentorstvo</button>
-										</form>
+											<form action="{{ action('InternshipController@addMentor', ['id' => $internship->id]) }}" method="POST">
+												<input name="_token" type="hidden" value="{!! csrf_token() !!}" />
+												<input type="hidden" name="college_mentor_id" value="{{ Auth::user()->id }}"> 
+												<button type="submit" class="btn btn-success btn-sm">Mentoriraj</button>
+											</form>
 											
+											@elseif($internship->college_mentor_id == Auth::user()->id)
+
+											<form action="{{ action('InternshipController@removeMentor', ['id' => $internship->id]) }}" method="POST">	
+												<input name="_token" type="hidden" value="{!! csrf_token() !!}" />							
+												<button type="submit" class="btn btn-danger btn-sm">Otkaži mentorstvo</button>
+											</form>
+												
+										@endif
+									</td>	
 									@endif
-									</td>
 									
 								</td>
 							</tr>
@@ -164,4 +161,58 @@
 	</div>
 </div>
 
+<!-- Modal Create -->
+<div class="modal fade" id="myModalComment" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" 
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Upišite razlog odbijanja prakse
+                </h4>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="modal-body">
+                
+               <form class="form-horizontal" role="form" method="POST" action="{{ action('InternshipController@rejectionComment') }}">
+                    {{ csrf_field() }}
+				
+				
+                <div class="form-group{{ $errors->has('rejection_comment') ? ' has-error' : '' }}">
+					<input type="hidden" name="id" value="{{ $internship->id }}">
+					<input type="hidden" name="confirmation_student" value="0">
+                    <label for="rejection_comment" class="col-md-4 control-label">Komentar</label>
+                    <div class="col-md-6">
+                        <textarea rows="8" class="form-control" name="rejection_comment"></textarea>
+
+                        @if ($errors->has('rejection_comment'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('rejection_comment') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+                  
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <button type="submit" class="btn btn-primary action_buttons">
+                            <i class="fa fa-btn fa-sign-in"></i> Spremi
+                        </button>
+                    </div>
+                </div>
+                  
+                </form>
+                                                                                     
+            </div>
+            
+        </div>
+    </div>
+</div>
 @endsection
