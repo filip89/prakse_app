@@ -29,6 +29,7 @@ class CreateInternshipsTable extends Migration
 		$table->integer("duration")->nullable();
 		$table->integer("year")->nullable();
 		$table->string("student_comment", 5000)->nullable();
+		$table->string("rejection_comment", 5000)->nullable();
 		$table->integer("rating_by_student")->nullable();
 		$table->string("intern_mentor_comment", 5000)->nullable();
 		$table->string("college_mentor_comment", 5000)->nullable();
