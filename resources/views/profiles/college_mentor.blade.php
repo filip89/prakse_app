@@ -16,11 +16,25 @@
 			</div>
 		@endif
 			<div class="panel panel-info">
-				<div class="panel-heading"><i class="fa fa-btn fa-user" aria-hidden="true"></i>Mentor nastavnik</div>
+				<div class="panel-heading">
+					<i class="fa fa-btn fa-user" aria-hidden="true"></i>Mentor nastavnik
+				</div>
 				<div class="panel-body">
-					
+					<div style="float:right;margin-bottom:10px;">
+						@if(!$user->isAdmin())
+						<form action="{{ url('/user/admin/' . $user->id) }}" method="POST">
+							{{ csrf_field() }}
+							<button class="btn btn-success btn-sm" ><i class="fa fa-btn fa-check" aria-hidden="true"></i>Postavi kao admina</button>
+						</form>
+						@else
+						<form action="{{ url('/user/admin/' . $user->id) }}" method="POST">
+							{{ csrf_field() }}
+							<button class="btn btn-warning btn-sm" ><i class="fa fa-btn fa-times" aria-hidden="true"></i>Ukloni kao admina</button>
+						</form>
+						@endif
+					</div>
 				@if(Auth::user()->isAdmin() || Auth::user()->id == $user->id)
-					<div class="action_buttons">
+					<div style="clear:both;" class="action_buttons">
 						<a href="{{ url('user/'. $user->id . '/editcollege') }}"><button class="btn btn-warning" >Uredi</button></a>
 						@if (Auth::user()->isAdmin() && Auth::user()->id != $user->id)							
 						<form action="{{ url('user/'. $user->id . '/delete') }}" method="POST">
