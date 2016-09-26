@@ -17,6 +17,7 @@ class CreateComplaintsTable extends Migration
         	$table->increments('id');
 			$table->integer("student_id")->unsigned();
 			$table->string("content", 10000);
+			$table->string("email", 100);
 			$table->integer("status")->default(0);
         	$table->timestamps();
         });
