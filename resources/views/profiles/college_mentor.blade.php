@@ -25,12 +25,12 @@
 						@if(!$user->isAdmin())
 						<form action="{{ url('/user/admin/' . $user->id) }}" method="POST">
 							{{ csrf_field() }}
-							<button class="btn btn-success btn-sm" ><i class="fa fa-btn fa-check" aria-hidden="true"></i>Postavi kao admina</button>
+							<button class="btn btn-primary btn-sm" ><i class="fa fa-btn fa-check" aria-hidden="true"></i>Postavi kao admina</button>
 						</form>
 						@else
 						<form action="{{ url('/user/admin/' . $user->id) }}" method="POST">
 							{{ csrf_field() }}
-							<button class="btn btn-warning btn-sm" ><i class="fa fa-btn fa-times" aria-hidden="true"></i>Ukloni kao admina</button>
+							<button class="btn btn-primary btn-sm" ><i class="fa fa-btn fa-times" aria-hidden="true"></i>Ukloni kao admina</button>
 						</form>
 						@endif
 					@endif
