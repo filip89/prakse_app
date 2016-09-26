@@ -161,7 +161,7 @@
 	</div>
 </div>
 
-@if((isset($competitions->status) && $competitions->status != 0) || $competitions == null)
+@if((isset($competitions->status) && $competitions->status == 0))
 <!-- Modal Create -->
 <div class="modal fade" id="myModalComment" tabindex="-1" role="dialog" 
      aria-labelledby="myModalLabel" aria-hidden="true">
