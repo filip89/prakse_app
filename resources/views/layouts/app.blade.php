@@ -43,6 +43,17 @@
         	$('.test', this).css('opacity', '1');
         });
 
+        $('.reject').on('click', function() {
+        	var info = $(this).data('info');
+        	if(confirm('Jeste li sigurni da želite odbiti praksu?')) {
+        		$(this).attr({
+        			'data-toggle':"modal", 
+        			'data-target':"#myModalComment"})
+        		$(this).closest('form').submit();
+
+        	}
+        })
+
     });
 
     </script>
