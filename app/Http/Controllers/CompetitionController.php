@@ -24,17 +24,21 @@ class CompetitionController extends Controller
 		
 		$this->validate($request, [
 			'name' => 'required|max:100',
+			'end_date' => 'required',
+			'message' => 'max:10000',
 		]);
 		
 		$competition = new Competition;
 		
 		$competition->status = 1;
 		$competition->year = date('Y');
+		$competition->end_date = date('Y-m-d', strtotime($request->end_date));
 		$competition->name = $request->name;
+		$competition->message = $request->message;
 		
 		$competition->save();
 		
-		Session::flash('status', 'Natječaj "' . $competition->name . '" (' . $competition->year . '. godine) je otvoren!');
+		Session::flash('status', 'Natječaj "' . date('d. m. Y.', strtotime($request->end_date)) . '" (' . $competition->year . '. godine) je otvoren!');
 		Session::flash('alert_type', 'alert-success');
 		
 		return redirect('/settings');
@@ -51,6 +55,7 @@ class CompetitionController extends Controller
 		
 		$competition->status = 0;
 		$competition->results_date = date('Y-m-d');
+		$competition->message = $request->message;
 		$competition->save();
 		
 		Session::flash('status', 'Natječaj "' . $competition->name . '" (' . $competition->year . '. godine) je objavljen i arhiviran!');

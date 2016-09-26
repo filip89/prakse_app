@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Auth;
+use App\Competition;
+use App\Utilities;
 
 class HomeController extends Controller
 {
@@ -15,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -25,7 +27,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+		
+		if(Utilities::competitionStatus() != 0){
+			$competition = Competition::current();
+		}
+		else{
+			$competition = Competition::previous();
+		}
+		
+        return view('home', ['competition' => $competition]);
 		//return "Hello " . Auth::user()->name;
     }
 }
