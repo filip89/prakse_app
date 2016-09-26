@@ -161,6 +161,7 @@
 	</div>
 </div>
 
+@if($competitions != null)
 <!-- Modal Create -->
 <div class="modal fade" id="myModalComment" tabindex="-1" role="dialog" 
      aria-labelledby="myModalLabel" aria-hidden="true">
@@ -215,4 +216,5 @@
         </div>
     </div>
 </div>
+@endif
 @endsection
