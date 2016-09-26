@@ -23,7 +23,7 @@ class CreateInternshipsTable extends Migration
 		$table->decimal("average_master_grade", 3,2)->nullable()->default(0);
 		$table->integer("academic_year");
 		$table->integer("activity_points");
-		$table->decimal("total_points", 3,2)->nullable()->default(0);
+		$table->decimal("total_points", 4,2)->nullable()->default(0);
 		$table->datetime("start_date")->nullable();
 		$table->datetime("end_date")->nullable();
 		$table->integer("duration")->nullable();
