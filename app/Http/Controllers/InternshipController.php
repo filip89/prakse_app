@@ -235,26 +235,6 @@ class InternshipController extends Controller
         }   
     }
 
-    public function reject(Request $request) {
-
-        $internship = Internship::find($request->internship_id);
-
-        $internship->confirmation_student = $request->confirmation_student;
-        $internship->save();
-
-        Session::flash('status', 'Odbili ste praksu!');
-        Session::flash('alert_type', 'alert-danger');
-
-        return redirect()->action('InternshipController@showResults');
-    }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
     public function comment(Request $request) {
        
         $internship = Internship::find($request->id);
@@ -291,6 +271,20 @@ class InternshipController extends Controller
         $internship->save();     
 
         return redirect()->action('InternshipController@show', $request->id);        
+    }
+
+    public function rejectionComment(Request $request) {
+
+        $internship = Internship::find($request->id);
+
+        $internship->confirmation_student = $request->confirmation_student;
+        $internship->rejection_comment = $request->rejection_comment;
+        $internship->save();
+
+        Session::flash('status', 'Odbili ste praksu!');
+        Session::flash('alert_type', 'alert-danger');
+
+        return redirect()->action('InternshipController@showResults'); 
     }
    
     public function addMentor(Request $request, $id) {
