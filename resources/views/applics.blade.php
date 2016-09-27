@@ -61,8 +61,8 @@
 						{{ Form::close() }}
 						@else
 							{{ Form::button('Izradi praksu', ['class' => 'btn btn-primary btn-sm', 'disabled']) }}
-							{{ Form::button('Ukloni', ['type' => 'button','class' => 'btn btn-danger btn-sm delete', 'disabled']) }}
 						@endif
+							{{ Form::button('Ukloni', ['type' => 'button','class' => 'btn btn-danger btn-sm delete', 'disabled']) }}
 						</td>
 
 					</tr>
