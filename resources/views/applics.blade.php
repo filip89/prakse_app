@@ -55,10 +55,6 @@
 							{{ Form::submit('Izradi praksu', ['class' => 'btn btn-primary btn-sm']) }}
 						{{ Form::close() }}
 						
-						{{ Form::open(array('url' => '/applic/delete/'.$applic->id, 'method' => 'POST')) }}
-							{{ Form::button('Ukloni', ['type' => 'button','class' => 'btn btn-danger btn-sm delete']) }}
-							{{ csrf_field() }}
-						{{ Form::close() }}
 						@else
 							{{ Form::button('Izradi praksu', ['class' => 'btn btn-primary btn-sm', 'disabled']) }}
 						@endif
