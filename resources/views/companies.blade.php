@@ -59,7 +59,9 @@
 							<th>Tvrtka</th>
 							<th>Sjedište</th>
 							<th>Broj mjesta </th>
+							@if(Utilities::competitionStatus() != 0)
 							<th>Broj slobodnih mjesta </th>
+							@endif
 							<th>Datum stvaranja</th>
 							<th></th>
 						</tr>
@@ -76,9 +78,11 @@
 							<td>
 								{{ $company->spots }}
 							</td>
+							@if(Utilities::competitionStatus() != 0)
 							<td>
 								{{ $company->spotsAvailable() }}
 							</td>
+							@endif
 							<td>
 							{{ $company->created_at->format('d. m. Y.') }}
 							</td>
