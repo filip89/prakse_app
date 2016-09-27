@@ -222,7 +222,9 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prakse <span class="caret"></span></a>		
 								<ul class="dropdown-menu" role="menu">
+									@if(Auth::user()->isAdmin())
 									<li><a href="{{ url('/internships') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Prijavljene</a></li>
+									@endif
 									<li><a href="{{  url('/internships/showFinal') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Konačne</a></li>
 									<li><a href="{{  url('/internships/showResults') }}"><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</a></li>
 								</ul>
