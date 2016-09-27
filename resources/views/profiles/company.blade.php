@@ -39,10 +39,8 @@
 							<tr><th>Sjedište:</th><td>{{ $company->residence }}</td></tr>
 							<tr><th>E-mail:</th><td>{{ $company->email }}</td></tr>
 							<tr><th>Telefon:</th><td>{{ $company->phone }}</td></tr>
-							@if(Auth::user()->isAdmin() || (Auth::user()->role == 'intern_mentor' && (isset(Auth::user()->profile->company) && Auth::user()->profile->company->id == $company->id)))
-							@if($company->status == 1)
+							@if(Auth::user()->role == 'college_mentor' || (Auth::user()->role == 'intern_mentor' && (isset(Auth::user()->profile->company) && Auth::user()->profile->company->id == $company->id)))
 							<tr><th>Mjesta za praksu:</th><td>{{ $company->spots }}</td></tr>
-							@endif
 							@if(Utilities::competitionStatus() != 0)
 							<tr><th>Preostalo mjesta:</th><td>{{ $company->spotsAvailable() }}</td></tr>
 							@endif
@@ -93,7 +91,7 @@
 											<a data-toggle="tooltip" title="{{ 'Praksa počinje za ' . (strtotime($internship->start_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
 										@elseif(strtotime($internship->end_date) > strtotime(date('d-m-Y')))
 											<a data-toggle="tooltip" title="{{ 'Praksa traje još ' . (strtotime($internship->end_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
-										@else
+										@elseif(isset($internship->end_date))
 											<a data-toggle="tooltip" title="{{ 'Praksa je završila ' . date_create($internship->end_date)->format('d. m. Y.') }}" class="link_object expired_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
 										@endif
 										</div>
