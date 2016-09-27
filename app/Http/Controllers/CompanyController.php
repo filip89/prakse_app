@@ -70,11 +70,7 @@ class CompanyController extends Controller
 		
 		$currentCompInterns = $company->internships()->where('status', '<>', 0)->where('confirmation_admin', "=", 1)->get();
 		
-		if(!$recentInterns = $company->recentInternships()){
-				
-			$recentInterns = null;
-					
-		}
+		$recentInterns = $company->recentInternships();
 		
 		return view('profiles.company', ['company' => $company, 'currentCompInterns' => $currentCompInterns, 'recentInterns' => $recentInterns]);
 		

@@ -312,6 +312,12 @@ class UserController extends Controller
 		
 		$user->save();
 		
+		if($user->id == Auth::user()->id){
+			
+			return redirect('/home');
+			
+		}
+		
 		return back();
 	
 	}

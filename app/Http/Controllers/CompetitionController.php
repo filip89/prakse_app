@@ -49,14 +49,14 @@ class CompetitionController extends Controller
 		
 		$competition = Competition::where('status', 2)->first();
 		
-		DB::table('applics')->where('status', '<>', 0)->update(array('status' => 0));
-		DB::table('internships')->where('status', '<>', 0)->update(array('status' => 0));
-		DB::table('companies')->where('status', '<>', 0)->update(array('status' => 0));
-		
 		$competition->status = 0;
 		$competition->results_date = date('Y-m-d');
 		$competition->message = $request->message;
 		$competition->save();
+		
+		DB::table('applics')->where('status', '<>', 0)->update(array('status' => 0));
+		DB::table('internships')->where('status', '<>', 0)->update(array('status' => 0));
+		DB::table('companies')->where('status', '<>', 0)->update(array('status' => 0));
 		
 		Session::flash('status', 'Natječaj "' . $competition->name . '" (' . $competition->year . '. godine) je objavljen i arhiviran!');
 		Session::flash('alert_type', 'alert-success');
