@@ -54,7 +54,7 @@
 							<tr><th>Titula:</th><td>{{ $user->profile->title }}</td></tr>
 							<tr><th>Područje:</th><td>{{ Utilities::course($user->profile->fields) }}</td></tr>
 							@if(Auth::user()->role == 'college_mentor')
-							<tr><td style="text:align:center" colspan="2"><a type="button" class="btn btn-bg btn-default" href="{{ url('/user_internships/' . $user->id) }}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Povijest praksi</a></td></tr>							
+							<tr><td style="text:align:center" colspan="2"><a type="button" class="btn btn-bg btn-default" href="{{ url('/user_internships/' . $user->id) }}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Povijest praksi</a></td></tr>							
 							<tr><th style="text-align:center;font-size:18px" colspan="2"><b>Mentorstva:</b></th></tr>
 							<tr>	
 								<td>Tekući natječaj:</br>
