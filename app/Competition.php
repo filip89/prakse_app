@@ -16,8 +16,12 @@ class Competition extends Model
 	
 	public static function previous(){
 		
-		return self::where('status', 0)->orderBy('created_at', 'desc')->first();
-		
+		if(count(self::where('status', 0)->orderBy('created_at', 'desc')->first()) > 0){
+			
+			return self::where('status', 0)->orderBy('created_at', 'desc')->first();
+			
+		}
+				
 	}
 	
 	public static function current(){
