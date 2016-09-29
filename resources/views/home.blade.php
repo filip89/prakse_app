@@ -27,10 +27,10 @@
 				@endif
 				@if(Utilities::competitionExists())
 				<div class="panel panel-default">
-					<div class="panel-heading">{{ $competition->updated_at->format('d. m. Y.') }}</div>
+					<div class="panel-heading">{{ $lastCompetition->updated_at->format('d. m. Y.') }}</div>
 						<div class="panel-body">					
-							<p>Objavljeni su <a href="/internships/showResults">rezultati</a> posljednjeg natječaja (objavljenog {{ date_create($competition->created_at)->format('d. m. Y.') }} ).</p>
-							<p>{{ $competition->message }}</p>
+							<p>Objavljeni su <a href="/internships/showResults">rezultati</a> posljednjeg natječaja (objavljenog {{ date_create($lastCompetition->created_at)->format('d. m. Y.') }} ).</p>
+							<p>{{ $lastCompetition->message }}</p>
 					</div>
 				</div>
 				@endif
