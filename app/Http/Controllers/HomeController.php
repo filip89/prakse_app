@@ -28,14 +28,11 @@ class HomeController extends Controller
     public function index()
     {
 		
-		if(Utilities::competitionStatus() != 0){
-			$competition = Competition::current();
-		}
-		else{
-			$competition = Competition::previous();
-		}
-		
-        return view('home', ['competition' => $competition]);
+		$competition = Competition::current();
+
+		$lastCompetition = Competition::previous();
+			
+        return view('home', ['competition' => $competition, 'lastCompetition' => $lastCompetition]);
 		//return "Hello " . Auth::user()->name;
     }
 }
