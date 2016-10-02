@@ -212,16 +212,20 @@ class InternshipController extends Controller
                 $internship->confirmation_admin = null;
             }           
 
-            $internship->save();
+        $internship->save();
 
-            Session::flash('status', 'Praksa uspješno uređena!');
-            Session::flash('alert_type', 'alert-warning');
+        Session::flash('status', 'Praksa uspješno uređena!');
+        Session::flash('alert_type', 'alert-warning');
 
-            if($request->company_id == null) {
-                return redirect()->route('internships.index');
-            } else {
-                return redirect()->action('InternshipController@showFinal');
-            } 
+        if($request->company_id == null && $internship->status != 0) {
+            return redirect()->route('internships.index');
+        } elseif($request->company_id != null && $internship->status != 0) {
+            return redirect()->action('InternshipController@showFinal');
+        } elseif($internship->status == 0) {
+            return redirect()->action('InternshipController@showResults'); 
+        }
+
+        
             
 
         } else {
