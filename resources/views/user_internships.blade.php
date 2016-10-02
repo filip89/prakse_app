@@ -81,7 +81,7 @@ td:first-child {
 						@if (Auth::user()->isAdmin())	
 							<form action="{{ url('/user/'. $internship->student->id . '/delete') }}" method="POST">
 								{{ csrf_field() }}
-								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
+								<button type="button" data-info="{{ $internship->student->name . ' ' .$internship->student->last_name . ' - ' . $internship->company->name }}" class="btn btn-danger btn-sm delete">Ukloni</button>
 							</form>
 						@endif
 						</td>
@@ -95,4 +95,8 @@ td:first-child {
 		</div>
     </div>
 </div>
+@endsection
+
+@section('modal_body_content')
+	Ukloniti praksu 
 @endsection

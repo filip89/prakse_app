@@ -31,7 +31,7 @@
 			<div class="action_buttons" style="margin-bottom:20px">
 				<form action="{{ url('/applic/delete/' . $applic->id) }}" method="POST">
 					{{ csrf_field() }}
-					<button type="button" class="btn btn-danger btn-sm delete" >Ukloni</button>
+					<button type="button" data-info="{{ $applic->student->name . ' ' . $applic->student->last_name }}" class="btn btn-danger btn-sm delete" >Ukloni</button>
 				</form>
 			</div>
 			<div class="little_info">
@@ -69,4 +69,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('modal_body_content')
+	Želite ukloniti prijavu studenta/ice
 @endsection

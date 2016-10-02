@@ -59,7 +59,7 @@
 							{{ Form::button('Izradi praksu', ['class' => 'btn btn-primary btn-sm', 'disabled']) }}
 						@endif
 						{{ Form::open(array('url' => '/applic/delete/'.$applic->id, 'method' => 'POST')) }}
-							{{ Form::button('Ukloni', ['type' => 'button','class' => 'btn btn-danger btn-sm delete']) }}
+							{{ Form::button('Ukloni', ['type' => 'button','class' => 'btn btn-danger btn-sm delete', 'data-info' => $applic->student->name . ' ' . $applic->student->last_name ]) }}
 							{{ csrf_field() }}
 						{{ Form::close() }}	
 						</td>
@@ -75,3 +75,7 @@
     </div>
 </div>
 @endsection
+
+	@section('modal_body_content')
+		Ukloniti prijavu od studenta/ice
+	@endsection

@@ -97,7 +97,7 @@
 									@endif
 								<form action="{{ url('/company/delete/' . $company->id) }}" method="POST">
 								{{ csrf_field() }}
-								<button type="button" class="btn btn-danger btn-sm delete" >Ukloni</button>
+								<button type="button" data-info="{{ $company->name }}" class="btn btn-danger btn-sm delete" >Ukloni</button>
 								</form>
 								@endif
 							</td>
@@ -118,3 +118,6 @@
 </div>
 @endsection
 
+@section('modal_body_content')
+	Ukloniti tvrtku
+@endsection

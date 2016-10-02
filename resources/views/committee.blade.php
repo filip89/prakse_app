@@ -24,7 +24,7 @@
 							
 							<form action="{{ url('committee/delete/'. $member->id) }}" method="POST">
 								{{ csrf_field() }}
-								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
+								<button type="button" data-info="{{ $member->name . ' ' . $member->last_name }}" class="btn btn-danger btn-sm delete">Ukloni</button>
 							</form>
 							
 						</td>
@@ -111,4 +111,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('modal_body_content')
+	Ukloniti člana povjerenstva
 @endsection

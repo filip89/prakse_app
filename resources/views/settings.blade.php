@@ -168,7 +168,7 @@
 								<a type="button" class="btn btn-info btn-sm" href="{{ url('/user/' . $admin->id) }}">Profil</a>
 								<form action="{{ url('/user/admin/' . $admin->id) }}" method="POST">
 								{{ csrf_field() }}
-								<button class="btn btn-warning btn-sm" ><i class="fa fa-btn fa-times" aria-hidden="true"></i>Ukloni kao admina</button>
+								<button type="button" data-info="{{ $admin->name . ' ' . $admin->last_name }}" class="btn btn-primary btn-sm delete" ><i class="fa fa-btn fa-times" aria-hidden="true"></i>Ukloni kao admina</button>
 								</form>
 							</td>
 						</tr>
@@ -182,4 +182,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('modal_body_content')
+	Ukinuti ulogu admina korisniku 
 @endsection

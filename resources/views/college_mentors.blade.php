@@ -35,7 +35,7 @@
 							@if (Auth::user()->isAdmin() && Auth::user()->id != $user->id)
 							<form action="{{ url('user/'. $user->id . '/delete') }}" method="POST">
 								{{ csrf_field() }}
-								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
+								<button type="button" data-info="{{ $user->name . ' ' . $user->last_name }}" class="btn btn-danger btn-sm delete">Ukloni</button>
 							</form>
 						@endif
 						</td>
@@ -50,4 +50,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('modal_body_content')
+	Ukloniti korisnika
 @endsection
