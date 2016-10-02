@@ -85,5 +85,5 @@
 @endsection
 
 @section('modal_body_content')
-	Ukloniti prijavu?
+	Ukloniti prijavu
 @endsection
