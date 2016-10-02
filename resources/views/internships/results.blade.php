@@ -89,18 +89,6 @@
 			<h3>Nema objavljenih rezultata</h3> 
 		@else
 
-		<div class="search_box">
-			<form class="search_form" action="{{ action('InternshipController@showResults') }}" method="GET">			
-			    <div class="input-group">
-			        {{ Form::text('srch_term', Request::get('srch_term'), ['class' => 'form-control', 'placeholder' => 'Pretraži...']) }}
-			      
-				    <span class="input-group-btn">
-				      	<button class="btn btn-default search-btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-				    </span>
-			    </div>			  	
-			</form>
-		</div>
-
 		<div class="btn btn-primary competition"><span class="com_year">Godina: {{ $competitions->year }}</span><span>{{ $competitions->name }}</span></div>	
 			{{--*/ $count = 0 /*--}}
 			<div class="res_box">																		
