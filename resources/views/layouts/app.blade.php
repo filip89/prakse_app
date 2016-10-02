@@ -270,6 +270,29 @@
             </div>
         </div>
     </nav>
+	
+
+<!-- Modal -->
+  <div class="modal fade" id="delete_modal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Jeste li sigurni?</h4>
+        </div>
+        <div class="modal-body">
+          @yield('modal_body_content') <span class="data_info"></span>?
+        </div>
+        <div class="modal-footer">
+			<button type="button" id="submit_delete" class="btn btn-danger" data-dismiss="modal">Da</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Ne</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
     @yield('content')
 	  
@@ -277,12 +300,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 	<script>
-	$(document).on("click", ".delete", function(){
+	/*$(document).on("click", ".delete", function(){
 		var info = $(this).data('info');
 		if(confirm('Želite obrisati?')){
 		$(this).closest('form').submit();
 	}	
 	});
+	*/
+	var deletee;
+	var data;
+	
+	$(document).on("click", ".delete", function(){
+		data = $(this).data('info');
+		$('#delete_modal').modal();
+		$('.data_info').text(data);
+		deletee = $(this);
+		
+	});
+	$(document).on("click", "#submit_delete", function(){
+		deletee.closest('form').submit();
+	});
+	
 	</script>
     @yield('script')
 </body>
