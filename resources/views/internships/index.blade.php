@@ -57,9 +57,7 @@
 							{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
 								<button class="btn btn-info btn-sm">Prikaži</button>
 							{{ Form::close() }}
-																			
-							<a href="{{ route('internships.edit', $internship->id) }}" class="btn btn-warning btn-sm">Uredi</a>
-											
+				
 							{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
 								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
 							{{ Form::close() }}
