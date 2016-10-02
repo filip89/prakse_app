@@ -30,7 +30,7 @@
 						@else
 						<form action="{{ url('/user/admin/' . $user->id) }}" method="POST">
 							{{ csrf_field() }}
-							<button class="btn btn-primary btn-sm" ><i class="fa fa-btn fa-times" aria-hidden="true"></i>Ukloni kao admina</button>
+							<button type="button" data-info="{{ 'kao admina' }}" class="btn btn-primary btn-sm delete" ><i class="fa fa-btn fa-times" aria-hidden="true"></i>Ukloni kao admina</button>
 						</form>
 						@endif
 					@endif
@@ -109,7 +109,7 @@
     </div>
 </div>
 @endsection
-@section('script')
-<script>
-</script>
+
+@section('modal_body_content')
+	Ukloniti mentora
 @endsection

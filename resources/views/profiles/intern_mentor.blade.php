@@ -107,3 +107,7 @@ table {
     </div>
 </div>
 @endsection
+
+@section('modal_body_content')
+	Ukloniti mentora
+@endsection

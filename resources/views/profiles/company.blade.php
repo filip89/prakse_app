@@ -110,3 +110,7 @@
     </div>
 </div>
 @endsection
+
+@section('modal_body_content')
+	Ukloniti tvrtku
+@endsection
