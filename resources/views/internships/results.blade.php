@@ -33,7 +33,23 @@
 }
 .com_date {
 	display: block;
+	width: 100px;
 	padding-top: 10px;
+	border-bottom: 1px solid black;
+}
+.input-group-btn{
+	position: relative;
+}
+.search-btn {
+	position: absolute;
+	height: 34px;
+}
+.search_box {
+	display: block;
+	position: absolute;
+	width: 200px;
+	right: 0;
+	top: 20px;
 }
 
 </style>
@@ -51,7 +67,7 @@
 		@endif
 
 		@if(isset($competitions)) <h5><b>Datum objave:<br><span class="com_date">{{ date('d M, Y', strtotime($competitions->results_date)) }}</span></b></h5> @endif
-		<h1>Rezultati</h1>
+		<h1>Rezultati</h1>		
 		
 		@if(count($competitionList) > 0)	
 			<div class="dropdown">
@@ -72,6 +88,19 @@
 		@if((isset($competitions->status) && $competitions->status != 0) || $competitions == null)
 			<h3>Nema objavljenih rezultata</h3> 
 		@else
+
+		<div class="search_box">
+			<form class="search_form" action="{{ action('InternshipController@showResults') }}" method="GET">			
+			    <div class="input-group">
+			        {{ Form::text('srch_term', Request::get('srch_term'), ['class' => 'form-control', 'placeholder' => 'Pretraži...']) }}
+			      
+				    <span class="input-group-btn">
+				      	<button class="btn btn-default search-btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+				    </span>
+			    </div>			  	
+			</form>
+		</div>
+
 		<div class="btn btn-primary competition"><span class="com_year">Godina: {{ $competitions->year }}</span><span>{{ $competitions->name }}</span></div>	
 			{{--*/ $count = 0 /*--}}
 			<div class="res_box">																		
@@ -89,12 +118,12 @@
 								<th>Akademska godina</th>
 								<th>Tvrtka</th>	
 								@if(Auth::user()->role == 'college_mentor') <th>Potvrda</th> @else <th></th> 
-								<th></th>
 								@endif					
 							</tr>
 						</thead>
 
 						<tbody>
+						@if(count($internships) != null)
 						@foreach($internships as $internship)						
 							<tr>						
 								<td>{{ $count+1 }}</td>
@@ -108,8 +137,62 @@
 								<td>{{ $internship->company['name']}}</td>
 								<td style="text-align: center;">
 									@if($internship->student_id == Auth::user()->id && $internship->confirmation_student === 1 && $internship->competition_id == $newCompetition->id)																				
-										<button type="button" data-toggle="modal" data-target="#myModalComment" class="btn btn-danger btn-sm">Odbij</button>
-										
+										<button type="button" data-toggle="modal" data-target="#myModalComment" class="btn btn-danger btn-sm">Odbij</button>									
+
+										<!-- Modal Create -->
+										<div class="modal fade" id="myModalComment" tabindex="-1" role="dialog" 
+										     aria-labelledby="myModalLabel" aria-hidden="true">
+										    <div class="modal-dialog">
+										        <div class="modal-content">
+										            <!-- Modal Header -->
+										            <div class="modal-header">
+										                <button type="button" class="close" 
+										                   data-dismiss="modal">
+										                       <span aria-hidden="true">&times;</span>
+										                       <span class="sr-only">Close</span>
+										                </button>
+										                <h4 class="modal-title" id="myModalLabel">
+										                    Upišite razlog odbijanja prakse
+										                </h4>
+										            </div>
+										            
+										            <!-- Modal Body -->
+										            <div class="modal-body">
+										                
+										               <form class="form-horizontal" role="form" method="POST" action="{{ action('InternshipController@rejectionComment') }}">
+										                    {{ csrf_field() }}
+																	
+										                <div class="form-group{{ $errors->has('rejection_comment') ? ' has-error' : '' }}">
+															<input type="hidden" name="id" value="{{ $internship->id }}">
+															<input type="hidden" name="confirmation_student" value="0">
+										                    <label for="rejection_comment" class="col-md-4 control-label">Komentar</label>
+										                    <div class="col-md-6">
+										                        <textarea rows="8" class="form-control" name="rejection_comment"></textarea>
+
+										                        @if ($errors->has('rejection_comment'))
+										                            <span class="help-block">
+										                                <strong>{{ $errors->first('rejection_comment') }}</strong>
+										                            </span>
+										                        @endif
+										                    </div>
+										                </div>
+										                  
+										                <div class="form-group">
+										                    <div class="col-md-6 col-md-offset-4">
+										                        <button type="submit" class="btn btn-primary action_buttons">
+										                            <i class="fa fa-btn fa-sign-in"></i> Spremi
+										                        </button>
+										                    </div>
+										                </div>
+										                  
+										                </form>
+										                                                                                     
+										            </div>
+										            
+										        </div>
+										    </div>
+										</div>
+
 									@elseif($internship->student_id == Auth::user()->id && $internship->confirmation_student !== null) 
 										<i class="fa fa-times fa-2x" aria-hidden="true"></i>	
 									@elseif(Auth::user()->role == 'college_mentor')
@@ -124,13 +207,13 @@
 
 									@if(Auth::user()->role == 'college_mentor' || Auth::user()->isAdmin())
 									<td class="row_buttons">
-										{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
+										{{ Form::open(['route' => ['internships.show', $internship->internships_id], 'method' => 'GET']) }}
 											<button class="btn btn-info btn-sm">Prikaži</button>
 										{{ Form::close() }}
 									
 										@if($internship->college_mentor_id == null)
 
-											<form action="{{ action('InternshipController@addMentor', ['id' => $internship->id]) }}" method="POST">
+											<form action="{{ action('InternshipController@addMentor', ['id' => $internship->internships_id]) }}" method="POST">
 												<input name="_token" type="hidden" value="{!! csrf_token() !!}" />
 												<input type="hidden" name="college_mentor_id" value="{{ Auth::user()->id }}"> 
 												<button type="submit" class="btn btn-success btn-sm">Mentoriraj</button>
@@ -138,7 +221,7 @@
 											
 											@elseif($internship->college_mentor_id == Auth::user()->id)
 
-											<form action="{{ action('InternshipController@removeMentor', ['id' => $internship->id]) }}" method="POST">	
+											<form action="{{ action('InternshipController@removeMentor', ['id' => $internship->internships_id]) }}" method="POST">	
 												<input name="_token" type="hidden" value="{!! csrf_token() !!}" />							
 												<button type="submit" class="btn btn-danger btn-sm">Otkaži mentorstvo</button>
 											</form>
@@ -152,69 +235,16 @@
 							
 							{{--*/ $count += 1 /*--}}
 						@endforeach	
+						@else
+							<td colspan="10"><h3>Nema pronađenih rezultata</h3></td>
+						@endif
 						</tbody>							
 					</table>
 				</div>	
 			</div>
+
 		@endif
 		</div>
 	</div>
 </div>
-
-@if((isset($competitions->status) && $competitions->status == 0))
-<!-- Modal Create -->
-<div class="modal fade" id="myModalComment" tabindex="-1" role="dialog" 
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <button type="button" class="close" 
-                   data-dismiss="modal">
-                       <span aria-hidden="true">&times;</span>
-                       <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    Upišite razlog odbijanja prakse
-                </h4>
-            </div>
-            
-            <!-- Modal Body -->
-            <div class="modal-body">
-                
-               <form class="form-horizontal" role="form" method="POST" action="{{ action('InternshipController@rejectionComment') }}">
-                    {{ csrf_field() }}
-				
-				
-                <div class="form-group{{ $errors->has('rejection_comment') ? ' has-error' : '' }}">
-					<input type="hidden" name="id" value="{{ $internship->id }}">
-					<input type="hidden" name="confirmation_student" value="0">
-                    <label for="rejection_comment" class="col-md-4 control-label">Komentar</label>
-                    <div class="col-md-6">
-                        <textarea rows="8" class="form-control" name="rejection_comment"></textarea>
-
-                        @if ($errors->has('rejection_comment'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('rejection_comment') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-                  
-                <div class="form-group">
-                    <div class="col-md-6 col-md-offset-4">
-                        <button type="submit" class="btn btn-primary action_buttons">
-                            <i class="fa fa-btn fa-sign-in"></i> Spremi
-                        </button>
-                    </div>
-                </div>
-                  
-                </form>
-                                                                                     
-            </div>
-            
-        </div>
-    </div>
-</div>
-@endif
 @endsection
