@@ -54,18 +54,16 @@
 							<td>{{ $internship->student['last_name']}}</td>
 							<td>{{ $academicYear->academicYear($internship->academic_year) }}</td>
 							<td>{{ $internship->company['name']}}</td>
-							<td style="text-align: center;">
+							<td class="centered">
 							@if($internship->confirmation_student == 1)
-								<i class="fa fa-check fa-2x" aria-hidden="true"></i>
-							@elseif($internship->confirmation_student === 0)
-								<i class="fa fa-times fa-2x" aria-hidden="true"></i>
+								<div class="circle yes"><i class="fa fa-check fa-xs y" aria-hidden="true"></i></div>
 							@else
-								<i class="fa fa-spinner fa-2x" aria-hidden="true"></i>
+								<div class="circle no"><i class="fa fa-times fa-xs x" aria-hidden="true"></i></div>					
 							@endif
 							</td>
 
 						
-						<td class="row_buttons">
+						<td class="row_buttons centered">
 							{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
 								<button class="btn btn-info btn-sm">Prikaži</button>
 							{{ Form::close() }}

@@ -35,7 +35,6 @@
 	display: block;
 	width: 100px;
 	padding-top: 10px;
-	border-bottom: 1px solid black;
 }
 .input-group-btn{
 	position: relative;
@@ -51,6 +50,7 @@
 	right: 0;
 	top: 20px;
 }
+
 
 </style>
 
@@ -89,6 +89,18 @@
 			<h3>Nema objavljenih rezultata</h3> 
 		@else
 
+		<div class="search_box">
+			<form class="search_form" action="{{ action('InternshipController@showResults') }}" method="GET">			
+			    <div class="input-group">
+			        {{ Form::text('srch_term', Request::get('srch_term'), ['class' => 'form-control', 'placeholder' => 'Pretraži...']) }}
+			        @if(isset($_GET['id']))  {{ Form::hidden('id', $_GET['id']) }} @endif
+				    <span class="input-group-btn">
+				      	<button class="btn btn-default search-btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+				    </span>
+			    </div>			  	
+			</form>
+		</div>
+
 		<div class="btn btn-primary competition"><span class="com_year">Godina: {{ $competitions->year }}</span><span>{{ $competitions->name }}</span></div>	
 			{{--*/ $count = 0 /*--}}
 			<div class="res_box">																		
@@ -105,7 +117,7 @@
 								<th>Prezime</th>
 								<th>Akademska godina</th>
 								<th>Tvrtka</th>	
-								@if(Auth::user()->role == 'college_mentor') <th>Potvrda</th> @else <th></th> 
+								@if(!Auth::guest()) <th>Potvrda</th> 
 								@endif					
 							</tr>
 						</thead>
@@ -123,7 +135,7 @@
 								<td>{{ $internship->student['last_name']}}</td>
 								<td>{{ $academicYear->academicYear($internship->academic_year) }}</td>
 								<td>{{ $internship->company['name']}}</td>
-								<td style="text-align: center;">
+								<td class="centered">
 									@if($internship->student_id == Auth::user()->id && $internship->confirmation_student === 1 && $internship->competition_id == $newCompetition->id)																				
 										<button type="button" data-toggle="modal" data-target="#myModalComment" class="btn btn-danger btn-sm">Odbij</button>									
 
@@ -151,7 +163,7 @@
 										                    {{ csrf_field() }}
 																	
 										                <div class="form-group{{ $errors->has('rejection_comment') ? ' has-error' : '' }}">
-															<input type="hidden" name="id" value="{{ $internship->id }}">
+															<input type="hidden" name="sid" value="{{ $internship->id }}">
 															<input type="hidden" name="confirmation_student" value="0">
 										                    <label for="rejection_comment" class="col-md-4 control-label">Komentar</label>
 										                    <div class="col-md-6">
@@ -182,34 +194,32 @@
 										</div>
 
 									@elseif($internship->student_id == Auth::user()->id && $internship->confirmation_student !== null) 
-										<i class="fa fa-times fa-2x" aria-hidden="true"></i>	
+										<div class="circle no"><i class="fa fa-times fa-xs x" aria-hidden="true"></i></div>	
 									@elseif(Auth::user()->role == 'college_mentor')
-										@if($internship->confirmation_student === null)
-											<i class="fa fa-spinner fa-2x" aria-hidden="true"></i>
-										@elseif($internship->confirmation_student == 0)
-											<i class="fa fa-times fa-2x test" aria-hidden="true"></i>
+										@if($internship->confirmation_student == 0)										
+											<div class="circle no"><i class="fa fa-times fa-xs x" aria-hidden="true"></i></div>
 										@else
-											<i class="fa fa-check fa-2x" aria-hidden="true"></i>
+											<div class="circle yes"><i class="fa fa-check fa-xs y" aria-hidden="true"></i></div>
 										@endif
 									@endif
 
 									@if(Auth::user()->role == 'college_mentor' || Auth::user()->isAdmin())
-									<td class="row_buttons">
-										{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
+									<td class="row_buttons centered">
+										{{ Form::open(['route' => ['internships.show', $internship->internships_id], 'method' => 'GET']) }}
 											<button class="btn btn-info btn-sm">Prikaži</button>
 										{{ Form::close() }}
 									
 										@if($internship->college_mentor_id == null)
 
-											<form action="{{ action('InternshipController@addMentor', ['id' => $internship->id]) }}" method="POST">
+											<form action="{{ action('InternshipController@addMentor', ['id' => $internship->internships_id]) }}" method="POST">
 												<input name="_token" type="hidden" value="{!! csrf_token() !!}" />
 												<input type="hidden" name="college_mentor_id" value="{{ Auth::user()->id }}"> 
-												<button type="submit" class="btn btn-success btn-sm">Mentoriraj</button>
+												<button type="submit" class="btn btn-primary btn-sm">Mentoriraj</button>
 											</form>
 											
 											@elseif($internship->college_mentor_id == Auth::user()->id)
 
-											<form action="{{ action('InternshipController@removeMentor', ['id' => $internship->id]) }}" method="POST">	
+											<form action="{{ action('InternshipController@removeMentor', ['id' => $internship->internships_id]) }}" method="POST">	
 												<input name="_token" type="hidden" value="{!! csrf_token() !!}" />							
 												<button type="submit" class="btn btn-danger btn-sm">Otkaži mentorstvo</button>
 											</form>

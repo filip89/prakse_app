@@ -194,7 +194,7 @@ table:nth-of-type(1)  {
 					<tr><th colspan="2" class="table_section optional"><span class="doc_title">Izvještaj</span><br><span class="doc_info">(Za izradu izvještaja potrebno je odraditi praksu)</span></th></tr> 
 					<tr><th>Izvještaj o obavljenoj praksi:</th><td class="comment_box">
 						<a class="btn btn-success fa-sm" href="{{ url('/internships/createReport') }}" 
-						@if($internship->status != 0 ) {{ 'disabled' }} @endif
+						@if($internship->status != 0 || $internship->confirmation_student == 0) {{ 'disabled' }} @endif
 						><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 					</td></tr>
 				@endif
@@ -207,5 +207,9 @@ table:nth-of-type(1)  {
 
 </div>
 
+@endsection
+
+@section('modal_body_content')
+	Ukloniti praksu
 @endsection
 
