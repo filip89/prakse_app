@@ -163,6 +163,31 @@
 			background-color: #f2f2f2;
 			padding: 10px;
 		}
+		.centered {
+			text-align: center;
+			vertical-align: middle !important;
+		}
+		.circle {
+			display: block;
+			width: 30px;
+			height: 30px;	
+			border-radius: 50%;	
+			margin: auto auto;
+		}
+		.yes {
+			border: 3px solid #4cae4c;
+		}
+		.no {
+			border: 3px solid #d43f3a;
+		}
+		.y {
+			margin-top: 20%;
+			color: #5cb85c;
+		}
+		.x {
+			margin-top: 20%;
+			color: #d9534f;
+		}
 		
     @yield('style')
     </style>
