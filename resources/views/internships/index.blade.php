@@ -14,9 +14,20 @@
 
 			<h1>Prijavljene prakse</h1>
 
-			@if(count($internships) < 1)
+			@if(count($internships) == null  && !isset($_GET['srch_term']))
 				<h3 style="text-align:center;color:gray;">Ne postoji niti jedna praksa.</h3>
 			@else
+
+			<div class="search_box">
+				<form class="search_form" action="{{ action('InternshipController@index') }}" method="GET">			
+				    <div class="input-group">
+				        {{ Form::text('srch_term', Request::get('srch_term'), ['class' => 'form-control', 'placeholder' => 'Pretraži...']) }}
+					    <span class="input-group-btn">
+					      	<button class="btn btn-default search-btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+					    </span>
+				    </div>			  	
+				</form>
+			</div>
 			
 			<div class="table-responsive">
 
@@ -33,12 +44,13 @@
 							<th>Prezime</th>
 							<th>Akademska godina</th>
 							<th>Tvrtka</th>	
-							<th></th>					
+							@if(count($internships) != null) <th></th> @endif					
 						</tr>
 					</thead>
-
-					<tbody>	
 					{{--*/ $count = '' /*--}}
+
+					<tbody>						
+					@if(count($internships) != null)
 					@foreach($internships as $internship)
 						
 						<tr>					
@@ -54,11 +66,11 @@
 
 						
 						<td class="row_buttons centered">
-							{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
+							{{ Form::open(['route' => ['internships.show', $internship->internships_id], 'method' => 'GET']) }}
 								<button class="btn btn-info btn-sm">Prikaži</button>
 							{{ Form::close() }}
 											
-							{{ Form::open(['route' => ['internships.destroy', $internship->id], 'method' => 'DELETE']) }}
+							{{ Form::open(['route' => ['internships.destroy', $internship->internships_id], 'method' => 'DELETE']) }}
 								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
 							{{ Form::close() }}
 						</td>
@@ -67,6 +79,9 @@
 						{{--*/ $count += 1 /*--}}
 
 					@endforeach
+					@else
+						<td colspan="10"><h3>Nema pronađenih rezultata</h3></td>
+					@endif
 
 					</tbody>
 
@@ -79,6 +94,10 @@
 		</div>
 	</div>
 </div>	
+@endsection
+
+@section('modal_body_content')
+	Ukloniti praksu
 @endsection
 
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-<style>
+@section('style')
 .competition {
 	width: 100%;
 	margin-top: 15px;
@@ -39,20 +39,7 @@
 .input-group-btn{
 	position: relative;
 }
-.search-btn {
-	position: absolute;
-	height: 34px;
-}
-.search_box {
-	display: block;
-	position: absolute;
-	width: 200px;
-	right: 0;
-	top: 20px;
-}
-
-
-</style>
+@endsection
 
 @section('content')
 <div class="container">
@@ -240,6 +227,8 @@
 					</table>
 				</div>	
 			</div>
+
+			<div class="pagination">{{ $internships->render() }}</div>
 
 		@endif
 		</div>
