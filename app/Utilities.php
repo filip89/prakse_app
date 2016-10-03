@@ -114,6 +114,7 @@ class Utilities
 				$query->whereIn('name', $term);
 
 			} else {
+				$term = str_replace(' ', '', $term);
 				$query->orWhere('name', 'like', '%'. $term . '%');
 				$query->orWhere('last_name', 'like', '%'. $term . '%');
 			}
