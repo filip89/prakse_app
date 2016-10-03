@@ -81,13 +81,46 @@ class InternshipController extends Controller
         if($request->id == null) {
             $competitions = Competition::orderBy('created_at', 'desc')->where('status', 0)->first();
             if(count($competitions) != null) {
-                $internships = Internship::where('status', 0)->where('competition_id', $competitions->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->get();
+                
+                $internships = Internship::join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $competitions) {
+                    if(($term = $request->get('srch_term'))) {
+                        $words = str_word_count($term);
+                        if($words > 1) {
+                            $term = str_word_count($term, 1, 'čćžšđ');
+                           
+                            $query->whereIn('last_name', $term);
+                            $query->whereIn('name', $term);
+                            
+                        } else {
+                            $query->orWhere('name', 'like', '%'. $term . '%');
+                            $query->orWhere('last_name', 'like', '%'. $term . '%');
+                        }
+                               
+                    }
+                })->orderBy('total_points', 'desc')->where('status', 0)->where('competition_id', $competitions->id)->where('confirmation_admin', 1)->get();
+
             } else {
                 $internships = Internship::all();
             }
+           
         } else {
             $competitions = Competition::where('id', $request->id)->where('status', 0)->first();
-            $internships = Internship::where('status', 0)->where('competition_id', $request->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->get();            
+            $internships = Internship::join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $competitions) {
+                    if(($term = $request->get('srch_term'))) {
+                        $words = str_word_count($term);
+                        if($words > 1) {
+                            $term = str_word_count($term, 1, 'čćžšđ');
+                           
+                            $query->whereIn('last_name', $term);
+                            $query->whereIn('name', $term);
+                            
+                        } else {
+                            $query->orWhere('name', 'like', '%'. $term . '%');
+                            $query->orWhere('last_name', 'like', '%'. $term . '%');
+                        }
+                               
+                    } 
+            })->where('status', 0)->where('competition_id', $request->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->get();           
         }
 
         $newCompetition = Competition::orderBy('created_at', 'desc')->first();
@@ -104,6 +137,7 @@ class InternshipController extends Controller
             ->with('academicYear', $academicYear)
             ->with('competitionList', $competitionList)
             ->with('newCompetition', $newCompetition);
+            
     }
     
     public function show($id) {
@@ -212,21 +246,18 @@ class InternshipController extends Controller
                 $internship->confirmation_admin = null;
             }           
 
-        $internship->save();
+            $internship->save(); 
 
-        Session::flash('status', 'Praksa uspješno uređena!');
-        Session::flash('alert_type', 'alert-warning');
+            Session::flash('status', 'Praksa uspješno uređena!');
+            Session::flash('alert_type', 'alert-warning');
 
-        if($request->company_id == null && $internship->status != 0) {
-            return redirect()->route('internships.index');
-        } elseif($request->company_id != null && $internship->status != 0) {
-            return redirect()->action('InternshipController@showFinal');
-        } elseif($internship->status == 0) {
-            return redirect()->action('InternshipController@showResults'); 
-        }
-
-        
-            
+            if($request->company_id == null && $internship->status != 0) {
+                return redirect()->route('internships.index');
+            } elseif($request->company_id != null && $internship->status != 0) {
+                return redirect()->action('InternshipController@showFinal');
+            } elseif($internship->status == 0) {
+                return redirect()->action('InternshipController@showResults'); 
+            }
 
         } else {
 
@@ -279,16 +310,18 @@ class InternshipController extends Controller
 
     public function rejectionComment(Request $request) {
 
-        $internship = Internship::find($request->id);
+        $internship = Internship::where('student_id', Auth::user()->id)->where('status', 0)->orderBy('created_at', 'desc')->first();
 
         $internship->confirmation_student = $request->confirmation_student;
         $internship->rejection_comment = $request->rejection_comment;
+   
         $internship->save();
 
         Session::flash('status', 'Odbili ste praksu!');
         Session::flash('alert_type', 'alert-danger');
 
-        return redirect()->action('InternshipController@showResults'); 
+        return redirect()->action('InternshipController@showResults');
+        
     }
    
     public function addMentor(Request $request, $id) {
