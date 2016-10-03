@@ -195,13 +195,13 @@
 
 									@if(Auth::user()->role == 'college_mentor' || Auth::user()->isAdmin())
 									<td class="row_buttons">
-										{{ Form::open(['route' => ['internships.show', $internship->internships_id], 'method' => 'GET']) }}
+										{{ Form::open(['route' => ['internships.show', $internship->id], 'method' => 'GET']) }}
 											<button class="btn btn-info btn-sm">Prikaži</button>
 										{{ Form::close() }}
 									
 										@if($internship->college_mentor_id == null)
 
-											<form action="{{ action('InternshipController@addMentor', ['id' => $internship->internships_id]) }}" method="POST">
+											<form action="{{ action('InternshipController@addMentor', ['id' => $internship->id]) }}" method="POST">
 												<input name="_token" type="hidden" value="{!! csrf_token() !!}" />
 												<input type="hidden" name="college_mentor_id" value="{{ Auth::user()->id }}"> 
 												<button type="submit" class="btn btn-success btn-sm">Mentoriraj</button>
@@ -209,7 +209,7 @@
 											
 											@elseif($internship->college_mentor_id == Auth::user()->id)
 
-											<form action="{{ action('InternshipController@removeMentor', ['id' => $internship->internships_id]) }}" method="POST">	
+											<form action="{{ action('InternshipController@removeMentor', ['id' => $internship->id]) }}" method="POST">	
 												<input name="_token" type="hidden" value="{!! csrf_token() !!}" />							
 												<button type="submit" class="btn btn-danger btn-sm">Otkaži mentorstvo</button>
 											</form>
