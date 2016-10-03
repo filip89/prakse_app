@@ -37,7 +37,6 @@ class InternshipController extends Controller
             'change',
             'create',           
             'destroy',
-            
         ]]);
         
         $this->middleware('mentor', ['only' => [
@@ -49,27 +48,37 @@ class InternshipController extends Controller
 
         $this->middleware('student', ['only' => [
             'getReport',
-            'createReport',
-            
+            'createReport',       
         ]]);
         
     }
 
-    public function index() {
-        $internship = Internship::where('status', 1)->orderBy('total_points', 'desc')->paginate(2);
-        $companies= Company::where('status', 1)->get();
+    public function index(Request $request) {
+      
+        $companies = Company::where('status', 1)->get();
         $academicYear = new Utilities;
 
+        $internships = Internship::join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request) {
+
+            Utilities::searchTerm($request, $query);
+
+        })->where('status', 1)->orderBy('total_points', 'desc')->paginate(20);
+
         return view('internships.index')
-            ->with('internships', $internship)
+            ->with('internships', $internships)
             ->with('companies', $companies)
             ->with('academicYear', $academicYear);           
     }
 
-    public function showFinal() {
+    public function showFinal(Request $request) {
 
-        $internships = Internship::where('status', 2)->orderBy('total_points', 'desc')->paginate(2);
         $academicYear = new Utilities;
+        $internships = Internship::join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request) {
+
+            Utilities::searchTerm($request, $query);
+
+        })->where('status', 2)->orderBy('total_points', 'desc')->paginate(20);        
+        
 
         return view('internships.final')
             ->with('internships', $internships)
@@ -83,21 +92,10 @@ class InternshipController extends Controller
             if(count($competitions) != null) {
                 
                 $internships = Internship::join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $competitions) {
-                    if(($term = $request->get('srch_term'))) {
-                        $words = str_word_count($term);
-                        if($words > 1) {
-                            $term = str_word_count($term, 1, 'čćžšđ');
-                           
-                            $query->whereIn('last_name', $term);
-                            $query->whereIn('name', $term);
-                            
-                        } else {
-                            $query->orWhere('name', 'like', '%'. $term . '%');
-                            $query->orWhere('last_name', 'like', '%'. $term . '%');
-                        }
-                               
-                    }
-                })->orderBy('total_points', 'desc')->where('status', 0)->where('competition_id', $competitions->id)->where('confirmation_admin', 1)->get();
+
+                    Utilities::searchTerm($request, $query);
+
+                })->orderBy('total_points', 'desc')->where('status', 0)->where('competition_id', $competitions->id)->where('confirmation_admin', 1)->paginate(20);
 
             } else {
                 $internships = Internship::all();
@@ -106,21 +104,10 @@ class InternshipController extends Controller
         } else {
             $competitions = Competition::where('id', $request->id)->where('status', 0)->first();
             $internships = Internship::join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $competitions) {
-                    if(($term = $request->get('srch_term'))) {
-                        $words = str_word_count($term);
-                        if($words > 1) {
-                            $term = str_word_count($term, 1, 'čćžšđ');
-                           
-                            $query->whereIn('last_name', $term);
-                            $query->whereIn('name', $term);
-                            
-                        } else {
-                            $query->orWhere('name', 'like', '%'. $term . '%');
-                            $query->orWhere('last_name', 'like', '%'. $term . '%');
-                        }
-                               
-                    } 
-            })->where('status', 0)->where('competition_id', $request->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->get();           
+             
+                Utilities::searchTerm($request, $query);
+
+            })->where('status', 0)->where('competition_id', $request->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->paginate(20);          
         }
 
         $newCompetition = Competition::orderBy('created_at', 'desc')->first();
