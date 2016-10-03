@@ -188,6 +188,17 @@
 			margin-top: 20%;
 			color: #d9534f;
 		}
+		.search-btn {
+			position: absolute;
+			height: 34px;
+		}
+		.search_box {
+			display: block;
+			position: absolute;
+			width: 200px;
+			right: 0;
+			top: 20px;
+		}
 		
     @yield('style')
     </style>
