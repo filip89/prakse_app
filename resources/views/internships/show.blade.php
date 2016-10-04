@@ -72,7 +72,9 @@ table:nth-of-type(1)  {
 
 		@if(isset($paginate) == 1)<div class="pagination">{{ $internships->render() }}</div>@endif
 		@if($internship->student->id == Auth::user()->id)
-			<a type="button" style="float:right;margin-bottom:20px" class="btn btn-bg btn-default" href="/user_internships"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Prijašnje prakse</a>
+			<a type="button" style="float:right;margin-bottom:20px" class="btn btn-bg btn-default" href="/user_internships"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Povijest praksi</a>
+		@elseif(Auth::user()->isAdmin())
+			<a type="button" style="float:right;margin-bottom:20px" class="btn btn-bg btn-default" href="/user_internships/ {{ $internship->student->id }} "><i class="fa fa-btn fa-history" aria-hidden="true"></i>Povijest praksi</a>
 		@endif
 		<h1 style="clear:both;">{{ $internship->student['name'].' '.$internship->student['last_name'] }}@if($internship->company_id != 0){{ ' - '.$internship->company['name'] }}@endif</h1>
 		
