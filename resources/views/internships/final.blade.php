@@ -44,7 +44,6 @@
 								<th>Prezime</th>
 								<th>Akademska godina</th>
 								<th>Tvrtka</th>	
-								<th>Potvrda</th>
 								@if(count($internships) != null) <th></th> @endif					
 							</tr>
 						</thead>
@@ -64,15 +63,7 @@
 								<td>{{ $internship->student['last_name']}}</td>
 								<td>{{ $academicYear->academicYear($internship->academic_year) }}</td>
 								<td>{{ $internship->company['name']}}</td>
-								<td class="centered">
-								@if($internship->confirmation_student == 1)
-									<div class="circle yes"><i class="fa fa-check fa-xs y" aria-hidden="true"></i></div>
-								@else
-									<div class="circle no"><i class="fa fa-times fa-xs x" aria-hidden="true"></i></div>					
-								@endif
-								</td>
-
-							
+								
 							<td class="row_buttons centered">
 								{{ Form::open(['route' => ['internships.show', $internship->internships_id], 'method' => 'GET']) }}
 									<button class="btn btn-info btn-sm">Prikaži</button>
