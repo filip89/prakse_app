@@ -53,14 +53,15 @@ class InternshipController extends Controller
         
     }
 
-    public function index(Request $request) {
+     public function index(Request $request) {
       
         $companies = Company::where('status', 1)->get();
         $academicYear = new Utilities;
+        $identifier = 1;
 
-        $internships = Internship::join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request) {
+        $internships = Internship::join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $identifier) {
 
-            Utilities::searchTerm($request, $query);
+            return $this->searchTerm($request, $query, $identifier);
 
         })->where('status', 1)->orderBy('total_points', 'desc')->paginate(20);
 
@@ -73,9 +74,10 @@ class InternshipController extends Controller
     public function showFinal(Request $request) {
 
         $academicYear = new Utilities;
-        $internships = Internship::join('companies', 'internships.company_id', '=', 'companies.id')->join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request) {
+        $identifier = 0;
+        $internships = Internship::join('companies', 'internships.company_id', '=', 'companies.id')->join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $identifier) {
 
-            Utilities::searchTerm($request, $query);
+            return $this->searchTerm($request, $query, $identifier);
 
         })->where('internships.status', 2)->orderBy('total_points', 'desc')->paginate(20);        
         
@@ -89,21 +91,26 @@ class InternshipController extends Controller
 
         if($request->id == null) {
             $competitions = Competition::orderBy('created_at', 'desc')->where('status', 0)->first();
+            $identifier = 0;
             if(count($competitions) != null) {
                 
-                $internships = Internship::join('companies', 'internships.company_id', '=', 'companies.id')->join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $competitions) {
+                $internships = Internship::join('companies', 'internships.company_id', '=', 'companies.id')->join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $competitions, $identifier) {
 
-                    Utilities::searchTerm($request, $query);
+                    return $this->searchTerm($request, $query, $identifier);
 
                 })->where('internships.status', 0)->where('competition_id', $competitions->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->paginate(20);
 
-            } 
+            } else {
+
+                $internships = null;
+            }
            
         } else {
             $competitions = Competition::where('id', $request->id)->where('status', 0)->first();
-            $internships = Internship::join('companies', 'internships.company_id', '=', 'companies.id')->join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $competitions) {
+            $identifier = 0;
+            $internships = Internship::join('companies', 'internships.company_id', '=', 'companies.id')->join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $competitions, $identifier) {
              
-                Utilities::searchTerm($request, $query);
+                return $this->searchTerm($request, $query, $identifier);
 
             })->where('internships.status', 0)->where('competition_id', $request->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->paginate(20);          
         }
@@ -414,6 +421,32 @@ class InternshipController extends Controller
         $pdf->setPaper('A4', 'portrait');
 
         return $pdf->stream('Izvješće o obavljenoj praksi.pdf');
+    }
+
+    public static function searchTerm($request, $query, $identifier) {
+
+        if(($term = $request->get('srch_term'))) {
+            $words = str_word_count($term);
+            if($words > 1) {
+                $term = str_word_count($term, 1, 'čćžšđ');
+                $spacedTerm = str_word_count($request->get('srch_term'), 1, 'čćžšđ ');
+
+                $query->whereIn('users.last_name', $term);
+                $query->whereIn('users.name', $term);
+                if($identifier == 0) {
+                    $query->orWhereIn('companies.name', $spacedTerm);
+                }
+                
+            } else {
+                $term = str_replace(' ', '', $term);
+                $query->orWhere('users.name', 'like', '%'. $term . '%');
+                $query->orWhere('users.last_name', 'like', '%'. $term. '%');
+                if($identifier == 0) {
+                    $query->orWhere('companies.name', 'like', '%'. $term . '%');
+                }
+            }
+                   
+            }
     }
 
 }
