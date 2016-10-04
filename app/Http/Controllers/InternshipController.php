@@ -73,11 +73,11 @@ class InternshipController extends Controller
     public function showFinal(Request $request) {
 
         $academicYear = new Utilities;
-        $internships = Internship::join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request) {
+        $internships = Internship::join('companies', 'internships.company_id', '=', 'companies.id')->join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request) {
 
             Utilities::searchTerm($request, $query);
 
-        })->where('status', 2)->orderBy('total_points', 'desc')->paginate(20);        
+        })->where('internships.status', 2)->orderBy('total_points', 'desc')->paginate(20);        
         
 
         return view('internships.final')
@@ -91,23 +91,21 @@ class InternshipController extends Controller
             $competitions = Competition::orderBy('created_at', 'desc')->where('status', 0)->first();
             if(count($competitions) != null) {
                 
-                $internships = Internship::join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $competitions) {
+                $internships = Internship::join('companies', 'internships.company_id', '=', 'companies.id')->join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $competitions) {
 
                     Utilities::searchTerm($request, $query);
 
-                })->orderBy('total_points', 'desc')->where('status', 0)->where('competition_id', $competitions->id)->where('confirmation_admin', 1)->paginate(20);
+                })->where('internships.status', 0)->where('competition_id', $competitions->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->paginate(20);
 
-            } else {
-                $internships = Internship::all();
-            }
+            } 
            
         } else {
             $competitions = Competition::where('id', $request->id)->where('status', 0)->first();
-            $internships = Internship::join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $competitions) {
+            $internships = Internship::join('companies', 'internships.company_id', '=', 'companies.id')->join('users', 'internships.student_id', '=', 'users.id')->select('*', 'internships.id as internships_id')->where(function($query) use ($request, $competitions) {
              
                 Utilities::searchTerm($request, $query);
 
-            })->where('status', 0)->where('competition_id', $request->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->paginate(20);          
+            })->where('internships.status', 0)->where('competition_id', $request->id)->where('confirmation_admin', 1)->orderBy('total_points', 'desc')->paginate(20);          
         }
 
         $newCompetition = Competition::orderBy('created_at', 'desc')->first();
