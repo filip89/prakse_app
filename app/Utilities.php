@@ -109,14 +109,17 @@ class Utilities
 			$words = str_word_count($term);
 			if($words > 1) {
 				$term = str_word_count($term, 1, 'čćžšđ');
+				$spacedTerm = str_word_count($request->get('srch_term'), 1, 'čćžšđ ');
 
-				$query->whereIn('last_name', $term);
-				$query->whereIn('name', $term);
+				$query->whereIn('users.last_name', $term);
+				$query->whereIn('users.name', $term);
+				$query->orWhereIn('companies.name', $spacedTerm);
 
 			} else {
 				$term = str_replace(' ', '', $term);
-				$query->orWhere('name', 'like', '%'. $term . '%');
-				$query->orWhere('last_name', 'like', '%'. $term . '%');
+				$query->orWhere('users.name', 'like', '%'. $term . '%');
+				$query->orWhere('users.last_name', 'like', '%'. $term. '%');
+				$query->orWhere('companies.name', 'like', '%'. $term . '%');
 			}
                    
         	}
