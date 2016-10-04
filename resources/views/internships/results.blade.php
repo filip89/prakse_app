@@ -53,7 +53,7 @@
 		</div>
 		@endif
 
-		@if(isset($competitions)) <h5><b>Datum objave:<br><span class="com_date">{{ date('d M, Y', strtotime($competitions->results_date)) }}</span></b></h5> @endif
+		@if(isset($competitions)) <h5><b>Datum objave:<br><span class="com_date">{{ date('d. m. Y', strtotime($competitions->results_date)) }}</span></b></h5> @endif
 		<h1>Rezultati</h1>		
 		
 		@if(count($competitionList) > 0)	
