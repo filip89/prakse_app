@@ -88,6 +88,7 @@ Route::post('internships/comment', "InternshipController@comment");
 Route::post('internships/rejectionComment', "InternshipController@rejectionComment");
 Route::post('internships/addMentor/{id}', "InternshipController@addMentor");
 Route::post('internships/removeMentor/{id}', "InternshipController@removeMentor");
+Route::post('internships/addCompany', "InternshipController@addCompany");
 Route::any('internships/change/{id}', "InternshipController@change");
 Route::resource('internships', "InternshipController", ['except' => ['store', 'update']]);
 
