@@ -72,9 +72,7 @@ table:nth-of-type(1)  {
 
 		@if(isset($paginate) == 1)<div class="pagination">{{ $internships->render() }}</div>@endif
 		@if($internship->student->id == Auth::user()->id)
-			<a type="button" style="float:right;margin-bottom:20px" class="btn btn-bg btn-default" href="/user_internships"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Povijest praksi</a>
-		@elseif(Auth::user()->isAdmin())
-			<a type="button" style="float:right;margin-bottom:20px" class="btn btn-bg btn-default" href="/user_internships/ {{ $internship->student->id }} "><i class="fa fa-btn fa-history" aria-hidden="true"></i>Povijest praksi</a>
+			<a type="button" style="float:right;margin-bottom:20px" class="btn btn-bg btn-default" href="/user_internships"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Prijašnje prakse</a>
 		@endif
 		<h1 style="clear:both;">{{ $internship->student['name'].' '.$internship->student['last_name'] }}@if($internship->company_id != 0){{ ' - '.$internship->company['name'] }}@endif</h1>
 		
@@ -105,9 +103,20 @@ table:nth-of-type(1)  {
 				<tr><th>Mentor iz tvrtke:</th><td><a href="{{ action('UserController@viewProfile', $internship->intern_mentor['id']) }}">{{ $internship->intern_mentor['name'].' '.$internship->intern_mentor['last_name'] }}</a></td></tr>
 				<tr><th>Mentor nastavnik:</th><td><a href="{{ action('UserController@viewProfile', $internship->college_mentor['id']) }}">{{ $internship->college_mentor['name'].' '.$internship->college_mentor['last_name'] }}</a></td></tr>
 				<tr><th>Trajanje prakse:</th><td>{{ $internship->duration }}</td></tr>
-				<tr><th>Godina prakse:</th><td>{{ $internship->year }}</td></tr>
-				<tr><th>Datum početka prakse:</th><td>{{ date('d M, Y', strtotime($internship->start_date)) }}</td></tr>
-				<tr><th>Datum završetka prakse:</th><td>{{ date('d M, Y', strtotime($internship->end_date)) }}</td></tr>
+				<tr><th>Datum početka prakse:</th><td>
+					@if($internship->start_date == null)
+	                    {{ $internship->start_date }}
+	                @else
+	                    {{ date('d M, Y', strtotime($internship->start_date)) }}
+	                @endif
+	            </td></tr>
+				<tr><th>Datum završetka prakse:</th><td>
+					@if($internship->end_date == null)
+	                    {{ $internship->end_date }}
+	                @else
+	                    {{ date('d M, Y', strtotime($internship->end_date)) }}
+	                @endif
+	            </td></tr>
 				<tr><th>Studentova ocjena prakse:</th><td>{{ $internship->rating_by_student }}</td></tr>
 
 				<tr><th colspan="2" class="table_section">Komentari</th></tr>

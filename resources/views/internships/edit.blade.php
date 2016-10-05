@@ -202,21 +202,6 @@ th {
                             </div>
                         </div>
 
-						<div class="form-group{{ $errors->has('year') ? ' has-error' : '' }}">
-                            <label for="year" class="col-md-4 control-label">Godina</label>
-
-                            <div class="col-md-6">
-                                <input type="number" min="1990" max="2200" class="form-control" name="year" value="{{ old('year', $internship->year) }}"/>
-
-                                @if ($errors->has('year'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('year') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-						
-
 						@if(count($collegeMentor) != 0)
 						<div class="form-group">
                             <label for="college_mentor_id" class="col-md-4 control-label">Mentor nastavnik</label>
