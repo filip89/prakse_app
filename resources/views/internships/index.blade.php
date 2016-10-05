@@ -144,7 +144,7 @@
 
 							            <td>
 						                <div class="radio">
-						                    <label><input type="radio" id='company_id' name="company_id" value="{{ $elem->id }}"></label>						                    
+						                    <label><input style="width:20px; height:20px;" type="radio" id='company_id' name="company_id" value="{{ $elem->id }}"></label>						                    
 						                </div>
 							            </td>
 							        </tr>
