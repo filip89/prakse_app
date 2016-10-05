@@ -104,60 +104,59 @@
 	      <h4 class="modal-title">Odaberite tvrtku</h4>
 	    </div>
 	    <div class="modal-body">
-		    <form role="form" method="POST" action="{{ action('InternshipController@addCompany') }}">
+	    	<h5 style="text-align: center; color: #d9534f;">*Odabirom tvrtke praksa postaje konačna</h5>
+		<form role="form" method="POST" action="{{ action('InternshipController@addCompany') }}">
 	        {{ csrf_field() }}
                 <input type="hidden" id="internship_id" name="internship_id" value="" />
 		    	<div class="table-responsive">
-
-					<table class="table table-striped">
+				<table class="table table-striped">
 			            <thead>
+					<tr>
+						<th>Naziv tvrtke</th>
+						<th>Sjedište</th>
+						<th>Broj mjesta</th>
+						<th></th>				
+					</tr>
+				    </thead>
+
+				<tbody>
+					@foreach($companies as $elem)
+						@if($elem->spotsAvailable() > 0)
+
 							<tr>
-								<th>Naziv tvrtke</th>
-								<th>Sjedište</th>
-								<th>Broj mjesta</th>
-								<th></th>				
-							</tr>
-						</thead>
+						    <td>
+						    <div class="radiotext">
+							<label for='company'>{{ $elem->name }}</label>
+						    </div>
+						    </td>
 
-			            <tbody>
-							@foreach($companies as $elem)
-								@if($elem->spotsAvailable() > 0)
+						    <td>
+						    <div class="radiotext">
+							<label for='company'>{{ $elem->residence }}</label>
+						    </div>
+						    </td>
 
-									<tr>
-							            <td>
-							            <div class="radiotext">
-							                <label for='company'>{{ $elem->name }}</label>
-							            </div>
-							            </td>
+						    <td>
+						    <div class="radiotext">
+							<label for='company'>{{ $elem->spots }}</label>
+						    </div>
+						    </td>
 
-							            <td>
-							            <div class="radiotext">
-							                <label for='company'>{{ $elem->residence }}</label>
-							            </div>
-							            </td>
-
-							            <td>
-							            <div class="radiotext">
-							                <label for='company'>{{ $elem->spots }}</label>
-							            </div>
-							            </td>
-
-							            <td>
-						                <div class="radio">
-						                    <label><input style="width:20px; height:20px;" type="radio" id='company_id' name="company_id" value="{{ $elem->id }}"></label>						                    
-						                </div>
-							            </td>
-							        </tr>
-								@endif
-	                		@endforeach
-						</tbody>
+						    <td>
+						<div class="radio">
+						    <label><input style="width:20px; height:20px;" type="radio" id='company_id' name="company_id" value="{{ $elem->id }}"></label>						                    
+						</div>
+						    </td>
+						</tr>
+						@endif
+					@endforeach
+				</tbody>
 		      		</table>
 				
-                    <button type="submit" class="btn btn-primary action_buttons"><i class="fa fa-btn fa-sign-in"></i> Spremi</button>
+                        <button type="submit" class="btn btn-primary action_buttons"><i class="fa fa-btn fa-sign-in"></i> Spremi</button>
                    
 		      	</div>      	
-
-		    </form>
+	        </form>
 	    </div>
 	  </div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
