@@ -156,7 +156,11 @@ th {
                             <label for="start_date" class="col-md-4 control-label">Datum početka</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control datepicker" name="start_date" value="{{ old('start_date', date('d M, Y', strtotime($internship->start_date))) }}"/>
+                                @if($internship->start_date == null)
+                                    <input type="text" class="form-control datepicker" name="start_date" value="{{ $internship->start_date }}"/>
+                                @else
+                                    <input type="text" class="form-control datepicker" name="start_date" value="{{ old('start_date', date('d M, Y', strtotime($internship->start_date))) }}"/>
+                                @endif
 
                                 @if ($errors->has('start_date'))
                                     <span class="help-block">
@@ -170,7 +174,11 @@ th {
                             <label for="end_date" class="col-md-4 control-label">Datum završetka</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control datepicker" name="end_date" value="{{ old('end_date', date('d M, Y', strtotime($internship->end_date))) }}"/>
+                                @if($internship->end_date == null)
+                                    <input type="text" class="form-control datepicker" name="end_date" value="{{ $internship->end_date }}"/>
+                                @else
+                                    <input type="text" class="form-control datepicker" name="end_date" value="{{ old('end_date', date('d M, Y', strtotime($internship->end_date))) }}"/>
+                                @endif
 
                                 @if ($errors->has('end_date'))
                                     <span class="help-block">

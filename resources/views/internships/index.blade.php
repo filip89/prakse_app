@@ -62,18 +62,17 @@
 							<td>{{ $internship->student['name']}}</td>
 							<td>{{ $internship->student['last_name']}}</td>
 							<td>{{ $academicYear->academicYear($internship->academic_year) }}</td>
-							<td>{{ $internship->company['name']}}</td>
+							<td class="centered"><a class="circle yes" data-id={{ $internship->internships_id }} data-toggle="modal" href="#myModalCompany"><i class="fa fa-plus fa-xs y" aria-hidden="true"></i></a></td>									
 
-						
-						<td class="row_buttons centered">
-							{{ Form::open(['route' => ['internships.show', $internship->internships_id], 'method' => 'GET']) }}
-								<button class="btn btn-info btn-sm">Prikaži</button>
-							{{ Form::close() }}
-											
-							{{ Form::open(['route' => ['internships.destroy', $internship->internships_id], 'method' => 'DELETE']) }}
-								<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
-							{{ Form::close() }}
-						</td>
+							<td class="row_buttons centered">
+								{{ Form::open(['route' => ['internships.show', $internship->internships_id], 'method' => 'GET']) }}
+									<button class="btn btn-info btn-sm">Prikaži</button>
+								{{ Form::close() }}
+												
+								{{ Form::open(['route' => ['internships.destroy', $internship->internships_id], 'method' => 'DELETE']) }}
+									<button type="button" class="btn btn-danger btn-sm delete">Ukloni</button>
+								{{ Form::close() }}
+							</td>
 		
 						</tr>
 						{{--*/ $count += 1 /*--}}
@@ -94,6 +93,76 @@
 		</div>
 	</div>
 </div>	
+
+@if(count($internships) != null)
+<!--Modal -->
+<div class="modal fade" id="myModalCompany">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	      <h4 class="modal-title">Odaberite tvrtku</h4>
+	    </div>
+	    <div class="modal-body">
+		    <form role="form" method="POST" action="{{ action('InternshipController@addCompany') }}">
+	        {{ csrf_field() }}
+                <input type="hidden" id="internship_id" name="internship_id" value="" />
+		    	<div class="table-responsive">
+
+					<table class="table table-striped">
+			            <thead>
+							<tr>
+								<th>Naziv tvrtke</th>
+								<th>Sjedište</th>
+								<th>Broj mjesta</th>
+								<th></th>				
+							</tr>
+						</thead>
+
+			            <tbody>
+							@foreach($companies as $elem)
+								@if($elem->spotsAvailable() > 0)
+
+									<tr>
+							            <td>
+							            <div class="radiotext">
+							                <label for='company'>{{ $elem->name }}</label>
+							            </div>
+							            </td>
+
+							            <td>
+							            <div class="radiotext">
+							                <label for='company'>{{ $elem->residence }}</label>
+							            </div>
+							            </td>
+
+							            <td>
+							            <div class="radiotext">
+							                <label for='company'>{{ $elem->spots }}</label>
+							            </div>
+							            </td>
+
+							            <td>
+						                <div class="radio">
+						                    <label><input type="radio" id='company_id' name="company_id" value="{{ $elem->id }}"></label>						                    
+						                </div>
+							            </td>
+							        </tr>
+								@endif
+	                		@endforeach
+						</tbody>
+		      		</table>
+				
+                    <button type="submit" class="btn btn-primary action_buttons"><i class="fa fa-btn fa-sign-in"></i> Spremi</button>
+                   
+		      	</div>      	
+
+		    </form>
+	    </div>
+	  </div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@endif
 @endsection
 
 @section('modal_body_content')

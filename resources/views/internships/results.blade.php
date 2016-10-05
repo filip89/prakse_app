@@ -150,7 +150,7 @@
 										                    {{ csrf_field() }}
 																	
 										                <div class="form-group{{ $errors->has('rejection_comment') ? ' has-error' : '' }}">
-															<input type="hidden" name="sid" value="{{ $internship->id }}">
+															<input type="hidden" name="sid" value="{{ $internship->internships_id }}">
 															<input type="hidden" name="confirmation_student" value="0">
 										                    <label for="rejection_comment" class="col-md-4 control-label">Komentar</label>
 										                    <div class="col-md-6">
@@ -180,14 +180,10 @@
 										    </div>
 										</div>
 
-									@elseif($internship->student_id == Auth::user()->id && $internship->confirmation_student !== null) 
+									@elseif($internship->confirmation_student == 0) 
 										<div class="circle no"><i class="fa fa-times fa-xs x" aria-hidden="true"></i></div>	
-									@elseif(Auth::user()->role == 'college_mentor')
-										@if($internship->confirmation_student == 0)										
-											<div class="circle no"><i class="fa fa-times fa-xs x" aria-hidden="true"></i></div>
-										@else
-											<div class="circle yes"><i class="fa fa-check fa-xs y" aria-hidden="true"></i></div>
-										@endif
+									@elseif($internship->confirmation_student == 1)
+										<div class="circle yes"><i class="fa fa-check fa-xs y" aria-hidden="true"></i></div>									
 									@endif
 
 									@if(Auth::user()->role == 'college_mentor' || Auth::user()->isAdmin())
