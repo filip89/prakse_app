@@ -6,6 +6,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+	
+	use RecentInternshipsable;
+	
     /**
      * The attributes that are mass assignable.
      *
@@ -95,18 +98,6 @@ class User extends Authenticatable
 		
 	}
 	
-	public function recentInternships(){
-		
-		$current_date = date('Y-m-d h:i:s', strtotime('-6 months'));
-		
-		if(count($this->internships()->where('status', 0)->where('start_date', '>', strtotime('-6 months'))->where('confirmation_admin', 1)->where('confirmation_student', 1)->get())){
-			
-			return $this->internships()->where('status', 0)->where('start_date', '>', $current_date)->where('confirmation_admin', 1)->where('confirmation_student', 1)->orderBy('end_date', 'desc')->get();
-			
-		}
-		
-		
-	}
 	
 	public function hasCompany(){
 		
