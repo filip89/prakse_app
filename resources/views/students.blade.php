@@ -4,6 +4,19 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+		<div class="row">
+			<div class="col-md-9 col-sm-8"></div>
+			<div class="col-md-3 col-sm-4">
+				<form action="{{ url('/user/student/list') }}" method="GET">			
+				    <div class="input-group">
+				        <input type="text" name="search" class="form-control" placeholder="Pretraži..." value="{{isset($_GET['search']) ? $_GET['search'] : ''}}"></input>
+					    <span class="input-group-btn">
+					      	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+					    </span>
+				    </div>			  	
+				</form>	
+			</div>
+		</div>
 			<h1>Studenti</h1>
 			@if(Session::has('status'))
 			<div class="alert {{ Session::get('alert_type') }} fade in">
@@ -11,8 +24,10 @@
 				{{ Session::get('status') }}
 			</div>
 			@endif
-			@if(count($users) == 0)
+			@if(count($users) == 0 && !isset($_GET['search']))
 				<h3 style="text-align:center;color:gray;">Nema registriranih studenata.</h3>
+			@elseif(count($users) == 0)
+				<h3 style="text-align:center;color:gray;">Nema studenata pod tim imenom.</h3>
 			@else
 			<div class="table-responsive">
 				<table class="table table-striped">
@@ -73,7 +88,13 @@
 					@endforeach
 				</tbody>	
 				</table>
-				<div class="pagination">{{ $users->links() }}</div>
+				<div class="pagination">
+				@if(isset($_GET['search']))
+					{{ $users->appends(['search' => $_GET['search']])->links() }}
+				@else
+				{{ $users->links() }}
+				@endif
+				</div>
 			</div>
 			@endif
         </div>

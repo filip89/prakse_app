@@ -8,6 +8,19 @@
 <div class="container">
     <div class="row">
     <div class="col-md-12">
+		<div class="row">
+			<div class="col-md-9 col-sm-8"></div>
+			<div class="col-md-3 col-sm-4">
+				<form action="{{ url('/company') }}" method="GET">			
+				    <div class="input-group">
+				        <input type="text" name="search" class="form-control" placeholder="Pretraži..." value="{{isset($_GET['search']) ? $_GET['search'] : ''}}"></input>
+					    <span class="input-group-btn">
+					      	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+					    </span>
+				    </div>			  	
+				</form>	
+			</div>
+		</div>
 			<h1>Popis tvrtki</h1>
         	@if(Session::has('status'))
 			<div class="alert {{ Session::get('alert_type') }} fade in">
@@ -26,7 +39,10 @@
 			<div class="col-sm-3 col-xs-6 filter" style="margin-bottom:20px;">
 				<form method="get" action="{{ url('/company') }}">
 						<select class="form-control"  name="filter" onchange="this.form.submit()">
-							@if(!isset($_GET['filter']) || $_GET['filter'] == 'all')
+							@if(isset($_GET['search']) && !empty($_GET['search']))
+							<option selected>{{ $_GET['search'] }}</option>
+							@endif
+							@if((!isset($_GET['search']) && !isset($_GET['filter'])) || (isset($_GET['filter']) && $_GET['filter'] == 'all'))
 							<option value="all" selected>Sve</option>
 							@else
 							<option value="all">Sve</option>
@@ -107,10 +123,15 @@
 					</table>
 					@if(isset($_GET['filter']))
 					{{ $companies->appends(['filter' => $_GET['filter']])->links() }}
+					@elseif(isset($_GET['search']))
+					{{ $companies->appends(['search' => $_GET['search']])->links() }}
 					@else
 					{{ $companies->links() }}
 					@endif
 				</div>
+			@endif
+			@if(count($companies) == 0)
+				<h3 style="text-align:center;color:gray;">Nema tvrtki pod tim imenom.</h3>
 			@endif
         </div>
 		</div>
