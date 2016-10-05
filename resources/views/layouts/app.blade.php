@@ -42,6 +42,11 @@
         	$('.comment_button', this).css('display', 'none');
         	$('.test', this).css('opacity', '1');
         });
+	
+	$('#myModalCompany').on('show.bs.modal', function(e) {		    
+	    var intId = $(e.relatedTarget).data('id');
+	    $(e.currentTarget).find('input[name="internship_id"]').val(intId);
+	});
 
     });
 
