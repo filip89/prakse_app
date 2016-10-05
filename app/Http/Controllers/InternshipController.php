@@ -37,6 +37,7 @@ class InternshipController extends Controller
             'change',
             'create',           
             'destroy',
+            'addCompany',
         ]]);
         
         $this->middleware('mentor', ['only' => [
@@ -218,8 +219,19 @@ class InternshipController extends Controller
         $internship->average_master_grade = $request->average_master_grade;
         $internship->activity_points = $request->activity_points;
         $internship->total_points = $request->average_bacc_grade + $request->average_master_grade + $request->activity_points;
-        $internship->start_date = date('Y-m-d', strtotime($request->start_date)) ?: null;
-        $internship->end_date = date('Y-m-d', strtotime($request->end_date)) ?: null;
+
+        if($request->start_date == '') {
+            $internship->start_date = null;
+        } else {
+            $internship->start_date = date('Y-m-d', strtotime($request->start_date)); 
+        }
+        
+        if($request->end_date == '') {
+            $internship->end_date = null;
+        } else {
+            $internship->end_date = date('Y-m-d', strtotime($request->end_date)); 
+        }
+        
         $internship->duration = $request->duration ?: null;
         $internship->year = $request->year ?: null;
         $internship->college_mentor_id = $request->college_mentor_id ?: null;
@@ -350,6 +362,28 @@ class InternshipController extends Controller
             return redirect()->action('InternshipController@showResults');
         }
         
+    }
+
+    public function addCompany(Request $request) {
+
+        $internships = Internship::find($request->internship_id);
+
+        $internships->company_id = $request->company_id;
+
+
+        if($request->company_id == null) {
+                return redirect()->route('internships.index');
+        } else {
+
+            $internships->status = 2;
+            $internships->save();
+
+            Session::flash('status', 'Tvrtka uspješno dodana!');
+            Session::flash('alert_type', 'alert-success');
+
+            return redirect()->action('InternshipController@showFinal');
+        }
+
     }
 
     public function destroy($id) {
