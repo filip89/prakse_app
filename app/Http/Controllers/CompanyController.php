@@ -31,12 +31,20 @@ class CompanyController extends Controller
 	}
 	
 	public function index(Request $request){
+
+
+	
 		
 		$allCompanies = Company::get();
 		
 		$confirmedCompanies = Company::where('status', 1)->get();
 		
-		if($request->filter == 'all' || !isset($request->filter)){
+		if(isset($request->search)){
+						
+			$companies = Company::where('name', 'like', '%' . $request->search . '%')->paginate(1);
+			
+		}
+		elseif($request->filter == 'all' || !isset($request->filter)){
 			
 			$companies = Company::orderBy('created_at', 'desc')->paginate(1);
 			

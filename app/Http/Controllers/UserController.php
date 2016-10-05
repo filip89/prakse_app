@@ -22,6 +22,8 @@ use App\Competition;
 
 use App\Utilities;
 
+use DB;
+
 class UserController extends Controller
 {
 	
@@ -50,24 +52,52 @@ class UserController extends Controller
     }
 	
 	//pregled usera po 'role'
-	public function internMentorIndex(){
+	public function internMentorIndex(Request $request){
 		
+		if(isset($request->search)){
+						
+			$users = User::where('role', 'intern_mentor')->where(DB::raw("CONCAT(name, ' ', last_name)"), 'like', '%' . $request->search . '%')->paginate(1);
+			
+		}
+		else{
+			
 		$users = User::where('role', 'intern_mentor')->paginate(1);
+		
+		}
 		
 		return view("intern_mentors", ['users' => $users]);
 		
 	}
 	
-	public function collegeMentorIndex(){
+	public function collegeMentorIndex(Request $request){
 		
+		if(isset($request->search)){
+						
+			$users = User::where('role', 'college_mentor')->where(DB::raw("CONCAT(name, ' ', last_name)"), 'like', '%' . $request->search . '%')->paginate(1);
+			
+		}
+		else{
+			
 		$users = User::where('role', 'college_mentor')->paginate(1);
+		
+		}
+		
 		return view("college_mentors", ['users' => $users]);
 		
 	}
 	
-	public function studentIndex(){
+	public function studentIndex(Request $request){
 		
-		$users = User::where('role', 'student')->paginate(1);
+		if(isset($request->search)){
+						
+			$users = User::where('role', 'student')->where(DB::raw("CONCAT(name, ' ', last_name)"), 'like', '%' . $request->search . '%')->paginate(1);
+			
+		}
+		else{
+			
+			$users = User::where('role', 'student')->paginate(1);
+			
+		}
 				
 		return view("students", ['users' => $users]);
 		
