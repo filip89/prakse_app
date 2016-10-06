@@ -114,7 +114,7 @@
 					<tr>
 						<th>Naziv tvrtke</th>
 						<th>Sjedište</th>
-						<th>Broj mjesta</th>
+						<th>Broj slobodnih mjesta</th>
 						<th></th>				
 					</tr>
 				    </thead>
@@ -138,7 +138,7 @@
 
 						    <td>
 						    <div class="radiotext">
-							<label for='company'>{{ $elem->spots }}</label>
+							<label for='company'>{{ $elem->spotsAvailable() }}</label>
 						    </div>
 						    </td>
 
