@@ -42,9 +42,9 @@ td, th {
 						<thead>
 							<tr>
 								<th>Rang</th>
-								<th>Prosjek preddipl.</th>
-								<th>Prosjek dipl.</th>
-								<th>Izvannast. akt.</th>
+								<th>Prosjek (preddiplomski)</th>
+								<th>Prosjek (diplomski)</th>
+								<th>Izvannastavne aktivnosti</th>
 								<th>Ukupno</th>
 								<th>Ime</th>
 								<th>Prezime</th>
