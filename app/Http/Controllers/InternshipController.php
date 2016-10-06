@@ -375,7 +375,7 @@ class InternshipController extends Controller
                 return redirect()->route('internships.index');
         } else {
 
-            $internship->confirmation_admin = 1;
+            $internships->confirmation_admin = 1;
             $internships->status = 2;
             $internships->save();
 
