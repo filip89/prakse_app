@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+td, th {
+	text-align: center;
+	vertical-align: middle !important;
+}
+</style>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
