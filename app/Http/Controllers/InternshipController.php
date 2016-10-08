@@ -460,7 +460,7 @@ class InternshipController extends Controller
 
     public function starRating(Request $request) {
 
-        $internships = Internship::where('student_id', Auth::user()->id)->where('status', 0)->orderBy('created_at', 'desc')->first();
+        $internships = Internship::where('student_id', $request->student_id)->where('status', 0)->orderBy('created_at', 'desc')->first();
 
         $internships->rating_by_student = $request->rating;
         $internships->save();
