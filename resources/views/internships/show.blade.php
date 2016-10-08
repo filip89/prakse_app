@@ -174,12 +174,13 @@ table:nth-of-type(1)  {
 	                @endif
 	            </td></tr>
 				<tr><th class="centered">Studentova ocjena prakse:</th><td>
-					<span class="star-rating">
+					<span class="star-rating" @if(Auth::user()->id != $internship->student_id && Auth::user()->isAdmin() == false) style="pointer-events: none;" @endif>
 						<input type="radio" name="rating" class="star-input" value="1"><i class="star" @if($internship->rating_by_student == 1) style="width: 20%; opacity: 1;" @endif></i>
 						<input type="radio" name="rating" class="star-input" value="2"><i class="star" @if($internship->rating_by_student == 2) style="width: 40%; opacity: 1;" @endif></i>
 						<input type="radio" name="rating" class="star-input" value="3"><i class="star" @if($internship->rating_by_student == 3) style="width: 60%; opacity: 1;" @endif></i>
 						<input type="radio" name="rating" class="star-input" value="4"><i class="star" @if($internship->rating_by_student == 4) style="width: 80%; opacity: 1;" @endif></i>
 						<input type="radio" name="rating" class="star-input" value="5"><i class="star" @if($internship->rating_by_student == 5) style="width: 100%; opacity: 1;" @endif></i>
+						<input type="hidden" name="student_id" id="student_id" value="{{ $internship->student_id }}">
 					</span>
 
 				</td></tr>
