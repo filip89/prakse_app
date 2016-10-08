@@ -23,6 +23,15 @@
     <script>
 
     $(document).ready(function() {  
+    
+    	$.ajaxSetup(
+	{
+	    headers:
+	    {
+		'X-CSRF-Token': $('input[name="_token"]').val()
+	    }
+	});
+	
         $('.datepicker').datepicker({dateFormat: 'd M, yy'});
         
         $('.competition').on('click', function() {
