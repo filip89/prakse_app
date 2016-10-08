@@ -184,7 +184,7 @@ table:nth-of-type(1)  {
 
 				</td></tr>
 
-				<tr><th colspan="2" class="table_section">Komentari <i class="fa fa-info hover-info" aria-hidden="true"></i></th></tr>
+				<tr><th colspan="2" class="table_section">Komentari</th></tr>
 				<tr><th class="centered">Komentar studenta:</th><td class="comment_box">
 				@if(Auth::user()->role == 'student' && $internship->student_comment == null)
 					<button class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
