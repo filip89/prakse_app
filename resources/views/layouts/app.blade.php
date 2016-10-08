@@ -47,6 +47,16 @@
 	    var intId = $(e.relatedTarget).data('id');
 	    $(e.currentTarget).find('input[name="internship_id"]').val(intId);
 	});
+	
+	$(':radio').change(function() {
+		$('.star').siblings().removeAttr('style');
+		var rating = this.value;
+		$.ajax({
+			method : 'Post',
+			url : 'rating',
+			data : { 'rating' : rating },
+		});
+	});
 
     });
 
