@@ -195,7 +195,6 @@ class InternshipController extends Controller
             'average_master_grade' => 'required|numeric|between:2,5',
             'activity_points' => 'required|integer|between:1,5',  
             'duration' => 'integer|between:1,90',
-            'year' => 'integer|between:1990,9999', 
         ]);
 
         if($id != 0) {
@@ -233,11 +232,9 @@ class InternshipController extends Controller
         }
         
         $internship->duration = $request->duration ?: null;
-        $internship->year = $request->year ?: null;
         $internship->college_mentor_id = $request->college_mentor_id ?: null;
         $internship->intern_mentor_id = $request->intern_mentor_id ?: null;
         $internship->student_comment = $request->student_comment;
-        $internship->rating_by_student = $request->rating_by_student ?: null;
         $internship->intern_mentor_comment = $request->intern_mentor_comment;
         $internship->college_mentor_comment = $request->college_mentor_comment;
 
@@ -314,6 +311,10 @@ class InternshipController extends Controller
 
     public function rejectionComment(Request $request) {
 
+        $this->validate($request, [       
+            'rejection_comment' => 'required',
+        ]);
+
         $internship = Internship::where('student_id', Auth::user()->id)->where('status', 0)->orderBy('created_at', 'desc')->first();
 
         $internship->confirmation_student = $request->confirmation_student;
@@ -374,7 +375,6 @@ class InternshipController extends Controller
         if($request->company_id == null) {
                 return redirect()->route('internships.index');
         } else {
-
             $internships->confirmation_admin = 1;
             $internships->status = 2;
             $internships->save();
@@ -456,6 +456,15 @@ class InternshipController extends Controller
         $pdf->setPaper('A4', 'portrait');
 
         return $pdf->stream('Izvješće o obavljenoj praksi.pdf');
+    }
+
+    public function starRating(Request $request) {
+
+        $internships = Internship::where('student_id', Auth::user()->id)->where('status', 0)->orderBy('created_at', 'desc')->first();
+
+        $internships->rating_by_student = $request->rating;
+        $internships->save();
+
     }
 
     public static function searchTerm($request, $query, $identifier) {
