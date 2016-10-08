@@ -60,10 +60,13 @@
 	$(':radio').change(function() {
 		$('.star').siblings().removeAttr('style');
 		var rating = this.value;
+		var student_id = $('#student_id').val();
 		$.ajax({
 			method : 'Post',
 			url : 'rating',
-			data : { 'rating' : rating },
+			data : { 'rating' : rating,
+				 'student_id' : student_id,
+			},
 		});
 	});
 
