@@ -37,7 +37,7 @@ th {
                         <label for="name" class="col-md-4 control-label">Ime</label>
 
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="name" value="{{ $_GET['name'] }}" disabled>
+                            <input type="text" class="form-control" name="name" placeholder="{{ $_GET['name'] }}" readonly>
                         </div>
                     </div>
 
@@ -45,7 +45,7 @@ th {
                         <label for="last_name" class="col-md-4 control-label">Prezime</label>
 
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="name" value="{{ $_GET['last_name'] }}" disabled>
+                            <input type="text" class="form-control" name="name" placeholder="{{ $_GET['last_name'] }}" readonly>
                         </div>
                     </div>
 
@@ -146,10 +146,10 @@ th {
                     </div>
 
 					<div class="form-group{{ $errors->has('duration') ? ' has-error' : '' }}">
-                        <label for="duration" class="col-md-4 control-label">Trajanje</label>
+                        <label for="duration" class="col-md-4 control-label">Trajanje prakse</label>
 
                         <div class="col-md-6">
-                            <input type="number" step="1" min="1" max="90" class="form-control" name="duration"/>
+                            <input type="number" step="1" min="1" max="90" class="form-control" name="duration" placeholder="Broj radnih dana" />
 
                             @if ($errors->has('duration'))
                                 <span class="help-block">
@@ -205,21 +205,6 @@ th {
                     </div>
 					
 					@endif
-
-
-					<div class="form-group{{ $errors->has('rating_by_student') ? ' has-error' : '' }}">
-                        <label for="rating_by_student" class="col-md-4 control-label">Studentova ocjena prakse</label>
-
-                        <div class="col-md-6">
-                            <input type="number" min="1" max="5" class="form-control" name="rating_by_student" value=null/>
-
-                            @if ($errors->has('rating_by_student'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('rating_by_student') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
 			
 					<div class="form-group">
                         <div class="col-md-6 col-md-offset-4">

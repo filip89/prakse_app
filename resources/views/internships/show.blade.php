@@ -58,6 +58,62 @@ table:nth-of-type(1)  {
 @endsection
 
 @section('content')
+<style>
+.star-rating{
+  font-size:0;
+  white-space:nowrap;
+  display:inline-block;
+  width:200px;
+  height:40px;
+  overflow:hidden;
+  position:relative;
+  background:
+      url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+  background-size: contain;}
+  .star{
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 20%;
+    z-index: 1;
+    background: 
+        url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');  
+    background-size: contain;
+  }
+  .star-input{ 
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    opacity: 0;
+    display:inline-block;
+    width: 20%;
+    height: 100%; 
+    margin:0;
+    padding:0;
+    z-index: 2;
+    position: relative;
+  }
+.star-input:hover + .star{
+	opacity:1;
+}
+.star-input:checked + .star{
+    opacity:1;      
+}
+.star ~ .star{
+    width: 40%;
+}
+.star ~ .star ~ .star{
+    width: 60%;
+}
+.star ~ .star ~ .star ~ .star{
+    width: 80%;
+}
+.star ~ .star ~ .star ~ .star ~ .star{
+    width: 100%;
+}
+
+</style>
 
 <div class="col-md-6 col-md-offset-3">
 
@@ -117,10 +173,19 @@ table:nth-of-type(1)  {
 	                    {{ date('d M, Y', strtotime($internship->end_date)) }}
 	                @endif
 	            </td></tr>
-				<tr><th>Studentova ocjena prakse:</th><td>{{ $internship->rating_by_student }}</td></tr>
+				<tr><th class="centered">Studentova ocjena prakse:</th><td>
+					<span class="star-rating">
+						<input type="radio" name="rating" class="star-input" value="1"><i class="star" @if($internship->rating_by_student == 1) style="width: 20%; opacity: 1;" @endif></i>
+						<input type="radio" name="rating" class="star-input" value="2"><i class="star" @if($internship->rating_by_student == 2) style="width: 40%; opacity: 1;" @endif></i>
+						<input type="radio" name="rating" class="star-input" value="3"><i class="star" @if($internship->rating_by_student == 3) style="width: 60%; opacity: 1;" @endif></i>
+						<input type="radio" name="rating" class="star-input" value="4"><i class="star" @if($internship->rating_by_student == 4) style="width: 80%; opacity: 1;" @endif></i>
+						<input type="radio" name="rating" class="star-input" value="5"><i class="star" @if($internship->rating_by_student == 5) style="width: 100%; opacity: 1;" @endif></i>
+					</span>
 
-				<tr><th colspan="2" class="table_section">Komentari</th></tr>
-				<tr><th>Komentar studenta:</th><td class="comment_box">
+				</td></tr>
+
+				<tr><th colspan="2" class="table_section">Komentari <i class="fa fa-info hover-info" aria-hidden="true"></i></th></tr>
+				<tr><th class="centered">Komentar studenta:</th><td class="comment_box">
 				@if(Auth::user()->role == 'student' && $internship->student_comment == null)
 					<button class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 					@include('layouts.comment_create')
@@ -134,7 +199,7 @@ table:nth-of-type(1)  {
 				@endif
 				</td></tr>
 
-				<tr><th>Komentar mentora nastavnika:</th><td class="comment_box">
+				<tr><th class="centered">Komentar mentora nastavnika:</th><td class="comment_box">
 				@if(Auth::user()->role == 'college_mentor' && $internship->college_mentor_comment == null)
 					<button class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 					@include('layouts.comment_create')
@@ -148,7 +213,7 @@ table:nth-of-type(1)  {
 				@endif
 				</td></tr>
 
-				<tr><th>Komentar mentora iz tvrtke:</th><td class="comment_box">
+				<tr><th class="centered">Komentar mentora iz tvrtke:</th><td class="comment_box">
 				@if(Auth::user()->role == 'intern_mentor' && $internship->intern_mentor_comment == null)
 					<button class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 					@include('layouts.comment_create')
@@ -203,11 +268,10 @@ table:nth-of-type(1)  {
 					<tr><th colspan="2" class="table_section optional"><span class="doc_title">Izvještaj</span><br><span class="doc_info">(Za izradu izvještaja potrebno je odraditi praksu)</span></th></tr> 
 					<tr><th>Izvještaj o obavljenoj praksi:</th><td class="comment_box">
 						<a class="btn btn-success fa-sm" href="{{ url('/internships/createReport') }}" 
-						@if($internship->status != 0 || $internship->confirmation_student == 0) {{ 'disabled' }} @endif
+						@if(new DateTime('now') < new DateTime($internship->end_date) || $internship->status != 0 || $internship->confirmation_student == 0) {{ 'disabled' }} @endif
 						><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 					</td></tr>
 				@endif
-
 			</table>
 		
 	@endforeach

@@ -33,7 +33,7 @@ th {
                             <label for="name" class="col-md-4 control-label">Ime</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ $internship->student['name'] }}" disabled>
+                                <input type="text" class="form-control" name="name" placeholder="{{ $internship->student['name'] }}" readonly>
                             </div>
                         </div>
 
@@ -41,7 +41,7 @@ th {
                             <label for="last_name" class="col-md-4 control-label">Prezime</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ $internship->student['last_name'] }}" disabled>
+                                <input type="text" class="form-control" name="name" placeholder="{{ $internship->student['last_name'] }}" readonly>
                             </div>
                         </div>
 
@@ -192,7 +192,7 @@ th {
                             <label for="duration" class="col-md-4 control-label">Trajanje</label>
 
                             <div class="col-md-6">
-                                <input type="number" step="0.01" min="0" max="60" class="form-control" name="duration" value="{{ old('duration', $internship->duration) }}"/>
+                                <input type="number" step="0.01" min="0" max="60" class="form-control" name="duration" placeholder="Broj radnih dana" value="{{ old('duration', $internship->duration) }}"/>
 
                                 @if ($errors->has('duration'))
                                     <span class="help-block">
@@ -248,20 +248,6 @@ th {
                             </div>
                         </div>					
 						@endif
-
-						<div class="form-group{{ $errors->has('rating_by_student') ? ' has-error' : '' }}">
-                            <label for="rating_by_student" class="col-md-4 control-label">Studentova ocjena prakse</label>
-
-                            <div class="col-md-6">
-                                <input type="number" min="1" max="5" class="form-control" name="rating_by_student" value="{{ old('rating_by_student', $internship->rating_by_student) }}"/>
-
-                                @if ($errors->has('rating_by_student'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('rating_by_student') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
 
                         @if($internship->status == 0)
                         <div class="form-group{{ $errors->has('student_comment') ? ' has-error' : '' }}">
