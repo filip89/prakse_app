@@ -156,11 +156,11 @@ td, th {
 										                    {{ csrf_field() }}
 																	
 										                <div class="form-group{{ $errors->has('rejection_comment') ? ' has-error' : '' }}">
-															<input type="hidden" name="sid" value="{{ $internship->internships_id }}">
-															<input type="hidden" name="confirmation_student" value="0">
+												    <input type="hidden" name="sid" value="{{ $internship->internships_id }}">
+												    <input type="hidden" name="confirmation_student" value="0">
 										                    <label for="rejection_comment" class="col-md-4 control-label">Komentar</label>
 										                    <div class="col-md-6">
-										                        <textarea rows="8" class="form-control" name="rejection_comment"></textarea>
+										                        <textarea rows="8" class="form-control" name="rejection_comment" required></textarea>
 
 										                        @if ($errors->has('rejection_comment'))
 										                            <span class="help-block">
