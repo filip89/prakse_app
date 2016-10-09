@@ -29,7 +29,7 @@
 			</div>
 			@endif
 			@if(count($allCompanies) == 0)
-				<h3 style="text-align:center;color:gray;">Nema potvrđenih tvrtki.</h3>
+				<h3 style="text-align:center;color:gray;">Nema tvrtki.</h3>
 			@endif
 			@if(Auth::user()->isAdmin())
 			<a id="add_button" class="btn btn-primary" type="button" href="{{ url('/company/create') }}"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj tvrtku</a>
@@ -131,7 +131,7 @@
 				</div>
 			@endif
 			@if(count($companies) == 0)
-				<h3 style="text-align:center;color:gray;">Nema tvrtki pod tim imenom.</h3>
+				<h3 style="text-align:center;color:gray;">Nema pronađenih tvrtki.</h3>
 			@endif
         </div>
 		</div>
