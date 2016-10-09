@@ -24,7 +24,7 @@ textarea {
                         {{ csrf_field() }}
 
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Ime</label>
+                            <label for="name" class="col-md-4 control-label">Ime:</label>
 
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="name" value="{{ $user->name }}" disabled/>
@@ -38,7 +38,7 @@ textarea {
                         </div>
 						
 						<div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label for="last_name" class="col-md-4 control-label">Prezime</label>
+                            <label for="last_name" class="col-md-4 control-label">Prezime:</label>
 
                             <div class="col-md-8">
                                 <input type="txt" class="form-control" name="last_name" value="{{ $user->last_name }}" disabled/>
@@ -52,7 +52,7 @@ textarea {
                         </div>
 						
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail adresa</label>
+                            <label for="email" class="col-md-4 control-label">E-Mail adresa:</label>
 
                             <div class="col-md-8">
                                 <input id="email" type="email" class="form-control" name="email" required/>
@@ -66,7 +66,7 @@ textarea {
                         </div>
 						
 						<div class="form-group{{ $errors->has('residence_town') ? ' has-error' : '' }}">
-                            <label for="residence_town" class="col-md-4 control-label">Mjesto prebivališta</label>
+                            <label for="residence_town" class="col-md-4 control-label">Mjesto prebivališta:</label>
 
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="residence_town" required/>
@@ -80,14 +80,18 @@ textarea {
                         </div>
 						
 						<div class="form-group{{ $errors->has('residence_county') ? ' has-error' : '' }}">
-                            <label for="residence_county" class="col-md-4 control-label">Županija prebivališta</label>
+                            <label for="residence_county" class="col-md-4 control-label">Županija prebivališta:</label>
 							
                             <div class="col-md-8">
 							
 							<select class="form-control" name="residence_county" required>
 								<option selected disabled hidden style='display: none'></option>
                                 @foreach(Utilities::county() as $i => $county)
+									@if(old('residence_county') == $i)
+									<option value="{{$i}}" selected>{{ $county }}</option>
+									@else
 									<option value="{{$i}}">{{ $county }}</option>
+									@endif
 								@endforeach
 							</select>
 
@@ -100,7 +104,7 @@ textarea {
                         </div>
 						
 						<div class="form-group{{ $errors->has('academic_year') ? ' has-error' : '' }}">
-                            <label for="academic_year" class="col-md-4 control-label">Godina studija</label>
+                            <label for="academic_year" class="col-md-4 control-label">Godina studija:</label>
 
                             <div class="col-md-8">
 								<select class="form-control" name="academic_year" required/>
@@ -121,7 +125,7 @@ textarea {
                         </div>
 						
 						<div class="form-group{{ $errors->has('course') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Smjer</label>
+                            <label class="col-md-4 control-label">Smjer:</label>
 
                             <div class="col-md-8">
 								<select class="form-control" name="course" required/>
@@ -142,7 +146,7 @@ textarea {
                         </div>
 						
 						<div class="form-group{{ $errors->has('average_bacc_grade') ? ' has-error' : '' }}">
-                            <label for="average_bacc_grade" class="col-md-4 control-label">Prosjek na preddiplomskom</label>
+                            <label for="average_bacc_grade" class="col-md-4 control-label">Prosjek na preddiplomskom:</label>
 
                             <div class="col-md-8">
                                 <input type="number" max="5" step="0.01" min="0" class="form-control" name="average_bacc_grade"/>
@@ -153,6 +157,7 @@ textarea {
                                     </span>
                                 @endif
                             </div>
+							<div class="col-md-8 col-md-offset-4"><i><small>* ispunite ukoliko imate završenu barem jednu godinu preddiplomskog studija</small></i></div>
                         </div>
 						
 						<div class="form-group{{ $errors->has('average_master_grade') ? ' has-error' : '' }}">
@@ -167,10 +172,11 @@ textarea {
                                     </span>
                                 @endif
                             </div>
+							<div class="col-md-8 col-md-offset-4"><i><small>* ispunite ukoliko imate završenu barem jednu godinu diplomskog studija</small></i></div>
                         </div>
 						
 						<div class="form-group{{ $errors->has('internship_town') ? ' has-error' : '' }}">
-                            <label for="internship_town" class="col-md-4 control-label">Grad za odrađivanje prakse</label>
+                            <label for="internship_town" class="col-md-4 control-label">Grad za odrađivanje prakse:</label>
 
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="internship_town"/>
@@ -184,7 +190,7 @@ textarea {
                         </div>
 						
 						<div class="form-group{{ $errors->has('desired_company') ? ' has-error' : '' }}">
-                            <label for="desired_company" class="col-md-4 control-label">Željena tvrtka (navesti maximalno 5)</label>
+                            <label for="desired_company" class="col-md-4 control-label">Željena tvrtka:</label>
 
                             <div class="col-md-8">
                                 <textarea type="text" class="form-control" name="desired_company" ></textarea>
@@ -195,10 +201,11 @@ textarea {
                                     </span>
                                 @endif
                             </div>
+							<div class="col-md-8 col-md-offset-4"><i><small>* navesti najviše 5 tvrtki</small></i></div>
                         </div>
 						
 						<div class="form-group{{ $errors->has('desired_month') ? ' has-error' : '' }}">
-                            <label for="desired_month" class="col-md-4 control-label">Željeni mjesec za odrađivanje prakse</label>
+                            <label for="desired_month" class="col-md-4 control-label">Željeni mjesec:</label>
 
                             <div class="col-md-8">
 								<select class="form-control" name="desired_month"/>
@@ -215,6 +222,7 @@ textarea {
                                     </span>
                                 @endif
                             </div>
+							<div class="col-md-8 col-md-offset-4"><i><small>* odabarite mjesec kada biste najradije imali praksu</small></i></div>
                         </div>
 						
 						<h3 style="display:table;margin:auto;margin-bottom:20px;margin-top:30px;">Aktivnosti:</h3>
@@ -223,10 +231,10 @@ textarea {
 
                             <div class="col-md-12">
 								@foreach($activities as $key => $activity)
-										<div>
-											<label class="col-sm-offset-2 col-sm-10 activity_label"><input type="checkbox" name="activities[{{$key}}]">{{ $activity }}</label>
+										<div class="col-sm-offset-2 col-sm-10" style="margin-bottom:10px;">
+											<input class="cursor_pointer" type="checkbox" name="activities[{{$key}}]"><label style="display:inline;"> {{ $activity }}</label>
 										</div>
-										<div>
+										<div class="activity_inputs" hidden>
 											<div class="form-group">
 												<label class="col-md-2 col-sm-2 control-label" for="year_{{$key}}">Razdoblje: </label>
 												<div class="col-md-10 col-sm-10">
@@ -259,4 +267,11 @@ textarea {
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+$(document).on("click", ".cursor_pointer", function(){
+	$(this).parent().next().fadeToggle("slow");
+});
+</script>
 @endsection

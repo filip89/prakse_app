@@ -15,7 +15,7 @@
                         {{ csrf_field() }}
 
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Ime</label>
+                            <label for="name" class="col-md-4 control-label">Ime:</label>
 
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="name" value="{{ $user->name }}" disabled/>
@@ -29,7 +29,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label for="last_name" class="col-md-4 control-label">Prezime</label>
+                            <label for="last_name" class="col-md-4 control-label">Prezime:</label>
 
                             <div class="col-md-8">
                                 <input type="txt" class="form-control" name="last_name" value="{{ $user->last_name }}" disabled/>
@@ -43,7 +43,7 @@
                         </div>
 						
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail adresa</label>
+                            <label for="email" class="col-md-4 control-label">E-Mail adresa:</label>
 
                             <div class="col-md-8">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ $applic->email }}" required/>
@@ -57,7 +57,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('residence_town') ? ' has-error' : '' }}">
-                            <label for="residence_town" class="col-md-4 control-label">Mjesto prebivališta</label>
+                            <label for="residence_town" class="col-md-4 control-label">Mjesto prebivališta;</label>
 
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="residence_town" value="{{ $applic->residence_town }}" required/>
@@ -71,7 +71,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('residence_county') ? ' has-error' : '' }}">
-                            <label for="residence_county" class="col-md-4 control-label">Županija prebivališta</label>
+                            <label for="residence_county" class="col-md-4 control-label">Županija prebivališta:</label>
 							
                             <div class="col-md-8">
 								
@@ -90,7 +90,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('academic_year') ? ' has-error' : '' }}">
-                            <label for="academic_year" class="col-md-4 control-label">Godina studija</label>
+                            <label for="academic_year" class="col-md-4 control-label">Godina studija:</label>
                             <div class="col-md-8">
 								<select class="form-control" name="academic_year" value="{{ $applic->academic_year }}" required/>
 									@if($applic->academic_year == 0)
@@ -132,7 +132,7 @@
                         </div>
 						
 						<div class="form-group">
-                            <label class="col-md-4 control-label">Smjer</label>
+                            <label class="col-md-4 control-label">Smjer:</label>
 
                             <div class="col-md-8">
 								<select class="form-control" name="course" required/>
@@ -175,7 +175,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('average_bacc_grade') ? ' has-error' : '' }}">
-                            <label for="average_bacc_grade" class="col-md-4 control-label">Prosjek na preddiplomskom</label>
+                            <label for="average_bacc_grade" class="col-md-4 control-label">Prosjek na preddiplomskom:</label>
 
                             <div class="col-md-8">
                                 <input type="number" max="5" step="0.01" min="0" class="form-control" name="average_bacc_grade" value="{{ $applic->average_bacc_grade }}" />
@@ -186,6 +186,7 @@
                                     </span>
                                 @endif
                             </div>
+							<div class="col-md-8 col-md-offset-4"><i><small>* ispunite ukoliko imate završenu barem jednu godinu preddiplomskog studija</small></i></div>
                         </div>
 						
 						<div class="form-group{{ $errors->has('average_master_grade') ? ' has-error' : '' }}">
@@ -200,10 +201,11 @@
                                     </span>
                                 @endif
                             </div>
+							<div class="col-md-8 col-md-offset-4"><i><small>* ispunite ukoliko imate završenu barem jednu godinu diplomskog studija</small></i></div>
                         </div>
 						
 						<div class="form-group{{ $errors->has('internship_town') ? ' has-error' : '' }}">
-                            <label for="internship_town" class="col-md-4 control-label">Grad za odrađivanje prakse</label>
+                            <label for="internship_town" class="col-md-4 control-label">Grad za odrađivanje prakse:</label>
 
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="internship_town" value="{{ $applic->internship_town }}" />
@@ -217,7 +219,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('desired_company') ? ' has-error' : '' }}">
-                            <label for="desired_company" class="col-md-4 control-label">Željena tvrtka (navesti maximalno 5)</label>
+                            <label for="desired_company" class="col-md-4 control-label">Željena tvrtka:</label>
 
                             <div class="col-md-8">
                                 <textarea type="text" class="form-control" name="desired_company" style="resize:vertical;max-height:200px" >{{ $applic->desired_company }}</textarea>
@@ -228,10 +230,11 @@
                                     </span>
                                 @endif
                             </div>
+							<div class="col-md-8 col-md-offset-4"><i><small>* navesti najviše 5 tvrtki</small></i></div>
                         </div>
 						
 						<div class="form-group{{ $errors->has('desired_month') ? ' has-error' : '' }}">
-                            <label for="desired_month" class="col-md-4 control-label">Željeni mjesec za odrađivanje prakse</label>
+                            <label for="desired_month" class="col-md-4 control-label">Željeni mjesec:</label>
 
                             <div class="col-md-8">
 								<select class="form-control" name="desired_month" />
@@ -266,6 +269,7 @@
                                     </span>
                                 @endif
                             </div>
+							<div class="col-md-8 col-md-offset-4"><i><small>* odabarite mjesec kada biste najradije imali praksu</small></i></div>
                         </div>
 						
 						<h3 style="display:table;margin:auto;margin-bottom:20px;margin-top:30px;">Aktivnosti:</h3>
@@ -274,10 +278,10 @@
 
                             <div class="col-md-12">
 							@for($i=1; $i<=10; $i++)
-											<div class="col-sm-offset-2 col-sm-10">
+											<div class="col-sm-offset-2 col-sm-10" style="margin-bottom:10px;">
 												<input class="cursor_pointer" type="checkbox" {{$activities[$i]['checked']}} name="activities[{{$i}}]"><label style="display:inline;"> {{$activities[$i]['name']}}</label>
 											</div>
-											<div class="activity_inputs">
+											<div class="activity_inputs" {{ $activities[$i]['checked'] ? '' : 'hidden'}}>
 												<div class="form-group">
 													<label class="col-md-2 col-sm-2 control-label" for="year_{{$i}}">Razdoblje: </label>
 													<div class="col-md-10 col-sm-10">
@@ -290,7 +294,7 @@
 														<textarea type="text" name="description_{{$i}}" maxlength="5000" style="resize:vertical;max-height:200px" class="form-control">{{$activities[$i]['description']}}</textarea>
 													</div>
 												</div>
-											</div>
+											</div>		
 							@endfor
 							</div>
 						</div>
@@ -310,8 +314,11 @@
 	</div>
 </div>
 @endsection
-
 @section('script')
 <script>
+$(document).on("click", ".cursor_pointer", function(){
+	$(this).parent().next().fadeToggle("slow");
+});
 </script>
 @endsection
+
