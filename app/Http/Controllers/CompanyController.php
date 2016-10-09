@@ -177,7 +177,7 @@ class CompanyController extends Controller
 			
 			$internships = DB::table('internships')->join('users', 'internships.student_id', '=', 'users.id')->join('companies', 'internships.company_id', '=', 'companies.id')->join('competitions', 'internships.competition_id', '=', 'competitions.id')->select('internships.*', DB::raw("CONCAT(users.name, ' ', users.last_name) AS student_full_name"), 'companies.name AS company_name', 'companies.id AS company_id', 'competitions.created_at AS competition_created_at', 'competitions.name AS competition_name')->where('internships.company_id', $id)->where('internships.status', 0)->where('internships.confirmation_student', 1)->where('internships.confirmation_admin', 1)->where(function($query)use($request){
 				
-				$query->where(DB::raw("CONCAT(users.name, ' ', users.last_name)"), 'like', '%' . $request->search . '%')->orWhere('companies.name', 'like', '%' . $request->search . '%');
+				$query->where(DB::raw("CONCAT(users.name, ' ', users.last_name)"), 'like', '%' . $request->search . '%');
 				
 				}
 		
