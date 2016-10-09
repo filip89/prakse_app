@@ -43,7 +43,7 @@ class ApplicController extends Controller
 	
 	public function index() {
 		
-		$applics = Applic::where('status', 1)->orderBy('created_at', 'asc')->paginate(1);
+		$applics = Applic::where('status', 1)->orderBy('created_at', 'asc')->paginate(30);
 		
 		$applicsNum = count(Applic::where('status', '<>', 0)->get());
 		

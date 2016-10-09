@@ -43,22 +43,22 @@ class CompanyController extends Controller
 		
 		if(isset($request->search)){
 						
-			$companies = Company::where('name', 'like', '%' . $request->search . '%')->paginate(1);
+			$companies = Company::where('name', 'like', '%' . $request->search . '%')->paginate(30);
 			
 		}
 		elseif($request->filter == 'all' || !isset($request->filter)){
 			
-			$companies = Company::orderBy('created_at', 'desc')->paginate(1);
+			$companies = Company::orderBy('created_at', 'desc')->paginate(30);
 			
 		}
 		elseif($request->filter == 'confirmed') {
 			
-			$companies = Company::where('status', 1)->orderBy('created_at', 'desc')->paginate(1);
+			$companies = Company::where('status', 1)->orderBy('created_at', 'desc')->paginate(30);
 			
 		}
 		elseif($request->filter == 'unconfirmed') {
 			
-			$companies = Company::where('status', 0)->orderBy('created_at', 'desc')->paginate(1);
+			$companies = Company::where('status', 0)->orderBy('created_at', 'desc')->paginate(30);
 		
 		}
 		
@@ -68,7 +68,7 @@ class CompanyController extends Controller
 	
 	public function wishlist(){
 		
-		$applics = Applic::where('status', '<>', 0)->where('desired_company', '!=', "")->paginate(1);
+		$applics = Applic::where('status', '<>', 0)->where('desired_company', '!=', "")->paginate(30);
 		
 		return view('companies_wishlist', ['applics' => $applics]);
 		
@@ -181,12 +181,12 @@ class CompanyController extends Controller
 				
 				}
 		
-			)->orderBy('internships.created_at', 'desc')->paginate(1);
+			)->orderBy('internships.created_at', 'desc')->paginate(30);
 			
 		}
 		else{
 			
-			$internships = DB::table('internships')->join('users', 'internships.student_id', '=', 'users.id')->join('companies', 'internships.company_id', '=', 'companies.id')->join('competitions', 'internships.competition_id', '=', 'competitions.id')->select('internships.*', DB::raw("CONCAT(users.name, ' ', users.last_name) AS student_full_name"), 'companies.name AS company_name', 'companies.id AS company_id', 'competitions.created_at AS competition_created_at', 'competitions.name AS competition_name')->where('internships.company_id', $id)->where('internships.status', 0)->where('internships.confirmation_student', 1)->where('internships.confirmation_admin', 1)->orderBy('internships.created_at', 'desc')->paginate(1);
+			$internships = DB::table('internships')->join('users', 'internships.student_id', '=', 'users.id')->join('companies', 'internships.company_id', '=', 'companies.id')->join('competitions', 'internships.competition_id', '=', 'competitions.id')->select('internships.*', DB::raw("CONCAT(users.name, ' ', users.last_name) AS student_full_name"), 'companies.name AS company_name', 'companies.id AS company_id', 'competitions.created_at AS competition_created_at', 'competitions.name AS competition_name')->where('internships.company_id', $id)->where('internships.status', 0)->where('internships.confirmation_student', 1)->where('internships.confirmation_admin', 1)->orderBy('internships.created_at', 'desc')->paginate(30);
 		
 		}
 		

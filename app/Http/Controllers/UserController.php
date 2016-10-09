@@ -56,12 +56,12 @@ class UserController extends Controller
 		
 		if(isset($request->search)){
 						
-			$users = User::where('role', 'intern_mentor')->where(DB::raw("CONCAT(name, ' ', last_name)"), 'like', '%' . $request->search . '%')->paginate(1);
+			$users = User::where('role', 'intern_mentor')->where(DB::raw("CONCAT(name, ' ', last_name)"), 'like', '%' . $request->search . '%')->paginate(30);
 			
 		}
 		else{
 			
-		$users = User::where('role', 'intern_mentor')->paginate(1);
+		$users = User::where('role', 'intern_mentor')->paginate(30);
 		
 		}
 		
@@ -73,12 +73,12 @@ class UserController extends Controller
 		
 		if(isset($request->search)){
 						
-			$users = User::where('role', 'college_mentor')->where(DB::raw("CONCAT(name, ' ', last_name)"), 'like', '%' . $request->search . '%')->paginate(1);
+			$users = User::where('role', 'college_mentor')->where(DB::raw("CONCAT(name, ' ', last_name)"), 'like', '%' . $request->search . '%')->paginate(30);
 			
 		}
 		else{
 			
-		$users = User::where('role', 'college_mentor')->paginate(1);
+		$users = User::where('role', 'college_mentor')->paginate(30);
 		
 		}
 		
@@ -90,12 +90,12 @@ class UserController extends Controller
 		
 		if(isset($request->search)){
 						
-			$users = User::where('role', 'student')->where(DB::raw("CONCAT(name, ' ', last_name)"), 'like', '%' . $request->search . '%')->paginate(1);
+			$users = User::where('role', 'student')->where(DB::raw("CONCAT(name, ' ', last_name)"), 'like', '%' . $request->search . '%')->paginate(30);
 			
 		}
 		else{
 			
-			$users = User::where('role', 'student')->paginate(1);
+			$users = User::where('role', 'student')->paginate(30);
 			
 		}
 				
@@ -319,7 +319,7 @@ class UserController extends Controller
 			
 			if($user->role == 'student'){
 				
-				$internships = DB::table('internships')->join('users', 'internships.student_id', '=', 'users.id')->join('companies', 'internships.company_id', '=', 'companies.id')->join('competitions', 'internships.competition_id', '=', 'competitions.id')->select('internships.*', DB::raw("CONCAT(users.name, ' ', users.last_name) AS student_full_name"), 'companies.name AS company_name', 'companies.id AS company_id', 'competitions.created_at AS competition_created_at', 'competitions.name AS competition_name')->where($user_role_id, $id)->where('internships.status', 0)->where('internships.confirmation_student', 1)->where('internships.confirmation_admin', 1)->where('companies.name', 'like', '%' . $request->search . '%')->orderBy('internships.created_at', 'desc')->paginate(1);
+				$internships = DB::table('internships')->join('users', 'internships.student_id', '=', 'users.id')->join('companies', 'internships.company_id', '=', 'companies.id')->join('competitions', 'internships.competition_id', '=', 'competitions.id')->select('internships.*', DB::raw("CONCAT(users.name, ' ', users.last_name) AS student_full_name"), 'companies.name AS company_name', 'companies.id AS company_id', 'competitions.created_at AS competition_created_at', 'competitions.name AS competition_name')->where($user_role_id, $id)->where('internships.status', 0)->where('internships.confirmation_student', 1)->where('internships.confirmation_admin', 1)->where('companies.name', 'like', '%' . $request->search . '%')->orderBy('internships.created_at', 'desc')->paginate(30);
 				
 			}
 			else {
@@ -330,14 +330,14 @@ class UserController extends Controller
 				
 				}
 		
-				)->orderBy('internships.created_at', 'desc')->paginate(1);
+				)->orderBy('internships.created_at', 'desc')->paginate(30);
 				
 			}
 
 		}	
 		else{
 			
-			$internships = DB::table('internships')->join('users', 'internships.student_id', '=', 'users.id')->join('companies', 'internships.company_id', '=', 'companies.id')->join('competitions', 'internships.competition_id', '=', 'competitions.id')->select('internships.*', DB::raw("CONCAT(users.name, ' ', users.last_name) AS student_full_name"), 'companies.name AS company_name', 'companies.id AS company_id', 'competitions.created_at AS competition_created_at', 'competitions.name AS competition_name')->where($user_role_id, $id)->where('internships.status', 0)->where('internships.confirmation_student', 1)->where('internships.confirmation_admin', 1)->orderBy('internships.created_at', 'desc')->paginate(1);
+			$internships = DB::table('internships')->join('users', 'internships.student_id', '=', 'users.id')->join('companies', 'internships.company_id', '=', 'companies.id')->join('competitions', 'internships.competition_id', '=', 'competitions.id')->select('internships.*', DB::raw("CONCAT(users.name, ' ', users.last_name) AS student_full_name"), 'companies.name AS company_name', 'companies.id AS company_id', 'competitions.created_at AS competition_created_at', 'competitions.name AS competition_name')->where($user_role_id, $id)->where('internships.status', 0)->where('internships.confirmation_student', 1)->where('internships.confirmation_admin', 1)->orderBy('internships.created_at', 'desc')->paginate(30);
 
 		}
 		

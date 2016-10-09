@@ -34,7 +34,7 @@ class ComplaintController extends Controller
 	
 	public function index(){
 		
-		$complaints = Complaint::orderBy('created_at', 'desc')->paginate(1);
+		$complaints = Complaint::orderBy('created_at', 'desc')->paginate(30);
 		
 		return view('complaints', ['complaints' => $complaints]);
 		
