@@ -73,7 +73,7 @@
 					@foreach($activities as $activity)
 						<b><i class="fa fa-btn fa-check-square-o" aria-hidden="true"></i>{{ Utilities::activity($activity->number) }}</b><br/>
 						<b>Razdoblje:</b> {{ $activity->year }} <br/>
-						<b>Opis:</b> {{ $activity->description }}
+						<b>Opis:</b> {{ $activity->description }}<br/><br/>
 					@endforeach
 					</td>
 				</tr>

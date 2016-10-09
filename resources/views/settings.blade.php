@@ -111,7 +111,7 @@
 								<label for="message" class="col-md-2 control-label">Poruka:</label>
 
 								<div class="col-md-10">
-									<textarea type="text" class="form-control" style="height:200px;max-height:700px;resize:vertical;" placeholder="Ovdje možete upisati opcionalnu porkuku koja će se prikazati uz objavu rezultata na naslonici." name="message"></textarea>
+									<textarea type="text" class="form-control" style="height:200px;max-height:700px;resize:vertical;" placeholder="Ovdje možete upisati opcionalnu poruku koja će se prikazati uz objavu rezultata na naslonici." name="message"></textarea>
 
 								@if ($errors->has('message'))
 									<span class="help-block">
