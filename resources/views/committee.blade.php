@@ -12,7 +12,7 @@
 			</div>
 			@endif
 			@if(count($members) == 0)
-				<h3 style="text-align:center;color:gray;">Nema niti jedan član povjerenstva.</h3>
+				<h3 style="text-align:center;color:gray;margin-bottom:30px;">Nema niti jedan član povjerenstva.</h3>
 			@else
 			<div class="table-responsive">
 				<table class="table table-striped" style="text-align:center;">
