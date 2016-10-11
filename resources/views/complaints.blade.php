@@ -12,14 +12,14 @@
 			</div>
 			@endif
 			@if(count($complaints) < 1)
-				<h3 style="text-align:center;color:gray;">Ne postoji niti jedna pritužba.</h3>
+				<h3 style="text-align:center;color:gray;">Ne postoji niti jedno pitanje.</h3>
 			@else
 			<div class="table-responsive">
 				<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>Student</th>
-						<th>Vrijeme pritužbe</th>
+						<th>Vrijeme pitanja</th>
 						<th>Status</th>
 						<th></th>
 					</tr>
@@ -39,9 +39,9 @@
 						</td>
 						<td>
 						@if($complaint->status == 0)
-							Neriješena
+							Neodgovoreno
 						@else
-							Riješena
+							Odgovoreno
 						@endif
 						</td>
 
@@ -66,5 +66,5 @@
 @endsection
 
 @section('modal_body_content')
-	Ukloniti pritužbu od korisnika
+	Ukloniti pitanje od korisnika
 @endsection
