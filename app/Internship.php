@@ -35,6 +35,12 @@ class Internship extends Model
     	
     }
 	
+	public function applic() {
+
+    	return $this->belongsTo('App\Applic');
+    	
+    }
+	
 	public static function recent(){
 		
 		$lastSixMonths = strtotime('-6 months');
