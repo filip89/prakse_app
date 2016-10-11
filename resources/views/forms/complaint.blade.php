@@ -11,7 +11,7 @@
 			</div>
 			@endif
 			@if(Auth::user()->hasUnresolvedComplaint())
-				<h3 style="margin-bottom:20px;" class="notice">*Trenutno imate neriješene pritužbe u našoj bazi.</h3>
+				<h3 style="margin-bottom:20px;" class="notice">*Trenutno imate neodgovorena pitanja u našoj bazi.</h3>
 			@endif
             <div class="panel panel-warning">
                 <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>{{ Auth::user()->name . ' ' . Auth::user()->last_name }} pritužba</div>
@@ -37,7 +37,7 @@
                             <label for="content" class="col-md-2 control-label">Pritužba: </label>
 
                             <div class="col-md-10">
-                                <textarea type="text" class="form-control" style="resize:vertical;height:200px;max-height:500px" name="content" placeholder="Ovdje upišite pritužbu od najviše 10 000 znakova" required></textarea>
+                                <textarea type="text" class="form-control" style="resize:vertical;height:200px;max-height:500px" name="content" placeholder="Ovdje upišite pitanje od najviše 10000 znakova" required></textarea>
 
                                 @if ($errors->has('content'))
                                     <span class="help-block">
