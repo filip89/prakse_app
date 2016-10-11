@@ -14,6 +14,7 @@ use App\Utilities;
 use App\Activity;
 use Session;
 use App\Competition;
+use DB;
 
 class ApplicController extends Controller
 {
@@ -50,6 +51,29 @@ class ApplicController extends Controller
 		$processedApplics = count(Applic::where('status', 2)->get());
 		
 		return view('applics', ['applics' => $applics, 'applicsNum' => $applicsNum, 'processedApplics' => $processedApplics]);
+		
+	}
+	
+	public function former(Request $request) {
+		
+		$competitions = Competition::where('status', 0)->orderBy('created_at', 'desc')->get();
+		
+		
+		if(isset($request->competition)){
+			
+			$competition = Competition::find($request->competition);
+			
+		}
+		else{
+			
+			$competition = Competition::where('status', 0)->orderBy('created_at', 'desc')->first();
+			
+		}
+			
+		$applics = $competition->applics()->orderBy('created_at', 'asc')->paginate(30);
+
+		
+		return view('applics_former', ['applics' => $applics, 'competitions' => $competitions]);
 		
 	}
 	
@@ -187,6 +211,7 @@ class ApplicController extends Controller
 		if(!$user->activeApplic()){
 			
 			$applic->student()->associate($user);
+			$applic->competition()->associate(Competition::current());
 				
 		}
 		else {
