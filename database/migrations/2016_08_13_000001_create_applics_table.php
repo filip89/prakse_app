@@ -15,6 +15,7 @@ class CreateApplicsTable extends Migration
          Schema::create('applics', function (Blueprint $table) {
         	$table->increments('id');
 		$table->integer("student_id")->unsigned();
+		$table->integer("competition_id")->unsigned();
 		$table->integer("academic_year");
 		$table->integer("course");
 		$table->string("email", 100);
@@ -31,6 +32,7 @@ class CreateApplicsTable extends Migration
 		
 		Schema::table('applics', function ($table){
 			$table->foreign("student_id")->references("id")->on("users")->onDelete("cascade");
+			$table->foreign("competition_id")->references("id")->on("competitions")->onDelete("cascade");
 		});
 
     }
