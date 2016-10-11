@@ -174,7 +174,7 @@ class InternshipController extends Controller
     public function edit($id) {
 
         $internship = Internship::find($id);
-        $applic = Applic::where('student_id', $internship->student_id)->orderBy('created_at', 'desc')->first();
+        $applic = $internship->applic;
         $companies= Company::where('status', 1)->get();
         $collegeMentor = User::where('role', 'college_mentor')->get();
         $internMentor = User::where('role', 'intern_mentor')->get();
@@ -209,7 +209,8 @@ class InternshipController extends Controller
                 $applic->save();  
             }  
             $internship->student_id = $request->student_id;
-            $internship->competition_id = $competitions->id;   
+            $internship->competition_id = $competitions->id;
+            $internship->applic_id = $applic->id;
         }
         
         $internship->company_id = $request->company_id ?: null;
