@@ -35,7 +35,7 @@
 			</div>
 		@endif
 			<table class="table table-striped table-bordered">
-				<tr><th colspan="2" class="table_section">Detalji pritužbe</th></tr>
+				<tr><th colspan="2" class="table_section">Detalji pitanja</th></tr>
 				<tr><th>Ime:</th><td>{{ $student->name }}</td></tr>
 				<tr><th>Prezime</th><td>{{ $student->last_name }}</td></tr>
 				<tr><th>E-mail</th><td>{{ $complaint->email }}</td></tr>
@@ -57,16 +57,16 @@
 					@endif
 					</td>
 				</tr>
-				<tr><th colspan="2">Pritužba:</th></tr>
+				<tr><th colspan="2">Pitanje:</th></tr>
 				<tr><td colspan="2">{{ $complaint->content }}</td></tr>
 			</table>
 			<div class="action_buttons">
 				<form action="{{ url('/complaint/status/' . $complaint->id) }}" method="POST">
 					{{ csrf_field() }}
 					@if($complaint->status == 0)
-					<button class="btn btn-success btn-bg" ><i class="fa fa-btn fa-check" aria-hidden="true"></i>Označi kao riješeno</button>
+					<button class="btn btn-success btn-bg" ><i class="fa fa-btn fa-check" aria-hidden="true"></i>Označi kao odgovoreno</button>
 					@else
-					<button class="btn btn-warning btn-bg" ><i class="fa fa-btn fa-times" aria-hidden="true"></i>Označi kao neriješeno</button>
+					<button class="btn btn-warning btn-bg" ><i class="fa fa-btn fa-times" aria-hidden="true"></i>Označi kao neodgovoreno</button>
 					@endif
 				</form>
 				<form action="{{ url('/complaint/delete/' . $complaint->id) }}" method="POST">
@@ -80,5 +80,5 @@
 @endsection
 
 @section('modal_body_content')
-	Ukloniti pritužbu
+	Ukloniti pitanje
 @endsection
