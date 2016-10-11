@@ -28,8 +28,8 @@
 				{{ Session::get('status') }}
 			</div>
 			@endif
-			@if(count($users) == 0 && !isset($_GET['search']))
-				<h3 style="text-align:center;color:gray;">Nema registriranih mentora iz tvrtke.</h3>
+			@if(count($users) == 0 && (!isset($_GET['search']) || $_GET['search'] == ''))
+				<h3 style="text-align:center;color:gray;margin-bottom:40px">Nema registriranih mentora iz tvrtke.</h3>
 			@endif
 			@if(Auth::user()->isAdmin())
 			<a href="{{ url('/user/add/internmentor') }}"><button id="add_button" class="btn btn-primary btn-sm"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj mentora</button></a>
@@ -74,7 +74,8 @@
 				@endif
 				</div>
 			</div>
-			@else
+			@endif
+			@if(isset($_GET['search']) && $_GET['search'] != '' && count($users) == 0)
 				<h3 style="text-align:center;color:gray;">Nema metora pod tim imenom.</h3>
 			@endif
         </div>

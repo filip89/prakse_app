@@ -24,7 +24,7 @@
 				{{ Session::get('status') }}
 			</div>
 			@endif
-			@if(count($users) == 0 && !isset($_GET['search']))
+			@if(count($users) == 0 && (!isset($_GET['search']) || $_GET['search'] == ''))
 				<h3 style="text-align:center;color:gray;">Nema registriranih studenata.</h3>
 			@elseif(count($users) == 0)
 				<h3 style="text-align:center;color:gray;">Nema studenata pod tim imenom.</h3>

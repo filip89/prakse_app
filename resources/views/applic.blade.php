@@ -28,6 +28,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
+			<h1 style="display:table;margin:auto;margin-bottom:30px;">{{ $applic->student->name . ' ' . $applic->student->last_name }} - prijava</h1>
 			<div class="action_buttons" style="margin-bottom:20px">
 				<form action="{{ url('/applic/delete/' . $applic->id) }}" method="POST">
 					{{ csrf_field() }}
@@ -36,8 +37,14 @@
 			</div>
 			<div class="little_info">
 			Datum stvaranja: {{ $applic->created_at->format('d. m. Y. h:i:s') }}<br/>
-			Zadnja izmjena: {{ $applic->updated_at->format('d. m. Y. h:i:s') }}
-			
+			Zadnja izmjena: {{ $applic->updated_at->format('d. m. Y. h:i:s') }}</br></br>
+			Iz natječaja: {{ isset($applic->competition->name) ? $applic->competition->name : ''}}{{ ', ' . $applic->competition->created_at->format('d. m. Y.') }}</br>
+			Potvrđena praksa:
+			@if($applic->confirmedInternship())
+			<a class="link_object" href="{{ url('/internships/' . $applic->confirmedInternship()->id) }}">{{ $applic->confirmedInternship()->company->name }}</a>
+			@else
+				Ne
+			@endif
 			</div>
 			<table class="table table-striped table-bordered">
 				<tr><th colspan="2" class="table_section">Osobni podaci</th></tr>

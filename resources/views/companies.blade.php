@@ -28,8 +28,8 @@
 				{{ Session::get('status') }}
 			</div>
 			@endif
-			@if(count($allCompanies) == 0)
-				<h3 style="text-align:center;color:gray;">Nema tvrtki.</h3>
+			@if(count($allCompanies) == 0 && (!isset($_GET['search']) || $_GET['search'] == ''))
+				<h3 style="text-align:center;color:gray;margin-bottom:40px;">Nema dodanih tvrtki.</h3>
 			@endif
 			@if(Auth::user()->isAdmin())
 			<a id="add_button" class="btn btn-primary" type="button" href="{{ url('/company/create') }}"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj tvrtku</a>
@@ -130,7 +130,7 @@
 					@endif
 				</div>
 			@endif
-			@if(count($companies) == 0)
+			@if(isset($_GET['search']) && $_GET['search'] != '' && count($companies) == 0)
 				<h3 style="text-align:center;color:gray;">Nema pronađenih tvrtki.</h3>
 			@endif
         </div>
