@@ -266,7 +266,7 @@
 					@if(Utilities::competitionExists() == 1)
 					<li><a href="{{ url('/internships/showResults') }}"><b><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</b></a></li>							
 					@endif
-					<li><a href="{{  url('/complaint') }}"><i class="fa fa-btn fa-exclamation-circle " aria-hidden="true"></i>Uloži pritužbu</a></li>
+					<li><a href="{{  url('/complaint') }}"><i class="fa fa-btn fa-question" aria-hidden="true"></i>>Postavi pitanje</a></li>
 					@endif
 					<li><a href="{{  url('/committee') }}"><i class="fa fa-btn fa-users" aria-hidden="true"></i>Povjerenstvo</a></li>
                 </ul>
@@ -308,7 +308,7 @@
 								<li><a href="{{ url('/user/college_mentor/list') }}"><i class="fa fa-btn fa-university" aria-hidden="true"></i>Mentori nastavnici</a></li>
 								<li><a href="{{  url('/user/intern_mentor/list') }}"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Mentori iz tvrtke</a></li>
 								@if(Auth::user()->isAdmin())
-								<li><a href="{{  url('/complaints') }}"><i class="fa fa-btn fa-exclamation-circle " aria-hidden="true"></i>Pritužbe</a></li>
+								<li><a href="{{  url('/complaints') }}"><i class="fa fa-btn fa-exclamation-circle " aria-hidden="true"></i>Pitanja</a></li>
 								@endif
                             </ul>
                         </li>
