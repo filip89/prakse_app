@@ -65,7 +65,7 @@ class ComplaintController extends Controller
 		$complaint->student()->associate($student);
 		$complaint->save();
 		
-		Session::flash('status', 'Pritužba je poslana!');
+		Session::flash('status', 'Pitanje je poslano!');
 		Session::flash('alert_type', 'alert-success');
 		
 		return back();
@@ -80,7 +80,7 @@ class ComplaintController extends Controller
 			
 			$complaint->status = 1;
 			
-			Session::flash('status', 'Pritužba je označena kao riješena!');
+			Session::flash('status', 'Pitanje je označeno kao odgovoreno!');
 			Session::flash('alert_type', 'alert-success');
 			
 		}
@@ -88,7 +88,7 @@ class ComplaintController extends Controller
 			
 			$complaint->status = 0;
 			
-			Session::flash('status', 'Pritužba je označena kao neriješena!');
+			Session::flash('status', 'Pitanje je označeno kao neodgovoreno!');
 			Session::flash('alert_type', 'alert-warning');
 			
 		}
@@ -102,7 +102,7 @@ class ComplaintController extends Controller
 		
 		Complaint::find($id)->delete();
 		
-		Session::flash('status', 'Pritužba je obrisana!');
+		Session::flash('status', 'Pitanje je obrisano!');
 		Session::flash('alert_type', 'alert-danger');
 		
 		return redirect('/complaints');
