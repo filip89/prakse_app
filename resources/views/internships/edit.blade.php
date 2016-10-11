@@ -13,16 +13,12 @@ th {
 <div class="container">
     <div class="row">
         
-        @if($app->status != 0)
         <div class="col-md-5">
 
         @include('layouts.student_info')
 
         </div>        
-	    <div class="col-md-7">
-        @else           
-        <div class="col-md-8 col-md-offset-2">
-        @endif    
+	    <div class="col-md-7">  
 	        <div class="panel panel-warning">
 	            <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Uređivanje prakse</div>
 	                <div class="panel-body"> 
