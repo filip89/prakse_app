@@ -69,6 +69,8 @@
 			},
 		});
 	});
+	
+	$('[data-toggle="tooltip"]').tooltip(); 
 
     });
 
@@ -279,7 +281,13 @@
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @elseif(Auth::user()->role != "student")
 						@if(Auth::user()->isAdmin())
-							<li><a href="{{ url('/applics') }}">Prijave</a></li>
+							<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prijave <span class="caret"></span></a>		
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="{{ url('/applics') }}"><i class="fa fa-btn fa-calendar-check-o" aria-hidden="true"></i>Trenutni natječaj</a></li>
+									<li><a href="{{ url('/applics/former') }}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Povijest</a></li>
+								</ul>
+                        				</li>
 						@endif
 						@if(Auth::user()->role == "college_mentor")
 						<li class="dropdown">
