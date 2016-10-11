@@ -50,7 +50,7 @@
 				</tr>
 				<tr><th>Posljednja praksa</th>
 					<td>
-					@if($student->lastApplic())
+					@if($student->lastInternship())
 						<a href="{{ url('/internships/' . $student->lastInternship()->id) }}">{{ $student->lastInternship()->company->name . ' (' . $student->lastInternship()->created_at->format('Y.') . ')' }}</a>
 					@else
 						Nije imao/la
