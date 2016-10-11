@@ -47,6 +47,7 @@ Route::post('committee/delete/{id}', "CommitteeController@delete");
 
 //lista prijava
 Route::get('applics', "ApplicController@index");
+Route::get('applics/former', "ApplicController@former");
 
 //'profil' prijave - studenta
 Route::get('myapplic/', "ApplicController@myApplic");
