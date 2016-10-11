@@ -19,6 +19,7 @@ class CreateInternshipsTable extends Migration
 		$table->integer("college_mentor_id")->unsigned()->nullable();
 		$table->integer("company_id")->unsigned()->nullable();
 		$table->integer("competition_id")->unsigned();
+		$table->integer("applic_id")->unsigned();
 		$table->decimal("average_bacc_grade", 3,2)->nullable()->default(0);
 		$table->decimal("average_master_grade", 3,2)->nullable()->default(0);
 		$table->integer("academic_year");
@@ -45,6 +46,7 @@ class CreateInternshipsTable extends Migration
 			$table->foreign("college_mentor_id")->references("id")->on("users")->onDelete("set null");
 			$table->foreign("company_id")->references("id")->on("companies")->onDelete("set null");
 			$table->foreign("competition_id")->references("id")->on("competitions")->onDelete("cascade");
+			$table->foreign("applic_id")->references("id")->on("applics")->onDelete("cascade");
 		});
 		
 		
