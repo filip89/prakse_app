@@ -83,6 +83,8 @@ Route::post('company/delete/{id}', 'CompanyController@delete');
 Route::any('internships/document', 'InternshipController@getPDF');
 Route::any('internships/createReport', 'InternshipController@createReport');
 Route::any('internships/report', 'InternshipController@getReport');
+Route::any('internships/statistics', 'InternshipController@getStatistics');
+Route::any('internships/statisticsReport', 'InternshipController@statisticsReport');
 Route::get('internships/showFinal', "InternshipController@showFinal");
 Route::get('internships/showResults', "InternshipController@showResults");
 Route::post('internships/comment', "InternshipController@comment");
