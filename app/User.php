@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-		'name', 'last_name', 'email', 'password', 'role',
+		'name', 'last_name', 'email', 'password', 'role', 'phone'
     ];
 
     /**
@@ -113,7 +113,7 @@ class User extends Authenticatable
 	
 	public function activeApplic() {
 		
-		if($this->role == 'student' && count($this->applics()->where('status', '<>', 0)->get()) > 0){
+		if(count($this->applics()->where('status', '<>', 0)->get()) > 0){
 			
 			return $this->applics()->where('status', '<>', 0)->first();
 			
