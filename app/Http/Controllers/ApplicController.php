@@ -69,9 +69,17 @@ class ApplicController extends Controller
 			$competition = Competition::where('status', 0)->orderBy('created_at', 'desc')->first();
 			
 		}
+		
+		if($competition){
 			
-		$applics = $competition->applics()->orderBy('created_at', 'asc')->paginate(30);
-
+			$applics = $competition->applics()->orderBy('created_at', 'asc')->paginate(30);
+			
+		}
+		else {
+			
+			$applics = [];
+			
+		}
 		
 		return view('applics_former', ['applics' => $applics, 'competitions' => $competitions]);
 		

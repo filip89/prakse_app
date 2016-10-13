@@ -70,6 +70,7 @@ class CompetitionController extends Controller
 		$competition = Competition::where('status', 1)->first();
 		
 		$competition->status = 2;
+		$competition->end_date = date('Y-m-d');
 		$competition->save();
 		
 		Session::flash('status', 'Natječaj "' . $competition->name . '" (' . $competition->year . '. godine) je zatvoren!');

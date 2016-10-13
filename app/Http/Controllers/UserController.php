@@ -24,6 +24,8 @@ use App\Utilities;
 
 use DB;
 
+use File;
+
 class UserController extends Controller
 {
 	
@@ -108,18 +110,37 @@ class UserController extends Controller
 		
 		$user = User::find($id);
 		
-		$currentCompInterns = $user->internships()->where('status', '<>', 0)->where('confirmation_admin', 1)->get();
+		if($user->role == "college_mentor" || $user->role == "intern_mentor"){
+			
+			$currentCompInterns = $user->internships()->where('status', '<>', 0)->where('confirmation_admin', 1)->get();
 				
-		$recentInterns = $user->recentInternships();
-		
-		if($user->role == "college_mentor"){
+			$recentInterns = $user->recentInternships();
 			
-			return view("profiles.college_mentor", ['user' => $user, 'currentCompInterns' => $currentCompInterns, 'recentInterns' => $recentInterns]);
+			if($user->role == "college_mentor"){
 			
-		}
-		else {
+				return view("profiles.college_mentor", ['user' => $user, 'currentCompInterns' => $currentCompInterns, 'recentInterns' => $recentInterns]);
 			
-			return view("profiles.intern_mentor", ['user' => $user, 'currentCompInterns' => $currentCompInterns, 'recentInterns' => $recentInterns]);
+			}
+			else {
+			
+				return view("profiles.intern_mentor", ['user' => $user, 'currentCompInterns' => $currentCompInterns, 'recentInterns' => $recentInterns]);
+			
+			}
+				
+		}else {
+			
+			$lastInternship = $user->internships()->where('confirmation_admin', 1)->where('confirmation_student', 1)->orderBy('created_at', 'desc')->first();
+			
+			$applicsNum = count($user->applics()->get());
+			
+			$activeApplic = $user->applics()->where('status', '<>', 0)->first();
+			
+			$internshipsNum = count($user->internships()->where('confirmation_admin', 1)->where('confirmation_student', 1)->get());
+			
+			$internshipsTurnedDown = count($user->internships()->where('confirmation_admin', 1)->where('confirmation_student', 0)->get());
+			
+			
+			return view("profiles.student", ['user' => $user, 'lastInternship' => $lastInternship, 'applicsNum' => $applicsNum, 'internshipsNum' => $internshipsNum, 'internshipsTurnedDown' => $internshipsTurnedDown]);
 			
 		}
 		
@@ -166,8 +187,10 @@ class UserController extends Controller
 		
 		$this->validate($request, [
             'name' => 'required|max:255',
-			'email' => 'required|max:255',
 			'last_name' => 'required|max:255',
+			'email' => 'required|email|max:255',
+			'phone' => 'max:50',
+			'title' => 'max:100',			
 		]);
 		
 		$user = User::find($id);
@@ -175,12 +198,23 @@ class UserController extends Controller
 		$user->name = $request->name;
 		$user->last_name = $request->last_name;
 		$user->email = $request->email;
+		$user->phone = $request->phone;
 		$user->profile->title = $request->title;
 		$user->profile->fields = $request->fields;
 		$user->push();
 		
-		Session::flash('status', 'Korisnik je uređen!');
-		Session::flash('alert_type', 'alert-warning');
+		if(Auth::user()->id == $user->id){
+			
+			Session::flash('status', 'Profil vam je uređen!');
+			Session::flash('alert_type', 'alert-warning');
+			
+		}
+		else{
+			
+			Session::flash('status', 'Korisnik je uređen!');
+			Session::flash('alert_type', 'alert-warning');
+			
+		}
 		
 		return redirect("/user/" . $id);
 		
@@ -227,9 +261,8 @@ class UserController extends Controller
 		$user->name = $request->name;
 		$user->last_name = $request->last_name;
 		$user->email = $request->email;
+		$user->phone = $request->phone;
 		$user->profile->job_description = $request->job_description;
-		$user->profile->phone = $request->phone;
-		
 		
 		if(Auth::user()->isAdmin()){
 			$company = Company::find($request->company);
@@ -238,8 +271,61 @@ class UserController extends Controller
 		
 		$user->push();
 		
-		Session::flash('status', 'Korisnik je uređen!');
-		Session::flash('alert_type', 'alert-warning');
+		if(Auth::user()->id == $user->id){
+			
+			Session::flash('status', 'Profil vam je uređen!');
+			Session::flash('alert_type', 'alert-warning');
+			
+		}
+		else{
+			
+			Session::flash('status', 'Korisnik je uređen!');
+			Session::flash('alert_type', 'alert-warning');
+			
+		}
+		
+		return redirect("/user/" . $id);
+		
+	}
+	
+	//student
+	public function editStudentForm($id){
+		
+		$user = User::find($id);
+		
+		return view("forms.student", ['user' => $user]);
+		
+	}
+	
+	public function editStudent(Request $request, $id){
+		
+		$this->validate($request, [
+            'name' => 'required|max:255',
+			'last_name' => 'required|max:255',
+			'email' => 'required|email|max:255',
+			'phone' => 'max:50',		
+		]);
+		
+		$user = User::find($id);
+		
+		$user->name = $request->name;
+		$user->last_name = $request->last_name;
+		$user->email = $request->email;
+		$user->phone = $request->phone;
+		$user->save();
+		
+		if(Auth::user()->id == $user->id){
+			
+			Session::flash('status', 'Profil vam je uređen!');
+			Session::flash('alert_type', 'alert-warning');
+			
+		}
+		else{
+			
+			Session::flash('status', 'Korisnik je uređen!');
+			Session::flash('alert_type', 'alert-warning');
+			
+		}
 		
 		return redirect("/user/" . $id);
 		
@@ -261,7 +347,8 @@ class UserController extends Controller
 		$this->validate($request, [
             'name' => 'required|max:255',
 			'last_name' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'email|max:255',
+			'phone' => 'phone|max:50',
             'password' => 'required|min:6|confirmed',
 			'company' => 'required'
 		]);
@@ -376,6 +463,49 @@ class UserController extends Controller
 		
 		return back();
 	
+	}
+	
+	public function addImage(Request $request){
+		
+		$this->validate($request, [
+            'image_file' => 'required|max:10000|mimes:jpeg,png,bmp,gif',
+		]);
+		
+		$user = Auth::user();
+		
+		if($user->image){
+			
+			$storedImage = $user->image;
+			
+			File::delete('images/profile/' . $storedImage);
+			
+		}
+		
+		$image = $request->file('image_file');
+
+		$name = $user->id . $image->getClientOriginalName();
+		$image->move('images/profile/', $name);
+		
+		$user->image = $name;
+		$user->save();
+		
+		return redirect()->back();
+		
+	}
+	
+	public function deleteImage(Request $request, $id){
+		
+		$user = User::find($id);
+		
+		$storedImage = $user->image;
+		
+		File::delete('images/profile/' . $storedImage);
+		
+		$user->image = null;
+		$user->save();
+		
+		return back();
+		
 	}
 	
 }
