@@ -232,13 +232,15 @@
 			display:inline-block;
 			text-align:center;	
 		}
+		
 		.profile_img_container > button {
 			position:absolute;
-			bottom:5px;
-			right:5px;
+			top:5px;
+			left:5px;
+			width: 75px;
 			opacity: 0;
 		}
-		.profile_img_container button {
+		.profile_img_container button {			
 			transition: opacity 0.5s;	
 		}
 		.profile_img_container:hover button {
@@ -250,8 +252,8 @@
 
 		.profile_img_container form button {
 			position: absolute;
-			bottom: 5px;
-			left: 5px;
+			top: 5px;
+			right: 5px;
 			opacity: 0;
 		}
 		.req_field {
