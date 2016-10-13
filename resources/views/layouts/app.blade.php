@@ -243,9 +243,13 @@
 			transition: opacity 0.5s;	
 		}
 		.profile_img_container:hover button {
+			width: 60px;
+			height: 60px;
 			opacity: 0.8;
 		}
 		.profile_img_container:hover button:hover {
+			width: 60px;
+			height: 60px;
 			opacity: 1;
 		}
 
