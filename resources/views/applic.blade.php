@@ -28,8 +28,18 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-			<h1 style="display:table;margin:auto;margin-bottom:30px;">{{ $applic->student->name . ' ' . $applic->student->last_name }} - prijava</h1>
+			<h1 style="display:table;margin:auto">Prijava</h1>
+			<a  class="link_object" style="display:table;margin:auto;margin-bottom:30px;font-size:16px" href="{{ url('/user/' . $applic->student_id) }}">{{ $applic->student->name . ' ' . $applic->student->last_name }}</a>
 			<div class="action_buttons" style="margin-bottom:20px">
+				@if(Utilities::competitionStatus() == 2 && $applic->status == 1)
+					{{ Form::open(array('route' => array('internships.create', $applic->student->id), 'method' => 'GET')) }}
+					{{ Form::hidden('name', $applic->student->name) }}
+					{{ Form::hidden('last_name', $applic->student->last_name) }}
+					{{ Form::hidden('student_id', $applic->student->id) }}
+					{{ Form::hidden('applic_id', $applic->id) }}
+					{{ Form::submit('Izradi praksu', ['class' => 'btn btn-primary btn-sm']) }}
+					{{ Form::close() }}
+				@endif
 				<form action="{{ url('/applic/delete/' . $applic->id) }}" method="POST">
 					{{ csrf_field() }}
 					<button type="button" data-info="{{ $applic->student->name . ' ' . $applic->student->last_name }}" class="btn btn-danger btn-sm delete" >Ukloni</button>
@@ -79,5 +89,5 @@
 @endsection
 
 @section('modal_body_content')
-	Želite ukloniti prijavu studenta/ice
+	Ukoliko uklonite prijavu bit će uklonjena i pripadajuća praksa. Želite ukloniti prijavu studenta/ice
 @endsection

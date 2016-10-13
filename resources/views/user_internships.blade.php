@@ -75,7 +75,8 @@ td:first-child {
 						</td>	
 						@if(!isset($user->role) || $user->role != 'student')
 						<td>
-						{{ $internship->student_full_name }}
+						<a  class="link_object" href="{{ url('/user/' . $internship->student_id) }}">{{ $internship->student_full_name }}</a>
+						
 						</td>
 						@endif
 						<td><a class="link_object" href="{{ url('/company/profile/' . $internship->company_id) }}">{{ $internship->company_name }}</a></td>

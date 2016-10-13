@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-			<h1>Pritužbe</h1>
+			<h1>Pitanja</h1>
 			@if(Session::has('status'))
 				<div class="alert {{ Session::get('alert_type') }} fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

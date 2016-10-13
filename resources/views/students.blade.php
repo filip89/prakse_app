@@ -37,14 +37,14 @@
 						<th>Datum registracije</th>
 						<th>Posljednja praksa</th>
 						<th>Status natječaja</th>
-						<th>Tvrtka</th>					
+						<th>Tvrtka iz natječaja</th>					
 						<th  ></th>
 					</tr>
 				</thead>
 				<tbody>
 					@foreach ($users as $user)
 					<tr>
-						<td>{{ $user->name . " " . $user->last_name }}</td>
+						<td><a class="link_object" href="{{ url('/user/' . $user->id) }}">{{ $user->name . " " . $user->last_name }}</a></td>
 						<td>{{ $user->created_at->format('d. m. Y.') }}</td>
 						<td>
 						@if($user->lastInternship())
@@ -59,24 +59,23 @@
 							</a>
 						@endif
 						</td>
-						<td>{{ $user->competitionStatus() }}</td>
+						<td>
+							@if($user->activeApplic())
+								@if($user->activeApplic()->status == 1)
+								<a class="link_object" href="{{ url('/applic/' . $user->activeApplic()->id) }}">{{ $user->competitionStatus() }}</a>
+								@elseif($user->activeApplic()->status == 2)
+								<a class="link_object" href="{{ url('/internships/' . $user->activeInternship()->id) }}">{{ $user->competitionStatus() }}</a>
+								@endif
+							@else	
+								{{ $user->competitionStatus() }}
+							@endif
+						</td>
 						<td>
 						@if($user->hasCompany())
 								<a class="link_object" href="{{ url('/company/profile/' . $user->activeInternship()->company->id) }}" style="color:darkgray">{{ $user->activeInternship()->company->name }}</a>
 						@endif
 						</td>
 						<td class="row_buttons">
-						@if($user->activeInternship())
-							<a class="btn btn-info btn-sm" type="button" href="{{ url('/internships/'. $user->activeInternship()->id) }}">Prikaži praksu</a>
-						@elseif(Utilities::competitionStatus() == 2 && $user->activeApplic())
-						{{ Form::open(array('route' => array('internships.create'), 'method' => 'GET')) }}
-							{{ Form::hidden('name', $user->name) }}
-							{{ Form::hidden('last_name', $user->last_name) }}
-							{{ Form::hidden('student_id', $user->id) }}
-							{{ Form::hidden('applic_id', $user->activeApplic()->id) }}
-							{{ Form::submit('Izradi praksu', ['class' => 'btn btn-primary btn-sm']) }}
-						{{ Form::close() }}
-						@endif
 						@if (Auth::user()->isAdmin())	
 							<form action="{{ url('/user/'. $user->id . '/delete') }}" method="POST">
 								{{ csrf_field() }}

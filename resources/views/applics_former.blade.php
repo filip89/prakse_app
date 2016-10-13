@@ -13,8 +13,8 @@
 			
 			@endif
 			@if(count($applics) == 0 && (!isset($_GET['search']) || $_GET['search'] == ''))
-				<h3 style="text-align:center;color:gray;margin-bottom:40px;">Nema prijava.</h3>
-			@endif
+				<h3 style="text-align:center;color:gray;margin-bottom:40px;">Nema završenih natječaja.</h3>
+			@else
 		<div class="row">
 			<div class="col-sm-3 col-xs-6 filter" style="margin-bottom:20px;">
 			<b>Natječaj: </b>
@@ -48,7 +48,7 @@
 					@foreach($applics as $applic)	
 					<tr>
 						<td>
-						{{ $applic->student->name . ' ' . $applic->student->last_name }}
+						<a  class="link_object" href="{{ url('/user/' . $applic->student_id) }}">{{ $applic->student->name . ' ' . $applic->student->last_name }}</a>
 						</td>
 						<td>
 						{{ $applic->created_at->format('d. m. Y. h:i:s') }}
@@ -58,7 +58,7 @@
 						</td>
 						<td>
 						@if($applic->confirmedInternship())
-						<a class="link_object" href="/internships/">{{ $applic->confirmedInternship()->company->name . ', ' . $applic->competition->created_at->format('d. m. Y.')  }}</a>
+						<a class="link_object" href="{{ url('/internships/' . $applic->confirmedInternship()->id)}}">{{ $applic->confirmedInternship()->company->name . ' (' . $applic->competition->created_at->format('Y.') . ')' }}</a>
 						@else
 							Nije dobio/la
 						@endif
@@ -82,6 +82,7 @@
 				@else
 					{{ $applics->links() }}
 				@endif
+			@endif
 				
 				</div>
 			</div>
