@@ -7,11 +7,11 @@
             <div class="panel panel-warning">
                 <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Uredi profil</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/user/' . $user->id . '/editintern') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/user/' . $user->id . '/editstudent') }}">
                         {{ csrf_field() }}
 						
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Ime:</label>
+                            <label for="name" class="col-md-4 control-label"><span class="req_field">* </span>Ime:</label>
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="name" value="{{ $user->name }}" required>
@@ -25,7 +25,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label for="last_name" class="col-md-4 control-label">Prezime:</label>
+                            <label for="last_name" class="col-md-4 control-label"><span class="req_field">* </span>Prezime:</label>
 
                             <div class="col-md-6">
                                 <input type="txt" class="form-control" name="last_name" value="{{ $user->last_name }}" required>
@@ -39,7 +39,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-mail adresa:</label>
+                            <label for="email" class="col-md-4 control-label"><span class="req_field">* </span>E-mail adresa:</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}" required>
@@ -65,51 +65,6 @@
                                 @endif
                             </div>
                         </div>
-						
-						<div class="form-group{{ $errors->has('job_description') ? ' has-error' : '' }}">
-                            <label for="job_description" class="col-md-4 control-label">Radno mjesto:</label>
-
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="job_description" value="{{ $user->profile->job_description }}">
-
-                                @if ($errors->has('job_description'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('job_description') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-						
-			@if(Auth::user()->isAdmin())		
-						<div class="form-group{{ $errors->has('company') ? ' has-error' : '' }}">
-                            <label for="company" class="col-md-4 control-label">Tvrtka:</label>
-
-                            <div class="col-md-6">
-                                <select class="form-control" name="company" required/>
-										@if(!isset($user->profile->company))
-											<option selected disabled hidden style='display: none' value=''></option>
-											@foreach($companies as $company)
-											<option value="{{$company->id}}">{{$company->name}}</option>
-											@endforeach
-										@else
-											@foreach($companies as $company)
-												@if($user->profile->company->id == $company->id)
-												<option selected value="{{$company->id}}">{{$company->name}}</option>
-												@else
-												<option  value="{{$company->id}}">{{$company->name}}</option>
-												@endif
-											@endforeach
-										@endif
-								</select>
-
-                                @if ($errors->has('company'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('company') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        @endif
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

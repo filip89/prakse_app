@@ -14,7 +14,7 @@
 				<h3 style="margin-bottom:20px;" class="notice">*Trenutno imate neodgovorena pitanja u našoj bazi.</h3>
 			@endif
             <div class="panel panel-warning">
-                <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>{{ Auth::user()->name . ' ' . Auth::user()->last_name }} pritužba</div>
+                <div class="panel-heading"><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>{{ Auth::user()->name . ' ' . Auth::user()->last_name }} - pitanje</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/complaint/create') }}">
                         {{ csrf_field() }}

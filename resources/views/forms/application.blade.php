@@ -15,7 +15,7 @@
                         {{ csrf_field() }}
 
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Ime:</label>
+                            <label for="name" class="col-md-4 control-label"><span class="req_field">* </span>Ime:</label>
 
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="name" value="{{ $user->name }}" disabled/>
@@ -29,7 +29,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label for="last_name" class="col-md-4 control-label">Prezime:</label>
+                            <label for="last_name" class="col-md-4 control-label"><span class="req_field">* </span>Prezime:</label>
 
                             <div class="col-md-8">
                                 <input type="txt" class="form-control" name="last_name" value="{{ $user->last_name }}" disabled/>
@@ -43,7 +43,7 @@
                         </div>
 						
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail adresa:</label>
+                            <label for="email" class="col-md-4 control-label"><span class="req_field">* </span>E-mail adresa:</label>
 
                             <div class="col-md-8">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ $applic->email }}" required/>
@@ -57,7 +57,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('residence_town') ? ' has-error' : '' }}">
-                            <label for="residence_town" class="col-md-4 control-label">Mjesto prebivališta;</label>
+                            <label for="residence_town" class="col-md-4 control-label"><span class="req_field">* </span>Mjesto prebivališta;</label>
 
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="residence_town" value="{{ $applic->residence_town }}" required/>
@@ -71,7 +71,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('residence_county') ? ' has-error' : '' }}">
-                            <label for="residence_county" class="col-md-4 control-label">Županija prebivališta:</label>
+                            <label for="residence_county" class="col-md-4 control-label"><span class="req_field">* </span>Županija prebivališta:</label>
 							
                             <div class="col-md-8">
 								
@@ -90,7 +90,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('academic_year') ? ' has-error' : '' }}">
-                            <label for="academic_year" class="col-md-4 control-label">Godina studija:</label>
+                            <label for="academic_year" class="col-md-4 control-label"><span class="req_field">* </span>Godina studija:</label>
                             <div class="col-md-8">
 								<select class="form-control" name="academic_year" value="{{ $applic->academic_year }}" required/>
 									@if($applic->academic_year == 0)
@@ -132,7 +132,7 @@
                         </div>
 						
 						<div class="form-group">
-                            <label class="col-md-4 control-label">Smjer:</label>
+                            <label class="col-md-4 control-label"><span class="req_field">* </span>Smjer:</label>
 
                             <div class="col-md-8">
 								<select class="form-control" name="course" required/>
