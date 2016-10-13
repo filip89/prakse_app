@@ -239,17 +239,14 @@
 			opacity: 0;
 		}
 		.profile_img_container button {
-			width: 75px;
+			width: 50px;
+			height: 50px;
 			transition: opacity 0.5s;	
 		}
 		.profile_img_container:hover button {
-			width: 50px;
-			height: 50px;
 			opacity: 0.8;
 		}
 		.profile_img_container:hover button:hover {
-			width: 50px;
-			height: 50px;
 			opacity: 1;
 		}
 
