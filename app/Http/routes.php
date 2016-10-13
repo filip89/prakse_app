@@ -33,12 +33,20 @@ Route::post('user/{id}/editcollege', "UserController@editCollegeMentor");
 Route::get('user/add/internmentor/{id?}', 'UserController@addInternMentorForm');
 Route::post('user/add/internmentor', 'UserController@addInternMentor');
 
+//edit student
+Route::get('user/{id}/editstudent', "UserController@editStudentForm");
+Route::post('user/{id}/editstudent', "UserController@editStudent");
+
 //admin
 Route::post('user/admin/{id}', 'UserController@admin');
 
 //edit intern_mentor
 Route::get('user/{id}/editintern', "UserController@editInternMentorForm");
 Route::post('user/{id}/editintern', "UserController@editInternMentor");
+
+//profile pic
+Route::post('user/image/add', "UserController@addImage");
+Route::post('user/image/delete/{id}', "UserController@deleteImage");
 
 //committee
 Route::get('committee', "CommitteeController@index");
