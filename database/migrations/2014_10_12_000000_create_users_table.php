@@ -20,8 +20,10 @@ class CreateUsersTable extends Migration
         	$table->string('name', 50);
 			$table->string('last_name', 50);
         	$table->string('email')->unique();
+			$table->string('phone')->nullable();
         	$table->string('password');
 			$table->string('role', 20);
+			$table->string('image', 200)->nullable();
 			$table->integer('admin')->default(0);
         	$table->rememberToken();
         	$table->timestamps();
