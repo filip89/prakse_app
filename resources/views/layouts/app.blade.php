@@ -69,8 +69,6 @@
 			},
 		});
 	});
-	
-	$('[data-toggle="tooltip"]').tooltip(); 
 
     });
 
@@ -229,6 +227,38 @@
 			top: 20px;
 		}
 		
+		.profile_img_container {
+			position:relative;
+			display:inline-block;
+			text-align:center;	
+		}
+		.profile_img_container > button {
+			position:absolute;
+			bottom:5px;
+			right:5px;
+			opacity: 0;
+		}
+		.profile_img_container button {
+			width: 75px;
+			transition: opacity 0.5s;	
+		}
+		.profile_img_container:hover button {
+			opacity: 0.8;
+		}
+		.profile_img_container:hover button:hover {
+			opacity: 1;
+		}
+
+		.profile_img_container form button {
+			position: absolute;
+			bottom: 5px;
+			left: 5px;
+			opacity: 0;
+		}
+		.req_field {
+			color: red;
+		}
+
     @yield('style')
     </style>
 </head>
@@ -268,7 +298,7 @@
 					@if(Utilities::competitionExists() == 1)
 					<li><a href="{{ url('/internships/showResults') }}"><b><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</b></a></li>							
 					@endif
-					<li><a href="{{  url('/complaint') }}"><i class="fa fa-btn fa-question" aria-hidden="true"></i>>Postavi pitanje</a></li>
+					<li><a href="{{  url('/complaint') }}"><i class="fa fa-btn fa-question" aria-hidden="true"></i>Postavi pitanje</a></li>
 					@endif
 					<li><a href="{{  url('/committee') }}"><i class="fa fa-btn fa-users" aria-hidden="true"></i>Povjerenstvo</a></li>
                 </ul>
@@ -330,8 +360,9 @@
                         <li class="dropdown">
                         	 <a class="profile_dropdown" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                         	<ul class="dropdown-menu" role="menu">
-							@if(Auth::user()->role != "student")
+							
 								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
+							@if(Auth::user()->role != "student")
 								<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Moje prakse</a></li>
 							@endif
                         		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
@@ -342,9 +373,8 @@
             </div>
         </div>
     </nav>
-	
 
-<!-- Modal -->
+	<!-- Modal -->
   <div class="modal fade" id="delete_modal" role="dialog">
     <div class="modal-dialog">
     
@@ -365,6 +395,53 @@
       
     </div>
   </div>
+  
+  <!-- Delete profile image -->
+    <div class="modal fade" id="profile_deleteImg_modal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Jeste li sigurni?</h4>
+        </div>
+        <div class="modal-body">
+          Ukloniti sliku profila?
+        </div>
+        <div class="modal-footer">
+			<button type="button" id="submit_delete" class="btn btn-danger" data-dismiss="modal">Da</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Ne</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+    <div class="modal fade" id="profile_addImg_modal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Dodajte svoju sliku profila</h4>
+        </div>
+		{{ Form::open( [ 'url' => '/user/image/add/', 'method' => 'post', 'files' => true ] ) }}
+			 {{ csrf_field() }}
+			<div class="modal-body">		
+				<input type="file" name="image_file" />	
+				<small>* Dopušteni formati: jpeg, png, bmp, gif </small>			
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-success">Dodaj</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+			</div>
+		{{ Form::close() }}
+      </div>
+      
+    </div>
+	</div>
 
     @yield('content')
 	  
@@ -382,13 +459,19 @@
 	var deletee;
 	var data;
 	
+	$('[data-toggle="tooltip"]').tooltip(); 
+
 	$(document).on("click", ".delete", function(){
 		data = $(this).data('info');
 		$('#delete_modal').modal();
 		$('.data_info').text(data);
 		deletee = $(this);
-		
 	});
+	$(document).on("click", ".delete_img", function(){
+		$('#profile_deleteImg_modal').modal();
+		deletee = $(this);
+	});
+	
 	$(document).on("click", "#submit_delete", function(){
 		deletee.closest('form').submit();
 	});
