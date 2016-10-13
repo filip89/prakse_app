@@ -248,8 +248,8 @@
 			opacity: 0.8;
 		}
 		.profile_img_container:hover button:hover {
-			width: 60px;
-			height: 60px;
+			width: 40px;
+			height: 40px;
 			opacity: 1;
 		}
 
