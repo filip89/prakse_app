@@ -323,6 +323,7 @@
 						@endif
 						@if(Auth::user()->isAdmin())
 						<li><a href="{{ url('/settings') }}"><i class="fa fa-btn fa-cogs" aria-hidden="true"></i></i>Postavke</a></li>
+						<li><a href="{{ url('/internships/statistics') }}"><i class="fa fa-btn fa-bar-chart" aria-hidden="true"></i>Statistika</a></li>
 						@endif
 					@endif
 					@if(!Auth::guest())
