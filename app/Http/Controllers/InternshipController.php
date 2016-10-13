@@ -372,7 +372,6 @@ class InternshipController extends Controller
 
         $internships->company_id = $request->company_id;
 
-
         if($request->company_id == null) {
                 return redirect()->route('internships.index');
         } else {
@@ -465,6 +464,73 @@ class InternshipController extends Controller
 
         $internships->rating_by_student = $request->rating;
         $internships->save();
+
+    }
+
+    public function getStatistics() {
+
+        $competitions = Competition::where('status', 0)->get();
+
+        return view('internships.statistics_form', ['competitions' => $competitions]);
+
+    }
+
+    public function statisticsReport(Request $request) {
+
+        $date1 = date('Y-m-d', strtotime($request->date1));
+        $date2 = date('Y-m-d', strtotime($request->date2));
+        
+        $internships = Internship::where('status', '!=', 1)->where('created_at', '>=', $date1)->where('created_at', '<=', $date2)->pluck('rating_by_student');
+        $int_course = Internship::where('status', '!=', 1)->where('created_at', '>=', $date1)->where('created_at', '<=', $date2)->get();
+        
+        $e = 1;
+        $course = [];
+        $applic = [];
+        foreach($int_course as $elem) {
+            $course[$e] = $elem->applic['course'];
+            $e += 1;
+            //Get applic_id for activities array
+            $applic[$elem->applic['id']] = $elem->applic['id'];
+        }
+
+        $rating = [];
+        $max_rating = [];
+        for($i=0; $i<count($internships); $i++) {
+            $rating[$i+1] = $internships[$i];
+        }
+
+        $activities = Activity::all();
+        $activity = [];
+        $k = 0;
+        foreach($activities as $act) {
+            foreach($applic as $elem) {
+                if($elem == $act->applic_id) {
+                    $activity[$k] = $act->number;
+                    $k++; 
+                }
+            } 
+        }
+
+        if(count($internships) != null) {
+            $count = array_count_values($rating);
+            $max_rating = array_keys($count, max($count));
+
+            $count2 = array_count_values($course);
+            $max_course = array_keys($count2, max($count2));
+
+            $count3 = array_count_values($activity);
+            $max_activity = array_keys($count3, max($count3));
+        } else {
+            $max_rating = null;
+            $max_course = null;
+            $max_activity = null;
+        }
+        
+        $start_date = $request->date1;
+        $end_date = $request->date2;      
+        
+
+        return view('pdf.statistics', ['internships' => $internships, 'activities' => $activities, 'start_date' => $start_date,  'end_date' => $end_date, 'max_rating' => $max_rating, 'course' => $course, 'max_course' => $max_course, 'activity' => $activity, 'applic' => $applic, 'max_activity' => $max_activity]);
 
     }
 
