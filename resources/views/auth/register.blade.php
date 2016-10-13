@@ -11,7 +11,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Ime</label>
+                            <label for="name" class="col-md-4 control-label">Ime:</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
@@ -25,7 +25,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label for="last_name" class="col-md-4 control-label">Prezime</label>
+                            <label for="last_name" class="col-md-4 control-label">Prezime:</label>
 
                             <div class="col-md-6">
                                 <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}">
@@ -39,7 +39,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
-                            <label for="role" class="col-md-4 control-label">Role</label>
+                            <label for="role" class="col-md-4 control-label"></label>
 
                             <div class="col-md-6">
                                 <input type="radio" class="form-control" name="role" value="student" checked>Student<br/>	
@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">e-Mail</label>
+                            <label for="email" class="col-md-4 control-label">E-mail:</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
@@ -66,9 +66,23 @@
                                 @endif
                             </div>
                         </div>
+						
+						<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                            <label for="phone" class="col-md-4 control-label">Telefon:</label>
+
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="phone" value="{{ old('phone') }}"/>
+
+                                @if ($errors->has('phone'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Zaporka</label>
+                            <label for="password" class="col-md-4 control-label">Zaporka:</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password">
@@ -82,7 +96,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Potvrdi zaporku</label>
+                            <label for="password-confirm" class="col-md-4 control-label">Potvrdi zaporku:</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
