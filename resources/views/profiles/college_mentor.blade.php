@@ -62,7 +62,6 @@
 									@else
 									<img style="max-height:200px;max-width:200px;" src="/images/profile/empty_profile.png" />
 									@endif
-										
 									@if(Auth::user()->id == $user->id)
 										@if($user->image)
 										<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#profile_addImg_modal">Promijeni</button>
@@ -74,7 +73,7 @@
 										@if($user->image)
 										<form action="{{ url('/user/image/delete/' . $user->id) }}" method="POST">
 										{{ csrf_field() }}
-										<button type="button" data-info="{{ $user->id }}" class="btn btn-danger btn-sm delete_img" >Ukloni</button>
+										<button type="button" data-toggle="tooltip" title="Ukloni" datadata-info="{{ $user->id }}" class="btn btn-danger btn-sm delete_img" ><i class="fa fa-times" aria-hidden="true"></i></button>
 										</form>
 										@endif
 									@endif

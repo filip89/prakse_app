@@ -63,7 +63,7 @@ table {
 										@if($user->image)
 										<form action="{{ url('/user/image/delete/' . $user->id) }}" method="POST">
 										{{ csrf_field() }}
-										<button type="button" data-info="{{ $user->id }}" class="btn btn-danger btn-sm delete_img" >Ukloni</button>
+										<button type="button" data-toggle="tooltip" title="Ukloni" datadata-info="{{ $user->id }}" class="btn btn-danger btn-sm delete_img" ><i class="fa fa-times" aria-hidden="true"></i></button>
 										</form>
 										@endif
 									@endif
