@@ -22,6 +22,12 @@ table {
 			{{ Session::get('status') }}
 			</div>
 			@endif
+			@if($errors->first('image_file'))
+			<div class="alert alert-danger fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{ $errors->first('image_file') }}
+			</div>
+			@endif
 			<div class="panel panel-info">
 				<div class="panel-heading"><i class="fa fa-btn fa-user" aria-hidden="true"></i>Mentor iz tvrtke</div>
 				<div class="panel-body">
@@ -38,6 +44,34 @@ table {
 					@endif
 					<div class="table-responsive">
 						<table class="table">
+							<tr>
+								<td rowspan='6'>
+								<div class="profile_img_container">
+									@if($user->image)
+									<img style="max-height:200px;max-width:200px;" src="/images/profile/{{ $user->image }}" />
+									@else
+									<img style="max-height:200px;max-width:200px;" src="/images/profile/empty_profile.png" />
+									@endif
+									@if(Auth::user()->id == $user->id)
+										@if($user->image)
+										<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#profile_addImg_modal">Promijeni</button>
+										@else
+										<button class="btn btn-primary btn-sm" style="opacity:1;" data-toggle="modal" data-target="#profile_addImg_modal">Dodaj sliku</button>
+										@endif	
+									@endif
+									@if(Auth::user()->id == $user->id || Auth::user()->isAdmin())
+										@if($user->image)
+										<form action="{{ url('/user/image/delete/' . $user->id) }}" method="POST">
+										{{ csrf_field() }}
+										<button type="button" data-info="{{ $user->id }}" class="btn btn-danger btn-sm delete_img" >Ukloni</button>
+										</form>
+										@endif
+									@endif
+									</img>
+								</div>
+								</td>
+								<th>Ime:</th><td>{{ $user->name }}</td>
+							</tr>
 							<tr><th>Ime:</th><td>{{ $user->name }}</td></tr>
 							<tr><th>Prezime:</th><td>{{ $user->last_name }}</td></tr>
 							<tr><th>Tvrtka:</th>
@@ -47,11 +81,12 @@ table {
 								@endif 
 								</td>
 							</tr>
+							<tr><th>Telefon:</th><td>{{ $user->phone }}</td></tr>
 							<tr><th>Radno mjesto:</th><td>{{ $user->profile->job_description }}</td></tr>
-							<tr><th>Telefon:</th><td>{{ $user->profile->phone }}</td></tr>
+							
 							@if(Auth::user()->role == 'college_mentor' || (Auth::user()->role == 'intern_mentor' && (isset(Auth::user()->profile->company) && Auth::user()->profile->company->id == $user->profile->company->id)))
-							<tr><td style="text:align:center" colspan="2"><a type="button" class="btn btn-bg btn-default" href="{{ url('/user_internships/' . $user->id) }}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Povijest praksi</a></td></tr>
-							<tr><th style="text-align:center;font-size:18px" colspan="2"><b>Mentorstva:</b></th></tr>
+							<tr><td colspan="3" style="text:align:center" colspan="2"><a type="button" class="btn btn-bg btn-default" href="{{ url('/user_internships/' . $user->id) }}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Povijest praksi</a></td></tr>
+							<tr><th colspan="3" style="text-align:center;font-size:18px" colspan="2"><b>Mentorstva:</b></th></tr>
 							<tr>	
 								<td>Tekući natječaj:</br>
 								@if(Utilities::competitionStatus() == 2)
@@ -74,6 +109,7 @@ table {
 									<i><small>Natječaj je još otvoren</small></i>
 								@endif
 								</td>
+								<td style="width:5%"></td>
 								<td>Nedavne prakse:</br>
 								@if(count($recentInterns) == 0)
 									@if(Auth::user()->id == $user->id)
