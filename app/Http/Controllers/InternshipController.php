@@ -27,7 +27,7 @@ class InternshipController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct() {
+    public function __construct() { 
 
         $this->middleware('auth');
 
@@ -471,7 +471,7 @@ class InternshipController extends Controller
 
         $competitions = Competition::where('status', 0)->get();
 
-        return view('internships.statistics_form', ['competitions' => $competitions]);
+        return view('internships.statistics_form', ['competitions' => $competitions]); 
 
     }
 
@@ -511,15 +511,27 @@ class InternshipController extends Controller
             } 
         }
 
+        $rating = array_filter($rating, function($var){return !is_null($var);} );
+
         if(count($internships) != null) {
-            $count = array_count_values($rating);
-            $max_rating = array_keys($count, max($count));
+            if($rating != null) {
+                $count = array_count_values($rating);
+                $max_rating = array_keys($count, max($count));
+            } else {
+                $max_rating = null;
+            }
+            
 
             $count2 = array_count_values($course);
             $max_course = array_keys($count2, max($count2));
 
-            $count3 = array_count_values($activity);
-            $max_activity = array_keys($count3, max($count3));
+            if($activity != null) {
+                $count3 = array_count_values($activity);
+                $max_activity = array_keys($count3, max($count3));
+            } else {
+                $max_activity = null;
+            }
+            
         } else {
             $max_rating = null;
             $max_course = null;
