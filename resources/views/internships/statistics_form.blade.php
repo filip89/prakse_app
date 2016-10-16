@@ -30,7 +30,7 @@
 		                </div>
 
 		                <div class="form-group{{ $errors->has('date2') ? ' has-error' : '' }}">
-		                    <label for="date2" class="col-md-4 control-label">Datum početka</label>
+		                    <label for="date2" class="col-md-4 control-label">Datum završetka</label>
 
 		                    <div class="col-md-6">
 		                    	<input type="text" class="form-control datepicker" name="date2" required>
