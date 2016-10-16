@@ -24,8 +24,10 @@ class ApplicController extends Controller
 				
 		$this->middleware('auth');
 		
-		$this->middleware('admin', ['only' => [
+		$this->middleware('collage_mentor', ['only' => [
 			'index',
+			'former',
+			'view',
 		]]);
 		
 		$this->middleware('adminOrSelfApplic', ['only' => [
@@ -37,9 +39,7 @@ class ApplicController extends Controller
 			'applyForm',
 			'apply',
 		]]);
-		
-
-		
+			
 	}
 	
 	public function index() {
@@ -57,7 +57,6 @@ class ApplicController extends Controller
 	public function former(Request $request) {
 		
 		$competitions = Competition::where('status', 0)->orderBy('created_at', 'desc')->get();
-		
 		
 		if(isset($request->competition)){
 			

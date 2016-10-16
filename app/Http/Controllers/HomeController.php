@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        
     }
 
     /**
@@ -33,6 +33,6 @@ class HomeController extends Controller
 		$lastCompetition = Competition::previous();
 			
         return view('home', ['competition' => $competition, 'lastCompetition' => $lastCompetition]);
-		//return "Hello " . Auth::user()->name;
+
     }
 }

@@ -29,13 +29,30 @@ class CompanyController extends Controller
 	public function __construct(){
 		
 		$this->middleware('auth');
+				
+		$this->middleware('collage_mentor', ['only' => [
+			'index',
+			'wishlist',
+        ]]);
 		
+		$this->middleware('collage_mentor', ['only' => [
+			'delete',
+			'createForm',
+			'create',
+			'reinstate',
+        ]]);
+		
+		$this->middleware('company_profile', ['only' => [
+			'profile',
+        ]]);
+		
+		$this->middleware('company_internships', ['only' => [
+			'companyInternships',
+        ]]);
+				
 	}
 	
 	public function index(Request $request){
-
-
-	
 		
 		$allCompanies = Company::get();
 		

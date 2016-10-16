@@ -35,10 +35,33 @@ class UserController extends Controller
 		
 		$this->middleware('auth');
 		
-		$this->middleware('adminOrSelf', ['only' => [
+		$this->middleware('admin', ['only' => [
+			'admin',
+        ]]);
+		
+		$this->middleware('adminOrSelfProfile', ['only' => [
             'editInternMentorForm',
             'editCollegeMentorForm',
+			'editStudentForm',
+			'editInternMentor',
+            'editCollegeMentor',
+			'editStudent',
+			'deleteImage',
         ]]);
+		
+		$this->middleware('collage_mentor', ['only' => [
+			'internMentorIndex',
+			'collageMentorIndex',
+			'studentIndex',
+		]]);
+		
+		$this->middleware('profile_view', ['only' => [
+			'viewProfile',
+		]]);
+		
+		$this->middleware('user_internships', ['only' => [
+			'userInternships',
+		]]);
 		
 		$this->middleware('admin', ['only' => [
 			'deleteUser',
@@ -390,18 +413,12 @@ class UserController extends Controller
 		
 	}
 	
-	public function userInternships(Request $request, $id = null){
-		
-		if(!isset($id)){
-			
-			$id = Auth::user()->id;
-			
-		}
-		
+	public function userInternships(Request $request, $id){
+				
 		$user = User::find($id);
 		
 		$user_role_id = $user->role . '_id';
-		
+				
 		if(isset($request->search)){
 			
 			if($user->role == 'student'){

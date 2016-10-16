@@ -20,6 +20,12 @@ class CompetitionController extends Controller
 {
     //
 	
+	public function __construct(){
+		
+		$this->middleware('admin');
+		
+	}
+	
 	public function store(Request $request){
 		
 		$this->validate($request, [
