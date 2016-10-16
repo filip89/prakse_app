@@ -22,9 +22,8 @@ textarea {
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/apply') }}">
                         {{ csrf_field() }}
-
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Ime:</label>
+                            <label for="name" class="col-md-4 control-label"><span class="req_field">* </span>Ime:</label>
 
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="name" value="{{ $user->name }}" disabled/>
@@ -38,7 +37,7 @@ textarea {
                         </div>
 						
 						<div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label for="last_name" class="col-md-4 control-label">Prezime:</label>
+                            <label for="last_name" class="col-md-4 control-label"><span class="req_field">* </span>Prezime:</label>
 
                             <div class="col-md-8">
                                 <input type="txt" class="form-control" name="last_name" value="{{ $user->last_name }}" disabled/>
@@ -52,7 +51,7 @@ textarea {
                         </div>
 						
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail adresa:</label>
+                            <label for="email" class="col-md-4 control-label"><span class="req_field">* </span>E-Mail adresa:</label>
 
                             <div class="col-md-8">
                                 <input id="email" type="email" class="form-control" name="email" required/>
@@ -66,7 +65,7 @@ textarea {
                         </div>
 						
 						<div class="form-group{{ $errors->has('residence_town') ? ' has-error' : '' }}">
-                            <label for="residence_town" class="col-md-4 control-label">Mjesto prebivališta:</label>
+                            <label for="residence_town" class="col-md-4 control-label"><span class="req_field">* </span>Mjesto prebivališta:</label>
 
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="residence_town" required/>
@@ -80,7 +79,7 @@ textarea {
                         </div>
 						
 						<div class="form-group{{ $errors->has('residence_county') ? ' has-error' : '' }}">
-                            <label for="residence_county" class="col-md-4 control-label">Županija prebivališta:</label>
+                            <label for="residence_county" class="col-md-4 control-label"><span class="req_field">* </span>Županija prebivališta:</label>
 							
                             <div class="col-md-8">
 							
@@ -104,7 +103,7 @@ textarea {
                         </div>
 						
 						<div class="form-group{{ $errors->has('academic_year') ? ' has-error' : '' }}">
-                            <label for="academic_year" class="col-md-4 control-label">Godina studija:</label>
+                            <label for="academic_year" class="col-md-4 control-label"><span class="req_field">* </span>Godina studija:</label>
 
                             <div class="col-md-8">
 								<select class="form-control" name="academic_year" required/>
@@ -125,7 +124,7 @@ textarea {
                         </div>
 						
 						<div class="form-group{{ $errors->has('course') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Smjer:</label>
+                            <label class="col-md-4 control-label"><span class="req_field">* </span>Smjer:</label>
 
                             <div class="col-md-8">
 								<select class="form-control" name="course" required/>
@@ -225,7 +224,8 @@ textarea {
 							<div class="col-md-8 col-md-offset-4"><i><small>* odabarite mjesec kada biste najradije imali praksu</small></i></div>
                         </div>
 						
-						<h3 style="display:table;margin:auto;margin-bottom:20px;margin-top:30px;">Aktivnosti:</h3>
+						<h3 style="display:table;margin:auto;margin-top:30px;">Aktivnosti:</h3>
+						<div style="display:table;margin:auto;margin-bottom:20px"><i><small>*označite ukoliko ste imali neku od aktivnosti i dajte kratki opis </small></i></div>
 						
 						<div class="form-group">                            
 

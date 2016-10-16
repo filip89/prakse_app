@@ -11,7 +11,7 @@
                         {{ csrf_field() }}
 						
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Naziv:</label>
+                            <label for="name" class="col-md-4 control-label"><span class="req_field">* </span>Naziv:</label>
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
@@ -25,7 +25,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('residence') ? ' has-error' : '' }}">
-                            <label for="residence" class="col-md-4 control-label">Sjedište:</label>
+                            <label for="residence" class="col-md-4 control-label"><span class="req_field">* </span>Sjedište:</label>
 
                             <div class="col-md-6">
                                 <input type="txt" class="form-control" name="residence" value="{{ old('residence') }}" required>
@@ -39,7 +39,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-mail:</label>
+                            <label for="email" class="col-md-4 control-label"><span class="req_field">* </span>E-mail:</label>
 
                             <div class="col-md-6">
                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -53,7 +53,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                            <label for="phone" class="col-md-4 control-label">Telefon:</label>
+                            <label for="phone" class="col-md-4 control-label"><span class="req_field">* </span>Telefon:</label>
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" required>
@@ -67,7 +67,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('spots') ? ' has-error' : '' }}">
-                            <label for="spots" class="col-md-4 control-label">Mjesta za prakse:</label>
+                            <label for="spots" class="col-md-4 control-label"><span class="req_field">* </span>Mjesta za prakse:</label>
 
                             <div class="col-md-6">
                                 <input type="number" class="form-control" min="0" name="spots" value="{{ old('spots') }}" required>

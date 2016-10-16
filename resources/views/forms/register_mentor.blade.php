@@ -11,7 +11,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Ime:</label>
+                            <label for="name" class="col-md-4 control-label"><span class="req_field">* </span>Ime:</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
@@ -25,7 +25,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label for="last_name" class="col-md-4 control-label">Prezime:</label>
+                            <label for="last_name" class="col-md-4 control-label"><span class="req_field">* </span>Prezime:</label>
 
                             <div class="col-md-6">
                                 <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required>
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-mail:</label>
+                            <label for="email" class="col-md-4 control-label"><span class="req_field">* </span>E-mail:</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Zaporka:</label>
+                            <label for="password" class="col-md-4 control-label"><span class="req_field">* </span>Zaporka:</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required>
@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Potvrdi zaporku:</label>
+                            <label for="password-confirm" class="col-md-4 control-label"><span class="req_field">* </span>Potvrdi zaporku:</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -81,7 +81,7 @@
                         </div>
 						
 						<div class="form-group{{ $errors->has('company') ? ' has-error' : '' }}">
-                            <label for="company" class="col-md-4 control-label">Tvrtka:</label>
+                            <label for="company" class="col-md-4 control-label"><span class="req_field">* </span>Tvrtka:</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="company" required/>
