@@ -47,20 +47,25 @@
 									@else
 									<img style="max-height:200px;max-width:200px;" src="/images/profile/empty_profile.png" />
 									@endif
-									@if(Auth::user()->id == $user->id)
-										@if($user->image)
-										<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#profile_addImg_modal">Promijeni</button>
-										@else
-										<button class="btn btn-primary btn-sm" style="opacity:1;" data-toggle="modal" data-target="#profile_addImg_modal">Dodaj sliku</button>
-										@endif	
-									@endif
-									@if(Auth::user()->id == $user->id || Auth::user()->isAdmin())
-										@if($user->image)
-										<form action="{{ url('/user/image/delete/' . $user->id) }}" method="POST">
-										{{ csrf_field() }}
-										<button type="button" data-toggle="tooltip" title="Ukloni" datadata-info="{{ $user->id }}" class="btn btn-danger btn-sm delete_img" ><i class="fa fa-times" aria-hidden="true"></i></button>
-										</form>
-										@endif
+									@if(!$user->image && Auth::user()->id == $user->id)
+										<button class="btn btn-default" data-toggle="modal" data-target="#profile_addImg_modal">Dodaj sliku</button>
+									@elseif($user->image && (Auth::user()->id == $user->id || Auth::user()->isAdmin()))
+									<div class="dropdown">
+										<button class="btn dropdown-toggle btn-sm" style="background-color:#ccccff;" type="button" data-toggle="dropdown"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+										<ul class="dropdown-menu dropdown-menu-right">
+											@if(Auth::user()->id == $user->id)
+												<li data-toggle="modal" data-target="#profile_addImg_modal">Promijeni</li>
+											@endif
+											@if(Auth::user()->id == $user->id || Auth::user()->isAdmin())
+												@if($user->image)
+												<form action="{{ url('/user/image/delete/' . $user->id) }}" method="POST">
+												{{ csrf_field() }}
+												<li datadata-info="{{ $user->id }}" class="delete_img" >Ukloni</li>
+												</form>
+												@endif
+											@endif
+										</ul>
+									</div>
 									@endif
 									</img>
 								</div>
@@ -89,9 +94,9 @@
 								@if($user->lastInternship())
 									<a class="link_object" href="{{ url('/internships/' . $user->lastInternship()->id) }}">
 									@if(strtotime($user->lastInternship()->start_date) > strtotime(date('d-m-Y')))
-									<a data-toggle="tooltip" title="{{ 'Praksa počinje za ' . (strtotime($user->lastInternship()->start_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" href="{{url('/internships/' . $user->lastInternship()->id)}}">{{ $user->lastInternship()->company->name . ' (' . $user->lastInternship()->competition->year . ')' }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
+									<a data-toggle="tooltip" title="{{ 'Praksa počinje za ' . (strtotime($user->lastInternship()->start_date) - strtotime(date('d-m-Y')))/86400 . ' dana (' . date_create($user->lastInternship()->start_date)->format('d. m. Y.') . ').' }}" class="link_object current_green" href="{{url('/internships/' . $user->lastInternship()->id)}}">{{ $user->lastInternship()->company->name . ' (' . $user->lastInternship()->competition->year . ')' }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
 									@elseif(strtotime($user->lastInternship()->end_date) > strtotime(date('d-m-Y')))
-									<a data-toggle="tooltip" title="{{ 'Praksa traje još ' . (strtotime($user->lastInternship()->end_date) - strtotime(date('d-m-Y')))/86400 . ' dana.' }}" class="link_object current_green" href="{{url('/internships/' . $user->lastInternship()->id)}}">{{ $user->lastInternship()->company->name . ' (' . $user->lastInternship()->competition->year . ')' }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
+									<a data-toggle="tooltip" title="{{ 'Praksa traje još ' . (strtotime($user->lastInternship()->end_date) - strtotime(date('d-m-Y')))/86400 . ' dana (do ' . date_create($user->lastInternship()->start_date)->format('d. m. Y.') . ').'}}" class="link_object current_green" href="{{url('/internships/' . $user->lastInternship()->id)}}">{{ $user->lastInternship()->company->name . ' (' . $user->lastInternship()->competition->year . ')' }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
 									@else
 									<a data-toggle="tooltip" title="{{ 'Praksa je završila ' . date_create($user->lastInternship()->end_date)->format('d. m. Y.') }}" class="link_object expired_gray" href="{{url('/internships/' . $user->lastInternship()->id)}}">{{ $user->lastInternship()->company->name . ' (' . $user->lastInternship()->competition->year . ')' }}</a>
 									@endif
