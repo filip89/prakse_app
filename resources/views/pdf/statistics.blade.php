@@ -86,14 +86,10 @@ $(document).ready(function() {
 
 	    if(document.getElementById('first_chart')) {
 	    	var chart = new google.visualization.PieChart(document.getElementById('first_chart'));
-	    	var chart2 = new google.visualization.PieChart(document.getElementById('second_chart'));
-	    	var chart3 = new google.visualization.PieChart(document.getElementById('third_chart'));
+	    	chart.draw(data, options);
 
-			chart.draw(data, options);
-		    chart2.draw(data2, options2);
-		    chart3.draw(data3, options3);
-
-			//Get average rating
+	    	//Get average rating
+			arr = arr.filter(function(n){ return n != null }); 
 		    var total = 0;
 		    $.each(arr, function() {
 		    	total += this;
@@ -101,9 +97,21 @@ $(document).ready(function() {
 		    avg_rating = total/arr.length;
 		    document.getElementById('avg_rating').innerHTML=avg_rating;
 
-		    //Get average activity    
+	    }
+	    
+	    if(document.getElementById('third_chart')) {
+	    	var chart3 = new google.visualization.PieChart(document.getElementById('third_chart'));
+	    	chart3.draw(data3, options3);
+
+	    	//Get average activity    
 		    avg_activity = arr3.length/arr4.length;
 		    document.getElementById('avg_activity').innerHTML=avg_activity;
+	    }	
+
+	    if(document.getElementById('second_chart')) {
+	    	var chart2 = new google.visualization.PieChart(document.getElementById('second_chart'));
+		    chart2.draw(data2, options2);
+
 	    }  
 	}
 });
@@ -191,6 +199,9 @@ $(document).ready(function() {
 			@else
 			    <div class="thumbnail">
 					<div class="chart-container">
+					@if($max_rating == null)
+						<h3 class="centered" style="margin-top: 10px;">Podaci o ocjenama studenata nedostupni zbog nedostatka informacija</h3>	
+					@else
 						<div class="chart-desc">
 							<div class="chart-title"><span class="title">Podaci o ocjenama praksi u zadanom razdoblju</span></div>
 
@@ -207,6 +218,7 @@ $(document).ready(function() {
 						</div>
 
 						<div class="chart-img" id="first_chart" style="width: 700px; height: 350px; margin-right: 20px;"></div>
+					@endif
 					</div>
 				    
 			    </div>
@@ -238,25 +250,29 @@ $(document).ready(function() {
 
 			    <div class="thumbnail">
 					<div class="chart-container">
-						<div class="chart-desc2">					
-
-							<div class="chart-title"><span class="title">Podaci o izvannastavnim aktivnostima u zadanom razdoblju</span></div>
-
-							<div class="chart-text2">Ukupan broj studentskih praksi u zadanom razdoblju:  <span id="int_number">{{ count($internships) }}</span><br>
-							Prosječan broj izvannastavnih aktivnosti po studentu: <span id="avg_activity"></span><br>
-							Najučešća izvannastavna aktivnost: <span id="max_activity">
-							@foreach($max_activity as $max) {{ Utilities::activity($max) }}
-								@if(count($max_activity) > 1 && $max != end($max_activity)) <br><br> 
-								@endif 
-							@endforeach
-							</span><br>
 							
+						@if($max_activity == null)
+							<h3 class="centered" style="margin-top: 10px;">Podaci o izvannastavnim aktivnostima nedostupni zbog nedostatka informacija</h3>	
+						@else
+							<div class="chart-desc2">					
+
+								<div class="chart-title"><span class="title">Podaci o izvannastavnim aktivnostima u zadanom razdoblju</span></div>
+
+								<div class="chart-text2">Ukupan broj studentskih praksi u zadanom razdoblju:  <span id="int_number">{{ count($internships) }}</span><br>
+								Prosječan broj izvannastavnih aktivnosti po studentu: <span id="avg_activity"></span><br>
+								Najučešća izvannastavna aktivnost: <span id="max_activity">
+								@foreach($max_activity as $max) {{ Utilities::activity($max) }}
+									@if(count($max_activity) > 1 && $max != end($max_activity)) <br><br> 
+									@endif 
+								@endforeach
+								</span><br>
+								
+								</div>
+
 							</div>
 
-						</div>
-
 						<div class="chart-img2" id="third_chart" style="width: 700px; height: 350px; margin-right: 20px;"></div>
-						
+						@endif
 					</div>
 				    
 			    </div>
