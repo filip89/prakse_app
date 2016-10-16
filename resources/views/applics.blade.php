@@ -46,6 +46,7 @@
 
 						<td class="row_buttons">
 							<a type="button" class="btn btn-info btn-sm" href="{{ url('/applic/' . $applic->id) }}">Prikaži</a>
+						@if(Auth::user()->isAdmin())
 						@if(Utilities::competitionStatus() == 2)
 						{{ Form::open(array('route' => array('internships.create', $applic->student->id), 'method' => 'GET')) }}
 							{{ Form::hidden('name', $applic->student->name) }}
@@ -62,6 +63,7 @@
 							{{ Form::button('Ukloni', ['type' => 'button','class' => 'btn btn-danger btn-sm delete', 'data-info' => $applic->student->name . ' ' . $applic->student->last_name ]) }}
 							{{ csrf_field() }}
 						{{ Form::close() }}	
+						@endif
 						</td>
 
 					</tr>

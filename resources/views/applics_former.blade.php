@@ -12,7 +12,7 @@
 			</div>
 			
 			@endif
-			@if(count($applics) == 0 && (!isset($_GET['search']) || $_GET['search'] == ''))
+			@if(count($competitions) == 0)
 				<h3 style="text-align:center;color:gray;margin-bottom:40px;">Nema završenih natječaja.</h3>
 			@else
 		<div class="row">

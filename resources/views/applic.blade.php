@@ -30,7 +30,8 @@
         <div class="col-md-6 col-md-offset-3">
 			<h1 style="display:table;margin:auto">Prijava</h1>
 			<a  class="link_object" style="display:table;margin:auto;margin-bottom:30px;font-size:16px" href="{{ url('/user/' . $applic->student_id) }}">{{ $applic->student->name . ' ' . $applic->student->last_name }}</a>
-			<div class="action_buttons" style="margin-bottom:20px">
+			@if(Auth::user()->isAdmin())
+			<div class="action_buttons" style="margin-bottom:20px">		
 				@if(Utilities::competitionStatus() == 2 && $applic->status == 1)
 					{{ Form::open(array('route' => array('internships.create', $applic->student->id), 'method' => 'GET')) }}
 					{{ Form::hidden('name', $applic->student->name) }}
@@ -45,9 +46,8 @@
 					<button type="button" data-info="{{ $applic->student->name . ' ' . $applic->student->last_name }}" class="btn btn-danger btn-sm delete" >Ukloni</button>
 				</form>
 			</div>
+			@endif
 			<div class="little_info">
-			Datum stvaranja: {{ $applic->created_at->format('d. m. Y. h:i:s') }}<br/>
-			Zadnja izmjena: {{ $applic->updated_at->format('d. m. Y. h:i:s') }}</br></br>
 			Iz natječaja: {{ isset($applic->competition->name) ? $applic->competition->name : ''}}{{ ', ' . $applic->competition->created_at->format('d. m. Y.') }}</br>
 			Potvrđena praksa:
 			@if($applic->confirmedInternship())
@@ -55,6 +55,10 @@
 			@else
 				Ne
 			@endif
+			</br></br>
+			Datum stvaranja: {{ $applic->created_at->format('d. m. Y. h:i:s') }}<br/>
+			Zadnja izmjena: {{ $applic->updated_at->format('d. m. Y. h:i:s') }}
+
 			</div>
 			<table class="table table-striped table-bordered">
 				<tr><th colspan="2" class="table_section">Osobni podaci</th></tr>
