@@ -232,29 +232,30 @@
 			display:inline-block;
 			text-align:center;	
 		}
-		
-		.profile_img_container > button {
-			position:absolute;
-			top:5px;
-			left:5px;
-			width: 75px;
-			opacity: 0;
-		}
-		.profile_img_container button {			
-			transition: opacity 0.5s;	
-		}
-		.profile_img_container:hover button {
-			opacity: 0.8;
-		}
-		.profile_img_container:hover button:hover {
+		.profile_img_container .dropdown:hover {
 			opacity: 1;
 		}
-
-		.profile_img_container form button {
+		.profile_img_container > button {
 			position: absolute;
 			top: 5px;
 			right: 5px;
-			opacity: 0;
+		}
+		.profile_img_container .dropdown{
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			opacity: 0.8;
+		}
+		.profile_img_container .dropdown-menu{
+			min-width: 0px;
+			width: 80px;
+		}
+		.profile_img_container .dropdown-menu li{
+			padding: 3px;
+		}
+		.profile_img_container .dropdown-menu li:hover{
+			cursor: pointer;
+			background-color: lightgray;
 		}
 		.req_field {
 			color: red;
@@ -311,16 +312,14 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @elseif(Auth::user()->role != "student")
-						@if(Auth::user()->isAdmin())
-							<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prijave <span class="caret"></span></a>		
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="{{ url('/applics') }}"><i class="fa fa-btn fa-calendar-check-o" aria-hidden="true"></i>Trenutni natječaj</a></li>
-									<li><a href="{{ url('/applics/former') }}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Povijest</a></li>
-								</ul>
-                        				</li>
-						@endif
 						@if(Auth::user()->role == "college_mentor")
+						<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prijave <span class="caret"></span></a>		
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="{{ url('/applics') }}"><i class="fa fa-btn fa-calendar-check-o" aria-hidden="true"></i>Trenutni natječaj</a></li>
+								<li><a href="{{ url('/applics/former') }}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Povijest</a></li>
+							</ul>
+                        </li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prakse <span class="caret"></span></a>		
 								<ul class="dropdown-menu" role="menu">
@@ -364,7 +363,7 @@
 							
 								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
 							@if(Auth::user()->role != "student")
-								<li><a href="{{ url('/user_internships')}}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Moje prakse</a></li>
+								<li><a href="{{ url('/user_internships/' . Auth::user()->id)}}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Moje prakse</a></li>
 							@endif
                         		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
