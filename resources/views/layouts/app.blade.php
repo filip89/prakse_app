@@ -229,37 +229,6 @@
 			right: 0;
 			top: 20px;
 		}
-		
-		.profile_img_container {
-			position:relative;
-			display:inline-block;
-			text-align:center;	
-		}
-		.profile_img_container .dropdown:hover {
-			opacity: 1;
-		}
-		.profile_img_container > button {
-			position: absolute;
-			top: 5px;
-			right: 5px;
-		}
-		.profile_img_container .dropdown{
-			position: absolute;
-			top: 5px;
-			right: 5px;
-			opacity: 0.8;
-		}
-		.profile_img_container .dropdown-menu{
-			min-width: 0px;
-			width: 80px;
-		}
-		.profile_img_container .dropdown-menu li{
-			padding: 3px;
-		}
-		.profile_img_container .dropdown-menu li:hover{
-			cursor: pointer;
-			background-color: lightgray;
-		}
 		.req_field {
 			color: red;
 		}
@@ -317,7 +286,40 @@
 			background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.1))), url(/images/efos-menu-wrap-bg.png) !important;
 			background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/images/efos-menu-wrap-bg.png) !important;
 		}
-
+		.profile_img_container {
+			position:relative;
+			display:inline-block;
+			text-align:center;	
+		}
+		.profile_img_container .dropdown:hover {
+			opacity: 1;
+		}
+		.profile_img_container > button {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+		}
+		.profile_img_container .dropdown{
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			opacity: 0.8;
+		}
+		.profile_img_container .dropdown-menu{
+			min-width: 0px;
+			width: 80px;
+			background-image: none !important;
+			color: black !important;
+		}
+		.profile_img_container .dropdown-menu li{
+			padding: 3px;
+		}
+		.profile_img_container .dropdown-menu li:hover{
+			cursor: pointer;
+			background-color: lightgray;
+		}
+		
+}
     @yield('style')
     </style>
 </head>
