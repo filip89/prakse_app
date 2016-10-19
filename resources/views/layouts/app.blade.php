@@ -263,11 +263,66 @@
 		.req_field {
 			color: red;
 		}
+		.banner {
+			background-image: url(/images/efos-header-bg.jpg);
+			background-size: repeat;
+			height: 125px;
+			width: 100%;
+		}
+		.navbar-default {
+			background-image: url(/images/efos-menu-wrap-bg.png);
+			background-size:cover;
+			color: white;
+		}
+		.navbar-default .navbar-brand,.navbar-default .navbar-brand:hover,.navbar-default .navbar-brand:focus {
+			color: white;
+		}
+				
+		.navbar-default .navbar-nav > li > a {
+			color: white;
+		}
+
+		.navbar-default .navbar-nav > li > a:hover,.navbar-default .navbar-nav > li > a:focus {
+			background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/images/efos-menu-wrap-bg.png);
+			background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/images/efos-menu-wrap-bg.png);
+			background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/images/efos-menu-wrap-bg.png);
+			background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/images/efos-menu-wrap-bg.png);
+			background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.1))), url(/images/efos-menu-wrap-bg.png);
+			background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/images/efos-menu-wrap-bg.png);
+			background-repeat: repeat;
+			background-color: blue !important;
+			color: white !important;
+		}
+		.navbar-default .navbar-nav > li > a:active{
+			background-color: blue;
+		}
+		.dropdown-menu { background-image: url(/images/efos-menu-wrap-bg.png);
+			background-size:cover;}
+		.dropdown-menu>li>a { 
+			color: white
+		}
+		.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu > .active > a:hover {
+			color: white;
+		}
+		.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+			background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/images/efos-menu-wrap-bg.png);}
+		.dropdown.open li a{
+			color: white !important;
+		}
+		.dropdown.open li a:hover, .dropdown.open li a:active, .dropdown.open li a:focus, .dropdown.open li a:visited{
+			background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/images/efos-menu-wrap-bg.png) !important;
+			background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/images/efos-menu-wrap-bg.png) !important;
+			background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/images/efos-menu-wrap-bg.png) !important;
+			background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/images/efos-menu-wrap-bg.png) !important;
+			background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.1))), url(/images/efos-menu-wrap-bg.png) !important;
+			background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/images/efos-menu-wrap-bg.png) !important;
+		}
 
     @yield('style')
     </style>
 </head>
 <body id="app-layout">
+	<div class="banner"></div>
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
