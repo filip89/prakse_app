@@ -419,7 +419,7 @@
 			list-style: none;
 			top: 40%;
 			padding-left: 0;
-			z-index: 	
+			z-index: 2;	
 		}
 
 		.social li a {
