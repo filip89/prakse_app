@@ -187,6 +187,23 @@ $(document).ready(function() {
 	#max_activity {
 		line-height: 20px;
 	}
+	@media screen and (max-width: 1180px) {
+		.chart-container, .chart-container2 {
+			flex-direction: column;
+		}
+		.chart-desc, .chart-desc2 {
+			width: 100%;
+		}
+
+	}
+	
+	@media screen and (max-width: 550px) {
+		.chart-img, .chart-img2 {
+			display: none;
+		}
+	}
+
+	<?php include('../../assets/css/social_buttons.css') ?>
 </style>
 
 <div class="container">
