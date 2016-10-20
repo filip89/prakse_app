@@ -6,7 +6,7 @@
 		<h1>Statistika</h1>
 		<h3>Nema dovoljno podataka za izradu izvještaja</h3>
 	@else	
-		<div class="panel panel-success">
+		<div class="panel panel-success panel-responsive">
 			<div class="panel-heading"><i class="fa fa-btn fa-bar-chart" aria-hidden="true"></i>Statistika</div>
 				<div class="panel-body">
 
