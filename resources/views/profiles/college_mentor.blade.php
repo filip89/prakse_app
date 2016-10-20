@@ -67,7 +67,7 @@
 									@elseif($user->image && (Auth::user()->id == $user->id || Auth::user()->isAdmin()))
 									<div class="dropdown">
 										<button class="btn dropdown-toggle btn-sm" style="background-color:#ccccff;" type="button" data-toggle="dropdown"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-										<ul class="dropdown-menu dropdown-menu-right">
+										<ul class="evo dropdown-menu dropdown-menu-right">
 											@if(Auth::user()->id == $user->id)
 												<li data-toggle="modal" data-target="#profile_addImg_modal">Promijeni</li>
 											@endif
@@ -132,7 +132,7 @@
 										@if(strtotime($internship->start_date) > strtotime(date('d-m-Y')))
 											<a data-toggle="tooltip" title="{{ 'Praksa počinje za ' . (strtotime($internship->start_date) - strtotime(date('d-m-Y')))/86400 . ' dana (' . date_create($internship->start_date)->format('d. m. Y.') . ').' }}" class="link_object current_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
 										@elseif(strtotime($internship->end_date) > strtotime(date('d-m-Y')))
-											<a data-toggle="tooltip" title="{{ 'Praksa traje još ' . (strtotime($internship->end_date) - strtotime(date('d-m-Y')))/86400 . ' dana (do ' . date_create($internship->start_date)->format('d. m. Y.') . ').'}}" class="link_object current_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
+											<a data-toggle="tooltip" title="{{ 'Praksa traje još ' . (strtotime($internship->end_date) - strtotime(date('d-m-Y')))/86400 . ' dana (do ' . date_create($internship->end_date)->format('d. m. Y.') . ').'}}" class="link_object current_green" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }} <i class="fa fa-btn fa-clock-o" aria-hidden="true"></i></a>
 										@elseif(isset($internship->end_date))
 											<a data-toggle="tooltip" title="{{ 'Praksa je završila ' . date_create($internship->end_date)->format('d. m. Y.') }}" class="link_object expired_gray" href="{{url('/internships/' . $internship->id)}}">{{ $internship->student->name . " " . $internship->student->last_name }}</a>
 										@endif
