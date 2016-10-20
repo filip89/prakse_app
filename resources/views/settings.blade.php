@@ -41,7 +41,7 @@
 							<label for="end_date" class="col-md-4 control-label">Prijave otvorene do:</label>
 
 							<div class="col-md-6">
-								<input type="text" class="form-control datepicker" name="end_date"/>
+								<input type="text" class="form-control datepicker" name="end_date" required/>
 
 								@if ($errors->has('end_date'))
 									<span class="help-block">
@@ -49,6 +49,23 @@
 									</span>
 								@endif
 							</div>
+						</div>
+						
+						{{Utilities::desiredMonth(12)}}
+						<div class="form-group{{ $errors->has('months') ? ' has-error' : '' }}">
+							<label for="months" class="col-md-4 control-label">Dostupni mjeseci za praksu:</label>
+
+							<div class="col-md-6">
+								@for($i=1; $i<=12; $i++)
+									<div style="display:block"><input class="cursor_pointer" type="checkbox" value="{{$i}}" name="month_{{$i}}"/><label style="display:inline;"> {{Utilities::desiredMonth($i)}}</label></div>
+								@endfor
+								@if ($errors->has('month_' . Utilities::desiredMonth($i)))
+								<span class="help-block">
+									<strong>{{ $errors->first('month_' . Utilities::desiredMonth($i)) }}</strong>
+								</span>
+								@endif
+							</div>
+
 						</div>
 						
 						<div class="form-group{{ $errors->has('message') ? ' has-error' : '' }}">
