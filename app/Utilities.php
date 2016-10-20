@@ -9,9 +9,11 @@ class Utilities
 	
 	private static $courses = array('Financijski menadžment', 'Marketing', 'Menadžment', 'Poduzetništvo', 'Poslovna informatika');
 	
-	private static $desired_months = array(1 => 'Siječanj', 2 => 'Veljača', 3 => 'Ožujak', 4 => 'Travanj', 5 => 'Svibanj', 6 => 'Lipanj', 7 => 'Srpanj', 8 => 'Kolovoz', 9 => 'Rujan', 10 => 'Listopad', 11 => 'Studeni', 12 => 'Prosinac');
+	private static $desired_months = [1 => 'Siječanj', 2 => 'Veljača', 3 => 'Ožujak', 4 => 'Travanj', 5 => 'Svibanj', 6 => 'Lipanj', 7 => 'Srpanj', 8 => 'Kolovoz', 9 => 'Rujan', 10 => 'Listopad', 11 => 'Studeni', 12 => 'Prosinac'];
 	
-	private static $activities = array('Članstvo u studentskoj i/ili civilnim udrugama; rad u studentskoj organizaciji koja je registrirana ili upisana u upisnik studentskih organizacija.', 'Studentsko predstavljanje u sveučilišnim ili drugim tijelima relevantnim za sustav znanosti i visokog obrazovanja (Senat, Studentsko zbor, Smotra).', 'Rad na znanstvenom projektu; izlaganje na znanstvenom i/ili stručnom skupu; uređivanje studentskih, znanstvenih ili stručnih časopisa (glavni urednik, tajnik/tajnica, članovi uredništva).', 'Izlaganje ili sudjelovanje u organizaciji ljetnih škola, znanstvenih i/ili stručnih skupova.', 'Seminari/radionice (organizacija/sudjelovanje).', 'Sudjelovanje u Erasmus programu i/ili rd u inozemstvu tijekom studija.', 'Rad preko studentskog centra.', 'Demonstratura tijekom preddiplomskog i/ili diplomskog studija.', 'Rektorova i/ili dekanova nagrada.', 'Sudjelovanje u studentskim natjecanjima i ostvareno jedno od prva tri mjesta.');
+	//private static $desired_months = array('Siječanj', 'Veljača', 'Ožujak', 'Travanj', 'Svibanj', 'Lipanj', 'Srpanj', 'Kolovoz', 'Rujan', 'Listopad', 'Studeni', 'Prosinac');
+	
+	private static $activities = array('Članstvo u studentskoj i/ili civilnim udrugama; rad u studentskoj organizaciji koja je registrirana ili upisana u upisnik studentskih organizacija.', 'Studentsko predstavljanje u sveučilišnim ili drugim tijelima relevantnim za sustav znanosti i visokog obrazovanja (Senat, Studentsko zbor, Smotra).', 'Rad na znanstvenom projektu; izlaganje na znanstvenom i/ili stručnom skupu; uređivanje studentskih, znanstvenih ili stručnih časopisa (glavni urednik, tajnik/tajnica, članovi uredništva).', 'Izlaganje ili sudjelovanje u organizaciji ljetnih škola, znanstvenih i/ili stručnih skupova.', 'Seminari/radionice (organizacija/sudjelovanje).', 'Sudjelovanje u Erasmus programu i/ili rd u inozemstvu tijekom studija.', 'Rad preko studentskog centra.', 'Demonstratura tijekom preddiplomskog i/ili diplomskog studija.', 'Rektorova i/ili dekanova nagrada.', 'Sudjelovanje u studentskim natjecanjima i ostvareno jedno od prva tri mjesta.', 'Ostalo.');
 	
 	private static $counties = array(1 => 'Krapinsko-zagorska županija', 2 => 'Sisačko-moslavačka županija', 3 => 'Međimurska županija', 4 => 'Karlovačka županija', 5 => 'Varaždinska županija', 6 => 'Koprivničko-križevačka županija', 7 => 'Bjelovarsko-bilogorska županija', 8 => 'Primorsko-goranska županija', 9 => 'Ličko-senjska županija', 10 => 'Virovitičko-podravska županija', 11 => 'Požeško-slavonska županija', 12 => 'Brodsko-posavska županija', 13 => 'Zadarska županija', 14 => 'Osječko-baranjska županija', 15 => 'Šibensko-kninska županija', 16 => 'Splitsko-dalmatinska županija', 17 => 'Vukovarsko-srijemska županija', 18 => 'Istarska županija', 19 => 'Dubrovačko-neretvanska županija', 20 => 'Grad Zagreb', 21 => 'Zagrebačka županija', 22 => 'Inozemstvo');
 	
@@ -39,6 +41,10 @@ class Utilities
 
 		if(!isset($month)){
 			return false;
+		}
+		
+		if($month == 13){
+			return;
 		}
 		
 		return self::$desired_months[$month];
