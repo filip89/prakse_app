@@ -78,8 +78,10 @@
     </script>
     
     <style>
-        body {
+        html, body {
             font-family: 'Lato';
+            height: 100%;
+		  	margin: 0;
         }
 
         .fa-btn {
@@ -232,12 +234,6 @@
 		.req_field {
 			color: red;
 		}
-		.banner {
-			background-image: url(/images/efos-header-bg.jpg);
-			background-size: repeat;
-			height: 125px;
-			width: 100%;
-		}
 		.navbar-default {
 			background-image: url(/images/efos-menu-wrap-bg.png);
 			background-size:cover;
@@ -318,192 +314,509 @@
 			cursor: pointer;
 			background-color: lightgray;
 		}
+		.banner-bg {
+			display: flex;
+			justify-content: center;
+			background-image: url({{ URL::asset('images/wrap-bg.png') }});
+		}
+		.banner-img {			
+			background-repeat: repeat;
+			height: 125px;
+			width: 980px;
+		}
+		.banner-container {
+			position: absolute;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			width: 60%;
+		}
+		.banner-logo {
+			position: relative;
+			width: 250px;
+			height: 100px;		
+		}
+		.banner-logo-faculty {
+			position: relative;
+			width: 200px;
+			height: 80px;			
+			margin-top: 20px;
+		}
+		.banner-txt {
+			position: absolute;
+			display: block;
+			color: white;
+			align-self: center;
+			text-align: center;
+			font-family: "Calibri", Serif;
+		}
+		.banner-title {
+			font-size: 25px;
+			color: white;
+			font-style: italic;
+		}
+		.content {
+		  min-height: 72%;
+		  z-index: 1;
+		}
+		.footer {
+			position: absolute;
+			text-align: center;
+			width: 100%;
+			height: 280px;
+			background-image: url({{ URL::asset('images/wrap-bg.png') }});
+		}
+		.push {
+			height: 150px;
+		}
+		.link-container {
+			display: block;
+			width: 350px;
+		}
+		.footer-links {
+			padding: 10px;
+			width: 100px;
+			height: 100px;
+		}
+		.link-txt {
+			color: white;
+		}
+		.link-txt2 {
+			color: white;
+			padding-left: 10px;
+		}
+		.info-txt {
+			color: white;
+		}
+		.popular-link {
+			color: white;		
+		}
+		.popular-link:hover {
+			color: black
+		}
+		.link-box {
+			position: relative;
+			display: inline-block;
+			top: -21px;
+		}
+		.link-wrapper {
+			display: inline-block;
+		}
+		.info-box {
+			display: inline-block;
+		}
+		.c {
+			position: relative;
+			top: -80px;
+		}
+		.social {
+			position: relative;
+			width: 200px;
+			height: 220px;
+			position: fixed;
+			margin-top: 30px;
+			perspective: 1000px;
+			list-style: none;
+			top: 40%;
+			padding-left: 0;
+			z-index: 	
+		}
+
+		.social li a {
+			display: block;
+			height: 40px;
+			width: 40px;
+			background: #222;
+			border-bottom: 1px solid #333;
+			font: normal normal normal
+			16px/20px 
+			'FontAwesome', 'Source Sans Pro', Helvetica, Arial, sans-serif;
+			color: #fff;
+			-webkit-font-smoothing: antialiased;
+			padding: 10px;
+			text-decoration: none;
+			text-align: center;
+			transition: background .5s ease .300ms
+		}
+
+		.social li:first-child a:hover { background: #3b5998 }
+		.social li:nth-child(2) a:hover { background: #00acee }
+		.social li:nth-child(3) a:hover { background: #ea4c89 }
+		.social li:nth-child(4) a:hover { background: #dd4b39 }
+
+		.social li:first-child a { border-radius: 0 5px 0 0 }
+		.social li:last-child a { border-radius: 0 0 5px 0 }
+		    
+		.social li a span {
+			width: 100px;
+			float: left;
+			text-align: center;
+			background: #222;
+			color: #fff;
+			margin: -25px 74px;
+			padding: 8px;
+			transform-origin: 0;
+			visibility: height: 	;n;
+			opacity: 0;
+			transform: rotateY(45deg);
+			border-radius: 5px;
+			transition: all .5s ease .300ms
+		}
+
+		.social li span:after {
+			content: '';
+			display: block;
+			width: 0;
+			height: 0;
+			position: absolute;
+			left: -20px;
+			top: 7px;
+			border-left: 10px solid transparent;
+			border-right: 10px solid #222;
+			border-bottom: 10px solid transparent;
+			border-top: 10px solid transparent;
+		}
+
+		.social li a:hover span {
+			visibility: visible;
+			opacity: 1;
+			transform: rotateY(0);
+		}	
+		@media screen and (max-width: 1140px) {
+			.banner-txt {
+				display: none;
+			} 
+			.panel-responsive {
+				width: 500px;
+				margin: auto auto;
+			}
+		}
+		@media screen and (max-width: 1075px) {
+			.footer {			
+				height: 430px;
+			} 
+			.info-box, .link-box {
+				text-align: center;
+			}
+			.c {
+				top: 0;
+			}
+		}
+		@media screen and (max-width: 830px) {
+			.social {
+				display: none;
+			}
+		}
+		@media screen and (max-width: 720px) {
+			.link-wrapper {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			} 
+			.link-box {
+				top: 0;
+			}
+			.footer {
+				height: 640px;
+			}
+			.banner-img {
+				width: 100%;
+			}
+		}		
+		@media screen and (max-width: 480px) {
+			.banner-logo-faculty {
+				display: none;
+			}
+			.banner-logo {
+				left: -40px;
+			}
+			.panel-responsive {
+				width: 300px;
+			}
+		}
 		
 }
     @yield('style')
     </style>
 </head>
 <body id="app-layout">
-	<div class="banner"></div>
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
 
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
+	<div>
+		<ul class='social'>
+			<li>
+			    <a class="fa fa-facebook" href="https://www.facebook.com/EFOsijek">    
+			    	<span>Facebook</span>
+			    </a> 
+			</li>
+		  
+			<li>
+			    <a class="fa fa-twitter" href="https://twitter.com/EFOsijek">
+			    	<span>Twitter</span>
+			    </a>
+			</li>
+		  
+			<li>
+			    <a class="fa fa-linkedin" href="https://www.linkedin.com/company/ekonomski-fakultet-u-osijeku">
+			    	<span>LinkedIn</span>
+			    </a>
+			</li>
+		  
+			<li>
+			    <a class="fa fa-google-plus" href="https://plus.google.com/104298889578406564718">
+			    	<span>Google Plus</span>
+			    </a> 
+			</li>
+		  
+		</ul>
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-					@if(!Auth::guest() && Auth::user()->role == "student")
-						@if(Utilities::competitionStatus() != 0)
-						<li>
-							<a href="{{ url('/myapplic')}}">			
-									@if(Auth::user()->activeApplic())
-									<b><i class="fa fa-btn fa-pencil-square" aria-hidden="true"></i>Prijavljena praksa</b>
-									@elseif(Utilities::competitionStatus() == 1)
-									<b><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</b>
-									@endif
-							</a>
-						</li>
-						@endif
-						@if(Auth::user()->lastInternship())
-							<li><a href="{{ url('/myinternship')}}"><b><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Moja praksa</b></a></li>
-						@endif
-					@if(Utilities::competitionExists() == 1)
-					<li><a href="{{ url('/internships/showResults') }}"><b><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</b></a></li>							
-					@endif
-					<li><a href="{{  url('/complaint') }}"><i class="fa fa-btn fa-question" aria-hidden="true"></i>Postavi pitanje</a></li>
-					@endif
-					<li><a href="{{  url('/committee') }}"><i class="fa fa-btn fa-users" aria-hidden="true"></i>Povjerenstvo</a></li>
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-					@if(Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
-                    @elseif(Auth::user()->role != "student")
-						@if(Auth::user()->role == "college_mentor")
-						<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prijave <span class="caret"></span></a>		
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/applics') }}"><i class="fa fa-btn fa-calendar-check-o" aria-hidden="true"></i>Trenutni natječaj</a></li>
-								<li><a href="{{ url('/applics/former') }}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Povijest</a></li>
-							</ul>
-                        </li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prakse <span class="caret"></span></a>		
-								<ul class="dropdown-menu" role="menu">
-									@if(Auth::user()->isAdmin())
-									<li><a href="{{ url('/internships') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Prijavljene</a></li>
-									@endif
-									<li><a href="{{  url('/internships/showFinal') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Konačne</a></li>
-									<li><a href="{{  url('/internships/showResults') }}"><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</a></li>
-								</ul>
-                        </li>
-						
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tvrtke <span class="caret"></span></a>		
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="{{ url('/company') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Pohranjene</a></li>
-									<li><a href="{{  url('/company/wishlist') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Željene</a></li>
-								</ul>
-                        </li>
-						
-						<li class="dropdown">
-                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Korisnici <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/user/student/list') }}"><i class="fa fa-btn fa-graduation-cap" aria-hidden="true"></i>Studenti</a></li>
-								<li><a href="{{ url('/user/college_mentor/list') }}"><i class="fa fa-btn fa-university" aria-hidden="true"></i>Mentori nastavnici</a></li>
-								<li><a href="{{  url('/user/intern_mentor/list') }}"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Mentori iz tvrtke</a></li>
-								@if(Auth::user()->isAdmin())
-								<li><a href="{{  url('/complaints') }}"><i class="fa fa-btn fa-exclamation-circle " aria-hidden="true"></i>Pitanja</a></li>
-								@endif
-                            </ul>
-                        </li>
-						@endif
-						@if(Auth::user()->isAdmin())
-						<li><a href="{{ url('/settings') }}"><i class="fa fa-btn fa-cogs" aria-hidden="true"></i></i>Postavke</a></li>
-						<li><a href="{{ url('/internships/statistics') }}"><i class="fa fa-btn fa-bar-chart" aria-hidden="true"></i>Statistika</a></li>
-						@endif
-					@endif
-					@if(!Auth::guest())
-                        <li class="dropdown">
-                        	 <a class="profile_dropdown" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
-                        	<ul class="dropdown-menu" role="menu">
-							
-								<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
-							@if(Auth::user()->role != "student")
-								<li><a href="{{ url('/user_internships/' . Auth::user()->id)}}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Moje prakse</a></li>
-							@endif
-                        		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            </ul>
-						</li>
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-	<!-- Modal -->
-  <div class="modal fade" id="delete_modal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Jeste li sigurni?</h4>
-        </div>
-        <div class="modal-body">
-          @yield('modal_body_content') <span class="data_info"></span>?
-        </div>
-        <div class="modal-footer">
-			<button type="button" id="submit_delete" class="btn btn-danger" data-dismiss="modal">Da</button>
-			<button type="button" class="btn btn-default" data-dismiss="modal">Ne</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
-  <!-- Delete profile image -->
-    <div class="modal fade" id="profile_deleteImg_modal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Jeste li sigurni?</h4>
-        </div>
-        <div class="modal-body">
-          Ukloniti sliku profila?
-        </div>
-        <div class="modal-footer">
-			<button type="button" id="submit_delete" class="btn btn-danger" data-dismiss="modal">Da</button>
-			<button type="button" class="btn btn-default" data-dismiss="modal">Ne</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
-    <div class="modal fade" id="profile_addImg_modal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-    <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Dodajte svoju sliku profila</h4>
-        </div>
-		{{ Form::open( [ 'url' => '/user/image/add/', 'method' => 'post', 'files' => true ] ) }}
-			 {{ csrf_field() }}
-			<div class="modal-body">		
-				<input type="file" name="image_file" />	
-				<small>* Dopušteni formati: jpeg, png, bmp, gif </small>			
-			</div>
-			<div class="modal-footer">
-				<button type="submit" class="btn btn-success">Dodaj</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
-			</div>
-		{{ Form::close() }}
-      </div>
-      
-    </div>
 	</div>
 
-    @yield('content')
+	<div class="content">
+		<div class="banner-bg">
+			<img class="banner-img" src="{{ URL::asset('images/efos-header-bg.jpg') }}"/>
+			<div class="banner-txt"><span class="banner-title">Ekonomski Fakultet<br> u Osijeku</span></div>
+			<div class="banner-container">
+				<a href="{{ url('/home') }}"><img class="banner-logo" src="{{ URL::asset('images/HR_logo.png') }}"/></a>
+				<img class="banner-logo-faculty" src="{{ URL::asset('images/logo-faks.png') }}"/>
+			</div>
+
+		</div>
+
+	    <nav class="navbar navbar-default navbar-static-top">
+	        <div class="container">
+	            <div class="navbar-header">
+
+	                <!-- Collapsed Hamburger -->
+	                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+	                    <span class="sr-only">Toggle Navigation</span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                </button>
+	            </div>
+
+	            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+	                <!-- Left Side Of Navbar -->
+	                <ul class="nav navbar-nav">
+	                    <li><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+						@if(!Auth::guest() && Auth::user()->role == "student")
+							@if(Utilities::competitionStatus() != 0)
+							<li>
+								<a href="{{ url('/myapplic')}}">			
+										@if(Auth::user()->activeApplic())
+										<b><i class="fa fa-btn fa-pencil-square" aria-hidden="true"></i>Prijavljena praksa</b>
+										@elseif(Utilities::competitionStatus() == 1)
+										<b><i class="fa fa-btn fa-pencil-square-o" aria-hidden="true"></i>Prijava prakse</b>
+										@endif
+								</a>
+							</li>
+							@endif
+							@if(Auth::user()->lastInternship())
+								<li><a href="{{ url('/myinternship')}}"><b><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Moja praksa</b></a></li>
+							@endif
+						@if(Utilities::competitionExists() == 1)
+						<li><a href="{{ url('/internships/showResults') }}"><b><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</b></a></li>							
+						@endif
+						<li><a href="{{  url('/complaint') }}"><i class="fa fa-btn fa-question" aria-hidden="true"></i>Postavi pitanje</a></li>
+						@endif
+						<li><a href="{{  url('/committee') }}"><i class="fa fa-btn fa-users" aria-hidden="true"></i>Povjerenstvo</a></li>
+	                </ul>
+
+	                <!-- Right Side Of Navbar -->
+	                <ul class="nav navbar-nav navbar-right">
+	                    <!-- Authentication Links -->
+						@if(Auth::guest())
+	                        <li><a href="{{ url('/login') }}">Login</a></li>
+	                        <li><a href="{{ url('/register') }}">Register</a></li>
+	                    @elseif(Auth::user()->role != "student")
+							@if(Auth::user()->role == "college_mentor")
+							<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prijave <span class="caret"></span></a>		
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="{{ url('/applics') }}"><i class="fa fa-btn fa-calendar-check-o" aria-hidden="true"></i>Trenutni natječaj</a></li>
+									<li><a href="{{ url('/applics/former') }}"><i class="fa fa-btn fa-history" aria-hidden="true"></i>Povijest</a></li>
+								</ul>
+	                        </li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prakse <span class="caret"></span></a>		
+									<ul class="dropdown-menu" role="menu">
+										@if(Auth::user()->isAdmin())
+										<li><a href="{{ url('/internships') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Prijavljene</a></li>
+										@endif
+										<li><a href="{{  url('/internships/showFinal') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Konačne</a></li>
+										<li><a href="{{  url('/internships/showResults') }}"><i class="fa fa-btn fa-trophy" aria-hidden="true"></i>Rezultati</a></li>
+									</ul>
+	                        </li>
+							
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tvrtke <span class="caret"></span></a>		
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="{{ url('/company') }}"><i class="fa fa-btn fa-check-circle" aria-hidden="true"></i>Pohranjene</a></li>
+										<li><a href="{{  url('/company/wishlist') }}"><i class="fa fa-btn fa-question-circle" aria-hidden="true"></i>Željene</a></li>
+									</ul>
+	                        </li>
+							
+							<li class="dropdown">
+	                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Korisnici <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="{{ url('/user/student/list') }}"><i class="fa fa-btn fa-graduation-cap" aria-hidden="true"></i>Studenti</a></li>
+									<li><a href="{{ url('/user/college_mentor/list') }}"><i class="fa fa-btn fa-university" aria-hidden="true"></i>Mentori nastavnici</a></li>
+									<li><a href="{{  url('/user/intern_mentor/list') }}"><i class="fa fa-btn fa-briefcase" aria-hidden="true"></i>Mentori iz tvrtke</a></li>
+									@if(Auth::user()->isAdmin())
+									<li><a href="{{  url('/complaints') }}"><i class="fa fa-btn fa-exclamation-circle " aria-hidden="true"></i>Pitanja</a></li>
+									@endif
+	                            </ul>
+	                        </li>
+							@endif
+							@if(Auth::user()->isAdmin())
+							<li><a href="{{ url('/settings') }}"><i class="fa fa-btn fa-cogs" aria-hidden="true"></i></i>Postavke</a></li>
+							<li><a href="{{ url('/internships/statistics') }}"><i class="fa fa-btn fa-bar-chart" aria-hidden="true"></i>Statistika</a></li>
+							@endif
+						@endif
+						@if(!Auth::guest())
+	                        <li class="dropdown">
+	                        	 <a class="profile_dropdown" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+	                        	<ul class="dropdown-menu" role="menu">
+								
+									<li><a href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
+								@if(Auth::user()->role != "student")
+									<li><a href="{{ url('/user_internships/' . Auth::user()->id)}}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Moje prakse</a></li>
+								@endif
+	                        		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+	                            </ul>
+							</li>
+	                    @endif
+	                </ul>
+	            </div>
+	        </div>
+	    </nav>
+
+		<!-- Modal -->
+	  <div class="modal fade" id="delete_modal" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Jeste li sigurni?</h4>
+	        </div>
+	        <div class="modal-body">
+	          @yield('modal_body_content') <span class="data_info"></span>?
+	        </div>
+	        <div class="modal-footer">
+				<button type="button" id="submit_delete" class="btn btn-danger" data-dismiss="modal">Da</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ne</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	  </div>
+	  
+	  <!-- Delete profile image -->
+	    <div class="modal fade" id="profile_deleteImg_modal" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Jeste li sigurni?</h4>
+	        </div>
+	        <div class="modal-body">
+	          Ukloniti sliku profila?
+	        </div>
+	        <div class="modal-footer">
+				<button type="button" id="submit_delete" class="btn btn-danger" data-dismiss="modal">Da</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ne</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	  </div>
+	  
+	    <div class="modal fade" id="profile_addImg_modal" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	    <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Dodajte svoju sliku profila</h4>
+	        </div>
+			{{ Form::open( [ 'url' => '/user/image/add/', 'method' => 'post', 'files' => true ] ) }}
+				 {{ csrf_field() }}
+				<div class="modal-body">		
+					<input type="file" name="image_file" />	
+					<small>* Dopušteni formati: jpeg, png, bmp, gif </small>			
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success">Dodaj</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+				</div>
+			{{ Form::close() }}
+	      </div>
+	      
+	    </div>
+		</div>
+
+	    @yield('content')
+
+	    <div class="push"></div>
+
+	</div>
+
+	<!-- Footer -->
+    <div class="footer">
+
+    	<div class="info-box c">
+	    	<h4 class="link-txt">EFOS POPULARNO</h4>
+
+	    	<div class="link-container">
+	    		<p class="info-txt">
+					<a class="popular-link" href="http://www.stipendije.info/">stipendije.info</a><br>
+					<a class="popular-link" href="https://www.coursera.org/">coursera.org</a><br>
+					<a class="popular-link" href="https://www.p2pu.org/en/">P2PU</a><br>
+					<a class="popular-link" href="http://www.ted.com/talks">TED Talks</a><br>
+					<a class="popular-link" href="https://www.khanacademy.org/">Bloomberg Institute Khan Academy</a>
+				</p>
+	    	</div>
+		</div>
+
+		<div class="link-wrapper">
+	    	<div class="info-box">
+		    	<h4 class="link-txt">RADNO VRIJEME</h4>
+
+		    	<div class="link-container">
+		    		<p class="info-txt">Radno vrijeme referade
+						Radnim danom od 9 do 12 sati
+						Utorkom (samo za izvanredne studente)
+						od 16 do 18.30 sati<br><br>
+						Radno vrijeme knjižnice
+						ponedjeljak-četvrtak: 8-18 sati
+						petak: 8-15 sati<br><br>
+						Radno vrijeme skriptarnice
+						Ponedjeljak–petak: 9:00h–12:00h
+						Utorak: 9:00h–12:00h i 16:00h-18:00h
+					</p>
+		    	</div>
+			</div>
+	    	
+	    	<div class="link-box">
+		    	<h4 class="link-txt2">POVEZNICE</h4>
+
+		    	<div class="link-container">
+		    		<a href="http://www.ices.hr/unesco-katedra/"><img class="footer-links" src="{{ URL::asset('images/footer1.png') }}"/></a>
+		    		<a href="http://www.efos.unios.hr/studenti/e-ucenje/global-autopoietic-university/"><img class="footer-links" src="{{ URL::asset('images/footer2.png') }}"/></a>
+		    		<a href="http://public.mzos.hr/Default.aspx"><img class="footer-links" src="{{ URL::asset('images/footer3.png') }}"/></a>
+		    		<a href="http://www.nzpuss.hr/"><img class="footer-links" src="{{ URL::asset('images/footer4.png') }}"/></a>
+		    		<a href="http://www.carnet.hr/edukacija"><img class="footer-links" src="{{ URL::asset('images/footer5.png') }}"/></a>
+		    		<a href="http://www.unios.hr/"><img class="footer-links" src="{{ URL::asset('images/footer6.png') }}"/></a>
+		    	</div>
+			</div>
+		</div>
+
+    </div>
 	  
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
