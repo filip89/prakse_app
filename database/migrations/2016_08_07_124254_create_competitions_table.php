@@ -20,6 +20,7 @@ class CreateCompetitionsTable extends Migration
 			$table->integer("status");
 			$table->integer("year");
 			$table->string("name", 100);
+			$table->string("availableMonths", 50)->nullable();
 			$table->string("message", 10000);
 			$table->datetime("end_date");
 			$table->date("results_date")->nullable();
