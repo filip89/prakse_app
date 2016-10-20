@@ -364,7 +364,7 @@
 			text-align: center;
 			width: 100%;
 			height: 280px;
-			background-image: url({{ URL::asset('images/wrap-bg.png') }});
+			background-image: url({{ URL::asset('images/wrap-bg-2.png') }});
 		}
 		.push {
 			height: 150px;
