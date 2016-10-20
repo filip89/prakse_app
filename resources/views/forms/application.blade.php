@@ -277,7 +277,7 @@
 						<div class="form-group">                            
 
                             <div class="col-md-12">
-							@for($i=1; $i<=10; $i++)
+							@for($i=1; $i<=11; $i++)
 											<div class="col-sm-offset-2 col-sm-10" style="margin-bottom:10px;">
 												<input class="cursor_pointer" type="checkbox" {{$activities[$i]['checked']}} name="activities[{{$i}}]"><label style="display:inline;"> {{$activities[$i]['name']}}</label>
 											</div>

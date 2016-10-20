@@ -203,17 +203,17 @@ textarea {
 							<div class="col-md-8 col-md-offset-4"><i><small>* navesti najviše 5 tvrtki</small></i></div>
                         </div>
 						
+						@if(!empty($availableMonths))
 						<div class="form-group{{ $errors->has('desired_month') ? ' has-error' : '' }}">
                             <label for="desired_month" class="col-md-4 control-label">Željeni mjesec:</label>
-
                             <div class="col-md-8">
-								<select class="form-control" name="desired_month"/>
+								<select class="form-control" name="desired_month">
 									<option selected disabled hidden style='display: none'></option>
-									<option value="6">Lipanj</option>
-									<option value="7">Srpanj</option>
-									<option value="8">Kolovoz</option>
-									<option value="9">Rujan</option>
+									@foreach($availableMonths as $key)
+									<option value="{{$key}}">{{ Utilities::desiredMonth($key) }}</option>
+									@endforeach
 								</select>
+								
 
                                 @if ($errors->has('desired_month'))
                                     <span class="help-block">
@@ -221,8 +221,10 @@ textarea {
                                     </span>
                                 @endif
                             </div>
+							
 							<div class="col-md-8 col-md-offset-4"><i><small>* odabarite mjesec kada biste najradije imali praksu</small></i></div>
                         </div>
+						@endif
 						
 						<h3 style="display:table;margin:auto;margin-top:30px;">Aktivnosti:</h3>
 						<div style="display:table;margin:auto;margin-bottom:20px"><i><small>*označite ukoliko ste imali neku od aktivnosti i dajte kratki opis </small></i></div>
