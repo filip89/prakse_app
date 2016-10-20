@@ -368,6 +368,7 @@
 		}
 		.push {
 			height: 150px;
+			clear: both;
 		}
 		.link-container {
 			display: block;
