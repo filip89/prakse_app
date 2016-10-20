@@ -34,6 +34,25 @@ class CompetitionController extends Controller
 			'message' => 'max:10000',
 		]);
 		
+		$checkedMonths = array();
+		
+		for($i=1; $i<=12; $i++){
+			
+			$month = 'month_' . $i;
+			
+			if(isset($request->$month)){
+				
+				$checkedMonths[] = $i;
+
+			}	
+			
+		}
+		
+		
+		
+		$availableMonths = implode(',', $checkedMonths);
+		
+		
 		$competition = new Competition;
 		
 		$competition->status = 1;
@@ -41,6 +60,7 @@ class CompetitionController extends Controller
 		$competition->end_date = date('Y-m-d', strtotime($request->end_date));
 		$competition->name = $request->name;
 		$competition->message = $request->message;
+		$competition->availableMonths = $availableMonths;
 		
 		$competition->save();
 		

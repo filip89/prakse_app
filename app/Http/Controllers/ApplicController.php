@@ -39,6 +39,13 @@ class ApplicController extends Controller
 			'applyForm',
 			'apply',
 		]]);
+		
+		$this->middleware('competition_active', ['only' => [
+			'applyForm',
+			'apply',
+		]]);
+		
+		//dodat za apply middleare koji gleda jel posoji natječaj
 			
 	}
 	
@@ -133,11 +140,19 @@ class ApplicController extends Controller
 			
 		}
 		
+		$availableMonths = array();
+		
+		if(!empty(Competition::current()->availableMonths)){
+			
+			$availableMonths = explode(",", Competition::current()->availableMonths);
+			
+		}		
+		
 		if($applic = $user->activeApplic()){
 			
 			$activities = array(array('name' => '', 'checked' => '','year' => '','description' => ''));
 			
-			for($i=1; $i<=10; $i++){
+			for($i=1; $i<=11; $i++){
 				
 				if($applic->activities->where('number', $i)->first() !== null){
 					$activity = $applic->activities->where('number', $i)->first();
@@ -156,19 +171,19 @@ class ApplicController extends Controller
 								
 			}
 			
-			return view("forms.application", ['user' => $user, 'applic' => $applic, 'activities' => $activities]);
+			return view("forms.application", ['user' => $user, 'applic' => $applic, 'activities' => $activities, 'availableMonths' => $availableMonths]);
 			
 		}
 		else {
 			
-			for($i=1; $i<=10; $i++){
+			for($i=1; $i<=11; $i++){
 				
 				$activities[$i] = Utilities::activity($i);
 				
 			}
 			
 			
-			return view("forms.application_empty", ['user' => $user, 'activities' => $activities, 'i' => 0]);
+			return view("forms.application_empty", ['user' => $user, 'activities' => $activities, 'i' => 0, 'availableMonths' => $availableMonths]);
 			
 		}	
 	
@@ -230,7 +245,7 @@ class ApplicController extends Controller
 		$applic->save();
 		
 		
-		for($i=1; $i<=10; $i++){
+		for($i=1; $i<=11; $i++){
 			
 			if(isset($request->activities[$i])){
 				
