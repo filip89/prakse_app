@@ -241,26 +241,14 @@
 									@if($applic->desired_month == null)
 										<option selected disabled hidden style='display: none' value=''></option>
 									@endif
-									@if($applic->desired_month == 6)
-										<option selected value="6">Lipanj</option>
+									@foreach($availableMonths as $key)
+									@if($applic->desired_month == $key)
+										<option selected value="{{ $key }}">{{ Utilities::desiredMonth($key ) }}</option>
 									@else
-										<option value="6">Lipanj</option>
+										<option value="{{ $key }}">{{ Utilities::desiredMonth($key ) }}</option>
 									@endif
-									@if($applic->desired_month == 7)
-										<option selected value="7">Srpanj</option>
-									@else
-										<option value="7">Srpanj</option>
-									@endif
-									@if($applic->desired_month == 8)
-										<option selected value="8">Kolovoz</option>
-									@else
-										<option value="8">Kolovoz</option>
-									@endif
-									@if($applic->desired_month == 9)
-										<option selected value="9">Rujan</option>
-									@else
-										<option value="9">Rujan</option>
-									@endif
+									@endforeach
+
 								</select>
 
                                 @if ($errors->has('desired_month'))
