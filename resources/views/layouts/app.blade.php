@@ -540,7 +540,6 @@
 			}
 		}
 		
-}
     @yield('style')
     </style>
 </head>
