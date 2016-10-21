@@ -1,10 +1,6 @@
 @extends('layouts.app')
 
 @section('style')
-.competition {
-	width: 100%;
-	margin-top: 15px;
-}
 .com_year {
 	display: block;
 	float: left;
