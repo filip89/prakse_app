@@ -203,7 +203,6 @@ $(document).ready(function() {
 		}
 	}
 
-	<?php include('../../assets/css/social_buttons.css') ?>
 </style>
 
 <div class="container">
