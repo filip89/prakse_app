@@ -21,7 +21,7 @@ class CompanyInternships
        	$company = Company::find($request->route('id'));
 		$userViewing =  Auth::user();
 		
-		if($userViewing->role == 'collage_mentor'){
+		if($userViewing->role == 'college_mentor'){
 			
 			return $next($request);
 			
