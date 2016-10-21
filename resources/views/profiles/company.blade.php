@@ -39,6 +39,15 @@
 							<tr><th>Sjedište:</th><td>{{ $company->residence }}</td></tr>
 							<tr><th>E-mail:</th><td>{{ $company->email }}</td></tr>
 							<tr><th>Telefon:</th><td>{{ $company->phone }}</td></tr>
+							<tr><th>Područje:</th>	
+								<td>
+								@if(is_numeric($company->field))
+								{{ Utilities::companyFields($company->field) }}
+								@else
+								{{ $company->field }}
+								@endif
+								</td>
+							</tr>
 							@if(Auth::user()->role == 'college_mentor' || (Auth::user()->role == 'intern_mentor' && (isset(Auth::user()->profile->company) && Auth::user()->profile->company->id == $company->id)))
 							<tr><th>Mjesta za praksu:</th><td>{{ $company->spots }}</td></tr>
 							@if(Utilities::competitionStatus() != 0)
@@ -53,7 +62,7 @@
 								@endforeach
 								@if(Auth::user()->isAdmin())
 								<div class="user_item">
-									<a type="button"  id="add_mentor" class="btn btn-primary" href="{{ url('/user/add/internmentor/' . $company->id) }}"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj mentora iz tvrtke</a><br/>
+									<a type="button"  id="add_mentor" class="btn btn-primary btn-sm" href="{{ url('/user/add/internmentor/' . $company->id) }}"><i class="fa fa-btn fa-user-plus" aria-hidden="true"></i>Dodaj mentora iz tvrtke</a><br/>
 								</div>
 								@endif
 								</td>
