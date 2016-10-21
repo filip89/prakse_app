@@ -11,7 +11,7 @@ class Utilities
 	
 	private static $desired_months = [1 => 'Siječanj', 2 => 'Veljača', 3 => 'Ožujak', 4 => 'Travanj', 5 => 'Svibanj', 6 => 'Lipanj', 7 => 'Srpanj', 8 => 'Kolovoz', 9 => 'Rujan', 10 => 'Listopad', 11 => 'Studeni', 12 => 'Prosinac'];
 	
-	//private static $desired_months = array('Siječanj', 'Veljača', 'Ožujak', 'Travanj', 'Svibanj', 'Lipanj', 'Srpanj', 'Kolovoz', 'Rujan', 'Listopad', 'Studeni', 'Prosinac');
+	private static $companyFields = array('Financije', 'Makroekonomija', 'Menadžment', 'Marketing', 'Poduzetništvo', 'Ljudski resursi', 'Poduzetništvo', 'Informacijska tehnologija', 'Javna uprava');
 	
 	private static $activities = array('Članstvo u studentskoj i/ili civilnim udrugama; rad u studentskoj organizaciji koja je registrirana ili upisana u upisnik studentskih organizacija.', 'Studentsko predstavljanje u sveučilišnim ili drugim tijelima relevantnim za sustav znanosti i visokog obrazovanja (Senat, Studentsko zbor, Smotra).', 'Rad na znanstvenom projektu; izlaganje na znanstvenom i/ili stručnom skupu; uređivanje studentskih, znanstvenih ili stručnih časopisa (glavni urednik, tajnik/tajnica, članovi uredništva).', 'Izlaganje ili sudjelovanje u organizaciji ljetnih škola, znanstvenih i/ili stručnih skupova.', 'Seminari/radionice (organizacija/sudjelovanje).', 'Sudjelovanje u Erasmus programu i/ili rd u inozemstvu tijekom studija.', 'Rad preko studentskog centra.', 'Demonstratura tijekom preddiplomskog i/ili diplomskog studija.', 'Rektorova i/ili dekanova nagrada.', 'Sudjelovanje u studentskim natjecanjima i ostvareno jedno od prva tri mjesta.', 'Ostalo.');
 	
@@ -34,6 +34,21 @@ class Utilities
 		}
 		
 		return self::$courses[$course - 1];
+		
+	}
+	
+	public static function companyFields($field = null){
+		
+		if(isset($field)){
+			
+			return self::$companyFields[$field];
+			
+		}
+		else{
+			
+			return self::$companyFields;
+			
+		}
 		
 	}
 	

@@ -15,6 +15,7 @@ class Company extends Model
 		'phone',
 		'residence',
 		'spots',
+		'field',
 	];
 	
     public function internships() {
