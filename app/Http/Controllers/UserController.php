@@ -49,9 +49,9 @@ class UserController extends Controller
 			'deleteImage',
         ]]);
 		
-		$this->middleware('collage_mentor', ['only' => [
+		$this->middleware('college_mentor', ['only' => [
 			'internMentorIndex',
-			'collageMentorIndex',
+			'collegeMentorIndex',
 			'studentIndex',
 		]]);
 		

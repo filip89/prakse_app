@@ -24,7 +24,7 @@ class ApplicController extends Controller
 				
 		$this->middleware('auth');
 		
-		$this->middleware('collage_mentor', ['only' => [
+		$this->middleware('college_mentor', ['only' => [
 			'index',
 			'former',
 			'view',

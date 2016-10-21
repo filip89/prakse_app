@@ -30,12 +30,12 @@ class CompanyController extends Controller
 		
 		$this->middleware('auth');
 				
-		$this->middleware('collage_mentor', ['only' => [
+		$this->middleware('college_mentor', ['only' => [
 			'index',
 			'wishlist',
         ]]);
 		
-		$this->middleware('collage_mentor', ['only' => [
+		$this->middleware('college_mentor', ['only' => [
 			'delete',
 			'createForm',
 			'create',
@@ -158,6 +158,7 @@ class CompanyController extends Controller
 			'email' => 'required|max:255|email',
 			'phone' => 'required|max:50',
 			'spots' => 'required',
+			'field' => 'max:40',
 		]);
 		
 		$company = new Company;
