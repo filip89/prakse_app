@@ -237,7 +237,7 @@
                             <label for="desired_month" class="col-md-4 control-label">Željeni mjesec:</label>
 
                             <div class="col-md-8">
-								<select class="form-control" name="desired_month" />
+								<select class="form-control" name="desired_month" >
 									@if($applic->desired_month == null)
 										<option selected disabled hidden style='display: none' value=''></option>
 									@endif

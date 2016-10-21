@@ -79,6 +79,48 @@
                                 @endif
                             </div>
                         </div>
+@if(empty($company->field))
+	djvnsakdjvbskbvks
+	@endif
+						<div class="form-group{{ $errors->has('field') ? ' has-error' : '' }}">
+                            <label for="field" class="col-md-4 control-label">Područje:</label>
+
+                            <div class="col-md-6">
+								@if(empty($company->field) || is_numeric($company->field))
+                                <select onchange="field_select(this)" class="form-control select_field" name="field">
+								@else
+								<select onchange="field_select(this)" class="form-control select_field">
+								@endif
+									@if(empty($company->field))
+									<option style="display:none" selected disabled hidden ></option>
+									@endif
+									@foreach(Utilities::companyFields() as $key => $field)
+									@if($company->field == $key)
+									<option  value="{{ $key }}" selected>{{ $field }}</option>
+									@else
+									<option value="{{ $key }}">{{ $field }}</option>
+									@endif
+									@endforeach
+									@if(!empty($company->field) && !is_numeric($company->field))
+									<option id="other_field" selected >Ostalo</option>
+									@else
+									<option id="other_field">Ostalo</option>
+									@endif
+								</select>
+
+                                @if ($errors->has('field'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('field') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+							<div class="col-md-6 col-md-offset-4"><i><small>* područje iz kojeg se prima student na praksu</small></i></div>
+							@if(!empty($company->field) && !is_numeric($company->field))
+								<div id="other_field_div" class="col-md-6 col-md-offset-4" style="margin-top:10px;"><input maxlength="40" type="text" class="form-control other_input" name="field" value="{{ old('field', $company->field) }}" placeholder="Ovdje upišite područje" /></div>
+							@else
+								<div id="other_field_div" class="col-md-6 col-md-offset-4" style="margin-top:10px;display:none"><input maxlength="40" type="text" class="form-control other_input" placeholder="Ovdje upišite područje" /></div>
+							@endif
+                        </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
@@ -94,4 +136,43 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+function field_select(select){
+	
+	if($(select).children(':selected').attr('id') == 'other_field'){
+		
+		if($('#other_field_div').is(':hidden')){
+
+			$('#other_field_div').fadeIn();
+			
+		}
+		else{
+			
+			$('#other_field_div').fadeOut();
+			
+		}
+			
+	}
+	else if(!$('#other_field_div').is(':hidden')){		
+		
+		$('#other_field_div').fadeOut();
+				
+	}	
+	if($(select).children(':selected').attr('id') != 'other_field'){
+		
+		$('.select_field').attr('name', 'field');
+		$('.other_input').removeAttr('name');
+		
+	}
+	else{
+		
+		$('.other_input').attr('name', 'field');
+		$('.select_field').removeAttr('name');
+		
+	}
+
+}
+</script>
 @endsection
