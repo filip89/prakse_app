@@ -410,6 +410,10 @@
 			position: relative;
 			top: -80px;
 		}
+		.competition {
+			width: 100%;
+			margin-top: 15px;
+		}
 		.social {
 			position: relative;
 			width: 200px;
