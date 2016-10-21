@@ -20,6 +20,7 @@ class CreateCompaniesTable extends Migration
 		$table->string('email')->unique()->nullable();
 		$table->string('phone', 100)->nullable();
 		$table->string('residence', 100)->nullable();
+		$table->string('field', 50)->nullable();
 		$table->integer('spots');
 		$table->integer('status')->default(1);
         	$table->timestamps();
