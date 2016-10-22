@@ -72,6 +72,12 @@
 			},
 		});
 	});
+	
+	$('.scl').hover(function() {
+		$('.social').css('z-index', 2);
+	}, function() {
+		$('.social').css('z-index', 0);
+	});
 
     });
 
@@ -423,8 +429,7 @@
 			perspective: 1000px;
 			list-style: none;
 			top: 40%;
-			padding-left: 0;
-			z-index: 2;	
+			padding-left: 0;	
 		}
 
 		.social li a {
@@ -548,25 +553,25 @@
 	<div>
 		<ul class='social'>
 			<li>
-			    <a class="fa fa-facebook" href="https://www.facebook.com/EFOsijek">    
+			    <a class="fa fa-facebook scl" href="https://www.facebook.com/EFOsijek">    
 			    	<span>Facebook</span>
 			    </a> 
 			</li>
 		  
 			<li>
-			    <a class="fa fa-twitter" href="https://twitter.com/EFOsijek">
+			    <a class="fa fa-twitter scl" href="https://twitter.com/EFOsijek">
 			    	<span>Twitter</span>
 			    </a>
 			</li>
 		  
 			<li>
-			    <a class="fa fa-linkedin" href="https://www.linkedin.com/company/ekonomski-fakultet-u-osijeku">
+			    <a class="fa fa-linkedin scl" href="https://www.linkedin.com/company/ekonomski-fakultet-u-osijeku">
 			    	<span>LinkedIn</span>
 			    </a>
 			</li>
 		  
 			<li>
-			    <a class="fa fa-google-plus" href="https://plus.google.com/104298889578406564718">
+			    <a class="fa fa-google-plus scl" href="https://plus.google.com/104298889578406564718">
 			    	<span>Google Plus</span>
 			    </a> 
 			</li>
