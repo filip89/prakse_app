@@ -1,48 +1,55 @@
 @extends('layouts.app')
 
-@section('style')
-.com_year {
-	display: block;
-	float: left;
-}
-.comp_btn {
-	list-style-type: none;
-	display: block;
-	background-color: white;
-	color: black;
-	width: 170px;
-	height: 30px;
-	border: none;
-}
-.comp_btn:hover {
-	background-color: #e7e7e7;
-}
-.comp_form {
-	margin: 0;
-	padding: 0;
-}
-.rejected {
-	background-color: red;
-}
-.dropdown {
-	float: right;
-}
-.com_date {
-	display: block;
-	width: 100px;
-	padding-top: 10px;
-}
-.input-group-btn{
-	position: relative;
-}
-@endsection
-
 @section('content')
 <style>
-td, th {
-	text-align: center;
-	vertical-align: middle !important;
-}
+	td, th {
+		text-align: center;
+		vertical-align: middle !important;
+	}
+	.competition {
+		width: 100%;
+		margin-top: 15px;
+	}
+	.com_year {
+		display: block;
+		float: left;
+	}
+	.comp_btn {
+		list-style-type: none;
+		display: block;
+		background-color: white;
+		color: black;
+		width: 170px;
+		height: 30px;
+		border: none;
+	}
+	.comp_btn:hover {
+		background-color: #e7e7e7;
+	}
+	.comp_form {
+		margin: 0;
+		padding: 0;
+	}
+	.rejected {
+		background-color: red;
+	}
+	.dropdown {
+		float: right;
+	}
+	.com_date {
+		display: block;
+		width: 100px;
+		padding-top: 10px;
+	}
+	.input-group-btn{
+		position: relative;
+	}
+	.comp_choice {
+		background-image: none;
+	}
+	.comp_choice:hover {
+		background-color: #e7e7e7;
+	}
 </style>
 <div class="container">
 	<div class="row">
@@ -61,7 +68,7 @@ td, th {
 		@if(count($competitionList) > 0)	
 			<div class="dropdown">
 				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Izaberi natječaj</button>				 		
-				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuButton">
+				<ul class="dropdown-menu comp_choice" role="menu" aria-labelledby="dropdownMenuButton">
 				@foreach($competitionList as $comp)
 					<li>
 						<form class="comp_form" action="{{ action('InternshipController@showResults') }}" method="GET">
