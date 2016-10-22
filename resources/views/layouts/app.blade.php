@@ -371,6 +371,7 @@
 			width: 100%;
 			height: 280px;
 			background-image: url({{ URL::asset('images/wrap-bg-2.png') }});
+			z-index: -1;
 		}
 		.push {
 			height: 150px;
