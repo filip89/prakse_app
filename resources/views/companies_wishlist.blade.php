@@ -19,7 +19,7 @@
 				<h3 style="text-align:center;color:gray;">Ne postoji niti jedna prijava sa željenim tvrtkama.</h3>
 			@else
 			<div class="table-responsive">
-				<table class="table table-striped">
+				<table class="table">
 				<thead>
 					<tr>
 						<th>Željene tvrtke</th>
@@ -35,7 +35,7 @@
 								<b>{{ $applic->desired_company }}</b>
 							</td>
 							<td>							
-								{{$applic->student->name . " " . $applic->student->last_name}} <i class="fa fa-check-circle" aria-hidden="true"></i>
+								<a class="link_object" href="{{ url('/user/' . $applic->student->id) }}">{{$applic->student->name . " " . $applic->student->last_name}}</a> <i class="fa fa-check-circle" aria-hidden="true"></i>
 							</td>
 							<td>
 								{{$applic->created_at->format('d. m. Y.')}}
@@ -47,7 +47,7 @@
 								<b>{{ $applic->desired_company }}</b>
 							</td>
 							<td>							
-								{{$applic->student->name . " " . $applic->student->last_name}}
+								<a class="link_object" href="{{ url('/user/' . $applic->student->id) }}">{{$applic->student->name . " " . $applic->student->last_name}}</a>
 							</td>
 							<td>
 								{{$applic->created_at->format('d-m-Y')}}

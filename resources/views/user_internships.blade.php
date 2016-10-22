@@ -2,7 +2,7 @@
 
 @section('style')
 td:first-child {
-	width: 10px;
+	width: 20px;
 }
 @endsection
 
@@ -55,7 +55,9 @@ td:first-child {
 						@if(!isset($user->role) || $user->role != 'student')
 						<th>Student</th>
 						@endif
+						@if(isset($user->role))
 						<th>Tvrtka</th>
+						@endif
 						<th>Natječaj</th>
 						<th>Razdoblje prakse</th>				
 						<th></th>
@@ -79,7 +81,9 @@ td:first-child {
 						
 						</td>
 						@endif
+						@if(isset($user->role))
 						<td><a class="link_object" href="{{ url('/company/profile/' . $internship->company_id) }}">{{ $internship->company_name }}</a></td>
+						@endif
 						<td>{{ $internship->competition_name . ', ' . date_create($internship->competition_created_at)->format('d. m. Y.')}}</td>
 						<td>{{ date_create($internship->start_date)->format('d. m. Y.') . ' - ' . date_create($internship->end_date)->format('d. m. Y.') }}</td>
 						<td class="row_buttons">
