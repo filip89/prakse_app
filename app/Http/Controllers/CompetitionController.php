@@ -64,7 +64,7 @@ class CompetitionController extends Controller
 		
 		$competition->save();
 		
-		Session::flash('status', 'Natječaj "' . date('d. m. Y.', strtotime($request->end_date)) . '" (' . $competition->year . '. godine) je otvoren!');
+		Session::flash('status', 'Natječaj "' . $competition->name . '" (' . $competition->year . '. godine) je otvoren!');
 		Session::flash('alert_type', 'alert-success');
 		
 		return redirect('/settings');
