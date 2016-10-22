@@ -195,14 +195,12 @@ $(document).ready(function() {
 			width: 100%;
 		}
 
-	}
-	
+	}	
 	@media screen and (max-width: 550px) {
 		.chart-img, .chart-img2 {
 			display: none;
 		}
 	}
-
 </style>
 
 <div class="container">
@@ -259,7 +257,7 @@ $(document).ready(function() {
 
 						<div class="chart-img" id="second_chart" style="width: 700px; height: 350px; margin-right: 20px;"></div>
 						
-					</div>
+					</div> 
 				    
 			    </div>
 
@@ -293,8 +291,7 @@ $(document).ready(function() {
 				    
 			    </div>
 			@endif
-		</div>
-		 
+		</div> 
 	</div>
 </div>
 @endsection
