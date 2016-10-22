@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
+		<div class="col-md-6 col-md-offset-3">
 		@if(isset($competitions) && count($competitions) == null || !isset($competitions))
 			<h1>Statistika</h1>
 			<h3>Nema dovoljno podataka za izradu izvještaja</h3>
