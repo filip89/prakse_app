@@ -427,7 +427,6 @@
 			list-style: none;
 			top: 40%;
 			padding-left: 0;
-			z-index: 1;
 		}
 
 		.social li a {
