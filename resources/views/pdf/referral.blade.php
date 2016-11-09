@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="charset=utf-8" />
-	<title>Test</title>
+	<title>Uputnica</title>
 	<style type="text/css">
     * {
       font-family: "DejaVu Sans", monospace;
