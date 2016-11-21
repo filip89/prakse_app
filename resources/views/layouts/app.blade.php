@@ -240,9 +240,6 @@
 		.req_field {
 			color: red;
 		}
-		.navbar {
-			position: static;
-		}
 		.navbar-default {
 			background-image: url(/images/efos-menu-wrap-bg.png);
 			background-size:cover;
@@ -367,9 +364,6 @@
 		.content {
 		  min-height: 72%; 
 		}
-		.col-md-12, .col-md-10, .col-md-8, .col-md-6, .col-md-4 {
-			z-index: 2;
-		}
 		.footer {
 			position: absolute;
 			text-align: center;
@@ -493,7 +487,12 @@
 			visibility: visible;
 			opacity: 1;
 			transform: rotateY(0);
-		}	
+		}
+		@media screen and (max-width: 1570px) {
+			.social {
+				display: none;
+			}
+		}
 		@media screen and (max-width: 1140px) {
 			.banner-txt {
 				display: none;
@@ -513,12 +512,7 @@
 			.c {
 				top: 0;
 			}
-		}
-		@media screen and (max-width: 830px) {
-			.social {
-				display: none;
-			}
-		}
+		}	
 		@media screen and (max-width: 720px) {
 			.link-wrapper {
 				display: flex;
