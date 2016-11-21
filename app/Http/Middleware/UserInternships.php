@@ -18,8 +18,9 @@ class UserInternships
     public function handle($request, Closure $next)
     {
 		
-       	$userViewed = User::find($request->route('id'));
-		$userViewing =  Auth::user();
+       	$userViewed = $request->route('id') ? User::find($request->route('id')) : Auth::user();
+		
+		$userViewing = Auth::user();
 		
 		if($userViewing->role == 'college_mentor'){
 			
