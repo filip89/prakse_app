@@ -631,8 +631,8 @@
 	                <ul class="nav navbar-nav navbar-right">
 	                    <!-- Authentication Links -->
 						@if(Auth::guest())
-	                        <li><a href="{{ url('/login') }}">Login</a></li>
-	                        <li><a href="{{ url('/register') }}">Register</a></li>
+	                        <li><a href="{{ url('/login') }}">Prijava</a></li>
+	                        <li><a href="{{ url('/register') }}">Registracija</a></li>
 	                    @elseif(Auth::user()->role != "student")
 							@if(Auth::user()->role == "college_mentor")
 							<li class="dropdown">
@@ -687,7 +687,7 @@
 								@if(Auth::user()->role != "student")
 									<li><a href="{{ url('/user_internships/' . Auth::user()->id)}}"><i class="fa fa-btn fa-folder" aria-hidden="true"></i>Moje prakse</a></li>
 								@endif
-	                        		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+	                        		<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Odjava</a></li>
 	                            </ul>
 							</li>
 	                    @endif
