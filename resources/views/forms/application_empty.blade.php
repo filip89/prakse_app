@@ -186,6 +186,7 @@ textarea {
                                     </span>
                                 @endif
                             </div>
+							<div class="col-md-8 col-md-offset-4"><i><small>* odabarite grad u kojem biste najradije imali praksu</small></i></div>
                         </div>
 						
 						<div class="form-group{{ $errors->has('desired_company') ? ' has-error' : '' }}">
