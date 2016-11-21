@@ -413,9 +413,18 @@ class UserController extends Controller
 		
 	}
 	
-	public function userInternships(Request $request, $id){
-				
-		$user = User::find($id);
+	public function userInternships(Request $request, $id = null){
+		
+		if($id == null){
+			
+			$user = Auth::user();
+			
+		}
+		else {
+			
+			$user = User::find($id);
+			
+		}
 		
 		$user_role_id = $user->role . '_id';
 				
