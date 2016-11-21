@@ -50,6 +50,9 @@
 	.comp_choice:hover {
 		background-color: #e7e7e7;
 	}
+	.modal-backdrop {
+		position: relative;
+	}
 </style>
 <div class="container">
 	<div class="row">

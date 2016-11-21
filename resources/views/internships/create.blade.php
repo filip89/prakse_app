@@ -53,7 +53,7 @@ th {
                         <label for="average_bacc_grade" class="col-md-4 control-label">Prosjek na preddiplomskom</label>
 
                         <div class="col-md-6">
-                            <input type="number" max="5" step="0.01" min="2" class="form-control" name="average_bacc_grade" required/>
+                            <input type="number" max="5" step="0.01" min="2" class="form-control" name="average_bacc_grade"/>
 
                             @if ($errors->has('average_bacc_grade'))
                                 <span class="help-block">
@@ -67,7 +67,7 @@ th {
                         <label for="average_master_grade" class="col-md-4 control-label">Prosjek na diplomskom</label>
 
                         <div class="col-md-6">
-                            <input type="number" min="2" max="5" step="0.01" class="form-control" name="average_master_grade" required/>
+                            <input type="number" min="2" max="5" step="0.01" class="form-control" name="average_master_grade"/>
 
                             @if ($errors->has('average_master_grade'))
                                 <span class="help-block">
@@ -81,7 +81,19 @@ th {
                         <label for="activity_points" class="col-md-4 control-label">Izvannastavne aktivnosti</label>
 
                         <div class="col-md-6">
-                            <input type="number" step="1" min="0" max="5" class="form-control" name="activity_points" required/>
+                            <input type="number" step="1" min="0" max="5" class="form-control" name="activity_points"
+                            @if(count($activities) > 0 && count($activities) < 2)
+                            value="1"
+                            @elseif(count($activities) > 1 && count($activities) < 4)
+                            value="2"
+                            @elseif(count($activities) > 3 && count($activities) < 6)
+                            value="3"
+                            @elseif(count($activities) > 5 && count($activities) < 8)
+                            value="4"
+                            @elseif(count($activities) > 7 && count($activities) < 11)
+                            value="5"
+                            @endif
+                            />
 
                             @if ($errors->has('activity_points'))
                                 <span class="help-block">
@@ -117,48 +129,6 @@ th {
                         </div>
                     </div>                    
                                                         					
-					<div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
-                        <label for="start_date" class="col-md-4 control-label">Datum početka</label>
-
-                        <div class="col-md-6">
-                            <input type="text" class="form-control datepicker" name="start_date"/>
-
-                            @if ($errors->has('start_date'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('start_date') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-					
-					<div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
-                        <label for="end_date" class="col-md-4 control-label">Datum završetka</label>
-
-                        <div class="col-md-6">
-                            <input type="text" class="form-control datepicker" name="end_date"/>
-
-                            @if ($errors->has('end_date'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('end_date') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-					<div class="form-group{{ $errors->has('duration') ? ' has-error' : '' }}">
-                        <label for="duration" class="col-md-4 control-label">Trajanje prakse</label>
-
-                        <div class="col-md-6">
-                            <input type="number" step="1" min="1" max="90" class="form-control" name="duration" placeholder="Broj radnih dana" />
-
-                            @if ($errors->has('duration'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('duration') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-					
 					@if(count($collegeMentor) != 0)
 
 					<div class="form-group">
