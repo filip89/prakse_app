@@ -191,9 +191,9 @@ class InternshipController extends Controller
 
      public function change(Request $request, $id) {
         $this->validate($request, [       
-            'average_bacc_grade' => 'required|numeric|between:2,5',
-            'average_master_grade' => 'required|numeric|between:2,5',
-            'activity_points' => 'required|integer|between:1,5',  
+            'average_bacc_grade' => 'numeric|between:2,5',
+            'average_master_grade' => 'numeric|between:2,5',
+            'activity_points' => 'integer|between:1,5',  
             'duration' => 'integer|between:1,90',
         ]);
 
@@ -268,7 +268,7 @@ class InternshipController extends Controller
             Session::flash('status', 'Praksa uspješno stvorena!');
             Session::flash('alert_type', 'alert-success');
 
-            return redirect()->route('internships.index');
+            return redirect('/applics');
         }   
     }
 
@@ -382,7 +382,7 @@ class InternshipController extends Controller
             Session::flash('status', 'Tvrtka uspješno dodana!');
             Session::flash('alert_type', 'alert-success');
 
-            return redirect()->action('InternshipController@showFinal');
+            return redirect()->action('InternshipController@index');
         }
 
     }
