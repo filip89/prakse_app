@@ -418,6 +418,7 @@ class UserController extends Controller
 		if($id == null){
 			
 			$user = Auth::user();
+			$id = $user->id;
 			
 		}
 		else {
