@@ -52,7 +52,7 @@
 						</div>
 						
 						{{Utilities::desiredMonth(12)}}
-						<div class="form-group{{ $errors->has('months') ? ' has-error' : '' }}">
+						<div class="months_checkboxes form-group{{ $errors->has('months') ? ' has-error' : '' }}">
 							<label for="months" class="col-md-4 control-label">Dostupni mjeseci za praksu:</label>
 
 							<div class="col-md-6">
@@ -207,12 +207,15 @@
 		var checkboxes = $(this).closest('form').find(':checkbox');
 		if($(this).is(':checked')) {
 			checkboxes.prop('checked', true);
-			$(this).closest('form').find('.checkAll_label').text(' Odznači sve');
 		} 
 		else {
 			checkboxes.prop('checked', false);
-			$(this).closest('form').find('.checkAll_label').text(' Označi sve');
 		}
+	});
+	$('.months_checkboxes :checkbox').change(function() {
+		if(!$(this).is(':checked')) {
+			$('.checkAll').prop('checked', false);
+		} 
 	});
 	</script>
 @endsection
