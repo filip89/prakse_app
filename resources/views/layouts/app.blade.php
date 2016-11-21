@@ -240,6 +240,9 @@
 		.req_field {
 			color: red;
 		}
+		.navbar {
+			position: static;
+		}
 		.navbar-default {
 			background-image: url(/images/efos-menu-wrap-bg.png);
 			background-size:cover;
