@@ -59,6 +59,7 @@
 								@for($i=1; $i<=12; $i++)
 									<div style="display:block"><input class="cursor_pointer" type="checkbox" value="{{$i}}" name="month_{{$i}}"/><label style="display:inline;"> {{Utilities::desiredMonth($i)}}</label></div>
 								@endfor
+									<div style="display:block"><input class="cursor_pointer checkAll" type="checkbox"/><label class="checkAll_label" style="display:inline;"> Označi sve</label></div>
 								@if ($errors->has('month_' . Utilities::desiredMonth($i)))
 								<span class="help-block">
 									<strong>{{ $errors->first('month_' . Utilities::desiredMonth($i)) }}</strong>
@@ -200,7 +201,21 @@
         </div>
     </div>
 @endsection
-
+@section('script')
+	<script>
+	$('.checkAll').change(function() {
+		var checkboxes = $(this).closest('form').find(':checkbox');
+		if($(this).is(':checked')) {
+			checkboxes.prop('checked', true);
+			$(this).closest('form').find('.checkAll_label').text(' Odznači sve');
+		} 
+		else {
+			checkboxes.prop('checked', false);
+			$(this).closest('form').find('.checkAll_label').text(' Označi sve');
+		}
+	});
+	</script>
+@endsection
 @section('modal_body_content')
 	Ukinuti ulogu admina korisniku 
 @endsection
