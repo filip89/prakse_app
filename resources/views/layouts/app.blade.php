@@ -372,7 +372,7 @@
 		  min-height: 72%; 
 		}
 		.footer {
-			position: absolute;
+			position: relative;
 			text-align: center;
 			width: 100%;
 			height: 280px;
