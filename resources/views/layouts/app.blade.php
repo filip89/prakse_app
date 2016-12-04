@@ -84,15 +84,22 @@
     </script>
     
     <style>
-        html, body {
-            font-family: 'Lato';
-            height: 100%;
-		  	margin: 0;
-        }
+		html {
+			font-family: 'Lato';
+			height: 100%;
+		}
+		body {
+			min-height: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+		.content {
+	  		flex: 1;
+		}
 
-        .fa-btn {
-            margin-right: 6px;
-        }
+        	.fa-btn {
+            		margin-right: 6px;
+        	}
 		.fa-home {
 			font-size: 20px;
 		}
