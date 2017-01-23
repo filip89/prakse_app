@@ -90,9 +90,9 @@ class User extends Authenticatable
 	
 	public function lastInternship(){
 		
-		if(count($this->internships()->where('status', 0)->where('confirmation_admin', 1)->where('confirmation_student', 1)->get()) > 0){
+		if(count($this->internships()->where('status', 0)->where('confirmation_admin', 1)->where('confirmation_student', 1)->whereNotNull('company_id')->get()) > 0){
 			
-			return $this->internships()->where('status', 0)->where('confirmation_admin', 1)->where('confirmation_student', 1)->orderBy('created_at', 'desc')->first();
+			return $this->internships()->where('status', 0)->where('confirmation_admin', 1)->where('confirmation_student', 1)->whereNotNull('company_id')->orderBy('created_at', 'desc')->first();
 			
 		}
 		
